@@ -100,7 +100,7 @@ function chkForm(f){
 	<div class="login-page">
 		<div class="form">
 			<form class="login-form" name="loginform" action="loginAction.me" method="post" onsubmit="return chkForm(this)">
-				<h2>로고넣을거</h2>
+				<a href="main.jsp"><img src="images/farm_logo.png" width="150px"></a><br><br>
 				<input type="text" id="userID" name="userID" placeholder="아이디" maxlength="20" /> 
 				<input type="password" name="userPass" id="userPass" placeholder="비밀번호" /> 
 				<button type="submit">로그인</button> 

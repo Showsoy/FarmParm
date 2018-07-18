@@ -89,7 +89,7 @@ body {
 		<div class="form">
 			<div class="login-form">
 				<h4>고객님의 아이디는</h4>
-				<%= %>입니다.<br>
+				입니다.<br><br><br>
 				<button onclick="location.href='login.jsp'">로그인</button> 
 				<button onclick="location.href='pwfind.jsp'">비밀번호 찾기</button> 
 				<br><br>
