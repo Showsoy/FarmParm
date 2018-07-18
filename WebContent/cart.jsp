@@ -90,7 +90,6 @@ footer {
 	padding:30px;
 }
 .mypage{
-	background-color: #EAEAEA;
 	margin:0 auto;
 	text-align:center;
 	padding : 25px;
@@ -99,19 +98,22 @@ footer {
 table{
 	margin:0 auto;
 	border-collapse: collapse;
-    width: 100%;
-	text-align:center;
+    width: 80%;
 	background-color:white;
 }
-td tr{
-	padding: 8px;
-    text-align: left;
+tr{
+	height:100px;
+}
+td{
     border-bottom: 1px solid #ddd;
 }
-.mypage table td label{
-	font-weight:700;
-	font-family:"Nanum Gothic";
-	color : #43A047;
+td p{
+	text-height:100%;
+	float:left;
+}
+img{
+	border: 1px solid #ddd;
+	padding : 0 0 0 2px;
 }
 .mypage button {
 	font-family:"Nanum Gothic";
@@ -119,18 +121,51 @@ td tr{
 	text-transform: uppercase;
 	outline: 0;
 	background: #4CAF50;
-	width: 100px;
+	width: 60px;
 	border: 0;
-	padding: 13px;
+	padding: 5px;
 	color: #FFFFFF;
-	font-size: 12px;
+	font-size: 14px;
 	-webkit-transition: all 0.3 ease;
 	transition: all 0.3 ease;
 	cursor: pointer;
 }
+.mypage button:hover, .mypage button:active, .mypage button:focus {
+	background: #43A047;
+}
+input{
+	font-family:"Nanum Gothic";
+	font-weight: 700;
+	text-transform: uppercase;
+	outline: 0;
+	background: black;
+	width: 100px;
+	border: 0;
+	padding: 5px;
+	color: #FFFFFF;
+	font-size: 18px;
+	-webkit-transition: all 0.3 ease;
+	transition: all 0.3 ease;
+	cursor: pointer;
+}
+input:hover, .mypage button:active, .mypage button:focus {
+	background: #191919;
+}
 #top_menu{
-	background-color:#CEFBC9;
-	margin:0;
+	background-color:#333;
+	color:white;
+	height:40px;
+}
+#tr_total{
+	background-color:#F6F6F6;
+	height:180px;
+}
+#td_check{
+	width:20px;
+}
+#td_info{
+	color:#5D5D5D;
+	font-size:14px;
 }
 </style>
 </head>
@@ -144,8 +179,8 @@ td tr{
 	  <a href="login.jsp">로그인</a>&nbsp;
 	  <a href="joinForm.jsp">회원가입</a>&nbsp;
 	  <a href="myPage.jsp">마이페이지</a>&nbsp;
-	  <a href="#">주문/배송</a>&nbsp;
-	  <a href="#">고객센터</a>&nbsp;
+	  <a href="myOrders.jsp">주문/배송</a>&nbsp;
+	   <a href="cs_center.jsp">고객센터</a>&nbsp;
 	  <a href="cart.jsp">장바구니</a>&nbsp;
   </div>
   
@@ -164,28 +199,86 @@ td tr{
 <div class="pageform">
 	<h3>&nbsp;&nbsp;장바구니</h3>
 	<hr color="#4CAF50" size="5">
+	<form action="#" method="post">
 	<div class="mypage">
-		<table>
+		<table cellspacing="0" cellpadding="0">
 			<tr id="top_menu">
+				<td id="td_check"><input type="checkbox"/></td>
 				<td colspan="2">상품명</td>
 				<td>가격</td>
 				<td>수량</td>
 				<td>삭제</td>
 			</tr>
 			<tr>
-				<td></td>
-				<td>가격</td>
-				<td>수량</td>
-				<td>삭제</td>
+				<td><input type="checkbox"/></td>
+				<td colspan="2">
+				<p>&nbsp;&nbsp;&nbsp;&nbsp;
+				<img src="images/apple.jpg" width="100px" align="center">
+				&nbsp;&nbsp;&nbsp;청송사과 1kg</p></td>
+				
+				<td>20000</td>
+				<td>1</td>
+				<td><button onclick="location.href='#'">삭제</button></td>
 			</tr>
 			<tr>
-				<td>상품명</td>
-				<td>가격</td>
-				<td>수량</td>
-				<td>삭제</td>
+				<td><input type="checkbox"/></td>
+				<td colspan="2">
+				<p>&nbsp;&nbsp;&nbsp;&nbsp;
+				<img src="images/apple.jpg" width="100px" align="center">
+				&nbsp;&nbsp;&nbsp;청송사과 1kg</p></td>
+				<td>20000</td>
+				<td>1</td>
+				<td><button onclick="location.href='#'">삭제</button></td>
+			</tr>
+			<tr>
+				<td><input type="checkbox"/></td>
+				<td colspan="2">
+				<p>&nbsp;&nbsp;&nbsp;&nbsp;
+				<img src="images/apple.jpg" width="100px" align="center">
+				&nbsp;&nbsp;&nbsp;청송사과 1kg</p></td>
+				<td>20000</td>
+				<td>1</td>
+				<td><button onclick="location.href='#'">삭제</button></td>
+			</tr>
+			<tr>
+				<td><input type="checkbox"/></td>
+				<td colspan="2">
+				<p>&nbsp;&nbsp;&nbsp;&nbsp;
+				<img src="images/apple.jpg" width="100px" align="center">
+				&nbsp;&nbsp;&nbsp;청송사과 1kg</p></td>
+				<td>20000</td>
+				<td>1</td>
+				<td><button onclick="location.href='#'">삭제</button></td>
+			</tr>
+			<tr id="tr_total">
+				<td colspan="6">
+					<div>
+						<h5>총 주문 금액 <b>000000원</b></h5>
+						배송비 +3000원
+						<br><br>
+						<input type="submit" value="주문하기"/>
+					</div>
+				<td>
+			</tr>
+			<tr>
+				<td colspan="6" id="td_info">
+					<a href="#">둘러보기</a>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+					<a href="#">배송비정책</a>
+				</td>
 			</tr>
 		</table>
 	</div>
+	</form>
 </div>
+<footer>
+  <a href="#"><i class="fa fa-facebook-official"></i></a>
+  <a href="#"><i class="fa fa-pinterest-p"></i></a>
+  <a href="#"><i class="fa fa-twitter"></i></a>
+  <a href="#"><i class="fa fa-flickr"></i></a>
+  <a href="#"><i class="fa fa-linkedin"></i></a>
+  <p class="w3-medium">
+    Powered by <a href="https://www.w3schools.com/w3css/default.asp" target="_blank">w3.css</a>
+  </p>
+</footer>
 </body>
 </html>
