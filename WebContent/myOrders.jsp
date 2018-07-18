@@ -84,16 +84,81 @@ footer {
     background: #333; /* green background */
     color:white;/* white text color */
 }
+.pageform{
+	margin: 0 auto;
+	width:1200px;
+	padding:30px;
+}
+.mypage{
+	margin:0 auto;
+	text-align:center;
+	padding : 25px;
+}
+
 table{
-	border:0;
+	margin:0 auto;
+	border-collapse: collapse;
+    width: 80%;
+	background-color:white;
 }
-th, td {
+tr{
+	height:50px;
+}
+tr:nth-child(even) {background-color: #f2f2f2;}
+td{
     border-bottom: 1px solid #ddd;
-    height:50px;
 }
-td img{
-	height:100%;
-	border:0;
+td p{
+	text-height:100%;
+	float:left;
+}
+.mypage button {
+	font-family:"Nanum Gothic";
+	font-weight: 700;
+	text-transform: uppercase;
+	outline: 0;
+	background: #4CAF50;
+	width: 60px;
+	border: 0;
+	padding: 5px;
+	color: #FFFFFF;
+	font-size: 14px;
+	-webkit-transition: all 0.3 ease;
+	transition: all 0.3 ease;
+	cursor: pointer;
+}
+.mypage button:hover, .mypage button:active, .mypage button:focus {
+	background: #43A047;
+}
+input{
+	font-family:"Nanum Gothic";
+	font-weight: 700;
+	text-transform: uppercase;
+	outline: 0;
+	background: black;
+	width: 100px;
+	border: 0;
+	padding: 5px;
+	color: #FFFFFF;
+	font-size: 18px;
+	-webkit-transition: all 0.3 ease;
+	transition: all 0.3 ease;
+	cursor: pointer;
+}
+input:hover, .mypage button:active, .mypage button:focus {
+	background: #191919;
+}
+#top_menu{
+	background-color:#333;
+	color:white;
+	height:40px;
+}
+#td_check{
+	width:50px;
+}
+#td_info{
+	color:#5D5D5D;
+	font-size:14px;
 }
 </style>
 </head>
@@ -108,7 +173,7 @@ td img{
 	  <a href="joinForm.jsp">회원가입</a>&nbsp;
 	  <a href="myPage.jsp">마이페이지</a>&nbsp;
 	  <a href="myOrders.jsp">주문/배송</a>&nbsp;
-	   <a href="cs_center.jsp">고객센터</a>&nbsp;
+	  <a href="cs_center.jsp">고객센터</a>&nbsp;
 	  <a href="cart.jsp">장바구니</a>&nbsp;
   </div>
   
@@ -124,38 +189,57 @@ td img{
   <a href="#" id="market">&nbsp;&nbsp;팜팜마켓&nbsp;&nbsp;</a>
 </div>
 
-
-
-<h2>Bordered Table Dividers</h2>
-<p>Add the border-bottom property to th and td for horizontal dividers:</p>
-
-<table cellspacing="0" cellpadding="0">
-  <tr>
-    <th>Firstname</th>
-    <th>Lastname</th>
-    <th>Savings</th>
-  </tr>
-  <tr>
-    <td><img src="images/apple.jpg" vspace=0 hspace=0/></td>
-    <td>Griffin</td>
-    <td>$100</td>
-  </tr>
-  <tr>
-    <td>Lois</td>
-    <td>Griffin</td>
-    <td>$150</td>
-  </tr>
-  <tr>
-    <td>Joe</td>
-    <td>Swanson</td>
-    <td>$300</td>
-  </tr>
-  <tr>
-    <td>Cleveland</td>
-    <td>Brown</td>
-    <td>$250</td>
-  </tr>
-</table>
+<div class="pageform">
+	<h3>&nbsp;&nbsp;주문/배송 조회</h3>
+	<hr color="#4CAF50" size="5">
+	<form action="#" method="post">
+	<div class="mypage">
+		<table cellspacing="0" cellpadding="0">
+			<tr id="top_menu">
+				<td>주문일</td>
+				<td>주문번호</td>
+				<td>수령인</td>
+				<td>주문상품</td>
+				<td>조회</td>
+			</tr>
+			<tr>
+				<td>2018-07-07</td>
+				<td>0001</td>
+				<td>박나래</td>
+				<td>청송사과 외</td>
+				<td><button onclick="location.href='#'">조회</button></td>
+			</tr>
+			<tr>
+				<td>2018-07-07</td>
+				<td>0001</td>
+				<td>박나래</td>
+				<td>청송사과 외</td>
+				<td><button onclick="location.href='#'">조회</button></td>
+			</tr>
+			<tr>
+				<td>2018-07-07</td>
+				<td>0001</td>
+				<td>박나래</td>
+				<td>청송사과 외</td>
+				<td><button onclick="location.href='#'">조회</button></td>
+			</tr>
+			<tr>
+				<td>2018-07-07</td>
+				<td>0001</td>
+				<td>박나래</td>
+				<td>청송사과 외</td>
+				<td><button onclick="location.href='#'">조회</button></td>
+			</tr>
+			<tr>
+				<td colspan="6" id="td_info"><!-- 페이지 수 넣을 것임 -->
+					<a href="#">둘러보기</a>&nbsp;&nbsp;&nbsp;&nbsp;
+					<a href="#">배송비정책</a>
+				</td>
+			</tr>
+		</table>
+	</div>
+	</form>
+</div>
 <footer>
   <a href="#"><i class="fa fa-facebook-official"></i></a>
   <a href="#"><i class="fa fa-pinterest-p"></i></a>

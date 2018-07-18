@@ -13,8 +13,7 @@ body {
 .header {
     padding: 10px; /* some padding */
     text-align:center;
-    background: #fff; /* green background */
-     /* white text color */
+    background: #fff;
 }
 .right{
 	text-align:right;
@@ -23,11 +22,9 @@ body {
 	text-decoration:none;
 	font-size:12px;
 }
-/* Increase the font size of the <h1> element */
 .header h1 {
     font-size: 40px;
 }
-/* Style the top navigation bar */
 .navbar {
     overflow: hidden; /* Hide overflow */
     background-color: #333; /* Dark background color */
@@ -147,8 +144,8 @@ footer {
 	  <a href="login.jsp">로그인</a>&nbsp;
 	  <a href="joinForm.jsp">회원가입</a>&nbsp;
 	  <a href="myPage.jsp">마이페이지</a>&nbsp;
-	  <a href="#">주문/배송</a>&nbsp;
-	  <a href="#">고객센터</a>&nbsp;
+	  <a href="myOrders.jsp">주문/배송</a>&nbsp;
+	  <a href="cs_center.jsp">고객센터</a>&nbsp;
 	  <a href="cart.jsp">장바구니</a>&nbsp;
   </div>
   

@@ -84,6 +84,7 @@ footer {
     background: #333; /* green background */
     color:white;/* white text color */
 }
+
 .pageform{
 	margin: 0 auto;
 	width:1200px;
@@ -91,41 +92,65 @@ footer {
 }
 
 .mypage{
-	background-color: #EAEAEA;
 	margin:0 auto;
 	text-align:center;
 	padding : 25px;
 }
-
-.mypage table{
+#grade{
 	margin:0 auto;
-	text-align:center;
-	background-color:white;
+	width:700px;
+	text-align:left;
+	padding : 0 0 20px 0;
+}
+#grade_deco{
+	font-weight:900;
+	color : #43A047;
+}
+.mypage table{
+	width:700px;
+	margin:0 auto;
+	text-align:left;
 	padding : 15px;
+	border-radius:10px;
+	border-collapse: collapse;
+}
+.mypage tr{
+	padding-top: 12px;
+    padding-bottom: 12px;
+}
+.mypage td{
+	padding:5px 5px 5px 10px;
 }
 .mypage table td label{
 	font-weight:700;
 	font-family:"Nanum Gothic";
 	color : #43A047;
+	font-size:14px;
+}
+td, tr{
+	border: 1px solid #ddd;
 }
 .mypage button {
 	font-family:"Nanum Gothic";
 	font-weight: 700;
 	text-transform: uppercase;
 	outline: 0;
-	background: #4CAF50;
+	background: black;
 	width: 100px;
 	border: 0;
-	padding: 13px;
+	padding: 10px;
 	color: #FFFFFF;
-	font-size: 12px;
+	font-size: 14px;
 	-webkit-transition: all 0.3 ease;
 	transition: all 0.3 ease;
 	cursor: pointer;
 }
-
 .mypage button:hover, .mypage button:active, .mypage button:focus {
-	background: #43A047;
+	background: #191919;
+}
+#td_left{
+	background-color:#F6F6F6;
+	width:100px;
 }
 </style>
 </head>
@@ -139,8 +164,8 @@ footer {
 	  <a href="login.jsp">로그인</a>&nbsp;
 	  <a href="joinForm.jsp">회원가입</a>&nbsp;
 	  <a href="myPage.jsp">마이페이지</a>&nbsp;
-	  <a href="#">주문/배송</a>&nbsp;
-	  <a href="#">고객센터</a>&nbsp;
+	  <a href="myOrders.jsp">주문/배송</a>&nbsp;
+	  <a href="cs_center.jsp">고객센터</a>&nbsp;
 	  <a href="cart.jsp">장바구니</a>&nbsp;
   </div>
   
@@ -160,41 +185,42 @@ footer {
 	<h3>&nbsp;&nbsp;개인정보</h3>
 	<hr color="#4CAF50" size="5">
 	<div class="mypage">
-
-	<table>
+	<div id="grade"><b id="grade_deco">|</b>일반개인회원</div>
+	<table cellspacing="0" cellpadding="0">
 	<tr>
-		<td><label for="userID">아이디</label> </td>
+		<td id="td_left"><label for="userID">아이디</label> </td>
 		<td>\</td>
 	</tr>
 	<tr>
-		<td><label for="userID">비밀번호</label> </td>
+		<td id="td_left"><label for="userID">비밀번호</label> </td>
 		<td>\</td>
 	</tr>
 	<tr>
-		<td><label for="userID">이름</label></td>
+		<td id="td_left"><label for="userID">이름</label></td>
 		<td>\</td>
 	</tr>
 	<tr>
-		<td><label for="userID">연락처</label></td>
+		<td id="td_left"><label for="userID">연락처</label></td>
 		<td>\</td>
 	</tr>
 	<tr>
-		<td><label for="userID">생년월일</label></td>
+		<td id="td_left"><label for="userID">생년월일</label></td>
 		<td>\</td>
 	</tr>
 	<tr>
-		<td><label for="userID">성별</label></td>
+		<td id="td_left"><label for="userID">성별</label></td>
 		<td>\</td>
 	</tr>
 	<tr>
-		<td><label for="userID">이메일</label></td>
+		<td id="td_left"><label for="userID">이메일</label></td>
 		<td>\</td>
 	</tr>
 	<tr>
-		<td><label for="userID">주소</label></td>
-		<td>\</td>
+		<td id="td_left"><label for="userID">주소</label></td>
+		<td rowspan="3">\<br>/<br>/</td>
 	</tr>
 </table>
+<br><br>
 			<button onclick="location.href='login.jsp'">수정</button> 
 	
 			<button onclick="location.href='main.jsp'">홈으로</button> 
