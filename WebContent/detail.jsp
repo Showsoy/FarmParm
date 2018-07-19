@@ -6,129 +6,6 @@
 <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
 <title>Insert title here</title>
 <style>
-body {
-    font-family: Arial, Helvetica, sans-serif;
-}
-.header {
-    padding: 10px; /* some padding */
-    text-align:center;
-    background: #fff; /* green background */
-     /* white text color */
-}
-.right{
-	text-align:right;
-}
-.right a{
-	text-decoration:none;
-	font-size:12px;
-}
-/* Increase the font size of the <h1> element */
-.header h1 {
-    font-size: 40px;
-}
-/* Style the top navigation bar */
-.navbar {
-    overflow: hidden; /* Hide overflow */
-    background-color: #333; /* Dark background color */
-     display: flex;
-    justify-content: center;
-}
-
-/* Style the navigation bar links */
-#market{
-	display: block; /* Change the display to block, for responsive reasons (see below) */
-    color: #4CAF50; /* White text color */
-    text-align: center; /* Center the text */
-    padding: 14px 20px; /* Add some padding */
-    text-decoration: none; /* Remove underline */
-}
-#market:hover {
-    background-color: #4CAF50;
-    color: white;
-}
-#menu{
-	background-color:#4CAF50;
-	display: block; /* Change the display to block, for responsive reasons (see below) */
-    color: black; /* White text color */
-    text-align: center; /* Center the text */
-    padding: 14px 20px; /* Add some padding */
-    text-decoration: none; /* Remove underline */
-}
-#menu:hover {
-    background-color:#4CAF50;
-    color: black;
-}
-.navbar a {
-    /* Make sure that the links stay side-by-side */
-    display: block; /* Change the display to block, for responsive reasons (see below) */
-    color: white; /* White text color */
-    text-align: center; /* Center the text */
-    padding: 14px 20px; /* Add some padding */
-    text-decoration: none; /* Remove underline */
-}
-
-/* Right-aligned link */
-.navbar a.right {
-    float: right; /* Float a link to the right */
-}
-
-/* Change color on hover/mouse-over */
-.navbar a:hover {
-    background-color: #ddd;
-    color:black;
-}
-.goodsform{
-	margin: 0 auto;
-	width:1200px;
-	padding:10px 30px 30px 30px;
-}
-.recent_view{
-	width:1000px;
-	margin:0 auto;
-	padding:10px;
-}
-.recent_view table{
-	margin:0 auto;
-	border-collapse: collapse;
-	padding:0;
-}
-.recent_view hr{
-	padding:0;
-}
-.recent_view table tr{
-	padding:5px;
-}
-.recent_view table tr td{
-	border-bottom: 1px solid #ddd;
-	border-top: 1px solid #ddd;
-	padding:10px;
-}
-.recent_view table tr td img{
-	width:180px;
-}
-.detail_table{
-	width:700px;
-	margin:0 auto;
-	text-align:left;
-	padding : 15px;
-	border-radius:10px;
-	border-collapse: collapse;
-}
-.detail_table tr{
-	padding-top: 12px;
-    padding-bottom: 12px;
-    border: 1px solid #ddd;
-}
-.detail_table td{
-	padding:5px 10px 5px 10px;
-	border: 1px solid #ddd;
-}
-.detail_table td label{
-	font-weight:700;
-	font-family:"Nanum Gothic";
-	color : #43A047;
-	font-size:14px;
-}
 .mypage button {
 	font-family:"Nanum Gothic";
 	font-weight: 700;
@@ -147,12 +24,6 @@ body {
 .mypage button:hover, .mypage button:active, .mypage button:focus {
 	background: #191919;
 }
-footer {
-    padding: 24px; /* some padding */
-    text-align:center;
-    background: #333; /* green background */
-    color:white;/* white text color */
-}
 #td_left{
 	background-color:#F6F6F6;
 	width:100px;
@@ -160,33 +31,8 @@ footer {
 #td_info{
 	text-align:right;
 }
-.goods_detail{
-	text-align:center;
-	width:700px;
-	margin:0 auto;
-}
-.qna, .review{
-	width:800px;
-	margin:0 auto;
-}
-.detail_board{
-	margin:0 auto;
-	border-collapse: collapse;
-    width: 700px;
-    height:100px;
-	background-color:white;
-	text-align:center;
-}
 #td_check{
 	width:50px;
-}
-.detail_board tr td{
-	height:30px;
-	padding:0;
-	border:0;
-	margin:0;
-	font-size:14px;
-	border-bottom: 1px solid #ddd;
 }
 #top_menu{
 	background-color:#333;
@@ -198,15 +44,9 @@ footer {
 	color:white;
 	height:20px;
 }
-.detail_board tr:nth-child(even) {background-color: #f2f2f2;}
-.detail_board td p{
-	float:left;
-	padding:1px;
-	border:1px;
-	margin:1px;
-}
 </style>
 </head>
+<link rel="stylesheet" type="text/css" href="style/style.css">
 <link rel="stylesheet" href="https://www.w3schools.com/w3css/3/w3.css">
 <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.6.3/css/font-awesome.min.css">
 <body>
@@ -224,14 +64,24 @@ footer {
   
 </div>   
 <div class="navbar">
-  <a href="#" id="menu"><img src="images/menu.png" width="24px"/></a>
-  <a href="introduction.jsp">&nbsp;&nbsp;팜팜소개&nbsp;&nbsp;</a>
-  <a href="vegetable.jsp">&nbsp;&nbsp;&nbsp;&nbsp;채소&nbsp;&nbsp;&nbsp;&nbsp;</a>
-  <a href="fruit.jsp">&nbsp;&nbsp;&nbsp;&nbsp;과일&nbsp;&nbsp;&nbsp;&nbsp;</a>
-  <a href="grains.jsp">&nbsp;&nbsp;쌀/잡곡&nbsp;&nbsp;</a>
-  <a href="tea.jsp">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;차&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</a>
-  <a href="mf.jsp">&nbsp;&nbsp;&nbsp;가공류&nbsp;&nbsp;&nbsp;</a>
-  <a href="market.jsp" id="market" target="_blank">&nbsp;&nbsp;팜팜마켓&nbsp;&nbsp;</a>
+	<ul>
+  <li><a href="#" id="menu"><img src="images/menu.png" width="24px" height="27px"/></a></li>
+  <li class="dropdown">
+    <a href="javascript:void(0)" class="dropbtn">&nbsp;&nbsp;팜팜소개&nbsp;&nbsp;</a>
+    <div class="dropdown-content">
+      <a href="introduction.jsp">농원소개</a>
+      <a href="location.jsp">오시는 길</a>
+      <a href="notice.jsp">안내사항</a>
+    </div>
+  </li>
+  <li><a href="vegetable.jsp">&nbsp;&nbsp;&nbsp;&nbsp;채소&nbsp;&nbsp;&nbsp;&nbsp;</a></li>
+  <li><a href="fruit.jsp">&nbsp;&nbsp;&nbsp;&nbsp;과일&nbsp;&nbsp;&nbsp;&nbsp;</a></li>
+  <li><a href="grains.jsp">&nbsp;&nbsp;쌀/잡곡&nbsp;&nbsp;</a></li>
+  <li><a href="tea.jsp">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;차&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</a></li>
+  <li><a href="mf.jsp">&nbsp;&nbsp;&nbsp;가공류&nbsp;&nbsp;&nbsp;</a></li>
+  <li><a href="market.jsp" id="market" target="_blank">&nbsp;&nbsp;팜팜마켓&nbsp;&nbsp;</a></li>
+  
+</ul>
 </div>
 <div class="recent_view">
 		<h4>&nbsp;&nbsp;최근 본 상품</h4>
@@ -277,7 +127,7 @@ footer {
 	<tr>
 		<td colspan="3" id="td_info"><button onclick="location.href='cart.jsp'">장바구니</button> 
 	
-			<button onclick="location.href='main.jsp'">바로구매</button></td>
+			<button onclick="location.href='order.jsp'">바로구매</button></td>
 	</tr>
 </table>
 <br><br>
@@ -286,6 +136,7 @@ footer {
 	<h2>짱 맛있음</h2>
 	<h3>상품 소개</h3>
 	<img src="images/applefarm.jpg">
+	<br><br>
 	<p>
 		2018년 6월, 유시민이 신간으로 찾아왔다. 경제학도, 정치가, '지식소매상'에서 최근에는 방송인으로도 종횡무진 활동하는 작가 유시민이 오랜 독서와 글쓰기의 원점인 역사 속으로 돌아왔다. 2017년 정의로운 국가의 모습과 시민의 역할을 모색한 국가란 무엇인가로 독자들의 뜨거운 반응을 얻은 이후, 유시민은 공부의 화두를 옮겨 동서양의 역사서들을 탐독하며 '역사란 무엇인가' 질문하고 답을 찾았다. 그 지적 탐구를 담은 역사의 역사는 유시민이 공개하는 역사 공부 노트이자 독자들과 함께 역사를 읽는 초대장이다.
 		촌철살인의 화법으로 사안을 정리하고 결론을 맺어주던 '공공 지성' 유시민은 이 책에서는 한마디로 역사를 정의한다거나 자신의 의견을 높이는 일을 삼간다. 대신 역사가들의 이야기를 전하고 그 아래 스민 메시지와 감정에 공감하는 데 집중한다. '위대한 역사가들이 우리에게 전하려고 했던 생각과 감정을 듣고 느껴봄으로써 역사가 무엇인지 밝히는 데 도움될 실마리'를 찾는 '역사 여행 가이드'로서 충실하다.

@@ -6,91 +6,9 @@
 <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
 <title>Insert title here</title>
 <style type="text/css">
-@import url(http://fonts.googleapis.com/earlyaccess/nanumgothic.css);
-.login-page {
-	width: 400px;
-	padding: 8% 0 0;
-	margin: auto;
-}
-
-.form {
-	position: relative;
-	z-index: 1;
-	background: #FFFFFF;
-	max-width: 360px;
-	margin: 0 auto 100px;
-	padding: 10px 45px 45px 45px;
-	text-align: center;
-	box-shadow: 0 0 20px 0 rgba(0, 0, 0, 0.2), 0 5px 5px 0
-		rgba(0, 0, 0, 0.24);
-}
-
-.form input {
-	outline: 0;
-	background: #f2f2f2;
-	border: 0;
-	margin: 0 0 15px;
-	padding: 15px;
-	box-sizing: border-box;
-	font-size: 14px;
-}
-
-.input100{
-	width:100%;
-}
-
-.form button {
-	font-family:"Nanum Gothic";
-	font-weight: 700;
-	text-transform: uppercase;
-	outline: 0;
-	background: #4CAF50;
-	width: 100%;
-	border: 0;
-	padding: 13px;
-	color: #FFFFFF;
-	font-size: 16px;
-	-webkit-transition: all 0.3 ease;
-	transition: all 0.3 ease;
-	cursor: pointer;
-}
-
-.form button:hover, .form button:active, .form button:focus {
-	background: #43A047;
-}
-
-.form a {
-	margin: 15px 0 0;
-	font-size: 12px;
-	color: #4CAF50;
-	text-decoration: none;
-}
-
-#footer{
-	text-align:center;
-	font-size: 12px;
-	color: #4CAF50;
-}
-
-select {
-    width: 165px;
-    height: 42px;
-    padding-left: 10px;
-    font-size: 16px;
-    border: 2px solid #4CAF50;
-}
-
-body {
-	background: #76b852; /* fallback for old browsers */
-	background: -webkit-linear-gradient(right, #76b852, #8DC26F);
-	background: -moz-linear-gradient(right, #76b852, #8DC26F);
-	background: -o-linear-gradient(right, #76b852, #8DC26F);
-	background: linear-gradient(to left, #76b852, #8DC26F);
-	-webkit-font-smoothing: antialiased;
-	-moz-osx-font-smoothing: grayscale;
-}
 </style>
 </head>
+<link rel="stylesheet" type="text/css" href="style/style2.css">
 <script>
 function chkForm(f){
 	var mail1 = f.userEmailId.value;
@@ -127,7 +45,7 @@ function selectEmail(sel) {
 </script>
 </head>
 <body>
-<div class="login-page">
+<div class="pwfind-page">
 		<div class="form">
 			<form class="login-form" name="pwfindform" action="findPWAction.me" method="post" onsubmit="return chkForm(this)">
 				<h3>비밀번호 찾기</h3>
@@ -142,7 +60,7 @@ function selectEmail(sel) {
 						<option value="null">직접입력</option>
 				</select>
 				</span>
-				<button type="submit">찾기</button> 
+				<button type="submit" class="input100">찾기</button> 
 				<br><br>
 				<div id="footer">
 				<a href="login.jsp">로그인</a>&nbsp;&nbsp;|&nbsp;&nbsp;

@@ -6,95 +6,6 @@
 <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
 <title>Insert title here</title>
 <style>
-body {
-    font-family: Arial, Helvetica, sans-serif;
-}
-.header {
-    padding: 10px; /* some padding */
-    text-align:center;
-    background: #fff; /* green background */
-     /* white text color */
-}
-.right{
-	text-align:right;
-}
-.right a{
-	text-decoration:none;
-	font-size:12px;
-}
-/* Increase the font size of the <h1> element */
-.header h1 {
-    font-size: 40px;
-}
-/* Style the top navigation bar */
-.navbar {
-    overflow: hidden; /* Hide overflow */
-    background-color: #333; /* Dark background color */
-     display: flex;
-    justify-content: center;
-}
-
-/* Style the navigation bar links */
-#market{
-	display: block; /* Change the display to block, for responsive reasons (see below) */
-    color: #4CAF50; /* White text color */
-    text-align: center; /* Center the text */
-    padding: 14px 20px; /* Add some padding */
-    text-decoration: none; /* Remove underline */
-}
-#market:hover {
-    background-color: #4CAF50;
-    color: white;
-}
-#menu{
-	background-color:#4CAF50;
-	display: block; /* Change the display to block, for responsive reasons (see below) */
-    color: black; /* White text color */
-    text-align: center; /* Center the text */
-    padding: 14px 20px; /* Add some padding */
-    text-decoration: none; /* Remove underline */
-}
-#menu:hover {
-    background-color:#4CAF50;
-    color: black;
-}
-.navbar a {
-    /* Make sure that the links stay side-by-side */
-    display: block; /* Change the display to block, for responsive reasons (see below) */
-    color: white; /* White text color */
-    text-align: center; /* Center the text */
-    padding: 14px 20px; /* Add some padding */
-    text-decoration: none; /* Remove underline */
-}
-
-/* Right-aligned link */
-.navbar a.right {
-    float: right; /* Float a link to the right */
-}
-
-/* Change color on hover/mouse-over */
-.navbar a:hover {
-    background-color: #ddd;
-    color:black;
-}
-
-footer {
-    padding: 24px; /* some padding */
-    text-align:center;
-    background: #333; /* green background */
-    color:white;/* white text color */
-}
-.pageform{
-	margin: 0 auto;
-	width:1200px;
-	padding:30px;
-}
-.mypage{
-	margin:0 auto;
-	text-align:center;
-	padding : 25px;
-}
-
 table{
 	margin:0 auto;
 	border-collapse: collapse;
@@ -169,6 +80,7 @@ input:hover, .mypage button:active, .mypage button:focus {
 }
 </style>
 </head>
+<link rel="stylesheet" type="text/css" href="style/style.css">
 <link rel="stylesheet" href="https://www.w3schools.com/w3css/3/w3.css">
 <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.6.3/css/font-awesome.min.css">
 <body>
@@ -186,14 +98,24 @@ input:hover, .mypage button:active, .mypage button:focus {
   
 </div>   
 <div class="navbar">
-  <a href="#" id="menu"><img src="images/menu.png" width="24px"/></a>
-  <a href="introduction.jsp">&nbsp;&nbsp;팜팜소개&nbsp;&nbsp;</a>
-  <a href="vegetable.jsp">&nbsp;&nbsp;&nbsp;&nbsp;채소&nbsp;&nbsp;&nbsp;&nbsp;</a>
-  <a href="fruit.jsp">&nbsp;&nbsp;&nbsp;&nbsp;과일&nbsp;&nbsp;&nbsp;&nbsp;</a>
-  <a href="grains.jsp">&nbsp;&nbsp;쌀/잡곡&nbsp;&nbsp;</a>
-  <a href="tea.jsp">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;차&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</a>
-  <a href="mf.jsp">&nbsp;&nbsp;&nbsp;가공류&nbsp;&nbsp;&nbsp;</a>
-  <a href="market.jsp" id="market" target="_blank">&nbsp;&nbsp;팜팜마켓&nbsp;&nbsp;</a>
+	<ul>
+  <li><a href="#" id="menu"><img src="images/menu.png" width="24px" height="27px"/></a></li>
+  <li class="dropdown">
+    <a href="javascript:void(0)" class="dropbtn">&nbsp;&nbsp;팜팜소개&nbsp;&nbsp;</a>
+    <div class="dropdown-content">
+      <a href="introduction.jsp">농원소개</a>
+      <a href="location.jsp">오시는 길</a>
+      <a href="notice.jsp">안내사항</a>
+    </div>
+  </li>
+  <li><a href="vegetable.jsp">&nbsp;&nbsp;&nbsp;&nbsp;채소&nbsp;&nbsp;&nbsp;&nbsp;</a></li>
+  <li><a href="fruit.jsp">&nbsp;&nbsp;&nbsp;&nbsp;과일&nbsp;&nbsp;&nbsp;&nbsp;</a></li>
+  <li><a href="grains.jsp">&nbsp;&nbsp;쌀/잡곡&nbsp;&nbsp;</a></li>
+  <li><a href="tea.jsp">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;차&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</a></li>
+  <li><a href="mf.jsp">&nbsp;&nbsp;&nbsp;가공류&nbsp;&nbsp;&nbsp;</a></li>
+  <li><a href="market.jsp" id="market" target="_blank">&nbsp;&nbsp;팜팜마켓&nbsp;&nbsp;</a></li>
+  
+</ul>
 </div>
 
 <div class="pageform">
