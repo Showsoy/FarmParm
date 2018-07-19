@@ -115,47 +115,15 @@ td img{
 </div>   
 <div class="navbar">
   <a href="#" id="menu"><img src="images/menu.png" width="24px"/></a>
-  <a href="#">&nbsp;&nbsp;팜팜소개&nbsp;&nbsp;</a>
-  <a href="#">&nbsp;&nbsp;&nbsp;&nbsp;채소&nbsp;&nbsp;&nbsp;&nbsp;</a>
-  <a href="#">&nbsp;&nbsp;&nbsp;&nbsp;과일&nbsp;&nbsp;&nbsp;&nbsp;</a>
-  <a href="#">&nbsp;&nbsp;쌀/잡곡&nbsp;&nbsp;</a>
-  <a href="#">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;차&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</a>
-  <a href="#">&nbsp;&nbsp;&nbsp;가공류&nbsp;&nbsp;&nbsp;</a>
-  <a href="#" id="market">&nbsp;&nbsp;팜팜마켓&nbsp;&nbsp;</a>
+  <a href="introduction.jsp">&nbsp;&nbsp;팜팜소개&nbsp;&nbsp;</a>
+  <a href="vegetable.jsp">&nbsp;&nbsp;&nbsp;&nbsp;채소&nbsp;&nbsp;&nbsp;&nbsp;</a>
+  <a href="fruit.jsp">&nbsp;&nbsp;&nbsp;&nbsp;과일&nbsp;&nbsp;&nbsp;&nbsp;</a>
+  <a href="grains.jsp">&nbsp;&nbsp;쌀/잡곡&nbsp;&nbsp;</a>
+  <a href="tea.jsp">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;차&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</a>
+  <a href="mf.jsp">&nbsp;&nbsp;&nbsp;가공류&nbsp;&nbsp;&nbsp;</a>
+  <a href="market.jsp" id="market" target="_blank">&nbsp;&nbsp;팜팜마켓&nbsp;&nbsp;</a>
 </div>
 
-
-
-<h2>Bordered Table Dividers</h2>
-<p>Add the border-bottom property to th and td for horizontal dividers:</p>
-
-<table cellspacing="0" cellpadding="0">
-  <tr>
-    <th>Firstname</th>
-    <th>Lastname</th>
-    <th>Savings</th>
-  </tr>
-  <tr>
-    <td><img src="images/apple.jpg" vspace=0 hspace=0/></td>
-    <td>Griffin</td>
-    <td>$100</td>
-  </tr>
-  <tr>
-    <td>Lois</td>
-    <td>Griffin</td>
-    <td>$150</td>
-  </tr>
-  <tr>
-    <td>Joe</td>
-    <td>Swanson</td>
-    <td>$300</td>
-  </tr>
-  <tr>
-    <td>Cleveland</td>
-    <td>Brown</td>
-    <td>$250</td>
-  </tr>
-</table>
 <footer>
   <a href="#"><i class="fa fa-facebook-official"></i></a>
   <a href="#"><i class="fa fa-pinterest-p"></i></a>

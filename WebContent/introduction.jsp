@@ -147,8 +147,8 @@ footer {
 	  <a href="login.jsp">로그인</a>&nbsp;
 	  <a href="joinForm.jsp">회원가입</a>&nbsp;
 	  <a href="myPage.jsp">마이페이지</a>&nbsp;
-	  <a href="#">주문/배송</a>&nbsp;
-	  <a href="#">고객센터</a>&nbsp;
+	  <a href="myOrders.jsp">주문/배송</a>&nbsp;
+	  <a href="cs_center.jsp">고객센터</a>&nbsp;
 	  <a href="cart.jsp">장바구니</a>&nbsp;
   </div>
   
@@ -161,7 +161,7 @@ footer {
   <a href="grains.jsp">&nbsp;&nbsp;쌀/잡곡&nbsp;&nbsp;</a>
   <a href="tea.jsp">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;차&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</a>
   <a href="mf.jsp">&nbsp;&nbsp;&nbsp;가공류&nbsp;&nbsp;&nbsp;</a>
-  <a href="market.jsp" id="market">&nbsp;&nbsp;팜팜마켓&nbsp;&nbsp;</a>
+  <a href="market.jsp" id="market" target="_blank">&nbsp;&nbsp;팜팜마켓&nbsp;&nbsp;</a>
 </div>
 
 <script>

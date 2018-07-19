@@ -181,13 +181,13 @@ input:hover, .mypage button:active, .mypage button:focus {
 </div>   
 <div class="navbar">
   <a href="#" id="menu"><img src="images/menu.png" width="24px"/></a>
-  <a href="#">&nbsp;&nbsp;팜팜소개&nbsp;&nbsp;</a>
-  <a href="#">&nbsp;&nbsp;&nbsp;&nbsp;채소&nbsp;&nbsp;&nbsp;&nbsp;</a>
-  <a href="#">&nbsp;&nbsp;&nbsp;&nbsp;과일&nbsp;&nbsp;&nbsp;&nbsp;</a>
-  <a href="#">&nbsp;&nbsp;쌀/잡곡&nbsp;&nbsp;</a>
-  <a href="#">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;차&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</a>
-  <a href="#">&nbsp;&nbsp;&nbsp;가공류&nbsp;&nbsp;&nbsp;</a>
-  <a href="#" id="market">&nbsp;&nbsp;팜팜마켓&nbsp;&nbsp;</a>
+  <a href="introduction.jsp">&nbsp;&nbsp;팜팜소개&nbsp;&nbsp;</a>
+  <a href="vegetable.jsp">&nbsp;&nbsp;&nbsp;&nbsp;채소&nbsp;&nbsp;&nbsp;&nbsp;</a>
+  <a href="fruit.jsp">&nbsp;&nbsp;&nbsp;&nbsp;과일&nbsp;&nbsp;&nbsp;&nbsp;</a>
+  <a href="grains.jsp">&nbsp;&nbsp;쌀/잡곡&nbsp;&nbsp;</a>
+  <a href="tea.jsp">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;차&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</a>
+  <a href="mf.jsp">&nbsp;&nbsp;&nbsp;가공류&nbsp;&nbsp;&nbsp;</a>
+  <a href="market.jsp" id="market" target="_blank">&nbsp;&nbsp;팜팜마켓&nbsp;&nbsp;</a>
 </div>
 
 <div class="pageform">

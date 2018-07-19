@@ -31,7 +31,6 @@ body {
      display: flex;
     justify-content: center;
 }
-
 /* Style the navigation bar links */
 #market{
 	display: block; /* Change the display to block, for responsive reasons (see below) */
@@ -132,16 +131,73 @@ footer {
     background: #333; /* green background */
     color:white;/* white text color */
 }
+ul {
+    list-style-type: none;
+    margin: 0;
+    padding: 0;
+    overflow: hidden;
+    background-color: #333;
+}
+
+li {
+    float: left;
+}
+
+li a, .dropbtn {
+    display: inline-block;
+    color: white;
+    text-align: center;
+    padding: 5px;
+    text-decoration: none;
+}
+
+li a:hover, .dropdown:hover .dropbtn {
+    background-color: #ddd;
+    color: black;
+}
+
+li.dropdown {
+    display: inline-block;
+}
+
+.dropdown-content {
+    display: none;
+    position: absolute;
+    background-color: #f9f9f9;
+    min-width: 121px;
+    box-shadow: 0px 8px 16px 0px rgba(0,0,0,0.2);
+    z-index: 1;
+}
+
+.dropdown-content a {
+    color: black;
+    padding: 5px;
+    text-decoration: none;
+    padding:10px;
+    display: block;
+    text-align: left;
+}
+
+.dropdown-content a:hover {background-color: #f1f1f1;}
+
+.dropdown:hover .dropdown-content {
+    display: block;
+}
 </style>
 </head>
 <link rel="stylesheet" href="https://www.w3schools.com/w3css/3/w3.css">
 <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.6.3/css/font-awesome.min.css">
+<script type="text/javascript" src="path/to/jQuery.js"></script>
+<script src="http://code.jquery.com/jquery.min.js"></script>
 <body>
 <div class="header">
    <a href="main.jsp"><img src="images/farm_logo.png" width="150px"></a>
   <div>A website created by me.</div>
   <div class="right">
 	  <a href="login.jsp">로그인</a>&nbsp;
+	  <div class="dropdown-content">
+    	<p>Hello World!</p>
+ 	 </div>
 	  <a href="joinForm.jsp">회원가입</a>&nbsp;
 	  <a href="myPage.jsp">마이페이지</a>&nbsp;
 	  <a href="myOrders.jsp">주문/배송</a>&nbsp;
@@ -151,14 +207,25 @@ footer {
   
 </div>   
 <div class="navbar">
-  <a href="#" id="menu"><img src="images/menu.png" width="24px"/></a>
-  <a href="introduction.jsp">&nbsp;&nbsp;팜팜소개&nbsp;&nbsp;</a>
-  <a href="vegetable.jsp">&nbsp;&nbsp;&nbsp;&nbsp;채소&nbsp;&nbsp;&nbsp;&nbsp;</a>
-  <a href="fruit.jsp">&nbsp;&nbsp;&nbsp;&nbsp;과일&nbsp;&nbsp;&nbsp;&nbsp;</a>
-  <a href="grains.jsp">&nbsp;&nbsp;쌀/잡곡&nbsp;&nbsp;</a>
-  <a href="tea.jsp">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;차&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</a>
-  <a href="mf.jsp">&nbsp;&nbsp;&nbsp;가공류&nbsp;&nbsp;&nbsp;</a>
-  <a href="market.jsp" id="market">&nbsp;&nbsp;팜팜마켓&nbsp;&nbsp;</a>
+	<ul>
+  <li><a href="#" id="menu"><img src="images/menu.png" width="24px" height="27px"/></a></li>
+  <li class="dropdown">
+    <a href="javascript:void(0)" class="dropbtn">&nbsp;&nbsp;팜팜소개&nbsp;&nbsp;</a>
+    <div class="dropdown-content">
+      <a href="introduction.jsp">농원소개</a>
+      <a href="location.jsp">오시는 길</a>
+      <a href="notice.jsp">안내사항</a>
+    </div>
+  </li>
+  <li><a href="vegetable.jsp">&nbsp;&nbsp;&nbsp;&nbsp;채소&nbsp;&nbsp;&nbsp;&nbsp;</a></li>
+  <li><a href="fruit.jsp">&nbsp;&nbsp;&nbsp;&nbsp;과일&nbsp;&nbsp;&nbsp;&nbsp;</a></li>
+  <li><a href="grains.jsp">&nbsp;&nbsp;쌀/잡곡&nbsp;&nbsp;</a></li>
+  <li><a href="tea.jsp">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;차&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</a></li>
+  <li><a href="mf.jsp">&nbsp;&nbsp;&nbsp;가공류&nbsp;&nbsp;&nbsp;</a></li>
+  <li><a href="market.jsp" id="market" target="_blank">&nbsp;&nbsp;팜팜마켓&nbsp;&nbsp;</a></li>
+  
+</ul>
+  
 </div>
 <section>
   <img class="mySlides" src="images/slide1.jpg" style="width:100%">
@@ -180,6 +247,7 @@ function carousel() {
     x[myIndex-1].style.display = "block";
     setTimeout(carousel, 3000);
 }
+
 </script>
 <br><br>
 <!-- 베스트 상품 리스트 -->
@@ -195,7 +263,7 @@ function carousel() {
 				<div class="caption">
 					<h1>사과</h1>
 					<p>
-						<br><a href="#">상품보러가기</a><br><a href="#">장바구니</a>
+						<br><a href="detail.jsp">상품보러가기</a><br><a href="#">장바구니</a>
 					</p>
 				</div>
 			</li>

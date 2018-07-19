@@ -143,78 +143,8 @@ footer {
 <div class="header">
    <a href="main.jsp"><img src="images/farm_logo.png" width="150px"></a>
   <div>A website created by me.</div>
-  <div class="right">
-	  <a href="login.jsp">로그인</a>&nbsp;
-	  <a href="joinForm.jsp">회원가입</a>&nbsp;
-	  <a href="myPage.jsp">마이페이지</a>&nbsp;
-	  <a href="#">주문/배송</a>&nbsp;
-	  <a href="#">고객센터</a>&nbsp;
-	  <a href="cart.jsp">장바구니</a>&nbsp;
-  </div>
-  
-</div>   
-<div class="navbar">
-  <a href="#" id="menu"><img src="images/menu.png" width="24px"/></a>
-  <a href="introduction.jsp">&nbsp;&nbsp;팜팜소개&nbsp;&nbsp;</a>
-  <a href="vegetable.jsp">&nbsp;&nbsp;&nbsp;&nbsp;채소&nbsp;&nbsp;&nbsp;&nbsp;</a>
-  <a href="fruit.jsp">&nbsp;&nbsp;&nbsp;&nbsp;과일&nbsp;&nbsp;&nbsp;&nbsp;</a>
-  <a href="grains.jsp">&nbsp;&nbsp;쌀/잡곡&nbsp;&nbsp;</a>
-  <a href="tea.jsp">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;차&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</a>
-  <a href="mf.jsp">&nbsp;&nbsp;&nbsp;가공류&nbsp;&nbsp;&nbsp;</a>
-  <a href="market.jsp" id="market">&nbsp;&nbsp;팜팜마켓&nbsp;&nbsp;</a>
 </div>
 
-<script>
-// Automatic Slideshow - change image every 3 seconds
-var myIndex = 0;
-carousel();
-
-function carousel() {
-    var i;
-    var x = document.getElementsByClassName("mySlides");
-    for (i = 0; i < x.length; i++) {
-       x[i].style.display = "none";
-    }
-    myIndex++;
-    if (myIndex > x.length) {myIndex = 1}
-    x[myIndex-1].style.display = "block";
-    setTimeout(carousel, 3000);
-}
-</script>
-<br><br>
-
-<section class="w3-container w3-center">
-  <p>마켓마켓</p>
-</section>
-
-<br><br><br>
-<!-- 농부 소개 -->
-<section class="w3-row-padding w3-center w3-light-grey">
-  <article class="w3-third">
-    <p>John</p>
-    <img src="images/common.jpg" alt="Random Name">
-    <p>슰기슬기</p>
-  </article>
-  <article class="w3-third">
-    <p>Paul</p>
-    <img src="images/common1.jpg" alt="Random Name">
-    <p>조이조이</p>
-  </article>
-  <article class="w3-third">
-    <p>Ringo</p>
-    <img src="images/common2.jpg" alt="Random Name">
-    <p>유나우나</p>
-  </article>
-</section>
-<footer>
-  <a href="#"><i class="fa fa-facebook-official"></i></a>
-  <a href="#"><i class="fa fa-pinterest-p"></i></a>
-  <a href="#"><i class="fa fa-twitter"></i></a>
-  <a href="#"><i class="fa fa-flickr"></i></a>
-  <a href="#"><i class="fa fa-linkedin"></i></a>
-  <p class="w3-medium">
-    Powered by <a href="https://www.w3schools.com/w3css/default.asp" target="_blank">w3.css</a>
-  </p>
-</footer>
+마켓
 </body>
 </html>

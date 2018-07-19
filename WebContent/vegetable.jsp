@@ -5,7 +5,6 @@
 <head>
 <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
 <title>Insert title here</title>
-<meta name="viewport" content="width=device-width, initial-scale=1">
 <style>
 body {
     font-family: Arial, Helvetica, sans-serif;
@@ -78,62 +77,53 @@ body {
     background-color: #ddd;
     color:black;
 }
-	#container{
-				display:flex;
-				flex-wrap:wrap;
-				margin:0 auto;
-				padding:20px 0px 0px 150px;
-				width:1200px;
-			}
-			#container ul{
-				 list-style:none;
-			}
-			#container ul li{
-				 position: relative;
-				float:left;
-				 overflow: hidden;
-			}
-			#container img{
-				width:200px;
-				height:150px;
-				margin:5px 15px 0 15px;
-				border:1px solid #ccc;
-				z-index:5;
-			}
-			#container .caption {
-				position: absolute;
-				  top:200px;
-				  width:200px;
-				  height:150px;
-				  margin:5px 17px 17px 15px;
-				  padding-top:20px;
-				  background:rgba(76,175,80,0.6);
-				  opacity:0;
-				  -moz-transition: all 0.2s ease-in-out;
-				  -o-transition: all 0.2s ease-in-out;
-				  -webkit-transition: all 0.2s ease-in-out;
-				  transition: all 0.2s ease-in-out;
-				  z-index:10;
-			}
-			#container li:hover .caption {
-			  opacity: 1;
-			  -moz-transform: translateY(-200px);
-			  -ms-transform: translateY(-200px);
-			  -o-transform: translateY(-200px);
-			  -webkit-transform: translateY(-200px);
-			  transform: translateY(-200px);
-			}     
-			#container .caption h1, .prod-list .caption p {
-			  color: #fff;
-			  font-size:1em;
-			  text-align: center;
-			}  
 
 footer {
     padding: 24px; /* some padding */
     text-align:center;
     background: #333; /* green background */
     color:white;/* white text color */
+}
+table{
+	border:0;
+}
+th, td {
+    border-bottom: 1px solid #ddd;
+    height:50px;
+}
+td img{
+	height:100%;
+	border:0;
+}
+.pageform{
+	margin: 0 auto;
+	width:1200px;
+	padding:30px;
+}
+#container{
+		display:flex;
+		flex-wrap:wrap;
+		margin:0 auto;
+		padding:20px;
+		width:1200px;
+}
+#container ul{
+	    list-style:none;
+}
+#container ul li{
+		position: relative;
+		float:left;
+		overflow: hidden;
+}
+#container img{
+		width:300px;
+		height:200px;
+		margin:5px 15px 0 15px;
+		border:1px solid #ccc;
+}
+.page{
+	margin:0 auto;
+	text-align:center;
 }
 </style>
 </head>
@@ -147,8 +137,8 @@ footer {
 	  <a href="login.jsp">로그인</a>&nbsp;
 	  <a href="joinForm.jsp">회원가입</a>&nbsp;
 	  <a href="myPage.jsp">마이페이지</a>&nbsp;
-	  <a href="#">주문/배송</a>&nbsp;
-	  <a href="#">고객센터</a>&nbsp;
+	  <a href="myOrders.jsp">주문/배송</a>&nbsp;
+	   <a href="cs_center.jsp">고객센터</a>&nbsp;
 	  <a href="cart.jsp">장바구니</a>&nbsp;
   </div>
   
@@ -161,51 +151,108 @@ footer {
   <a href="grains.jsp">&nbsp;&nbsp;쌀/잡곡&nbsp;&nbsp;</a>
   <a href="tea.jsp">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;차&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</a>
   <a href="mf.jsp">&nbsp;&nbsp;&nbsp;가공류&nbsp;&nbsp;&nbsp;</a>
-  <a href="market.jsp" id="market">&nbsp;&nbsp;팜팜마켓&nbsp;&nbsp;</a>
+  <a href="market.jsp" id="market" target="_blank">&nbsp;&nbsp;팜팜마켓&nbsp;&nbsp;</a>
 </div>
+<div class="pageform">
+	<h3>&nbsp;&nbsp;채소</h3>
+	<hr color="#4CAF50" size="5">
+	<div class="mypage">
 
-<script>
-// Automatic Slideshow - change image every 3 seconds
-var myIndex = 0;
-carousel();
-
-function carousel() {
-    var i;
-    var x = document.getElementsByClassName("mySlides");
-    for (i = 0; i < x.length; i++) {
-       x[i].style.display = "none";
-    }
-    myIndex++;
-    if (myIndex > x.length) {myIndex = 1}
-    x[myIndex-1].style.display = "block";
-    setTimeout(carousel, 3000);
-}
-</script>
-<br><br>
-
-<section class="w3-container w3-center">
-  <p>채소채소</p>
-</section>
-
-<br><br><br>
-<!-- 농부 소개 -->
-<section class="w3-row-padding w3-center w3-light-grey">
-  <article class="w3-third">
-    <p>John</p>
-    <img src="images/common.jpg" alt="Random Name">
-    <p>슰기슬기</p>
-  </article>
-  <article class="w3-third">
-    <p>Paul</p>
-    <img src="images/common1.jpg" alt="Random Name">
-    <p>조이조이</p>
-  </article>
-  <article class="w3-third">
-    <p>Ringo</p>
-    <img src="images/common2.jpg" alt="Random Name">
-    <p>유나우나</p>
-  </article>
-</section>
+<div id="container">
+		<ul class="prod-list" align="center">
+			<li><img src="images/apple.jpg" alt="1">
+			<p>dd</p>
+				<div class="caption">
+					<h1>사과</h1>
+					<p>
+						<br><a href="detail.jsp">상품보러가기</a><br><a href="#">장바구니</a>
+					</p>
+				</div>
+			</li>
+			<li><img src="images/apple.jpg" alt="2">
+			<p>dd</p>
+			<div class="caption">
+					<h1>ㅎㅎ</h1>
+					<p>
+						<br>견종 : 포메라니안<br>성별 : 남아<br>나이 : 2개월
+					</p>
+				</div></li>
+			<li><img src="images/apple.jpg" alt="3">
+			<p>dd</p>
+			<div class="caption">
+					<h1>3번</h1>
+					<p>
+						<br>견종 : 말티즈<br>성별 : 여아<br>나이 : 2개월
+					</p>
+				</div></li>
+			<li><img src="images/apple.jpg" alt="4">
+			<div class="caption">
+					<h1>4번</h1>
+					<p>
+						<br>견종 : 믹스<br>성별 : 남아<br>나이 : 2개월
+					</p>
+				</div></li>
+			<li><img src="images/apple.jpg" alt="5">
+			<div class="caption">
+					<h1>5번</h1>
+					<p>
+						<br>견종 : 푸들<br>성별 : 남아<br>나이 : 2개월
+					</p>
+				</div></li>
+			<li><img src="images/apple.jpg" alt="6">
+			<div class="caption">
+					<h1>6번</h1>
+					<p>
+						<br>견종 : 비숑프리제<br>성별 : 여아<br>나이 : 3개월
+					</p>
+				</div></li>
+			<li><img src="images/apple.jpg" alt="7">
+			<div class="caption">
+					<h1>7번</h1>
+					<p>
+						<br>견종 : 크림 푸들<br>성별 : 남아<br>나이 : 2개월
+					</p>
+				</div></li>
+			<li><img src="images/apple.jpg" alt="8">
+			<div class="caption">
+					<h1>8번</h1>
+					<p>
+						<br>견종 : 크림 푸들<br>성별 : 여아<br>나이 : 1개월
+					</p>
+				</div></li>
+				<li><img src="images/apple.jpg" alt="6">
+		<div class="caption">
+					<h1>9번</h1>
+					<p>
+						<br>견종 : 푸들<br>성별 : 남아<br>나이 : 2개월
+					</p>
+				</div></li>
+			<li><img src="images/apple.jpg" alt="6">
+			<div class="caption">
+					<h1>10번</h1>
+					<p>
+						<br>견종 : 비숑프리제<br>성별 : 여아<br>나이 : 3개월
+					</p>
+				</div></li>
+			<li><img src="images/apple.jpg" alt="7">
+			<div class="caption">
+					<h1>11번</h1>
+					<p>
+						<br>견종 : 크림 푸들<br>성별 : 남아<br>나이 : 2개월
+					</p>
+				</div></li>
+			<li><img src="images/apple.jpg" alt="8">
+			<div class="caption">
+					<h1>12번</h1>
+					<p>
+						<br>견종 : 크림 푸들<br>성별 : 여아<br>나이 : 1개월
+					</p>
+				</div></li>
+		</ul>
+	</div>
+</div>
+<div class="page">1 2 3 4 5</div>
+</div>
 <footer>
   <a href="#"><i class="fa fa-facebook-official"></i></a>
   <a href="#"><i class="fa fa-pinterest-p"></i></a>
