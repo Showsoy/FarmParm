@@ -71,7 +71,6 @@ body {
 
 /* Change color on hover/mouse-over */
 .navbar a:hover {
-    background-color: #ddd;
     color:black;
 }
 	#container{
@@ -86,7 +85,7 @@ body {
 			}
 			#container ul li{
 				 position: relative;
-				float:left;
+				 float:left;
 				 overflow: hidden;
 			}
 			#container img{
@@ -151,10 +150,11 @@ li a, .dropbtn {
     text-decoration: none;
 }
 
-li a:hover, .dropdown:hover .dropbtn {
+.dropdown:hover .dropbtn {
     background-color: #ddd;
     color: black;
 }
+
 
 li.dropdown {
     display: inline-block;
@@ -169,19 +169,51 @@ li.dropdown {
     z-index: 1;
 }
 
+.maindown-content {
+    display: none;
+    position: absolute;
+    background-color:#4CAF50;
+    opacity:0.8;
+    min-width: 880px;
+    box-shadow: 0px 8px 16px 0px rgba(0,0,0,0.2);
+    z-index: 1;
+    padding-top:10px;
+}
+
 .dropdown-content a {
     color: black;
     padding: 5px;
     text-decoration: none;
     padding:10px;
+    padding-left:26px;
     display: block;
     text-align: left;
 }
 
-.dropdown-content a:hover {background-color: #f1f1f1;}
+.maindown-content a {
+    color: black;
+    text-decoration: none;
+    padding:10px;
+    padding-left:90px;
+    display: block;
+    text-align: left;
+}
 
 .dropdown:hover .dropdown-content {
     display: block;
+}
+.dropdown:hover .maindown-content {
+    display: block;
+}
+.list a{
+	display: inline;
+	color: black;
+    text-decoration: none;
+    text-align: left;
+    padding-left:0;
+}
+.list{
+	padding-bottom:10px;
 }
 </style>
 </head>
@@ -208,7 +240,28 @@ li.dropdown {
 </div>   
 <div class="navbar">
 	<ul>
-  <li><a href="#" id="menu"><img src="images/menu.png" width="24px" height="27px"/></a></li>
+   <li class="dropdown">
+    <a href="#" id="menu"><img src="images/menu.png" width="24px" height="27px"/></a>
+    <div class="maindown-content">
+	     <div class="list">
+	      <a href="introduction.jsp">
+	      &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+			 농원소개</a>
+	      <a href="#">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+			채소</a>
+	      <a href="#">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+	      	과일</a>
+	      <a href="#">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+	      	쌀/잡곡</a>
+	      <a href="#">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+	      	차</a>
+	      <a href="#">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+	      	가공류</a>
+	    </div>
+      <a href="location.jsp">오시는 길</a>
+      <a href="notice.jsp"> 안내사항</a>
+    </div>
+  </li>
   <li class="dropdown">
     <a href="javascript:void(0)" class="dropbtn">&nbsp;&nbsp;팜팜소개&nbsp;&nbsp;</a>
     <div class="dropdown-content">
@@ -217,11 +270,11 @@ li.dropdown {
       <a href="notice.jsp">안내사항</a>
     </div>
   </li>
-  <li><a href="vegetable.jsp">&nbsp;&nbsp;&nbsp;&nbsp;채소&nbsp;&nbsp;&nbsp;&nbsp;</a></li>
-  <li><a href="fruit.jsp">&nbsp;&nbsp;&nbsp;&nbsp;과일&nbsp;&nbsp;&nbsp;&nbsp;</a></li>
-  <li><a href="grains.jsp">&nbsp;&nbsp;쌀/잡곡&nbsp;&nbsp;</a></li>
-  <li><a href="tea.jsp">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;차&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</a></li>
-  <li><a href="mf.jsp">&nbsp;&nbsp;&nbsp;가공류&nbsp;&nbsp;&nbsp;</a></li>
+  <li class="dropdown"><a href="vegetable.jsp" class="dropbtn">&nbsp;&nbsp;&nbsp;&nbsp;채소&nbsp;&nbsp;&nbsp;&nbsp;</a></li>
+  <li class="dropdown"><a href="fruit.jsp" class="dropbtn">&nbsp;&nbsp;&nbsp;&nbsp;과일&nbsp;&nbsp;&nbsp;&nbsp;</a></li>
+  <li class="dropdown"><a href="grains.jsp" class="dropbtn">&nbsp;&nbsp;쌀/잡곡&nbsp;&nbsp;</a></li>
+  <li class="dropdown"><a href="tea.jsp" class="dropbtn">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;차&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</a></li>
+  <li class="dropdown"><a href="mf.jsp" class="dropbtn">&nbsp;&nbsp;&nbsp;가공류&nbsp;&nbsp;&nbsp;</a></li>
   <li><a href="market.jsp" id="market" target="_blank">&nbsp;&nbsp;팜팜마켓&nbsp;&nbsp;</a></li>
   
 </ul>
