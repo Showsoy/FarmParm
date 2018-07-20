@@ -26,24 +26,6 @@ img{
 	border: 1px solid #ddd;
 	padding : 0 0 0 2px;
 }
-.mypage button {
-	font-family:"Nanum Gothic";
-	font-weight: 700;
-	text-transform: uppercase;
-	outline: 0;
-	background: #4CAF50;
-	width: 60px;
-	border: 0;
-	padding: 5px;
-	color: #FFFFFF;
-	font-size: 14px;
-	-webkit-transition: all 0.3 ease;
-	transition: all 0.3 ease;
-	cursor: pointer;
-}
-.mypage button:hover, .mypage button:active, .mypage button:focus {
-	background: #43A047;
-}
 input{
 	font-family:"Nanum Gothic";
 	font-weight: 700;
@@ -61,6 +43,24 @@ input{
 }
 input:hover, .mypage button:active, .mypage button:focus {
 	background: #191919;
+}
+#gbutton {
+	font-family:"Nanum Gothic";
+	font-weight: 700;
+	text-transform: uppercase;
+	outline: 0;
+	background: #4CAF50;
+	width: 60px;
+	border: 0;
+	padding: 5px;
+	color: #FFFFFF;
+	font-size: 14px;
+	-webkit-transition: all 0.3 ease;
+	transition: all 0.3 ease;
+	cursor: pointer;
+}
+#gbutton:hover, #gbutton:active, #gbutton:focus {
+	background: #43A047;
 }
 #top_menu{
 	background-color:#333;
@@ -140,7 +140,7 @@ input:hover, .mypage button:active, .mypage button:focus {
 				
 				<td>20000</td>
 				<td>1</td>
-				<td><button onclick="location.href='#'">삭제</button></td>
+				<td><button onclick="location.href='#'" id="gbutton">삭제</button></td>
 			</tr>
 			<tr>
 				<td><input type="checkbox"/></td>
@@ -150,7 +150,7 @@ input:hover, .mypage button:active, .mypage button:focus {
 				&nbsp;&nbsp;&nbsp;청송사과 1kg</p></td>
 				<td>20000</td>
 				<td>1</td>
-				<td><button onclick="location.href='#'">삭제</button></td>
+				<td><button onclick="location.href='#'" id="gbutton">삭제</button></td>
 			</tr>
 			<tr>
 				<td><input type="checkbox"/></td>
@@ -160,7 +160,7 @@ input:hover, .mypage button:active, .mypage button:focus {
 				&nbsp;&nbsp;&nbsp;청송사과 1kg</p></td>
 				<td>20000</td>
 				<td>1</td>
-				<td><button onclick="location.href='#'">삭제</button></td>
+				<td><button onclick="location.href='#'" id="gbutton">삭제</button></td>
 			</tr>
 			<tr>
 				<td><input type="checkbox"/></td>
@@ -170,7 +170,7 @@ input:hover, .mypage button:active, .mypage button:focus {
 				&nbsp;&nbsp;&nbsp;청송사과 1kg</p></td>
 				<td>20000</td>
 				<td>1</td>
-				<td><button onclick="location.href='#'">삭제</button></td>
+				<td><button onclick="location.href='#'" id="gbutton">삭제</button></td>
 			</tr>
 			<tr id="tr_total">
 				<td colspan="6">

@@ -133,7 +133,7 @@ td, tr{
 	</tr>
 </table>
 <br><br>
-			<button onclick="location.href='login.jsp'">수정</button> 
+			<button onclick="location.href='pw_check.jsp'">수정</button> 
 	
 			<button onclick="location.href='main.jsp'">홈으로</button> 
 		

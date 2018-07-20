@@ -158,6 +158,9 @@ li.dropdown {
 	text-align:center;
 	padding : 25px;
 }
+.mypage button:hover, .mypage button:active, .mypage button:focus {
+	background: #191919;
+}
 footer {
     padding: 24px; /* some padding */
     text-align:center;
@@ -240,22 +243,7 @@ footer {
 	width:800px;
 	margin:0 auto;
 }
-.detail_board{
-	margin:0 auto;
-	border-collapse: collapse;
-    width: 700px;
-    height:100px;
-	background-color:white;
-	text-align:center;
-}
-.detail_board tr td{
-	height:30px;
-	padding:0;
-	border:0;
-	margin:0;
-	font-size:14px;
-	border-bottom: 1px solid #ddd;
-}
+
 #container{
 	display:flex;
 	flex-wrap:wrap;
@@ -328,7 +316,8 @@ footer {
 		border:1px solid #ccc;
 }
 #goods_container .caption h1, .prod-list .caption p {
-	color: #fff;
+	color: black;
+	padding:0px 20px 0 0;
 	font-size:1em;
-	text-align: center;
+	text-align: right;
 }

@@ -13,12 +13,12 @@
 var chkId = false;
 function chkForm(f){
 	
-	var age = f.userAge.value;
+	var birth = f.userBirth.value;
 	var mail1 = f.userEmailId.value;
 	var mail2 = f.userEmailAd.value;
 	var phone = f.userPhone.value;
 	
-	var reg_age = /^\d{8}$/
+	var reg_birth = /^\d{8}$/
 	var reg_email1 = /^[0-9a-zA-Z]([-_\.]?[0-9a-zA-Z])+$/i;
 	var reg_email2 = /^[0-9a-zA-Z]([-_\.]?[0-9a-zA-Z])*\.[a-zA-Z]{2,3}$/i;
 	var reg_phone = /^\d{10-11}$/
@@ -41,9 +41,9 @@ function chkForm(f){
 			return false;
 		}
 	}
-	if (!reg_age.test(age)) {
+	if (!reg_birth.test(birth)) {
 		alert("올바른 형식이 아닙니다.");
-		f.userAge.focus();
+		f.userBirth.focus();
 		return false;
 	}
 	if (!reg_email1.test(mail1)) {
@@ -101,8 +101,8 @@ function selectEmail(sel) {
 		<label for="userPhone">연락처</label>
 		<input type="text" name="userPhone" id="userPhone" class="input100"/>
 	
-		<label for="userAge">생년월일</label>
-		<input type="text" name="userAge" id="userAge" 
+		<label for="userBirth">생년월일</label>
+		<input type="text" name="userBirth" id="userBirth" 
 		placeholder="ex) 19990303" class="input100"/>
 		
 		<label for="userGen">성별</label><br><br>

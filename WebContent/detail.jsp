@@ -21,9 +21,6 @@
 	transition: all 0.3 ease;
 	cursor: pointer;
 }
-.mypage button:hover, .mypage button:active, .mypage button:focus {
-	background: #191919;
-}
 #td_left{
 	background-color:#F6F6F6;
 	width:100px;
@@ -36,14 +33,24 @@
 }
 #top_menu{
 	background-color:#333;
-	color:white;
 	height:20px;
-}
-#top_menu td{
-	background-color:#333;
 	color:white;
-	height:20px;
+	padding:0;
 }
+#detail_board{
+	margin:0 auto;
+	border-collapse: collapse;
+    width: 700px;
+    height:100px;
+    font-size:10px;
+	background-color:white;
+	text-align:center;
+}
+#detail_board tr td{
+	font-size:12px;
+	border-bottom: 1px solid #ddd;
+}
+#detail_board tr:nth-child(even) {background-color: #f2f2f2;}
 </style>
 </head>
 <link rel="stylesheet" type="text/css" href="style/style.css">
@@ -101,7 +108,7 @@
 	<div class="mypage">
 	<table cellspacing="0" cellpadding="0" class="detail_table">
 	<tr>
-		<th rowspan="5"><img src="images/apple.jpg"/ width="300px"></th>
+		<th rowspan="5"><img src="images/apple.jpg" width="300px"></th>
 		<td id="td_left">상품명</td>
 		<td><h2>청송사과 1kg</h2></td>
 	</tr>
@@ -146,38 +153,38 @@
 <div class="review">
 <h3>&nbsp;&nbsp;상품후기</h3>
 	<hr color="#4CAF50" size="5">
-		<table cellspacing="0" cellpadding="0" class="detail_board">
-			<tr id="top_menu">
+		<table cellspacing="0" cellpadding="0" id="detail_board">
+			<tr id="top_menu" height="20px">
 				<td id="td_check">번호</td>
 				<td colspan="2">제목</td>
 				<td>작성자</td>
 				<td>작성일</td>
 			</tr>
-			<tr>
+			<tr height="30px">
 				<td>1</td>
 				<td colspan="2">
-				<p>맛있다</p></td>
+				맛있다</td>
 				<td>나래</td>
 				<td>2018-07-07</td>
 			</tr>
-			<tr>
+			<tr height="30px">
 				<td>1</td>
 				<td colspan="2">
-				<p>맛없다</p></td>
+				맛없다</td>
 				<td>나래</td>
 				<td>2018-07-07</td>
 			</tr>
-			<tr>
+			<tr height="30px">
 				<td>1</td>
 				<td colspan="2">
-				<p>보통이다</p></td>
+				보통이다</td>
 				<td>나래</td>
 				<td>2018-07-07</td>
 			</tr>
-			<tr>
+			<tr height="30px">
 				<td>1</td>
 				<td colspan="2">
-				<p>맛있따</p></td>
+				맛있따</td>
 				<td>나래</td>
 				<td>2018-07-07</td>
 			</tr>
@@ -187,38 +194,38 @@
 	<div class="qna">
 	<h3>&nbsp;&nbsp;상품문의</h3>
 	<hr color="#4CAF50" size="5">
-		<table cellspacing="0" cellpadding="0" class="detail_board">
+		<table cellspacing="0" cellpadding="0" id="detail_board">
 			<tr id="top_menu">
 				<td id="td_check">번호</td>
 				<td colspan="2">제목</td>
 				<td>작성자</td>
 				<td>작성일</td>
 			</tr>
-			<tr>
+			<tr height="30px">
 				<td>1</td>
 				<td colspan="2">
-				<p>언제옹냐</p></td>
+				언제옹냐</td>
 				<td>나래</td>
 				<td>2018-07-07</td>
 			</tr>
-			<tr>
+			<tr height="30px">
 				<td>1</td>
 				<td colspan="2">
-				<p>환불</p></td>
+				환불</td>
 				<td>나래</td>
 				<td>2018-07-07</td>
 			</tr>
-			<tr>
+			<tr height="30px">
 				<td>1</td>
 				<td colspan="2">
-				<p>교환</p></td>
+				교환</td>
 				<td>나래</td>
 				<td>2018-07-07</td>
 			</tr>
-			<tr>
+			<tr height="30px">
 				<td>1</td>
 				<td colspan="2">
-				<p>궁금</p></td>
+				궁금</td>
 				<td>나래</td>
 				<td>2018-07-07</td>
 			</tr>
