@@ -47,24 +47,7 @@ td img{
   
 </div>   
 <div class="navbar">
-	<ul>
-  <li><a href="#" id="menu"><img src="images/menu.png" width="24px" height="27px"/></a></li>
-  <li class="dropdown">
-    <a href="javascript:void(0)" class="dropbtn">&nbsp;&nbsp;팜팜소개&nbsp;&nbsp;</a>
-    <div class="dropdown-content">
-      <a href="introduction.jsp">농원소개</a>
-      <a href="location.jsp">오시는 길</a>
-      <a href="notice.jsp">안내사항</a>
-    </div>
-  </li>
-  <li><a href="vegetable.jsp">&nbsp;&nbsp;&nbsp;&nbsp;채소&nbsp;&nbsp;&nbsp;&nbsp;</a></li>
-  <li><a href="fruit.jsp">&nbsp;&nbsp;&nbsp;&nbsp;과일&nbsp;&nbsp;&nbsp;&nbsp;</a></li>
-  <li><a href="grains.jsp">&nbsp;&nbsp;쌀/잡곡&nbsp;&nbsp;</a></li>
-  <li><a href="tea.jsp">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;차&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</a></li>
-  <li><a href="mf.jsp">&nbsp;&nbsp;&nbsp;가공류&nbsp;&nbsp;&nbsp;</a></li>
-  <li><a href="market.jsp" id="market" target="_blank">&nbsp;&nbsp;팜팜마켓&nbsp;&nbsp;</a></li>
-  
-</ul>
+	<jsp:include page="top_menu.jsp" flush="false"/>
 </div>
 <div class="pageform">
 	<h3>&nbsp;&nbsp;과일</h3>
