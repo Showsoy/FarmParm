@@ -24,19 +24,7 @@ td img{
 <link rel="stylesheet" href="https://www.w3schools.com/w3css/3/w3.css">
 <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.6.3/css/font-awesome.min.css">
 <body>
-<div class="header">
-   <a href="main.jsp"><img src="images/farm_logo.png" width="150px"></a>
-  <div>A website created by me.</div>
-  <div class="right">
-	  <a href="login.jsp">로그인</a>&nbsp;
-	  <a href="joinForm.jsp">회원가입</a>&nbsp;
-	  <a href="myPage.jsp">마이페이지</a>&nbsp;
-	  <a href="myOrders.jsp">주문/배송</a>&nbsp;
-	   <a href="cs_center.jsp">고객센터</a>&nbsp;
-	  <a href="cart.jsp">장바구니</a>&nbsp;
-  </div>
-  
-</div>   
+<jsp:include page="top_menu.jsp" flush="false"/> 
 <div class="navbar">
 	<jsp:include page="top_menu.jsp" flush="false"/>
 </div>
