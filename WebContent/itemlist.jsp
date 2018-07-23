@@ -150,7 +150,7 @@ img{
 </div>
 
 <div class="pageform">
-	<h3>&nbsp;&nbsp;장바구니</h3>
+	<h3>&nbsp;&nbsp;물품관리</h3>
 	<hr color="#4CAF50" size="5">
 	<form action="#" method="post">
 	<div class="mypage">
@@ -158,64 +158,66 @@ img{
 		<table cellspacing="0" cellpadding="0">
 			<tr id="top_menu">
 				<td id="td_check"><input type="checkbox" id="allCheck" name="allCheck" onClick="checkAll(this.form)"/></td>
+				<td>분류</td>
 				<td colspan="2">상품명</td>
 				<td>가격</td>
 				<td>수량</td>
-				<td>삭제</td>
+				<td>주문량</td>
+				<td>재고</td>
+				<td>조회</td>
 			</tr>
 			<tr>
 				<td><input type="checkbox" id="remove" name="remove"/></td>
+				<td>과일</td>
 				<td colspan="2">
 				<p>&nbsp;&nbsp;&nbsp;&nbsp;
 				<img src="images/apple.jpg" width="100px" align="center">
 				&nbsp;&nbsp;&nbsp;청송사과 1kg</p></td>
 				
 				<td>20000</td>
-				<td><input type="text" id="quant" name="quant" value="1" size="1">
-				<button onclick="location.href='#'" id="wbutton" style="width:50px;">변경</button>
-				</td>
-				<td><button onclick="location.href='#'" id="gbutton">삭제</button></td>
+				<td>1</td>
+				<td>1212</td>
+				<td>120</td>
+				<td><button onclick="location.href='#'" id="gbutton">조회</button></td>
 			</tr>
 			<tr>
 				<td><input type="checkbox" id="remove" name="remove"/></td>
+				<td>과일</td>
 				<td colspan="2">
 				<p>&nbsp;&nbsp;&nbsp;&nbsp;
 				<img src="images/apple.jpg" width="100px" align="center">
 				&nbsp;&nbsp;&nbsp;청송사과 1kg</p></td>
 				<td>20000</td>
 				<td>1</td>
-				<td><button onclick="location.href='#'" id="gbutton">삭제</button></td>
+				<td>1212</td>
+				<td>120</td>
+				<td><button onclick="location.href='#'" id="gbutton">조회</button></td>
 			</tr>
 			<tr>
 				<td><input type="checkbox" id="remove" name="remove"/></td>
+				<td>과일</td>
 				<td colspan="2">
 				<p>&nbsp;&nbsp;&nbsp;&nbsp;
 				<img src="images/apple.jpg" width="100px" align="center">
 				&nbsp;&nbsp;&nbsp;청송사과 1kg</p></td>
 				<td>20000</td>
 				<td>1</td>
-				<td><button onclick="location.href='#'" id="gbutton">삭제</button></td>
+				<td>1212</td>
+				<td>120</td>
+				<td><button onclick="location.href='#'" id="gbutton">조회</button></td>
 			</tr>
 			<tr>
 				<td><input type="checkbox" id="remove" name="remove"/></td>
+				<td>과일</td>
 				<td colspan="2">
 				<p>&nbsp;&nbsp;&nbsp;&nbsp;
 				<img src="images/apple.jpg" width="100px" align="center">
 				&nbsp;&nbsp;&nbsp;청송사과 1kg</p></td>
 				<td>20000</td>
 				<td>1</td>
-				<td><button onclick="location.href='#'" id="gbutton">삭제</button></td>
-			</tr>
-			<tr id="tr_total">
-				<td colspan="6">
-					<div>
-						<h5>총 주문 금액 <b>000000원</b></h5>
-						선택금액!!!!<br>
-						배송비 +3000원
-						<br><br>
-						<button onclick="location.href='#'">주문하기</button>
-					</div>
-				<td>
+				<td>1212</td>
+				<td>120</td>
+				<td><button onclick="location.href='#'" id="gbutton">조회</button></td>
 			</tr>
 			<tr>
 				<td colspan="6" id="td_info">

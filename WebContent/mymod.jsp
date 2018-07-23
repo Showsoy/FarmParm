@@ -258,7 +258,7 @@ function selectEmail(sel) {
 <br><br>
 			<button type="submit">수정</button> 
 	
-			<button onclick="location.href='main.jsp'">홈으로</button> 
+			<button onclick="location.href='myPage.jsp'">돌아가기</button> 
 		</form>
 	</div>
 </div>

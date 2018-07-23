@@ -13,7 +13,7 @@ table{
 	background-color:white;
 }
 tr{
-	height:100px;
+	height:50px;
 }
 td{
     border-bottom: 1px solid #ddd;
@@ -26,7 +26,7 @@ img{
 	border: 1px solid #ddd;
 	padding : 0 0 0 2px;
 }
-.mypage button {
+input{
 	font-family:"Nanum Gothic";
 	font-weight: 700;
 	text-transform: uppercase;
@@ -34,31 +34,18 @@ img{
 	background: black;
 	width: 100px;
 	border: 0;
-	padding: 10px;
-	color: #FFFFFF;
-	font-size: 14px;
-	-webkit-transition: all 0.3 ease;
-	transition: all 0.3 ease;
-	cursor: pointer;
-}
-#wbutton{
-	font-family:"Nanum Gothic";
-	font-weight: 500;
-	text-transform: uppercase;
-	outline: 0;
-	background: #fff;
-	border: 0;
 	padding: 5px;
-	border : 1px solid #ccc;
-	border-radius : 5px;
-	color: #191919;
-	font-size: 14px;
+	color: #FFFFFF;
+	font-size: 18px;
 	-webkit-transition: all 0.3 ease;
 	transition: all 0.3 ease;
 	cursor: pointer;
 }
-#wbutton:active{
-	background: #F6F6F6;
+input:hover, .mypage button:active, .mypage button:focus {
+	background: #191919;
+}
+#seldel{
+	width:320px;
 }
 #gbutton {
 	font-family:"Nanum Gothic";
@@ -78,25 +65,37 @@ img{
 #gbutton:hover, #gbutton:active, #gbutton:focus {
 	background: #43A047;
 }
+#wbutton{
+	font-family:"Nanum Gothic";
+	font-weight: 500;
+	text-transform: uppercase;
+	outline: 0;
+	background: #fff;
+	width: 70px;
+	border: 0;
+	padding: 5px;
+	border : 1px solid #ccc;
+	border-radius : 5px;
+	color: #191919;
+	font-size: 14px;
+	-webkit-transition: all 0.3 ease;
+	transition: all 0.3 ease;
+	cursor: pointer;
+}
+#wbutton:active{
+	background: #F6F6F6;
+}
 #top_menu{
 	background-color:#333;
 	color:white;
 	height:40px;
 }
-#tr_total{
-	background-color:#F6F6F6;
-	height:180px;
-}
 #td_check{
-	width:50px;
-	text-align:center;
+	width:20px;
 }
 #td_info{
 	color:#5D5D5D;
 	font-size:14px;
-}
-#seldel{
-	width:300px;
 }
 </style>
 <script>
@@ -150,75 +149,54 @@ img{
 </div>
 
 <div class="pageform">
-	<h3>&nbsp;&nbsp;장바구니</h3>
+	<h3>&nbsp;&nbsp;회원관리</h3>
 	<hr color="#4CAF50" size="5">
 	<form action="#" method="post">
 	<div class="mypage">
-		<p id="seldel"><button onclick="location.href='#'" id="wbutton" style="width:70px;">선택삭제</button></p>
+		<p id="seldel"><button onclick="location.href='#'" id="wbutton">선택삭제</button></p>
 		<table cellspacing="0" cellpadding="0">
 			<tr id="top_menu">
-				<td id="td_check"><input type="checkbox" id="allCheck" name="allCheck" onClick="checkAll(this.form)"/></td>
-				<td colspan="2">상품명</td>
-				<td>가격</td>
-				<td>수량</td>
-				<td>삭제</td>
+				<td id="td_check">
+				<input type="checkbox" id="allCheck" name="allCheck" onClick="checkAll(this.form)"/></td>
+				<td>아이디</td>
+				<td>등급</td>
+				<td>주문금액</td>
+				<td>수정/삭제</td>
 			</tr>
 			<tr>
-				<td><input type="checkbox" id="remove" name="remove"/></td>
-				<td colspan="2">
-				<p>&nbsp;&nbsp;&nbsp;&nbsp;
-				<img src="images/apple.jpg" width="100px" align="center">
-				&nbsp;&nbsp;&nbsp;청송사과 1kg</p></td>
-				
-				<td>20000</td>
-				<td><input type="text" id="quant" name="quant" value="1" size="1">
-				<button onclick="location.href='#'" id="wbutton" style="width:50px;">변경</button>
-				</td>
-				<td><button onclick="location.href='#'" id="gbutton">삭제</button></td>
+				<td><input type="checkbox" id="remove" name="remove" /></td>
+				<td>aaa123</td>
+				<td>일반개인</td>
+				<td>123456원</td>
+				<td><button onclick="location.href='#'" id="gbutton">수정</button>
+				<button onclick="location.href='#'" id="gbutton">삭제</button></td>
 			</tr>
 			<tr>
-				<td><input type="checkbox" id="remove" name="remove"/></td>
-				<td colspan="2">
-				<p>&nbsp;&nbsp;&nbsp;&nbsp;
-				<img src="images/apple.jpg" width="100px" align="center">
-				&nbsp;&nbsp;&nbsp;청송사과 1kg</p></td>
-				<td>20000</td>
-				<td>1</td>
-				<td><button onclick="location.href='#'" id="gbutton">삭제</button></td>
+				<td><input type="checkbox" id="remove" name="remove" /></td>
+				<td>aaa123</td>
+				<td>일반개인</td>
+				<td>123456원</td>
+				<td><button onclick="location.href='#'" id="gbutton">수정</button>
+				<button onclick="location.href='#'" id="gbutton">삭제</button></td>
 			</tr>
 			<tr>
-				<td><input type="checkbox" id="remove" name="remove"/></td>
-				<td colspan="2">
-				<p>&nbsp;&nbsp;&nbsp;&nbsp;
-				<img src="images/apple.jpg" width="100px" align="center">
-				&nbsp;&nbsp;&nbsp;청송사과 1kg</p></td>
-				<td>20000</td>
-				<td>1</td>
-				<td><button onclick="location.href='#'" id="gbutton">삭제</button></td>
+				<td><input type="checkbox" id="remove" name="remove" /></td>
+				<td>aaa123</td>
+				<td>일반개인</td>
+				<td>123456원</td>
+				<td><button onclick="location.href='#'" id="gbutton">수정</button>
+				<button onclick="location.href='#'" id="gbutton">삭제</button></td>
 			</tr>
 			<tr>
-				<td><input type="checkbox" id="remove" name="remove"/></td>
-				<td colspan="2">
-				<p>&nbsp;&nbsp;&nbsp;&nbsp;
-				<img src="images/apple.jpg" width="100px" align="center">
-				&nbsp;&nbsp;&nbsp;청송사과 1kg</p></td>
-				<td>20000</td>
-				<td>1</td>
-				<td><button onclick="location.href='#'" id="gbutton">삭제</button></td>
-			</tr>
-			<tr id="tr_total">
-				<td colspan="6">
-					<div>
-						<h5>총 주문 금액 <b>000000원</b></h5>
-						선택금액!!!!<br>
-						배송비 +3000원
-						<br><br>
-						<button onclick="location.href='#'">주문하기</button>
-					</div>
-				<td>
+				<td><input type="checkbox" id="remove" name="remove" /></td>
+				<td>aaa123</td>
+				<td>일반개인</td>
+				<td>123456원</td>
+				<td><button onclick="location.href='#'" id="gbutton">수정</button>
+				<button onclick="location.href='#'" id="gbutton">삭제</button></td>
 			</tr>
 			<tr>
-				<td colspan="6" id="td_info">
+				<td colspan="5" id="td_info">
 					<a href="#">둘러보기</a>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
 					<a href="#">배송비정책</a>
 				</td>
