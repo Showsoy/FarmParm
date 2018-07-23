@@ -7,7 +7,19 @@
 <title>Insert title here</title>
 </head>
 <body>
-
+<div class="header">
+   <a href="main.jsp"><img src="images/farm_logo.png" width="150px"></a>
+  <div>A website created by me.</div>
+  <div class="right">
+	  <a href="login.jsp">로그인</a>&nbsp;
+	  <a href="joinForm.jsp">회원가입</a>&nbsp;
+	  <a href="myPage.jsp">마이페이지</a>&nbsp;
+	  <a href="myOrders.jsp">주문/배송</a>&nbsp;
+	   <a href="cs_center.jsp">고객센터</a>&nbsp;
+	  <a href="cart.jsp">장바구니</a>&nbsp;
+  </div>
+</div>
+<div class="navbar">
 	<ul>
    <li class="dropdown">
     <a href="#" id="menu"><img src="images/menu.png" width="24px" height="27px"/></a>
@@ -48,6 +60,6 @@
   <li><a href="mf.jsp" class="dropbtn">&nbsp;&nbsp;&nbsp;가공류&nbsp;&nbsp;&nbsp;</a></li>
   <li><a href="market.jsp" id="market" target="_blank">&nbsp;&nbsp;팜팜마켓&nbsp;&nbsp;</a></li>
 </ul>
-
+</div>
 </body>
 </html>
