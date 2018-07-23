@@ -1,25 +1,17 @@
 -- MySQL Workbench Forward Engineering
 
-SET @OLD_UNIQUE_CHECKS=@@UNIQUE_CHECKS, UNIQUE_CHECKS=0;
-SET @OLD_FOREIGN_KEY_CHECKS=@@FOREIGN_KEY_CHECKS, FOREIGN_KEY_CHECKS=0;
-SET @OLD_SQL_MODE=@@SQL_MODE, SQL_MODE='TRADITIONAL,ALLOW_INVALID_DATES';
-
--- -----------------------------------------------------
--- Schema java2b
--- -----------------------------------------------------
-
 -- -----------------------------------------------------
 -- Schema java2b
 -- -----------------------------------------------------
 CREATE SCHEMA IF NOT EXISTS `java2b` DEFAULT CHARACTER SET utf8 ;
-USE `java2b` ;
+USE `java2b`;
 
 -- -----------------------------------------------------
 -- Table `java2b`.`user`
 -- -----------------------------------------------------
-CREATE TABLE IF NOT EXISTS `java2b`.`user` (
+CREATE TABLE IF NOT EXISTS `java2b`.`users` (
   `user_id` VARCHAR(20) NOT NULL,
-  `password` VARCHAR(45) NOT NULL,
+  `passwd` VARCHAR(45) NOT NULL,
   `name` VARCHAR(45) NOT NULL,
   `phone` VARCHAR(50) NOT NULL,
   `birth` DATE NULL,
@@ -29,14 +21,13 @@ CREATE TABLE IF NOT EXISTS `java2b`.`user` (
   `email` VARCHAR(45) NULL,
   `grade` CHAR(2) NULL DEFAULT 'GI',
   PRIMARY KEY (`user_id`),
-  UNIQUE INDEX `user_id_UNIQUE` (`user_id` ASC))
-ENGINE = InnoDB;
+  UNIQUE INDEX `user_id_UNIQUE` (`user_id` ASC));
 
 
 -- -----------------------------------------------------
 -- Table `java2b`.`item`
 -- -----------------------------------------------------
-CREATE TABLE IF NOT EXISTS `java2b`.`item` (
+CREATE TABLE IF NOT EXISTS `java2b`.`items` (
   `item_code` CHAR(4) NOT NULL,
   `item_name` VARCHAR(45) NOT NULL,
   `price` INT NOT NULL,
@@ -45,9 +36,9 @@ CREATE TABLE IF NOT EXISTS `java2b`.`item` (
   `img_path` VARCHAR(50) NULL,
   `sale` INT NULL,
   `content` VARCHAR(200) NULL,
-  `is_hot` INT NULL,
-  PRIMARY KEY (`item_code`))
-ENGINE = InnoDB;
+  `is_hot` INT NULL DEFAULT 0,
+  PRIMARY KEY (`item_code`),
+  UNIQUE INDEX `item_code_idx` (`item_code` ASC));
 
 
 -- -----------------------------------------------------
@@ -56,19 +47,13 @@ ENGINE = InnoDB;
 CREATE TABLE IF NOT EXISTS `java2b`.`orders` (
   `order_id` CHAR(6) NOT NULL,
   `user_id` VARCHAR(20) NOT NULL,
-  `time` DATETIME NOT NULL,
+  `dati` DATETIME NOT NULL,
   `del_addr` VARCHAR(45) NOT NULL,
   `del_postcode` CHAR(5) NOT NULL,
   `depoint` INT NULL DEFAULT 0,
   `state` VARCHAR(10) NOT NULL,
   PRIMARY KEY (`order_id`),
-  INDEX `user_id_idx` (`user_id` ASC),
-  CONSTRAINT `user_id`
-    FOREIGN KEY (`user_id`)
-    REFERENCES `java2b`.`user` (`user_id`)
-    ON DELETE NO ACTION
-    ON UPDATE NO ACTION)
-ENGINE = InnoDB;
+  INDEX `order_id_idx` (`order_id` ASC));
 
 
 -- -----------------------------------------------------
@@ -79,19 +64,7 @@ CREATE TABLE IF NOT EXISTS `java2b`.`order_item` (
   `order_id` CHAR(6) NOT NULL,
   `amount` INT NULL DEFAULT 0,
   `price` INT NULL,
-  PRIMARY KEY (`item_code`, `order_id`),
-  INDEX `order_id_idx` (`order_id` ASC),
-  CONSTRAINT `order_id`
-    FOREIGN KEY (`order_id`)
-    REFERENCES `java2b`.`orders` (`order_id`)
-    ON DELETE NO ACTION
-    ON UPDATE NO ACTION,
-  CONSTRAINT `item_code`
-    FOREIGN KEY (`item_code`)
-    REFERENCES `java2b`.`item` (`item_code`)
-    ON DELETE NO ACTION
-    ON UPDATE NO ACTION)
-ENGINE = InnoDB;
+  PRIMARY KEY (`item_code`, `order_id`));
 
 
 -- -----------------------------------------------------
@@ -100,16 +73,9 @@ ENGINE = InnoDB;
 CREATE TABLE IF NOT EXISTS `java2b`.`item_stock` (
   `item_code` CHAR(4) NOT NULL,
   `state` VARCHAR(10) NULL,
-  `date` DATE NULL,
+  `idate` DATE NULL,
   `amount` INT NULL,
-  `stock` INT NULL,
-  INDEX `item_code_idx` (`item_code` ASC),
-  CONSTRAINT `item_code`
-    FOREIGN KEY (`item_code`)
-    REFERENCES `java2b`.`item` (`item_code`)
-    ON DELETE NO ACTION
-    ON UPDATE NO ACTION)
-ENGINE = InnoDB;
+  `stock` INT NULL);
 
 
 -- -----------------------------------------------------
@@ -123,21 +89,8 @@ CREATE TABLE IF NOT EXISTS `java2b`.`review_board` (
   `subject` VARCHAR(45) NOT NULL,
   `img_path` VARCHAR(50) NULL,
   `has_re` INT NULL DEFAULT 0,
-  `date` DATE NULL,
-  PRIMARY KEY (`rboard_num`),
-  INDEX `item_code_idx` (`item_code` ASC),
-  INDEX `user_id_idx` (`user_id` ASC),
-  CONSTRAINT `user_id`
-    FOREIGN KEY (`user_id`)
-    REFERENCES `java2b`.`user` (`user_id`)
-    ON DELETE NO ACTION
-    ON UPDATE NO ACTION,
-  CONSTRAINT `item_code`
-    FOREIGN KEY (`item_code`)
-    REFERENCES `java2b`.`item` (`item_code`)
-    ON DELETE NO ACTION
-    ON UPDATE NO ACTION)
-ENGINE = InnoDB;
+  `rdate` DATE NULL,
+  PRIMARY KEY (`rboard_num`));
 
 
 -- -----------------------------------------------------
@@ -151,21 +104,8 @@ CREATE TABLE IF NOT EXISTS `java2b`.`qna_board` (
   `subject` VARCHAR(45) NOT NULL,
   `img_path` VARCHAR(50) NULL,
   `has_re` INT NULL DEFAULT 0,
-  `date` DATE NULL,
-  PRIMARY KEY (`qboard_num`),
-  INDEX `user_id_idx` (`user_id` ASC),
-  INDEX `item_code_idx` (`item_code` ASC),
-  CONSTRAINT `user_id`
-    FOREIGN KEY (`user_id`)
-    REFERENCES `java2b`.`user` (`user_id`)
-    ON DELETE NO ACTION
-    ON UPDATE NO ACTION,
-  CONSTRAINT `item_code`
-    FOREIGN KEY (`item_code`)
-    REFERENCES `java2b`.`item` (`item_code`)
-    ON DELETE NO ACTION
-    ON UPDATE NO ACTION)
-ENGINE = InnoDB;
+  `qdate` DATE NULL,
+  PRIMARY KEY (`qboard_num`));
 
 
 -- -----------------------------------------------------
@@ -177,10 +117,8 @@ CREATE TABLE IF NOT EXISTS `java2b`.`notice` (
   `subject` VARCHAR(45) NOT NULL,
   `img_path` VARCHAR(50) NULL,
   `readcount` INT NULL DEFAULT 0,
-  `date` VARCHAR(45) NULL,
-  `date` DATE NULL,
-  PRIMARY KEY (`no_num`))
-ENGINE = InnoDB;
+  `ndate` DATE NULL,
+  PRIMARY KEY (`no_num`));
 
 
 -- -----------------------------------------------------
@@ -193,36 +131,26 @@ CREATE TABLE IF NOT EXISTS `java2b`.`cs_board` (
   `subject` VARCHAR(45) NOT NULL,
   `img_path` VARCHAR(50) NULL,
   `has_re` INT NULL DEFAULT 0,
-  `date` DATE NULL,
-  PRIMARY KEY (`cs_num`),
-  INDEX `fk_cs_board_user1_idx` (`user_id` ASC),
-  CONSTRAINT `fk_cs_board_user1`
-    FOREIGN KEY (`user_id`)
-    REFERENCES `java2b`.`user` (`user_id`)
-    ON DELETE NO ACTION
-    ON UPDATE NO ACTION)
-ENGINE = InnoDB;
+  `cdate` DATE NULL,
+  PRIMARY KEY (`cs_num`));
 
-USE `java2b` ;
-
--- -----------------------------------------------------
--- Placeholder table for view `java2b`.`order_view`
--- -----------------------------------------------------
-CREATE TABLE IF NOT EXISTS `java2b`.`order_view` (`order_id` INT, `user_id` INT, `time` INT, `del_addr` INT, `del_postcode` INT, `depoint` INT, `state` INT, `item_code` INT, `amount` INT, `price` INT);
-
--- -----------------------------------------------------
--- View `java2b`.`order_view`
--- -----------------------------------------------------
-DROP TABLE IF EXISTS `java2b`.`order_view`;
 USE `java2b`;
-CREATE  OR REPLACE VIEW `order_view` AS
-    SELECT 
-        *
-    FROM
-        orders
-            RIGHT OUTER JOIN
-        order_item ON orders.order_id = order_item.order_id;
 
-SET SQL_MODE=@OLD_SQL_MODE;
-SET FOREIGN_KEY_CHECKS=@OLD_FOREIGN_KEY_CHECKS;
-SET UNIQUE_CHECKS=@OLD_UNIQUE_CHECKS;
+
+INSERT INTO items VALUES('F001','청송사과',123,'청송','fruit','apple.jpg',0,'빨간맛',0);
+INSERT INTO items VALUES('F002','얼음골사과',222,'밀양','fruit','apple.jpg',0,'파란맛',0);
+
+INSERT INTO item_stock VALUES('F001','입고','2018-07-01',444,444);
+INSERT INTO item_stock VALUES('F001','출고','2018-07-03',11,433);
+INSERT INTO item_stock VALUES('F001','출고','2018-07-10',33,400);
+INSERT INTO item_stock VALUES('F002','입고','2018-07-12',33,33);
+INSERT INTO item_stock VALUES('F002','출고','2018-07-13',3,30);
+
+CREATE VIEW order_view AS SELECT order_item.order_id AS order_id, items.item_name AS item_name, items.price AS price, items.sale AS sale FROM order_item LEFT OUTER JOIN items ON order_item.item_code = items.item_code;
+CREATE VIEW item_view AS SELECT items.item_code AS item_code, items.category AS category, items.item_name AS item_name, items.price AS price, item_stock.stock AS stock, (SELECT SUM(amount) FROM item_stock WHERE item_stock.state='출고' AND items.item_code = item_stock.item_code) AS purchase FROM items RIGHT OUTER JOIN item_stock ON items.item_code = item_stock.item_code;
+
+--------------------------
+------주문량(purchase) 미결정
+--------------------------
+
+

@@ -6,6 +6,12 @@
 <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
 <title>Insert title here</title>
 <style>
+footer {
+    padding: 24px; /* some padding */
+    text-align:center;
+    background: #333; /* green background */
+    color:white;/* white text color */
+}
 table{
 	border:0;
 }
@@ -27,9 +33,9 @@ td img{
 <link rel="stylesheet" href="https://www.w3schools.com/w3css/3/w3.css">
 <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.6.3/css/font-awesome.min.css">
 <body>
-<jsp:include page="top_menu.jsp" flush="false"/>
+<jsp:include page="/common/top_menu.jsp" flush="false"/>
 <div class="pageform">
-	<h3>&nbsp;&nbsp;쌀/잡곡</h3>
+	<h3>&nbsp;&nbsp;과일</h3>
 	<hr color="#4CAF50" size="5">
 	<div class="mypage">
 

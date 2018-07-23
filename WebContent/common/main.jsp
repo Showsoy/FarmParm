@@ -15,7 +15,7 @@
 <script type="text/javascript" src="path/to/jQuery.js"></script>
 <script src="http://code.jquery.com/jquery.min.js"></script>
 <body>
-<jsp:include page="top_menu.jsp" flush="false"/>
+<jsp:include page="/common/top_menu.jsp" flush="false"/>
 <section>
   <img class="mySlides" src="images/slide1.jpg" style="width:100%">
   <img class="mySlides" src="images/slide2.jpg" style="width:100%">

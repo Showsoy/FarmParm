@@ -5,33 +5,28 @@
 <head>
 <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
 <title>Insert title here</title>
+<meta name="viewport" content="width=device-width, initial-scale=1">
 <style>
-table{
-	border:0;
-}
-th, td {
-    border-bottom: 1px solid #ddd;
-    height:50px;
-}
-td img{
-	height:100%;
-	border:0;
-}
 </style>
 </head>
 <link rel="stylesheet" type="text/css" href="style/style.css">
 <link rel="stylesheet" href="https://www.w3schools.com/w3css/3/w3.css">
 <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.6.3/css/font-awesome.min.css">
 <body>
-<jsp:include page="top_menu.jsp" flush="false"/>
+<jsp:include page="/common/top_menu.jsp" flush="false"/>
+<script>
+</script>
 <div class="pageform">
-	<h3>&nbsp;&nbsp;오시는 길</h3>
+	<h3>&nbsp;&nbsp;농원소개</h3>
 	<hr color="#4CAF50" size="5">
 	<div class="mypage">
-	
+		<section class="w3-container w3-center">
+  			<img class="mySlides" src="images/nong.jpg" style="width:100%">
+		</section>
 	</div>
-	
 </div>
+<br><br><br>
+
 <footer>
   <a href="#"><i class="fa fa-facebook-official"></i></a>
   <a href="#"><i class="fa fa-pinterest-p"></i></a>

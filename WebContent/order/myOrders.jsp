@@ -6,18 +6,6 @@
 <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
 <title>Insert title here</title>
 <style>
-#top_menu{
-	background-color:#333;
-	color:white;
-	height:40px;
-}
-#td_check{
-	width:50px;
-}
-#td_info{
-	color:#5D5D5D;
-	font-size:14px;
-}
 table{
 	margin:0 auto;
 	border-collapse: collapse;
@@ -34,7 +22,54 @@ td{
 td p{
 	text-height:100%;
 	float:left;
-	padding: 0 0 0 10px;
+}
+.mypage button {
+	font-family:"Nanum Gothic";
+	font-weight: 700;
+	text-transform: uppercase;
+	outline: 0;
+	background: #4CAF50;
+	width: 60px;
+	border: 0;
+	padding: 5px;
+	color: #FFFFFF;
+	font-size: 14px;
+	-webkit-transition: all 0.3 ease;
+	transition: all 0.3 ease;
+	cursor: pointer;
+}
+.mypage button:hover, .mypage button:active, .mypage button:focus {
+	background: #43A047;
+}
+input{
+	font-family:"Nanum Gothic";
+	font-weight: 700;
+	text-transform: uppercase;
+	outline: 0;
+	background: black;
+	width: 100px;
+	border: 0;
+	padding: 5px;
+	color: #FFFFFF;
+	font-size: 18px;
+	-webkit-transition: all 0.3 ease;
+	transition: all 0.3 ease;
+	cursor: pointer;
+}
+input:hover, .mypage button:active, .mypage button:focus {
+	background: #191919;
+}
+#top_menu{
+	background-color:#333;
+	color:white;
+	height:40px;
+}
+#td_check{
+	width:50px;
+}
+#td_info{
+	color:#5D5D5D;
+	font-size:14px;
 }
 </style>
 </head>
@@ -42,69 +77,50 @@ td p{
 <link rel="stylesheet" href="https://www.w3schools.com/w3css/3/w3.css">
 <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.6.3/css/font-awesome.min.css">
 <body>
-<div class="header">
-   <a href="main.jsp"><img src="images/farm_logo.png" width="150px"></a>
-  <div>A website created by me.</div>
-  <div class="right">
-	  <a href="login.jsp">로그인</a>&nbsp;
-	  <a href="joinForm.jsp">회원가입</a>&nbsp;
-	  <a href="myPage.jsp">마이페이지</a>&nbsp;
-	  <a href="myOrders.jsp">주문/배송</a>&nbsp;
-	   <a href="cs_center.jsp">고객센터</a>&nbsp;
-	  <a href="cart.jsp">장바구니</a>&nbsp;
-  </div>
-  
-</div>   
-<div class="navbar">
-	<jsp:include page="top_menu.jsp" flush="false"/>
-</div>
+<jsp:include page="/common/top_menu.jsp" flush="false"/>
 <div class="pageform">
-	<h3>&nbsp;&nbsp;안내사항</h3>
+	<h3>&nbsp;&nbsp;주문/배송 조회</h3>
 	<hr color="#4CAF50" size="5">
 	<div class="mypage">
 		<table cellspacing="0" cellpadding="0">
 			<tr id="top_menu">
-				<td id="td_check">번호</td>
-				<td colspan="2">제목</td>
-				<td>작성자</td>
-				<td>작성일</td>
-				<td>조회수</td>
+				<td>주문일</td>
+				<td>주문번호</td>
+				<td>수령인</td>
+				<td>주문상품</td>
+				<td>조회</td>
 			</tr>
 			<tr>
-				<td>1</td>
-				<td colspan="2">
-				<p>오늘부터 10퍼센트 세일한다</p></td>
-				<td>나래</td>
 				<td>2018-07-07</td>
-				<td>1</td>
+				<td>0001</td>
+				<td>박나래</td>
+				<td>청송사과 외</td>
+				<td><button onclick="location.href='#'">조회</button></td>
 			</tr>
 			<tr>
-				<td>1</td>
-				<td colspan="2">
-				<p>회원가입 2000포인트 준다</p></td>
-				<td>나래</td>
 				<td>2018-07-07</td>
-				<td>1</td>
+				<td>0001</td>
+				<td>박나래</td>
+				<td>청송사과 외</td>
+				<td><button onclick="location.href='#'">조회</button></td>
 			</tr>
 			<tr>
-				<td>1</td>
-				<td colspan="2">
-				<p>마켓도 열거다</p></td>
-				<td>나래</td>
 				<td>2018-07-07</td>
-				<td>1</td>
+				<td>0001</td>
+				<td>박나래</td>
+				<td>청송사과 외</td>
+				<td><button onclick="location.href='#'">조회</button></td>
 			</tr>
 			<tr>
-				<td>1</td>
-				<td colspan="2">
-				<p>농장 개업했따</p></td>
-				<td>나래</td>
 				<td>2018-07-07</td>
-				<td>1</td>
+				<td>0001</td>
+				<td>박나래</td>
+				<td>청송사과 외</td>
+				<td><button onclick="location.href='#'">조회</button></td>
 			</tr>
 			<tr>
 				<td colspan="6" id="td_info"><!-- 페이지 수 넣을 것임 -->
-					<a href="#">둘러보기</a>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+					<a href="#">둘러보기</a>&nbsp;&nbsp;&nbsp;&nbsp;
 					<a href="#">배송비정책</a>
 				</td>
 			</tr>
