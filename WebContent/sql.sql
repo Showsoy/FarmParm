@@ -17,9 +17,9 @@ USE `java2b` ;
 -- -----------------------------------------------------
 -- Table `java2b`.`user`
 -- -----------------------------------------------------
-CREATE TABLE IF NOT EXISTS `java2b`.`user` (
+CREATE TABLE IF NOT EXISTS `java2b`.`users` (
   `user_id` VARCHAR(20) NOT NULL,
-  `password` VARCHAR(45) NOT NULL,
+  `passwd` VARCHAR(45) NOT NULL,
   `name` VARCHAR(45) NOT NULL,
   `phone` VARCHAR(50) NOT NULL,
   `birth` DATE NULL,
@@ -45,7 +45,7 @@ CREATE TABLE IF NOT EXISTS `java2b`.`item` (
   `img_path` VARCHAR(50) NULL,
   `sale` INT NULL,
   `content` VARCHAR(200) NULL,
-  `is_hot` INT NULL,
+  `is_hot` INT NULL DEFAULT 0,
   PRIMARY KEY (`item_code`))
 ENGINE = InnoDB;
 
@@ -56,7 +56,7 @@ ENGINE = InnoDB;
 CREATE TABLE IF NOT EXISTS `java2b`.`orders` (
   `order_id` CHAR(6) NOT NULL,
   `user_id` VARCHAR(20) NOT NULL,
-  `time` DATETIME NOT NULL,
+  `dati` DATETIME NOT NULL,
   `del_addr` VARCHAR(45) NOT NULL,
   `del_postcode` CHAR(5) NOT NULL,
   `depoint` INT NULL DEFAULT 0,
@@ -65,9 +65,9 @@ CREATE TABLE IF NOT EXISTS `java2b`.`orders` (
   INDEX `user_id_idx` (`user_id` ASC),
   CONSTRAINT `user_id`
     FOREIGN KEY (`user_id`)
-    REFERENCES `java2b`.`user` (`user_id`)
+    REFERENCES `java2b`.`users` (`user_id`)
     ON DELETE NO ACTION
-    ON UPDATE NO ACTION)
+    ON UPDATE CASCADE)
 ENGINE = InnoDB;
 
 
@@ -90,7 +90,7 @@ CREATE TABLE IF NOT EXISTS `java2b`.`order_item` (
     FOREIGN KEY (`item_code`)
     REFERENCES `java2b`.`item` (`item_code`)
     ON DELETE NO ACTION
-    ON UPDATE NO ACTION)
+    ON UPDATE CASCADE)
 ENGINE = InnoDB;
 
 
@@ -100,7 +100,7 @@ ENGINE = InnoDB;
 CREATE TABLE IF NOT EXISTS `java2b`.`item_stock` (
   `item_code` CHAR(4) NOT NULL,
   `state` VARCHAR(10) NULL,
-  `date` DATE NULL,
+  `idate` DATE NULL,
   `amount` INT NULL,
   `stock` INT NULL,
   INDEX `item_code_idx` (`item_code` ASC),
@@ -108,7 +108,7 @@ CREATE TABLE IF NOT EXISTS `java2b`.`item_stock` (
     FOREIGN KEY (`item_code`)
     REFERENCES `java2b`.`item` (`item_code`)
     ON DELETE NO ACTION
-    ON UPDATE NO ACTION)
+    ON UPDATE CASCADE)
 ENGINE = InnoDB;
 
 
@@ -123,7 +123,7 @@ CREATE TABLE IF NOT EXISTS `java2b`.`review_board` (
   `subject` VARCHAR(45) NOT NULL,
   `img_path` VARCHAR(50) NULL,
   `has_re` INT NULL DEFAULT 0,
-  `date` DATE NULL,
+  `rdate` DATE NULL,
   PRIMARY KEY (`rboard_num`),
   INDEX `item_code_idx` (`item_code` ASC),
   INDEX `user_id_idx` (`user_id` ASC),
@@ -131,12 +131,12 @@ CREATE TABLE IF NOT EXISTS `java2b`.`review_board` (
     FOREIGN KEY (`user_id`)
     REFERENCES `java2b`.`user` (`user_id`)
     ON DELETE NO ACTION
-    ON UPDATE NO ACTION,
+    ON UPDATE CASCADE,
   CONSTRAINT `item_code`
     FOREIGN KEY (`item_code`)
     REFERENCES `java2b`.`item` (`item_code`)
     ON DELETE NO ACTION
-    ON UPDATE NO ACTION)
+    ON UPDATE CASCADE)
 ENGINE = InnoDB;
 
 
@@ -151,21 +151,8 @@ CREATE TABLE IF NOT EXISTS `java2b`.`qna_board` (
   `subject` VARCHAR(45) NOT NULL,
   `img_path` VARCHAR(50) NULL,
   `has_re` INT NULL DEFAULT 0,
-  `date` DATE NULL,
-  PRIMARY KEY (`qboard_num`),
-  INDEX `user_id_idx` (`user_id` ASC),
-  INDEX `item_code_idx` (`item_code` ASC),
-  CONSTRAINT `user_id`
-    FOREIGN KEY (`user_id`)
-    REFERENCES `java2b`.`user` (`user_id`)
-    ON DELETE NO ACTION
-    ON UPDATE NO ACTION,
-  CONSTRAINT `item_code`
-    FOREIGN KEY (`item_code`)
-    REFERENCES `java2b`.`item` (`item_code`)
-    ON DELETE NO ACTION
-    ON UPDATE NO ACTION)
-ENGINE = InnoDB;
+  `qdate` DATE NULL,
+  PRIMARY KEY (`qboard_num`));
 
 
 -- -----------------------------------------------------
@@ -177,10 +164,8 @@ CREATE TABLE IF NOT EXISTS `java2b`.`notice` (
   `subject` VARCHAR(45) NOT NULL,
   `img_path` VARCHAR(50) NULL,
   `readcount` INT NULL DEFAULT 0,
-  `date` VARCHAR(45) NULL,
-  `date` DATE NULL,
-  PRIMARY KEY (`no_num`))
-ENGINE = InnoDB;
+  `ndate` DATE NULL,
+  PRIMARY KEY (`no_num`));
 
 
 -- -----------------------------------------------------
@@ -193,17 +178,14 @@ CREATE TABLE IF NOT EXISTS `java2b`.`cs_board` (
   `subject` VARCHAR(45) NOT NULL,
   `img_path` VARCHAR(50) NULL,
   `has_re` INT NULL DEFAULT 0,
-  `date` DATE NULL,
-  PRIMARY KEY (`cs_num`),
-  INDEX `fk_cs_board_user1_idx` (`user_id` ASC),
-  CONSTRAINT `fk_cs_board_user1`
-    FOREIGN KEY (`user_id`)
-    REFERENCES `java2b`.`user` (`user_id`)
-    ON DELETE NO ACTION
-    ON UPDATE NO ACTION)
-ENGINE = InnoDB;
+  `cdate` DATE NULL,
+  PRIMARY KEY (`cs_num`));
 
 USE `java2b` ;
+
+CREATE VIEW order_view AS SELECT order_item.order_id AS order_id, items.item_name AS item_name, items.price AS price, items.sale AS sale FROM order_item LEFT OUTER JOIN items ON order_item.item_code = items.item_code;
+CREATE VIEW 
+
 
 -- -----------------------------------------------------
 -- Placeholder table for view `java2b`.`order_view`
