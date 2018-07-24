@@ -144,10 +144,10 @@ function selectEmail(sel) {
 		<td id="td_left"><label for="userGrade">등급</label></td>
 		<td>
 		<select name="userGrade" id="userGrade">
-						<option value="gmail.com" selected>일반개인</option>
-						<option value="naver.com">일반사업</option>
-						<option value="naver.com">우수개인</option>
-						<option value="naver.com">우수사업</option>
+			<option value="gmail.com" selected>일반개인</option>
+			<option value="naver.com">일반사업</option>
+			<option value="naver.com">우수개인</option>
+			<option value="naver.com">우수사업</option>
 		</select>
 		</td>
 	</tr>

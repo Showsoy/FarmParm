@@ -166,7 +166,11 @@ INSERT INTO item_stock VALUES('F002','입고','2018-07-22',30,60,null);
 CREATE VIEW item_view AS SELECT items.item_code AS item_code, items.category AS category, items.item_name AS item_name, items.price AS price, item_stock.stock AS stock, (SELECT SUM(amount) FROM item_stock WHERE item_stock.state='출고' AND items.item_code = item_stock.item_code) AS purchase FROM items LEFT JOIN item_stock ON items.item_code = item_stock.item_code WHERE item_stock.inumber IN (SELECT MAX(inumber) FROM item_stock GROUP BY item_code);
 
 
+USE `java2b`;
+ALTER TABLE items ADD readcount int DEFAULT 0;
+DROP VIEW item_view;
+CREATE VIEW item_view AS SELECT items.item_code AS item_code, items.category AS category, items.img_path AS img_path, items.item_name AS item_name, items.price AS price, item_stock.stock AS stock, items.readcount AS readcount, (SELECT SUM(amount) FROM item_stock WHERE item_stock.state='출고' AND items.item_code = item_stock.item_code) AS purchase FROM items LEFT JOIN item_stock ON items.item_code = item_stock.item_code WHERE item_stock.inumber IN (SELECT MAX(inumber) FROM item_stock GROUP BY item_code);
+ALTER TABLE items DROP COLUMN is_hot;
 
---------------------------
-------주문량(purchase) 미결정
---------------------------
+create view user_view as select users.user_id as user_id, users.grade as grade, (select sum((select price*amount from order_item, orders where orders.order_id=order_item.order_id)) from orders) as userpay from users left join orders on users.user_id = orders.user_id;
+

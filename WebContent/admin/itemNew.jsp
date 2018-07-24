@@ -48,11 +48,44 @@ td, tr{
 .mypage button:hover, .mypage button:active, .mypage button:focus {
 	background: #191919;
 }
+#gbutton {
+	font-family:"Nanum Gothic";
+	font-weight: 700;
+	text-transform: uppercase;
+	outline: 0;
+	background: #4CAF50;
+	width: 70px;
+	border: 0;
+	padding: 5px;
+	color: #FFFFFF;
+	font-size: 14px;
+	-webkit-transition: all 0.3 ease;
+	transition: all 0.3 ease;
+	cursor: pointer;
+}
+#gbutton:hover, #gbutton:active, #gbutton:focus {
+	background: #43A047;
+}
 #td_left{
 	background-color:#F6F6F6;
 	width:100px;
 }
 </style>
+<script>
+function selCategory(sel) {
+	var choiceText = sel.options[sel.selectedIndex].text;
+	
+	if(choiceText!="선택"){
+		document.getElementById("codegen").innerHTML = "<input type='text' name='item_code' id='item_code' required='required' size='4'/>&nbsp;<button onclick='codeGen(this)' id='gbutton'>자동생성</button>";
+	}
+	if(choiceText=="선택"){
+		document.getElementById("codegen").innerHTML = "분류를 선택해주세요.";
+	}
+}
+function codeGen(f){
+	//곡물이 맞습니까?
+}
+</script>
 </head>
 <link rel="stylesheet" type="text/css" href="../style/style.css">
 <link rel="stylesheet" href="https://www.w3schools.com/w3css/3/w3.css">
@@ -63,29 +96,22 @@ td, tr{
 	<h3>&nbsp;&nbsp;상품등록</h3>
 	<hr color="#4CAF50" size="5">
 	<div class="mypage">
-	<form action="boardWritePro.bo" method="post" enctype="multipart/form-data" name="boardform">
+	<form action="itemRegistPro.im" method="post" enctype="multipart/form-data" name="itemnew">
 			<table>
 				<tr>
 					<td id="td_left">
-						<label for="BOARD_NAME">이름</label>
-					</td>
-					<td id="td_right" colspan="3">
-						<input type="text" name="BOARD_NAME" id="BOARD_NAME" required="required" size="40"/>
-					</td>
-				</tr>
-				<tr>
-					<td id="td_left">
-						<label for="BOARD_PASS">가격</label>
+						<label for="item_name">이름</label>
 					</td>
 					<td id="td_right">
-						<input type="password" name="BOARD_PASS" id="BOARD_PASS" required="required" size="10"/>원
+						<input type="text" name="item_name" id="item_name" required="required" size="20"/>
 					</td>
 					<td id="td_left">
-						<label for="BOARD_SUBJECT">분류</label>
+						<label for="category">분류</label>
 					</td>
 					<td id="td_right">
-						<select name="category" id="category">
-							<option value="vegetable" selected>채소</option>
+						<select name="category" id="category" onchange="selCategory(this)">
+							<option value="" selected>선택</option>
+							<option value="vegetable">채소</option>
 							<option value="fruit">과일</option>
 							<option value="grains">곡류</option>
 							<option value="tea">차</option>
@@ -95,32 +121,46 @@ td, tr{
 				</tr>
 				<tr>
 					<td id="td_left">
-						<label for="BOARD_SUBJECT">원산지</label>
+						<label for="price">가격</label>
 					</td>
 					<td id="td_right">
-						<input type="text" name="BOARD_SUBJECT" id="BOARD_SUBJECT" required="required"/>
+						<input type="text" name="price" id="price" required="required" size="10"/>원
 					</td>
 					<td id="td_left">
-						<label for="BOARD_SUBJECT">할인율</label>
+						<label for="item_code">코드</label>
 					</td>
-					<td id="td_right">
-						<input type="text" name="BOARD_SUBJECT" id="BOARD_SUBJECT" required="required" value="0" size="10"/>%
+					<td id="codegen">
+						분류를 선택해주세요.
 					</td>
 				</tr>
 				<tr>
 					<td id="td_left">
-						<label for="BOARD_CONTENT">내용</label>
+						<label for="origin">원산지</label>
+					</td>
+					<td id="td_right">
+						<input type="text" name="origin" id="origin" required="required"/>
+					</td>
+					<td id="td_left">
+						<label for="sale">할인율</label>
+					</td>
+					<td id="td_right">
+						<input type="text" name="sale" id="sale" required="required" value="0" size="10"/>%
+					</td>
+				</tr>
+				<tr>
+					<td id="td_left">
+						<label for="content">내용</label>
 					</td>	
 					<td colspan="3">
-						<textarea name="BOARD_CONTENT" id="BOARD_CONTENT" cols="60" rows="15" required="required"></textarea>
+						<textarea name="content" id="content" cols="60" rows="15" required="required"></textarea>
 					</td>
 				</tr>
 				<tr>
 					<td id="td_left">
-						<label for="BOARD_FILE">파일 첨부</label>
+						<label for="img_path">파일 첨부</label>
 					</td>
 					<td id="td_right" colspan="3">
-						<input type="file" name="BOARD_FILE" id="BOARD_FILE"/>
+						<input type="file" name="img_path" id="img_path"/>
 					</td>
 				</tr>
 			</table>

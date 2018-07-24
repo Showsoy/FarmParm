@@ -8,7 +8,7 @@
 		password="java"
 		driverClassName="com.mysql.jdbc.Driver"
 		factory="org.apache.tomcat.dbcp.dbcp2.BasicDataSourceFactory"
-		url="jdbc:mysql://localhost:3306/farmparm"
+		url="jdbc:mysql://localhost:3306/java2b"
 		maxActive="500"
 	/>
 </Context>

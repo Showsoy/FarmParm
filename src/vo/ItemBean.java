@@ -9,10 +9,14 @@ public class ItemBean {
 	private String img_path;
 	private int sale;
 	private String content;
-	private int is_hot;
+	private int readcount;
 
 	public ItemBean(String item_code, String item_name, int price, String origin, String category, String img_path,
+<<<<<<< HEAD:src/vo/ItemBean.java
 			int sale, String content, int is_hot) {
+=======
+			int sale, String content, int readcount) {
+>>>>>>> e0759d406d9f2a18ac113ed57f115c5944806e06:src/vo/ItemBean.java
 		super();
 		this.item_code = item_code;
 		this.item_name = item_name;
@@ -22,7 +26,7 @@ public class ItemBean {
 		this.img_path = img_path;
 		this.sale = sale;
 		this.content = content;
-		this.is_hot = is_hot;
+		this.readcount = readcount;
 	}
 	
 	public String getItem_code() {
@@ -73,11 +77,11 @@ public class ItemBean {
 	public void setContent(String content) {
 		this.content = content;
 	}
-	public int getIs_hot() {
-		return is_hot;
+	public int getReadcount() {
+		return readcount;
 	}
-	public void setIs_hot(int is_hot) {
-		this.is_hot = is_hot;
+	public void setReadcount(int readcount) {
+		this.readcount = readcount;
 	}
 	
 }
