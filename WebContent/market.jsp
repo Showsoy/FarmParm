@@ -193,7 +193,7 @@ li.dropdown {
 <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.6.3/css/font-awesome.min.css">
 <body>
 <div class="header">
-   <a href="main.jsp"><img src="images/farm_logo.png" width="150px"></a>
+   <a href="common/main.jsp"><img src="images/farm_logo.png" width="150px"></a>
   <div>A website created by me.</div>
 </div>
 

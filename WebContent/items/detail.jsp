@@ -53,7 +53,7 @@
 #detail_board tr:nth-child(even) {background-color: #f2f2f2;}
 </style>
 </head>
-<link rel="stylesheet" type="text/css" href="style/style.css">
+<link rel="stylesheet" type="text/css" href="../style/style.css">
 <link rel="stylesheet" href="https://www.w3schools.com/w3css/3/w3.css">
 <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.6.3/css/font-awesome.min.css">
 <body>
@@ -62,11 +62,11 @@
 		<h4>&nbsp;&nbsp;최근 본 상품</h4>
 		<table>
 		<tr>
-			<td><img src="images/apple.jpg"/></td>
-			<td><img src="images/apple.jpg"/></td>
-			<td><img src="images/apple.jpg"/></td>
-			<td><img src="images/apple.jpg"/></td>
-			<td><img src="images/apple.jpg"/></td>
+			<td><img src="../images/apple.jpg"/></td>
+			<td><img src="../images/apple.jpg"/></td>
+			<td><img src="../images/apple.jpg"/></td>
+			<td><img src="../images/apple.jpg"/></td>
+			<td><img src="../images/apple.jpg"/></td>
 		</tr>
 		</table>
 	</div>
@@ -76,7 +76,7 @@
 	<div class="mypage">
 	<table cellspacing="0" cellpadding="0" class="detail_table">
 	<tr>
-		<th rowspan="5"><img src="images/apple.jpg" width="300px"></th>
+		<th rowspan="5"><img src="../images/apple.jpg" width="300px"></th>
 		<td id="td_left">상품명</td>
 		<td><h2>청송사과 1kg</h2></td>
 	</tr>
@@ -100,9 +100,9 @@
 		<td colspan="3" id="td_info">총 2222원</td>
 	</tr>
 	<tr>
-		<td colspan="3" id="td_info"><button onclick="location.href='cart.jsp'">장바구니</button> 
+		<td colspan="3" id="td_info"><button onclick="location.href='../order/cart.jsp'">장바구니</button> 
 	
-			<button onclick="location.href='order.jsp'">바로구매</button></td>
+			<button onclick="location.href='../order/order.jsp'">바로구매</button></td>
 	</tr>
 </table>
 <br><br>
@@ -110,7 +110,7 @@
 <div class="goods_detail">
 	<h2>짱 맛있음</h2>
 	<h3>상품 소개</h3>
-	<img src="images/applefarm.jpg">
+	<img src="../images/applefarm.jpg">
 	<br><br>
 	<p>
 		2018년 6월, 유시민이 신간으로 찾아왔다. 경제학도, 정치가, '지식소매상'에서 최근에는 방송인으로도 종횡무진 활동하는 작가 유시민이 오랜 독서와 글쓰기의 원점인 역사 속으로 돌아왔다. 2017년 정의로운 국가의 모습과 시민의 역할을 모색한 국가란 무엇인가로 독자들의 뜨거운 반응을 얻은 이후, 유시민은 공부의 화두를 옮겨 동서양의 역사서들을 탐독하며 '역사란 무엇인가' 질문하고 답을 찾았다. 그 지적 탐구를 담은 역사의 역사는 유시민이 공개하는 역사 공부 노트이자 독자들과 함께 역사를 읽는 초대장이다.

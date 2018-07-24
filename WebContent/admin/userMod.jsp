@@ -117,7 +117,7 @@ function selectEmail(sel) {
 	}
 }
 </script>
-<link rel="stylesheet" type="text/css" href="style/style.css">
+<link rel="stylesheet" type="text/css" href="../style/style.css">
 <link rel="stylesheet" href="https://www.w3schools.com/w3css/3/w3.css">
 <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.6.3/css/font-awesome.min.css">
 <body>
@@ -236,8 +236,8 @@ function selectEmail(sel) {
 <br><br>
 			<button type="submit">수정</button> 
 	
-			<button onclick="location.href='userlist.jsp'">삭제</button>
-			<button onclick="location.href='userlist.jsp'">목록</button> 
+			<button onclick="location.href='userList.jsp'">삭제</button>
+			<button onclick="location.href='userList.jsp'">목록</button> 
 		</form>
 	</div>
 </div>

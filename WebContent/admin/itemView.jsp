@@ -136,9 +136,9 @@
 		<td colspan="3" id="td_info">총 2222원</td>
 	</tr>
 	<tr>
-		<td colspan="3" id="td_info"><button onclick="location.href='cart.jsp'">수정하기</button> 
+		<td colspan="3" id="td_info"><button onclick="location.href='../order/cart.jsp'">수정하기</button> 
 	
-			<button onclick="location.href='order.jsp'">삭제하기</button></td>
+			<button onclick="location.href='../order/order.jsp'">삭제하기</button></td>
 	</tr>
 </table>
 <br><br>

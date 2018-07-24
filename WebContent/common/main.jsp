@@ -50,7 +50,7 @@ function carousel() {
 				<div class="caption">
 					<h1>사과</h1>
 					<p>
-						<br><a href="detail.jsp">상품보러가기</a><br><a href="#">장바구니</a>
+						<br><a href="../items/detail.jsp">상품보러가기</a><br><a href="#">장바구니</a>
 					</p>
 				</div>
 			</li>

@@ -138,7 +138,7 @@ img{
 				<td>과일</td>
 				<td colspan="2">
 				<p>&nbsp;&nbsp;&nbsp;&nbsp;
-				<img src="images/apple.jpg" width="100px" align="center">
+				<img src="../images/apple.jpg" width="100px" align="center">
 				&nbsp;&nbsp;&nbsp;청송사과 1kg</p></td>
 				
 				<td>20000</td>
@@ -152,7 +152,7 @@ img{
 				<td>과일</td>
 				<td colspan="2">
 				<p>&nbsp;&nbsp;&nbsp;&nbsp;
-				<img src="images/apple.jpg" width="100px" align="center">
+				<img src="../images/apple.jpg" width="100px" align="center">
 				&nbsp;&nbsp;&nbsp;청송사과 1kg</p></td>
 				<td>20000</td>
 				<td>1</td>
@@ -165,7 +165,7 @@ img{
 				<td>과일</td>
 				<td colspan="2">
 				<p>&nbsp;&nbsp;&nbsp;&nbsp;
-				<img src="images/apple.jpg" width="100px" align="center">
+				<img src="../images/apple.jpg" width="100px" align="center">
 				&nbsp;&nbsp;&nbsp;청송사과 1kg</p></td>
 				<td>20000</td>
 				<td>1</td>
@@ -178,7 +178,7 @@ img{
 				<td>과일</td>
 				<td colspan="2">
 				<p>&nbsp;&nbsp;&nbsp;&nbsp;
-				<img src="images/apple.jpg" width="100px" align="center">
+				<img src="../images/apple.jpg" width="100px" align="center">
 				&nbsp;&nbsp;&nbsp;청송사과 1kg</p></td>
 				<td>20000</td>
 				<td>1</td>

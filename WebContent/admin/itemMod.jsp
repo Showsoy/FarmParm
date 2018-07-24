@@ -127,7 +127,7 @@ td, tr{
 			<br>
 			<section id="commandCell">
 				<button type="submit">등록</button>
-				<button onclick="location.href='/admin/adminPage.jsp'">목록</button> 
+				<button onclick="location.href='adminPage.jsp'">목록</button> 
 			</section>
 		</form>
 	</div>
