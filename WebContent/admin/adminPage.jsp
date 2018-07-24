@@ -47,7 +47,7 @@
 	<div class="mypage">
 	<div id="admin_menu">
 	<br><br>
-		<button onclick="location.href='../member/pwCheck.jsp'">회원관리</button>
+		<button onclick="location.href='../admin/userList.jsp'">회원관리</button>
 		<button onclick="location.href='../member/pwCheck.jsp'">입고등록</button><br>
 		<button onclick="location.href='../member/pwCheck.jsp'">상품등록</button>
 		<button onclick="location.href='../member/pwCheck.jsp'">상품목록</button>  
