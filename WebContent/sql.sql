@@ -146,8 +146,26 @@ INSERT INTO item_stock VALUES('F001','출고','2018-07-10',33,400);
 INSERT INTO item_stock VALUES('F002','입고','2018-07-12',33,33);
 INSERT INTO item_stock VALUES('F002','출고','2018-07-13',3,30);
 
+
 CREATE VIEW order_view AS SELECT order_item.order_id AS order_id, items.item_name AS item_name, items.price AS price, items.sale AS sale FROM order_item LEFT OUTER JOIN items ON order_item.item_code = items.item_code;
 CREATE VIEW item_view AS SELECT items.item_code AS item_code, items.category AS category, items.item_name AS item_name, items.price AS price, item_stock.stock AS stock, (SELECT SUM(amount) FROM item_stock WHERE item_stock.state='출고' AND items.item_code = item_stock.item_code) AS purchase FROM items RIGHT OUTER JOIN item_stock ON items.item_code = item_stock.item_code;
+
+USE `java2b`;
+DROP VIEW item_view;
+delete from item_stock;
+ALTER TABLE item_stock ADD inumber int primary key auto_increment;
+
+INSERT INTO item_stock VALUES('F001','입고','2018-07-01',444,444,1);
+INSERT INTO item_stock VALUES('F001','출고','2018-07-03',11,433,null);
+INSERT INTO item_stock VALUES('F001','출고','2018-07-10',33,400,null);
+INSERT INTO item_stock VALUES('F002','입고','2018-07-12',33,33,null);
+INSERT INTO item_stock VALUES('F002','출고','2018-07-13',3,30,null);
+INSERT INTO item_stock VALUES('F001','출고','2018-07-20',50,350,null);
+INSERT INTO item_stock VALUES('F002','입고','2018-07-22',30,60,null);
+
+CREATE VIEW item_view AS SELECT items.item_code AS item_code, items.category AS category, items.item_name AS item_name, items.price AS price, item_stock.stock AS stock, (SELECT SUM(amount) FROM item_stock WHERE item_stock.state='출고' AND items.item_code = item_stock.item_code) AS purchase FROM items LEFT JOIN item_stock ON items.item_code = item_stock.item_code WHERE item_stock.inumber IN (SELECT MAX(inumber) FROM item_stock GROUP BY item_code);
+
+
 
 --------------------------
 ------주문량(purchase) 미결정
