@@ -1,5 +1,18 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"
     pageEncoding="UTF-8"%>
+<%@ page import="vo.PageInfo" %>
+<%@ page import="vo.ItemBean" %>
+<%@ page import="java.util.*" %>
+<%@ page import="java.text.SimpleDateFormat" %>
+<%
+	ArrayList<ItemBean> itemList = (ArrayList<ItemBean>)request.getAttribute("itemList");
+	PageInfo pageInfo = (PageInfo)request.getAttribute("pageInfo");
+	int listCount = pageInfo.getListCount();
+	int nowPage = pageInfo.getPage();
+	int maxPage = pageInfo.getMaxPage();
+	int startPage = pageInfo.getStartPage();
+	int endPage = pageInfo.getEndPage();	
+%>
 <!DOCTYPE html PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN" "http://www.w3.org/TR/html4/loose.dtd">
 <html>
 <head>
@@ -133,6 +146,9 @@ img{
 				<td>재고</td>
 				<td>조회</td>
 			</tr>
+			<%
+				if(itemList!=null&&listCount>0){
+			%>
 			<tr>
 				<td><input type="checkbox" id="remove" name="remove"/></td>
 				<td>과일</td>
@@ -188,8 +204,30 @@ img{
 			</tr>
 			<tr>
 				<td colspan="6" id="td_info">
-					<a href="#">둘러보기</a>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
-					<a href="#">배송비정책</a>
+					<section id="pageList">
+		<%if(nowPage<=1){ %>
+			[이전]&nbsp;
+		<%}else{ %>
+			<a href="boardList.bo?page=<%=nowPage-1 %>">[이전]</a>&nbsp;
+		<%} %>
+		
+		<%for(int a=startPage;a<=endPage;a++){
+			if(a==nowPage){%>
+				[<%=a %>]
+			<%}else{ %>
+				<a href="boardList.bo?page=<%=a%>">[<%=a %>]</a>&nbsp;
+			<%} %>
+		<%} 
+		if(nowPage>=maxPage){%>
+			[다음]
+		<%}else{ %>
+			<a href="boardList.bo?page=<%=nowPage+1 %>">[다음]</a>
+		<%} %>
+	</section>
+	<%}else{
+	%>
+		<section id="emptyArea">등록된 글이 없습니다.</section>
+	<%} %>
 				</td>
 			</tr>
 		</table>

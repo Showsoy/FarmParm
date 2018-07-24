@@ -13,9 +13,10 @@ public class JdbcUtil {
 		Connection con = null;
 		
 		try {
+			System.out.println("DB");
 			Context initCtx = new InitialContext();
 			Context envCtx = (Context)initCtx.lookup("java:comp/env");
-			DataSource ds = (DataSource)envCtx.lookup("jdbc/java2b");
+			DataSource ds = (DataSource)envCtx.lookup("jdbc/MySQLDB");
 			//DataSource ds = (DataSource)initCtx.lookup("java:comp/env/jdbc/MySQLDB")
 			con = ds.getConnection();
 			con.setAutoCommit(false);

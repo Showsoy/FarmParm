@@ -53,6 +53,21 @@ td, tr{
 	width:100px;
 }
 </style>
+<script>
+function selCategory(sel) {
+	var choiceText = sel.options[sel.selectedIndex].text;
+	
+	if(choiceText!="선택"){
+		document.getElementById("codegen").innerHTML = "<input type='text' name='BOARD_NAME' id='BOARD_NAME' required='required' size='4'/>&nbsp;<button onclick='codeGen(this)' id='gbutton'>자동생성</button>";
+	}
+	if(choiceText=="선택"){
+		document.getElementById("codegen").innerHTML = "분류를 선택해주세요.";
+	}
+}
+function codeGen(f){
+	//곡물이 맞습니까?
+}
+</script>
 </head>
 <link rel="stylesheet" type="text/css" href="../style/style.css">
 <link rel="stylesheet" href="https://www.w3schools.com/w3css/3/w3.css">
@@ -69,8 +84,21 @@ td, tr{
 					<td id="td_left">
 						<label for="BOARD_NAME">이름</label>
 					</td>
-					<td id="td_right" colspan="3">
-						<input type="text" name="BOARD_NAME" id="BOARD_NAME" required="required" size="40"/>
+					<td id="td_right">
+						<input type="text" name="BOARD_NAME" id="BOARD_NAME" required="required" size="20"/>
+					</td>
+					<td id="td_left">
+						<label for="BOARD_SUBJECT">분류</label>
+					</td>
+					<td id="td_right">
+						<select name="category" id="category" onchange="selCategory(this)">
+							<option value="" selected>선택</option>
+							<option value="vegetable">채소</option>
+							<option value="fruit">과일</option>
+							<option value="grains">곡류</option>
+							<option value="tea">차</option>
+							<option value="mf">가공</option>
+						</select>
 					</td>
 				</tr>
 				<tr>
@@ -81,16 +109,10 @@ td, tr{
 						<input type="password" name="BOARD_PASS" id="BOARD_PASS" required="required" size="10"/>원
 					</td>
 					<td id="td_left">
-						<label for="BOARD_SUBJECT">분류</label>
+						<label for="BOARD_NAME">코드</label>
 					</td>
-					<td id="td_right">
-						<select name="category" id="category">
-							<option value="vegetable" selected>채소</option>
-							<option value="fruit">과일</option>
-							<option value="grains">곡류</option>
-							<option value="tea">차</option>
-							<option value="mf">가공</option>
-						</select>
+					<td id="codegen">
+						분류를 선택해주세요.
 					</td>
 				</tr>
 				<tr>
