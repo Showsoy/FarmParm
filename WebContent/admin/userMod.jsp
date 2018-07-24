@@ -121,24 +121,35 @@ function selectEmail(sel) {
 <link rel="stylesheet" href="https://www.w3schools.com/w3css/3/w3.css">
 <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.6.3/css/font-awesome.min.css">
 <body>
-<jsp:include page="top_menu.jsp" flush="false"/>
+<jsp:include page="/common/top_menu.jsp" flush="false"/>
 <div class="pageform">
-	<h3>&nbsp;&nbsp;개인정보수정</h3>
+	<h3>&nbsp;&nbsp;회원정보수정</h3>
 	<hr color="#4CAF50" size="5">
 	<div class="mypage">
 	<form action="#" method="post" onsubmit="return chkForm(this)">
 	<table cellspacing="0" cellpadding="0">
 	<tr>
 		<td id="td_left"><label for="userID">아이디</label> </td>
-		<td></td>
+		<td><input type="text" id="userID" name="userID" value="aaa123"></td>
 	</tr>
 	<tr>
-		<td id="td_left"><label for="userID">비밀번호</label> </td>
-		<td><button type="button" onclick="location.href='pw_modify.jsp'" id="gbutton">비밀번호 변경</button></td>
+		<td id="td_left"><label for="userPass">비밀번호</label> </td>
+		<td><input type="text" id="userPass" name="userPass"></td>
 	</tr>
 	<tr>
-		<td id="td_left"><label for="userID">이름</label></td>
-		<td>\</td>
+		<td id="td_left"><label for="userName">이름</label></td>
+		<td><input type="text" id="userName" name="userName" value="박나래"></td>
+	</tr>
+	<tr>
+		<td id="td_left"><label for="userGrade">등급</label></td>
+		<td>
+		<select name="userGrade" id="userGrade">
+						<option value="gmail.com" selected>일반개인</option>
+						<option value="naver.com">일반사업</option>
+						<option value="naver.com">우수개인</option>
+						<option value="naver.com">우수사업</option>
+		</select>
+		</td>
 	</tr>
 	<tr>
 		<td id="td_left"><label for="userPhone">연락처</label></td>
@@ -225,7 +236,8 @@ function selectEmail(sel) {
 <br><br>
 			<button type="submit">수정</button> 
 	
-			<button onclick="location.href='myPage.jsp'">돌아가기</button> 
+			<button onclick="location.href='userlist.jsp'">삭제</button>
+			<button onclick="location.href='userlist.jsp'">목록</button> 
 		</form>
 	</div>
 </div>

@@ -8,7 +8,7 @@
 </head>
 <body>
 <div class="header">
-   <a href="main.jsp"><img src="images/farm_logo.png" width="150px"></a>
+   <a href="main.jsp"><img src="../images/farm_logo.png" width="150px"></a>
   <div>A website created by me.</div>
   <div class="right">
 	  <a href="login.jsp">로그인</a>&nbsp;
@@ -22,7 +22,7 @@
 <div class="navbar">
 	<ul>
    <li class="dropdown">
-    <a href="#" id="menu"><img src="images/menu.png" width="24px" height="27px"/></a>
+    <a href="#" id="menu"><img src="../images/menu.png" width="24px" height="27px"/></a>
     <div class="maindown-content">
 	     <div class="list">
 	      <a href="introduction.jsp">

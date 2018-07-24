@@ -58,7 +58,7 @@ td, tr{
 <link rel="stylesheet" href="https://www.w3schools.com/w3css/3/w3.css">
 <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.6.3/css/font-awesome.min.css">
 <body>
-<jsp:include page="top_menu.jsp" flush="false"/>
+<jsp:include page="/common/top_menu.jsp" flush="false"/>
 <div class="pageform">
 	<h3>&nbsp;&nbsp;개인정보</h3>
 	<hr color="#4CAF50" size="5">

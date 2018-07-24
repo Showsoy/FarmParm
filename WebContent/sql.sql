@@ -17,9 +17,9 @@ USE `java2b` ;
 -- -----------------------------------------------------
 -- Table `java2b`.`user`
 -- -----------------------------------------------------
-CREATE TABLE IF NOT EXISTS `java2b`.`users` (
+CREATE TABLE IF NOT EXISTS `java2b`.`user` (
   `user_id` VARCHAR(20) NOT NULL,
-  `passwd` VARCHAR(45) NOT NULL,
+  `password` VARCHAR(45) NOT NULL,
   `name` VARCHAR(45) NOT NULL,
   `phone` VARCHAR(50) NOT NULL,
   `birth` DATE NULL,
