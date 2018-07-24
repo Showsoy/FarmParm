@@ -8,7 +8,7 @@
 <style>
 </style>
 </head>
-<link rel="stylesheet" type="text/css" href="style/style2.css">
+<link rel="stylesheet" type="text/css" href="../style/style2.css">
 <script>
 var chkId = false;
 function chkForm(f){
@@ -77,7 +77,7 @@ function selectEmail(sel) {
 		<div class="form">
 			<form class="login-form" name="joinform" action="./memberJoinAction.me" method="post" onsubmit="return chkForm(this)">
 				<div id="header">
-				<a href="main.jsp"><img src="images/farm_logo.png" width="150px"></a>
+				<a href="../common/main.jsp"><img src="../images/farm_logo.png" width="150px"></a>
 				<hr color="#4CAF50">
 				<h3>회원가입</h3><br>
 				</div>

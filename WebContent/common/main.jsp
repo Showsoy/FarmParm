@@ -9,7 +9,7 @@
 <style>
 </style>
 </head>
-<link rel="stylesheet" type="text/css" href="style/style.css">
+<link rel="stylesheet" type="text/css" href="../style/style.css">
 <link rel="stylesheet" href="https://www.w3schools.com/w3css/3/w3.css">
 <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.6.3/css/font-awesome.min.css">
 <script type="text/javascript" src="path/to/jQuery.js"></script>
@@ -17,8 +17,8 @@
 <body>
 <jsp:include page="/common/top_menu.jsp" flush="false"/>
 <section>
-  <img class="mySlides" src="images/slide1.jpg" style="width:100%">
-  <img class="mySlides" src="images/slide2.jpg" style="width:100%">
+  <img class="mySlides" src="../images/slide1.jpg" style="width:100%">
+  <img class="mySlides" src="../images/slide2.jpg" style="width:100%">
 </section>
 <script>
 // Automatic Slideshow - change image every 3 seconds
@@ -45,7 +45,7 @@ function carousel() {
 
 	<div id="container">
 		<ul class="prod-list" align="center">
-			<li><img src="images/apple.jpg" alt="1">
+			<li><img src="../images/apple.jpg" alt="1">
 			<p>dd</p>
 				<div class="caption">
 					<h1>사과</h1>
@@ -54,7 +54,7 @@ function carousel() {
 					</p>
 				</div>
 			</li>
-			<li><img src="images/apple.jpg" alt="2">
+			<li><img src="../images/apple.jpg" alt="2">
 			<p>dd</p>
 			<div class="caption">
 					<h1>ㅎㅎ</h1>
@@ -63,7 +63,7 @@ function carousel() {
 						20만원<br>기타 사항 : 슬개골이 약함
 					</p>
 				</div></li>
-			<li><img src="images/apple.jpg" alt="3">
+			<li><img src="../images/apple.jpg" alt="3">
 			<p>dd</p>
 			<div class="caption">
 					<h1>3번</h1>
@@ -72,7 +72,7 @@ function carousel() {
 						5만원<br>기타 사항 : 난폭함
 					</p>
 				</div></li>
-			<li><img src="images/apple.jpg" alt="4">
+			<li><img src="../images/apple.jpg" alt="4">
 			<p>dd</p>
 			<div class="caption">
 					<h1>4번</h1>
@@ -81,7 +81,7 @@ function carousel() {
 						5만원<br>기타 사항 : 말티즈+푸들 믹스
 					</p>
 				</div></li>
-			<li><img src="images/apple.jpg" alt="5">
+			<li><img src="../images/apple.jpg" alt="5">
 			<div class="caption">
 					<h1>5번</h1>
 					<p>
@@ -89,7 +89,7 @@ function carousel() {
 						10만원<br>기타 사항 : 블랙 푸들
 					</p>
 				</div></li>
-			<li><img src="images/apple.jpg" alt="6">
+			<li><img src="../images/apple.jpg" alt="6">
 			<div class="caption">
 					<h1>6번</h1>
 					<p>
@@ -97,7 +97,7 @@ function carousel() {
 						25만원<br>기타 사항 : 활발함
 					</p>
 				</div></li>
-			<li><img src="images/apple.jpg" alt="7">
+			<li><img src="../images/apple.jpg" alt="7">
 			<div class="caption">
 					<h1>7번</h1>
 					<p>
@@ -105,7 +105,7 @@ function carousel() {
 						30만원<br>기타 사항 : 없음
 					</p>
 				</div></li>
-			<li><img src="images/apple.jpg" alt="8">
+			<li><img src="../images/apple.jpg" alt="8">
 			<div class="caption">
 					<h1>8번</h1>
 					<p>
@@ -124,7 +124,7 @@ function carousel() {
 </section>
 <div id="container">
 		<ul class="prod-list" align="center">
-			<li><img src="images/apple.jpg" alt="1">
+			<li><img src="../images/apple.jpg" alt="1">
 				<div class="caption">
 					<h1>1번</h1>
 					<p>
@@ -132,7 +132,7 @@ function carousel() {
 						10만원<br>기타 사항 : 브라운 푸들
 					</p>
 				</div></li>
-			<li><img src="images/apple.jpg" alt="2">
+			<li><img src="../images/apple.jpg" alt="2">
 			<div class="caption">
 					<h1>2번</h1>
 					<p>
@@ -140,7 +140,7 @@ function carousel() {
 						20만원<br>기타 사항 : 슬개골이 약함
 					</p>
 				</div></li>
-			<li><img src="images/apple.jpg" alt="3">
+			<li><img src="../images/apple.jpg" alt="3">
 			<div class="caption">
 					<h1>3번</h1>
 					<p>
@@ -148,7 +148,7 @@ function carousel() {
 						5만원<br>기타 사항 : 난폭함
 					</p>
 				</div></li>
-			<li><img src="images/apple.jpg" alt="4">
+			<li><img src="../images/apple.jpg" alt="4">
 			<div class="caption">
 					<h1>4번</h1>
 					<p>
@@ -156,7 +156,7 @@ function carousel() {
 						5만원<br>기타 사항 : 말티즈+푸들 믹스
 					</p>
 				</div></li>
-			<li><img src="images/apple.jpg" alt="5">
+			<li><img src="../images/apple.jpg" alt="5">
 			<div class="caption">
 					<h1>5번</h1>
 					<p>
@@ -164,7 +164,7 @@ function carousel() {
 						10만원<br>기타 사항 : 블랙 푸들
 					</p>
 				</div></li>
-			<li><img src="images/apple.jpg" alt="6">
+			<li><img src="../images/apple.jpg" alt="6">
 			<div class="caption">
 					<h1>6번</h1>
 					<p>
@@ -172,7 +172,7 @@ function carousel() {
 						25만원<br>기타 사항 : 활발함
 					</p>
 				</div></li>
-			<li><img src="images/apple.jpg" alt="7">
+			<li><img src="../images/apple.jpg" alt="7">
 			<div class="caption">
 					<h1>7번</h1>
 					<p>
@@ -180,7 +180,7 @@ function carousel() {
 						30만원<br>기타 사항 : 없음
 					</p>
 				</div></li>
-			<li><img src="images/apple.jpg" alt="8">
+			<li><img src="../images/apple.jpg" alt="8">
 			<div class="caption">
 					<h1>8번</h1>
 					<p>
@@ -196,17 +196,17 @@ function carousel() {
 <section class="w3-row-padding w3-center w3-light-grey">
   <article class="w3-third">
     <p>John</p>
-    <img src="images/common.jpg" alt="Random Name">
+    <img src="../images/common.jpg" alt="Random Name">
     <p>슰기슬기</p>
   </article>
   <article class="w3-third">
     <p>Paul</p>
-    <img src="images/common1.jpg" alt="Random Name">
+    <img src="../images/common1.jpg" alt="Random Name">
     <p>조이조이</p>
   </article>
   <article class="w3-third">
     <p>Ringo</p>
-    <img src="images/common2.jpg" alt="Random Name">
+    <img src="../images/common2.jpg" alt="Random Name">
     <p>유나우나</p>
   </article>
 </section>

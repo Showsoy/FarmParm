@@ -29,7 +29,7 @@ td img{
 }
 </style>
 </head>
-<link rel="stylesheet" type="text/css" href="style/style.css">
+<link rel="stylesheet" type="text/css" href="../style/style.css">
 <link rel="stylesheet" href="https://www.w3schools.com/w3css/3/w3.css">
 <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.6.3/css/font-awesome.min.css">
 <body>
@@ -41,7 +41,7 @@ td img{
 
 <div id="goods_container">
 		<ul class="prod-list" align="center">
-			<li><img src="images/apple.jpg" alt="1">
+			<li><img src="../images/apple.jpg" alt="1">
 			<p>dd</p>
 				<div class="caption">
 					<h1>사과</h1>
@@ -50,7 +50,7 @@ td img{
 					</p>
 				</div>
 			</li>
-			<li><img src="images/apple.jpg" alt="2">
+			<li><img src="../images/apple.jpg" alt="2">
 			<p>dd</p>
 			<div class="caption">
 					<h1>ㅎㅎ</h1>
@@ -58,7 +58,7 @@ td img{
 						<br>견종 : 포메라니안<br>성별 : 남아<br>나이 : 2개월
 					</p>
 				</div></li>
-			<li><img src="images/apple.jpg" alt="3">
+			<li><img src="../images/apple.jpg" alt="3">
 			<p>dd</p>
 			<div class="caption">
 					<h1>3번</h1>
@@ -66,63 +66,63 @@ td img{
 						<br>견종 : 말티즈<br>성별 : 여아<br>나이 : 2개월
 					</p>
 				</div></li>
-			<li><img src="images/apple.jpg" alt="4">
+			<li><img src="../images/apple.jpg" alt="4">
 			<div class="caption">
 					<h1>4번</h1>
 					<p>
 						<br>견종 : 믹스<br>성별 : 남아<br>나이 : 2개월
 					</p>
 				</div></li>
-			<li><img src="images/apple.jpg" alt="5">
+			<li><img src="../images/apple.jpg" alt="5">
 			<div class="caption">
 					<h1>5번</h1>
 					<p>
 						<br>견종 : 푸들<br>성별 : 남아<br>나이 : 2개월
 					</p>
 				</div></li>
-			<li><img src="images/apple.jpg" alt="6">
+			<li><img src="../images/apple.jpg" alt="6">
 			<div class="caption">
 					<h1>6번</h1>
 					<p>
 						<br>견종 : 비숑프리제<br>성별 : 여아<br>나이 : 3개월
 					</p>
 				</div></li>
-			<li><img src="images/apple.jpg" alt="7">
+			<li><img src="../images/apple.jpg" alt="7">
 			<div class="caption">
 					<h1>7번</h1>
 					<p>
 						<br>견종 : 크림 푸들<br>성별 : 남아<br>나이 : 2개월
 					</p>
 				</div></li>
-			<li><img src="images/apple.jpg" alt="8">
+			<li><img src="../images/apple.jpg" alt="8">
 			<div class="caption">
 					<h1>8번</h1>
 					<p>
 						<br>견종 : 크림 푸들<br>성별 : 여아<br>나이 : 1개월
 					</p>
 				</div></li>
-				<li><img src="images/apple.jpg" alt="6">
+				<li><img src="../images/apple.jpg" alt="6">
 		<div class="caption">
 					<h1>9번</h1>
 					<p>
 						<br>견종 : 푸들<br>성별 : 남아<br>나이 : 2개월
 					</p>
 				</div></li>
-			<li><img src="images/apple.jpg" alt="6">
+			<li><img src="../images/apple.jpg" alt="6">
 			<div class="caption">
 					<h1>10번</h1>
 					<p>
 						<br>견종 : 비숑프리제<br>성별 : 여아<br>나이 : 3개월
 					</p>
 				</div></li>
-			<li><img src="images/apple.jpg" alt="7">
+			<li><img src="../images/apple.jpg" alt="7">
 			<div class="caption">
 					<h1>11번</h1>
 					<p>
 						<br>견종 : 크림 푸들<br>성별 : 남아<br>나이 : 2개월
 					</p>
 				</div></li>
-			<li><img src="images/apple.jpg" alt="8">
+			<li><img src="../images/apple.jpg" alt="8">
 			<div class="caption">
 					<h1>12번</h1>
 					<p>

@@ -8,7 +8,7 @@
 <style>
 </style>
 </head>
-<link rel="stylesheet" type="text/css" href="style/style2.css">
+<link rel="stylesheet" type="text/css" href="../style/style2.css">
 <script type="text/javascript">
 function chkForm(f){
 	if(f.userID.value.trim()==""){
@@ -29,14 +29,14 @@ function chkForm(f){
 	<div class="login-page">
 		<div class="form">
 			<form class="login-form" name="loginform" action="loginAction.me" method="post" onsubmit="return chkForm(this)">
-				<a href="main.jsp"><img src="images/farm_logo.png" width="150px"></a><br><br>
+				<a href="../common/main.jsp"><img src="../images/farm_logo.png" width="150px"></a><br><br>
 				<input type="text" id="userID" name="userID" placeholder="아이디" maxlength="20" class="input100"/> 
 				<input type="password" name="userPass" id="userPass" placeholder="비밀번호" class="input100"/> 
 				<button type="submit" class="input100">로그인</button> 
 				<br><br>
 				<div id="footer">
-				<a href="idfind.jsp">아이디 찾기</a>&nbsp;&nbsp;|&nbsp;&nbsp;
-				<a href="pwfind.jsp">비밀번호 찾기</a>&nbsp;&nbsp;|&nbsp;&nbsp;
+				<a href="idFind.jsp">아이디 찾기</a>&nbsp;&nbsp;|&nbsp;&nbsp;
+				<a href="pwFind.jsp">비밀번호 찾기</a>&nbsp;&nbsp;|&nbsp;&nbsp;
 				<a href="joinForm.jsp">회원가입</a>&nbsp;&nbsp;
 				</div>
 				&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;

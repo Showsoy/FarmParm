@@ -9,7 +9,7 @@
 <style>
 </style>
 </head>
-<link rel="stylesheet" type="text/css" href="style/style.css">
+<link rel="stylesheet" type="text/css" href="../style/style.css">
 <link rel="stylesheet" href="https://www.w3schools.com/w3css/3/w3.css">
 <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.6.3/css/font-awesome.min.css">
 <body>
@@ -21,7 +21,7 @@
 	<hr color="#4CAF50" size="5">
 	<div class="mypage">
 		<section class="w3-container w3-center">
-  			<img class="mySlides" src="images/nong.jpg" style="width:100%">
+  			<img class="mySlides" src="../images/nong.jpg" style="width:100%">
 		</section>
 	</div>
 </div>

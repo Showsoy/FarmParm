@@ -7,7 +7,7 @@
 <title>Insert title here</title>
 <style>
 </style>
-<link rel="stylesheet" type="text/css" href="style/style2.css">
+<link rel="stylesheet" type="text/css" href="../style/style2.css">
 </head>
 <script>
 function chkForm(f){

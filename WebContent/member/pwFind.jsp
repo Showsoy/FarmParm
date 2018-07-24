@@ -8,7 +8,7 @@
 <style type="text/css">
 </style>
 </head>
-<link rel="stylesheet" type="text/css" href="style/style2.css">
+<link rel="stylesheet" type="text/css" href="../style/style2.css">
 <script>
 function chkForm(f){
 	var mail1 = f.userEmailId.value;
@@ -65,7 +65,7 @@ function selectEmail(sel) {
 				<div id="footer">
 				<a href="login.jsp">로그인</a>&nbsp;&nbsp;|&nbsp;&nbsp;
 				<a href="#">문제발생</a>&nbsp;&nbsp;|&nbsp;&nbsp;
-				<a href="idfind.jsp">아이디 찾기</a>
+				<a href="idFind.jsp">아이디 찾기</a>
 				</div>
 			</form>
 		</div>

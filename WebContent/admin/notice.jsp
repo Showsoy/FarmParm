@@ -38,15 +38,11 @@ td p{
 }
 </style>
 </head>
-<link rel="stylesheet" type="text/css" href="style/style.css">
+<link rel="stylesheet" type="text/css" href="../style/style.css">
 <link rel="stylesheet" href="https://www.w3schools.com/w3css/3/w3.css">
 <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.6.3/css/font-awesome.min.css">
 <body>
-<<<<<<< HEAD:WebContent/notice.jsp
-<jsp:include page="top_menu.jsp" flush="false"/>
-=======
 <jsp:include page="/common/top_menu.jsp" flush="false"/>
->>>>>>> 2b8db87f0dff63c29bb3e58eb2a740b7a340d3f0:WebContent/admin/notice.jsp
 <div class="pageform">
 	<h3>&nbsp;&nbsp;안내사항</h3>
 	<hr color="#4CAF50" size="5">

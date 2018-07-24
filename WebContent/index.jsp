@@ -12,6 +12,6 @@
 </style>
 </head>
 <body>
-<a href="main.jsp"><img src="images/index.png"/></a>
+<a href="common/main.jsp"><img src="images/index.png"/></a>
 </body>
 </html>
