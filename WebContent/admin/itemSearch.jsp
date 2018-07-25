@@ -1,39 +1,12 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"
     pageEncoding="UTF-8"%>
+<%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
 <!DOCTYPE html PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN" "http://www.w3.org/TR/html4/loose.dtd">
 <html>
 <head>
 <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
 <title>Insert title here</title>
 <style>
-#admin_menu{
-	margin:0 auto;
-	text-align:center;
-	background-color:#f6f6f6;
-	width:400px;
-	height:200px;
-	border:1px solid #ccc;
-	border-radius:5px;
-}
-.mypage button {
-	font-family:"Nanum Gothic";
-	font-weight: 700;
-	text-transform: uppercase;
-	outline: 0;
-	background: black;
-	width: 100px;
-	border: 0;
-	padding: 10px;
-	margin:2px;
-	color: #FFFFFF;
-	font-size: 14px;
-	-webkit-transition: all 0.3 ease;
-	transition: all 0.3 ease;
-	cursor: pointer;
-}
-.mypage button:hover, .mypage button:active, .mypage button:focus {
-	background: #191919;
-}
 </style>
 </head>
 <link rel="stylesheet" type="text/css" href="../style/style.css">
@@ -42,18 +15,36 @@
 <body>
 <jsp:include page="/common/top_menu.jsp" flush="false"/>
 <div class="pageform">
-	<h3>&nbsp;&nbsp;관리자 페이지</h3>
+	<h3>&nbsp;&nbsp;입고등록</h3>
 	<hr color="#4CAF50" size="5">
 	<div class="mypage">
-	<div id="admin_menu">
-	<br><br>
-		<button onclick="location.href='../admin/userList.jsp'">회원관리</button>
-		<button onclick="location.href='./itemSearch.jsp'">입고등록</button><br>
-		<button onclick="location.href='./itemRegistForm.im'">상품등록</button>
-		<button onclick="location.href='./itemList.im'">상품목록</button>  
+	<form action="itemSearch.im" method="post">
+		<input type="text" id="keyword" name="keyword" size="20"/><button type="submit">검색</button>
+	</form>
+	<table cellspacing="0" cellpadding="0" class="detail_table">
+	<c:forEach var="isearch" items="${iSearchList }">
+	<tr>
+		<td></td>
+		<td>분류</td>
+		<td>코드</td>
+		<td>이름</td>
+		<td>원산지</td>
+		<td>가격</td>
+		<td>선택</td>
+		
+	</tr>
+	<tr>
+		<th><img src="../images/${isearch.img_path }" width="300px"></th>
+		<td>${isearch.category }</td>
+		<td>${isearch.item_code }</td>
+		<td>${isearch.item_name }</td>
+		<td>${isearch.origin }</td>
+		<td>${isearch.price }</td>
+		<td><button type="button" id="gbutton" onclick="location.href='itemEnterForm.im?item_code=${isearch.item_code}'">선택</button></td>
+	</tr>
+	</c:forEach>
+	</table>
 	</div>
-	</div>
-	
 </div>
 <footer>
   <a href="#"><i class="fa fa-facebook-official"></i></a>

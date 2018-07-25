@@ -1,7 +1,5 @@
 package admin.action;
 
-import java.io.PrintWriter;
-
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import javax.servlet.http.HttpSession;
@@ -11,7 +9,7 @@ import svc.ItemService;
 import vo.ActionForward;
 import vo.ItemBean;
 
-public class ItemModFormAction implements action.Action{
+public class ItemEnterFormAction implements Action {
 
 	@Override
 	public ActionForward execute(HttpServletRequest request, HttpServletResponse response) throws Exception {
@@ -21,6 +19,7 @@ public class ItemModFormAction implements action.Action{
 		
 		HttpSession session = request.getSession();
 		String id = (String)session.getAttribute("user_id");
+
 		
 //		if(id==null) {
 //			forward = new ActionForward();
@@ -39,7 +38,7 @@ public class ItemModFormAction implements action.Action{
 		ItemService itemService = new ItemService();
 		ItemBean item = itemService.getItem(item_code);
 		request.setAttribute("item",item);
-		forward= new ActionForward("./itemMod.jsp",false);
+		forward= new ActionForward("./itemEnter.jsp",false);
 		
 		return forward;
 	}

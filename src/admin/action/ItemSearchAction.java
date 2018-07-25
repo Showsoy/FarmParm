@@ -1,6 +1,6 @@
 package admin.action;
 
-import java.io.PrintWriter;
+import java.util.ArrayList;
 
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
@@ -11,7 +11,7 @@ import svc.ItemService;
 import vo.ActionForward;
 import vo.ItemBean;
 
-public class ItemModFormAction implements action.Action{
+public class ItemSearchAction implements Action {
 
 	@Override
 	public ActionForward execute(HttpServletRequest request, HttpServletResponse response) throws Exception {
@@ -35,11 +35,11 @@ public class ItemModFormAction implements action.Action{
 //			out.println("</script>");
 //		}
 		forward = new ActionForward();
-		String item_code = request.getParameter("item_code");
+		String keyword = request.getParameter("keyword");
 		ItemService itemService = new ItemService();
-		ItemBean item = itemService.getItem(item_code);
-		request.setAttribute("item",item);
-		forward= new ActionForward("./itemMod.jsp",false);
+		ArrayList<ItemBean> iSearchList = itemService.searchItem(keyword);
+		request.setAttribute("iSearchList",iSearchList);
+		forward= new ActionForward("./itemSearch.jsp",false);
 		
 		return forward;
 	}

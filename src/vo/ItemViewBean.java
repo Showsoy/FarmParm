@@ -58,6 +58,12 @@ public class ItemViewBean {
 	public void setStock(int stock) {
 		this.stock = stock;
 	}
+	public int getReadcount() {
+		return readcount;
+	}
+	public void setReadcount(int readcount) {
+		this.readcount = readcount;
+	}
 	public int getPurchase() {
 		return purchase;
 	}

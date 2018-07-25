@@ -1,5 +1,20 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"
     pageEncoding="UTF-8"%>
+<%@ page import="vo.PageInfo" %>
+<%@ page import="vo.ItemStockBean" %>
+<%@ page import="java.util.*" %>
+<%@ page import="java.text.SimpleDateFormat" %>
+<%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
+<%
+	ArrayList<ItemStockBean> itemStockList = (ArrayList<ItemStockBean>)request.getAttribute("itemStockList");
+	PageInfo i_pageInfo = (PageInfo)request.getAttribute("i_pageInfo");
+	int listCount = i_pageInfo.getListCount();
+	int i_nowPage = i_pageInfo.getPage();
+	int i_maxPage = i_pageInfo.getMaxPage();
+	int i_startPage = i_pageInfo.getStartPage();
+	int i_endPage = i_pageInfo.getEndPage();	
+%>
+<%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
 <!DOCTYPE html PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN" "http://www.w3.org/TR/html4/loose.dtd">
 <html>
 <head>
@@ -104,90 +119,85 @@
 	
 	<table cellspacing="0" cellpadding="0" class="detail_table">
 	<tr>
-		<td id="td_left">상품코드</td>
-	</tr>
-	<tr>
-		<th rowspan="6"><img src="../images/apple.jpg" width="300px"></th>
+		<th rowspan="6"><img src="../images/${item.img_path }" width="300px"></th>
 		<td id="td_left">분류</td>
-		<td>과일</td>
+		<td>${item.category }</td>
+	</tr>
+		<tr>
+		<td id="td_left">상품코드</td>
+		<td>${item.item_code }</td>
 	</tr>
 	<tr>
-		
 		<td id="td_left">상품명</td>
-		<td>청송사과 1kg</td>
+		<td>${item.item_name }</td>
 	</tr>
 	<tr>
 		<td id="td_left">원산지</td>
-		<td>청송 읍읍리</td>
-	</tr>
-	<tr>
-		<td id="td_left">재고</td>
-		<td>2</td>
+		<td>${item.origin }</td>
 	</tr>
 	<tr>
 		<td id="td_left">가격</td>
-		<td>1111</td>
+		<td>${item.price }</td>
 	</tr>
 	<tr>
 		<td id="td_left">할인</td>
-		<td>10%</td>
+		<td>${item.sale }</td>
 	</tr>
 	<tr>
-		<td colspan="3" id="td_info">총 2222원</td>
+		<td colspan="3" id="td_info"><button onclick="location.href='itemEnterForm.im'">수정하기</button></td>
 	</tr>
 	<tr>
-		<td colspan="3" id="td_info"><button onclick="location.href='../order/cart.jsp'">수정하기</button> 
+		<td colspan="3" id="td_info"><button onclick="location.href='itemModForm.im'">수정하기</button> 
 	
-			<button onclick="location.href='../order/order.jsp'">삭제하기</button></td>
+			<button onclick="location.href='itemDelete.im'">삭제하기</button></td>
 	</tr>
 </table>
 <br><br>
 <div>
 	<table cellspacing="0" cellpadding="0" id="state_table">
 			<tr id="top_menu">
+				<td style="width:100px;">코드</td>
 				<td style="width:150px;">날짜</td>
-				<td style="width:150px;">제품명</td>
-				<td style="width:100px;">분류</td>
+				<td style="width:100px;">상태</td>
 				<td style="width:100px;">갯수</td>
 				<td style="width:100px;">재고</td>
-				<td style="width:100px;">비고</td>
 			</tr>
+			<%
+				if(itemStockList!=null&&listCount>0){
+			%>
+			<c:forEach var="stock" items="${itemStockList }">
 			<tr>
-				<td>2018-07-01</td>
-				<td>청송사과 1kg</td>
-				<td>입고</td>
-				<td>123</td>
-				<td>123</td>
-				<td><button type="button" onclick="location.href='#'" id="gbutton">보기</button></td>
+				<td>${stock.item_code }</td>
+				<td>${stock.idate }</td>
+				<td>${stock.state }</td>
+				<td>${stock.amount }</td>
+				<td>${stock.stock }</td>
 			</tr>
-			<tr>
-				<td>2018-07-01</td>
-				<td>청송사과 1kg</td>
-				<td>입고</td>
-				<td>123</td>
-				<td>123</td>
-				<td><button type="button" onclick="location.href='#'" id="gbutton">보기</button></td>
-			</tr>
-			<tr>
-				<td>2018-07-01</td>
-				<td>청송사과 1kg</td>
-				<td>입고</td>
-				<td>123</td>
-				<td>123</td>
-				<td><button type="button" onclick="location.href='#'" id="gbutton">보기</button></td>
-			</tr>
-			<tr>
-				<td>2018-07-01</td>
-				<td>청송사과 1kg</td>
-				<td>입고</td>
-				<td>123</td>
-				<td>123</td>
-				<td><button type="button" onclick="location.href='#'" id="gbutton">보기</button></td>
-			</tr>
+			</c:forEach>
+			<%}else{
+			%>
+				<section id="emptyArea">등록된 글이 없습니다.</section>
+			<%} %>
 			<tr>
 				<td colspan="6" id="state_info"><!-- 페이지 수 넣을 것임 -->
-					<a href="#">둘러보기</a>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
-					<a href="#">배송비정책</a>
+					<%if(i_nowPage<=1){ %>
+			[이전]&nbsp;
+		<%}else{ %>
+			<a href="itemView.im?i_page=<%=i_nowPage-1 %>">[이전]</a>&nbsp;
+		<%} %>
+		
+		<%for(int a=i_startPage;a<=i_endPage;a++){
+			if(a==i_nowPage){%>
+				[<%=a %>]
+			<%}else{ %>
+				<a href="itemView.im?i_page=<%=a%>">[<%=a %>]</a>&nbsp;
+			<%} %>
+		<%} 
+		if(i_nowPage>=i_maxPage){%>
+			[다음]
+		<%}else{ %>
+			<a href="itemView.im?i_page=<%=i_nowPage+1 %>">[다음]</a>
+		<%} %>
 				</td>
 			</tr>
 		</table>

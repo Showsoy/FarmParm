@@ -16,19 +16,31 @@ public class ItemListAction implements Action {
 	@Override
 	public ActionForward execute(HttpServletRequest request, HttpServletResponse response) throws Exception {
 		// TODO Auto-generated method stub
+		request.setCharacterEncoding("UTF-8");
+		ActionForward forward = null;
+		
 		ArrayList<ItemViewBean> itemList = new ArrayList<ItemViewBean>();
 		int page = 1;
 		int limit = 10;
 		int limitPage = 10;
+		int listCount = 10;
 		
 		if(request.getParameter("page")!=null) {
 			page = Integer.parseInt(request.getParameter("page"));
 		}
+		String category = request.getParameter("category");
 		
 		ItemService itemService = new ItemService();
-		int listCount = itemService.itemListCount();
+		if(category==null){
+			listCount = itemService.itemListCount();
+			itemList = itemService.adminItemList(page);
+		}else {
+			listCount = itemService.itemListCountIn(category);
+			itemList = itemService.adminItemListIn(category, page);
+		}
 		//총 리스트 수
-		itemList = itemService.adminItemList(page);
+		
+		
 		//리스트를 받아옴
 		//총 페이지 수
 		int maxPage = (int)((double)listCount/limit+0.95); 
@@ -40,6 +52,7 @@ public class ItemListAction implements Action {
 		
 		if(endPage>maxPage) endPage = maxPage;
 		System.out.print(maxPage+" ");System.out.print(startPage+" ");System.out.print(endPage+" ");
+		//System.out.println(itemList);
 		PageInfo pageInfo = new PageInfo();
 		pageInfo.setEndPage(endPage);
 		pageInfo.setListCount(listCount);
@@ -48,8 +61,7 @@ public class ItemListAction implements Action {
 		pageInfo.setStartPage(startPage);
 		request.setAttribute("pageInfo", pageInfo);
 		request.setAttribute("itemList", itemList);
-		ActionForward forward = new ActionForward();
-		forward= new ActionForward("/itemList.jsp",false);
+		forward= new ActionForward("./itemList.jsp",false);
 		
 		return forward;
 	}

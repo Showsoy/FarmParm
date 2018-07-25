@@ -20,9 +20,10 @@ public class ItemModProAction implements action.Action{
 	public ActionForward execute(HttpServletRequest request, HttpServletResponse response) throws Exception {
 		// TODO Auto-generated method stub
 		request.setCharacterEncoding("UTF-8");
+		ActionForward forward = null;
+		
 		HttpSession session = request.getSession();
 		String id = (String)session.getAttribute("user_id");
-		ActionForward forward = null;
 		
 //		if(id==null) {
 //			forward = new ActionForward();
@@ -74,7 +75,7 @@ public class ItemModProAction implements action.Action{
 			out.println("history.back();");
 			out.println("</script>");
 		}else {
-			forward= new ActionForward("/ItemViewAction.im",true);
+			forward= new ActionForward("./ItemView.im",true);
 		}
 		
 		return forward;
