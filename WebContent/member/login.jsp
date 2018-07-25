@@ -28,7 +28,7 @@ function chkForm(f){
 <body>
 	<div class="login-page">
 		<div class="form">
-			<form class="login-form" name="loginform" action="loginAction.me" method="post" onsubmit="return chkForm(this)">
+			<form class="login-form" name="loginform" action="./memberLoginAction.us" method="post" onsubmit="return chkForm(this)">
 				<a href="../common/main.jsp"><img src="../images/farm_logo.png" width="150px"></a><br><br>
 				<input type="text" id="userID" name="userID" placeholder="아이디" maxlength="20" class="input100"/> 
 				<input type="password" name="userPass" id="userPass" placeholder="비밀번호" class="input100"/> 

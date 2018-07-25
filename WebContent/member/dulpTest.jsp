@@ -96,14 +96,17 @@ button:hover, .form button:active, .form button:focus {
 	</tr>
 </table>
 </form>
+
 <%
 try{
 	Context init = new InitialContext();
-	DataSource ds = (DataSource)init.lookup("java:comp/env/jdbc/farmparm");
+	DataSource ds = (DataSource)init.lookup("java:comp/env/jdbc/MySQLDB");
 	conn = ds.getConnection();
+	String id2 = request.getParameter(id);
+	
 	//수정합시다
-	pstmt = conn.prepareStatement("SELECT MEMBER_ID FROM MEMBER2 WHERE MEMBER_ID = ?");
-	pstmt.setString(1, id);
+	pstmt = conn.prepareStatement("SELECT user_id FROM users WHERE user_id = ?");
+	pstmt.setString(1, id2);
 	rs = pstmt.executeQuery();
 	
 	boolean flag = true;
@@ -125,7 +128,7 @@ try{
 		conn.close();
 	}catch(Exception e){
 		e.printStackTrace();
-	}	
+	}
 }
 %>
 <h4><%=result %></h4>

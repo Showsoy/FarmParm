@@ -1,5 +1,9 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"
     pageEncoding="UTF-8"%>
+<%
+
+
+%>
 <!DOCTYPE html PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN" "http://www.w3.org/TR/html4/loose.dtd">
 <html>
 <head>
@@ -84,7 +88,7 @@ function selectEmail(sel) {
 		<label for="userID">아이디</label>
 		<input type="text" name="userID" id="userID" class="input100">
 		<button class="input100" name="check" id="check" type="button"
-		onclick="window.open('./dulpTest.jsp?openInit=true','','width=370, height=200')">중복검사</button>
+		onclick="window.open('./dulpTest.us?openInit=true','','width=370, height=200')">중복검사</button>
 		<br><br>
 	
 		<label for="userPass">비밀번호</label>

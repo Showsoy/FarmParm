@@ -83,7 +83,7 @@ function chkForm(f){
 	<h3>&nbsp;&nbsp;개인정보수정</h3>
 	<hr color="#4CAF50" size="5">
 	<div class="mypage">
-	<form action="#" name="pwcheck" method="post" onsubmit="return chkForm(this)">
+	<form action="./pwCheck.us" name="pwcheck" method="post" onsubmit="return chkForm(this)">
 	<table cellspacing="0" cellpadding="0">
 	<tr>
 		<td id="td_left"><label for="userID">아이디</label> </td>

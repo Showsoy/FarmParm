@@ -29,9 +29,16 @@ public class UserBean {
 		this.grade = grade;
 	}
 
+
 	public UserBean(String string, String string2, String string3) {
 		// TODO Auto-generated constructor stub
 	}
+
+
+	public UserBean() {
+		// TODO Auto-generated constructor stub
+	}
+
 
 	public String getUser_id() {
 		return user_id;
