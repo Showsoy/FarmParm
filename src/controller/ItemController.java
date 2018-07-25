@@ -47,8 +47,72 @@ protected void doProcess(HttpServletRequest request, HttpServletResponse respons
     		forward = new ActionForward();
     		forward.setPath("./itemNew.jsp");
     	}else if(command.equals("/itemRegistPro.im")) {
-    		System.out.println("1");
     		action = new ItemNewAction();
+    		try {
+    			forward = action.execute(request, response);
+    		}catch(Exception e) {
+    			e.printStackTrace();
+    		}
+    	}else if(command.equals("/itemList.im")) {
+    		action = new ItemListAction();
+    		try {
+    			forward = action.execute(request, response);
+    		}catch(Exception e) {
+    			e.printStackTrace();
+    		}
+    	}else if(command.equals("/itemView.im")) {
+    		action = new ItemViewAction();
+    		try {
+    			forward = action.execute(request, response);
+    		}catch(Exception e) {
+    			e.printStackTrace();
+    		}
+    	}
+    	else if(command.equals("/itemEnterForm.im")) {
+    		action = new ItemEnterFormAction();
+    		try {
+    			forward = action.execute(request, response);
+    		}catch(Exception e) {
+    			e.printStackTrace();
+    		}
+    	}
+    	else if(command.equals("/itemEnterPro.im")) {
+    		action = new ItemEnterProAction();
+    		try {
+    			forward = action.execute(request, response);
+    		}catch(Exception e) {
+    			e.printStackTrace();
+    		}
+    	}else if(command.equals("/itemModForm.im")) {
+    		action = new ItemModFormAction();
+    		try {
+    			forward = action.execute(request, response);
+    		}catch(Exception e) {
+    			e.printStackTrace();
+    		}
+    	}else if(command.equals("/itemModPro.im")) {
+    		action = new ItemModProAction();
+    		try {
+    			forward = action.execute(request, response);
+    		}catch(Exception e) {
+    			e.printStackTrace();
+    		}
+    	}else if(command.equals("/itemSearch.im")) {
+    		action = new ItemSearchAction();
+    		try {
+    			forward = action.execute(request, response);
+    		}catch(Exception e) {
+    			e.printStackTrace();
+    		}
+    	}else if(command.equals("/itemCodeGen.im")) {
+    		action = new ItemCodeGenAction();
+    		try {
+    			forward = action.execute(request, response);
+    		}catch(Exception e) {
+    			e.printStackTrace();
+    		}
+    	}else if(command.equals("/itemDelete.im")) {
+    		action = new ItemDeleteAction();
     		try {
     			forward = action.execute(request, response);
     		}catch(Exception e) {

@@ -12,11 +12,7 @@ public class ItemBean {
 	private int readcount;
 
 	public ItemBean(String item_code, String item_name, int price, String origin, String category, String img_path,
-<<<<<<< HEAD:src/vo/ItemBean.java
-			int sale, String content, int is_hot) {
-=======
 			int sale, String content, int readcount) {
->>>>>>> e0759d406d9f2a18ac113ed57f115c5944806e06:src/vo/ItemBean.java
 		super();
 		this.item_code = item_code;
 		this.item_name = item_name;

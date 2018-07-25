@@ -8,6 +8,17 @@ public class ItemStockBean {
 	private Date idate;
 	private int amount;
 	private int stock;
+	private int inumber;
+	
+	public ItemStockBean(String item_code, String state, Date idate, int amount, int stock, int inumber) {
+		super();
+		this.item_code = item_code;
+		this.state = state;
+		this.idate = idate;
+		this.amount = amount;
+		this.stock = stock;
+		this.inumber = inumber;
+	}
 	public String getItem_code() {
 		return item_code;
 	}
@@ -37,6 +48,12 @@ public class ItemStockBean {
 	}
 	public void setStock(int stock) {
 		this.stock = stock;
+	}
+	public int getInumber() {
+		return inumber;
+	}
+	public void setInumber(int inumber) {
+		this.inumber = inumber;
 	}
 	
 	

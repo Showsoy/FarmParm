@@ -1,11 +1,12 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"
     pageEncoding="UTF-8"%>
 <%@ page import="vo.PageInfo" %>
-<%@ page import="vo.ItemBean" %>
+<%@ page import="vo.ItemViewBean" %>
 <%@ page import="java.util.*" %>
 <%@ page import="java.text.SimpleDateFormat" %>
+<%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
 <%
-	ArrayList<ItemBean> itemList = (ArrayList<ItemBean>)request.getAttribute("itemList");
+	ArrayList<ItemViewBean> itemList = (ArrayList<ItemViewBean>)request.getAttribute("itemList");
 	PageInfo pageInfo = (PageInfo)request.getAttribute("pageInfo");
 	int listCount = pageInfo.getListCount();
 	int nowPage = pageInfo.getPage();
@@ -132,96 +133,63 @@ img{
 <div class="pageform">
 	<h3>&nbsp;&nbsp;상품관리</h3>
 	<hr color="#4CAF50" size="5">
-	<form action="#" method="post">
 	<div class="mypage">
-		<p id="seldel"><button onclick="location.href='#'" id="wbutton" style="width:70px;">선택삭제</button></p>
+		<p id="seldel"><button onclick="location.href='#'" id="wbutton" style="width:70px;">선택삭제</button>
+		<a href="itemList.im?category=야채">야채</a>
+		<a href="itemList.im?category=과일">과일</a>
+		<a href="itemList.im?category=곡류">곡류</a>
+		<a href="itemList.im?category=차">차</a>
+		<a href="itemList.im?category=가공">가공</a>
+		</p>
 		<table cellspacing="0" cellpadding="0">
+			<%
+				if(itemList!=null&&listCount>0){
+			%>
 			<tr id="top_menu">
 				<td id="td_check"><input type="checkbox" id="allCheck" name="allCheck" onClick="checkAll(this.form)"/></td>
-				<td>분류</td>
+				<td>상품코드</td>
 				<td colspan="2">상품명</td>
 				<td>가격</td>
-				<td>수량</td>
 				<td>주문량</td>
 				<td>재고</td>
 				<td>조회</td>
 			</tr>
-			<%
-				if(itemList!=null&&listCount>0){
-			%>
+
+			<c:forEach var="itemList" items="${itemList }">
 			<tr>
 				<td><input type="checkbox" id="remove" name="remove"/></td>
-				<td>과일</td>
+				<td>${itemList.category }</td>
 				<td colspan="2">
 				<p>&nbsp;&nbsp;&nbsp;&nbsp;
-				<img src="../images/apple.jpg" width="100px" align="center">
-				&nbsp;&nbsp;&nbsp;청송사과 1kg</p></td>
+				<img src="../images/${itemList.img_path }" width="100px" align="center">
+				&nbsp;&nbsp;&nbsp;${itemList.item_name }</p></td>
 				
-				<td>20000</td>
-				<td>1</td>
-				<td>1212</td>
-				<td>120</td>
-				<td><button onclick="location.href='#'" id="gbutton">조회</button></td>
+				<td>${itemList.price }</td>
+				<td>${itemList.purchase }</td>
+				<td>${itemList.stock }</td>
+				<td><button onclick="location.href='itemView.im?item_code=${itemList.item_code}'" id="gbutton">조회</button></td>
 			</tr>
-			<tr>
-				<td><input type="checkbox" id="remove" name="remove"/></td>
-				<td>과일</td>
-				<td colspan="2">
-				<p>&nbsp;&nbsp;&nbsp;&nbsp;
-				<img src="../images/apple.jpg" width="100px" align="center">
-				&nbsp;&nbsp;&nbsp;청송사과 1kg</p></td>
-				<td>20000</td>
-				<td>1</td>
-				<td>1212</td>
-				<td>120</td>
-				<td><button onclick="location.href='#'" id="gbutton">조회</button></td>
-			</tr>
-			<tr>
-				<td><input type="checkbox" id="remove" name="remove"/></td>
-				<td>과일</td>
-				<td colspan="2">
-				<p>&nbsp;&nbsp;&nbsp;&nbsp;
-				<img src="../images/apple.jpg" width="100px" align="center">
-				&nbsp;&nbsp;&nbsp;청송사과 1kg</p></td>
-				<td>20000</td>
-				<td>1</td>
-				<td>1212</td>
-				<td>120</td>
-				<td><button onclick="location.href='#'" id="gbutton">조회</button></td>
-			</tr>
-			<tr>
-				<td><input type="checkbox" id="remove" name="remove"/></td>
-				<td>과일</td>
-				<td colspan="2">
-				<p>&nbsp;&nbsp;&nbsp;&nbsp;
-				<img src="../images/apple.jpg" width="100px" align="center">
-				&nbsp;&nbsp;&nbsp;청송사과 1kg</p></td>
-				<td>20000</td>
-				<td>1</td>
-				<td>1212</td>
-				<td>120</td>
-				<td><button onclick="location.href='#'" id="gbutton">조회</button></td>
-			</tr>
+			</c:forEach>
 			<tr>
 				<td colspan="6" id="td_info">
 					<section id="pageList">
 		<%if(nowPage<=1){ %>
 			[이전]&nbsp;
 		<%}else{ %>
-			<a href="boardList.bo?page=<%=nowPage-1 %>">[이전]</a>&nbsp;
+			<a href="itemList.im?page=<%=nowPage-1 %>">[이전]</a>&nbsp;
 		<%} %>
 		
 		<%for(int a=startPage;a<=endPage;a++){
 			if(a==nowPage){%>
 				[<%=a %>]
 			<%}else{ %>
-				<a href="boardList.bo?page=<%=a%>">[<%=a %>]</a>&nbsp;
+				<a href="itemList.im?page=<%=a%>">[<%=a %>]</a>&nbsp;
 			<%} %>
 		<%} 
 		if(nowPage>=maxPage){%>
 			[다음]
 		<%}else{ %>
-			<a href="boardList.bo?page=<%=nowPage+1 %>">[다음]</a>
+			<a href="itemList.im?page=<%=nowPage+1 %>">[다음]</a>
 		<%} %>
 	</section>
 	<%}else{
@@ -232,7 +200,6 @@ img{
 			</tr>
 		</table>
 	</div>
-	</form>
 </div>
 <footer>
   <a href="#"><i class="fa fa-facebook-official"></i></a>

@@ -1,5 +1,8 @@
 package admin.action;
 import java.io.PrintWriter;
+import java.text.DateFormat;
+import java.text.SimpleDateFormat;
+import java.sql.Date;
 
 import javax.servlet.ServletContext;
 import javax.servlet.http.HttpServletRequest;
@@ -9,10 +12,10 @@ import javax.servlet.http.HttpSession;
 import com.oreilly.servlet.MultipartRequest;
 import com.oreilly.servlet.multipart.DefaultFileRenamePolicy;
 
-import action.Action;
 import svc.ItemService;
 import vo.ActionForward;
 import vo.ItemBean;
+import vo.ItemStockBean;
 
 public class ItemNewAction implements action.Action{
 
@@ -20,10 +23,10 @@ public class ItemNewAction implements action.Action{
 	public ActionForward execute(HttpServletRequest request, HttpServletResponse response) throws Exception {
 		// TODO Auto-generated method stub
 		request.setCharacterEncoding("UTF-8");
+		ActionForward forward = null;
+		
 		HttpSession session = request.getSession();
 		String id = (String)session.getAttribute("user_id");
-		ActionForward forward = null;
-		System.out.println("2");
 //		if(id==null) {
 //			forward = new ActionForward();
 //			forward.setRedirect(true);
@@ -38,6 +41,9 @@ public class ItemNewAction implements action.Action{
 //		}
 		
 		ItemService itemService = new ItemService();
+	
+		Date date = new Date(0, 0, 0);	
+		
 		String realFolder = "";
 		String saveFolder = "/images";
 		String encType = "UTF-8";
@@ -57,7 +63,11 @@ public class ItemNewAction implements action.Action{
 				Integer.parseInt(multi.getParameter("sale")),
 				multi.getParameter("content"),
 				0);
-		
+		ItemStockBean itemS = new ItemStockBean(
+				multi.getParameter("item_code"),
+				"등록",
+				date,
+				0,0,0);
 		boolean isRegistSuccess = itemService.registItem(item);
 		
 		if(!isRegistSuccess) {
@@ -68,7 +78,15 @@ public class ItemNewAction implements action.Action{
 			out.println("history.back();");
 			out.println("</script>");
 		}else {
-			forward= new ActionForward("/adminPage.jsp",false);//리스트로 들어감
+			boolean isEnrollSuccess = itemService.enrollItemStock(itemS);
+			if(!isEnrollSuccess) {
+				response.setContentType("text/html;charset=UTF-8");
+				PrintWriter out = response.getWriter();
+				out.println("<script>");
+				out.println("alert('재고등록실패 직접등록해주세요');");
+				out.println("</script>");
+			}
+			forward= new ActionForward("./adminPage.jsp",false);//리스트로 들어감
 		}
 		return forward;
 	}

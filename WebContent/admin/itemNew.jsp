@@ -1,5 +1,6 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"
     pageEncoding="UTF-8"%>
+<%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
 <!DOCTYPE html PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN" "http://www.w3.org/TR/html4/loose.dtd">
 <html>
 <head>
@@ -72,19 +73,52 @@ td, tr{
 }
 </style>
 <script>
+var chkCode = false;
+function chkForm(f){
+	var price = f.price.value;
+	var sale = f.sale.value;
+	
+	var reg_price = /^[0-9a-zA-Z]+$/;
+	var reg_sale = /^[0-9a-zA-Z]+$/;
+	
+	if(!chkCode){
+		alert("코드를 생성해주세요!");
+		return false;
+	}
+	if(f.item_name.value.trim()==""){
+		alert("상품이름은 필수항목입니다.");
+		f.item_name.focus();
+		return false;
+	}
+	if (!reg_price.test(price)) {
+		alert("가격은 숫자만 입력가능합니다.");
+		f.price.focus();
+		return false;
+	}
+	if (!reg_sale.test(sale)) {
+		alert("할인은 숫자만 입력가능합니다.");
+		f.sale.focus();
+		return false;
+	}else if(reg_sale.test(sale)){
+		if(sale<0||sale>100){
+			alert("할인은 1~100까지의 숫자만 가능합니다.");
+			f.sale.focus();
+			return false;
+		}
+	}
+	document.joinform.submit();
+}
 function selCategory(sel) {
 	var choiceText = sel.options[sel.selectedIndex].text;
 	
 	if(choiceText!="선택"){
-		document.getElementById("codegen").innerHTML = "<input type='text' name='item_code' id='item_code' required='required' size='4'/>&nbsp;<button onclick='codeGen(this)' id='gbutton'>자동생성</button>";
+		document.getElementById("codegen").innerHTML = "<input type='text' name='item_code' id='item_code' required='required' size='4'/>&nbsp;<button type='button' name='check' id='check' onclick='window.open(.'./codeGen.jsp?openInit=true/',/'/',/'width=370, height=200/')' id='gbutton'>자동생성</button>";
 	}
 	if(choiceText=="선택"){
 		document.getElementById("codegen").innerHTML = "분류를 선택해주세요.";
 	}
 }
-function codeGen(f){
-	//곡물이 맞습니까?
-}
+
 </script>
 </head>
 <link rel="stylesheet" type="text/css" href="../style/style.css">
@@ -96,7 +130,7 @@ function codeGen(f){
 	<h3>&nbsp;&nbsp;상품등록</h3>
 	<hr color="#4CAF50" size="5">
 	<div class="mypage">
-	<form action="itemRegistPro.im" method="post" enctype="multipart/form-data" name="itemnew">
+	<form action="itemRegistPro.im" method="post" enctype="multipart/form-data" name="itemnew" onsubmit="return chkForm(this)">
 			<table>
 				<tr>
 					<td id="td_left">
@@ -111,11 +145,11 @@ function codeGen(f){
 					<td id="td_right">
 						<select name="category" id="category" onchange="selCategory(this)">
 							<option value="" selected>선택</option>
-							<option value="vegetable">채소</option>
-							<option value="fruit">과일</option>
-							<option value="grains">곡류</option>
-							<option value="tea">차</option>
-							<option value="mf">가공</option>
+							<option value="채소">채소</option>
+							<option value="과일">과일</option>
+							<option value="곡류">곡류</option>
+							<option value="차">차</option>
+							<option value="가공">가공</option>
 						</select>
 					</td>
 				</tr>
