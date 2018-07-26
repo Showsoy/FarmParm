@@ -1,6 +1,9 @@
 package vo;
 
+import java.sql.Date;
+
 public class ItemViewBean {
+	private Date vdate;
 	private String item_code;
 	private String category;
 	private String img_path;
@@ -10,9 +13,10 @@ public class ItemViewBean {
 	private int readcount;
 	private int purchase;
 	
-	public ItemViewBean(String item_code, String category, String img_path, String item_name, int price, int stock,
+	public ItemViewBean(Date vdate, String item_code, String category, String img_path, String item_name, int price, int stock,
 			int readcount, int purchase) {
 		super();
+		this.vdate = vdate;
 		this.item_code = item_code;
 		this.category = category;
 		this.img_path = img_path;
@@ -22,6 +26,13 @@ public class ItemViewBean {
 		this.readcount = readcount;
 		this.purchase = purchase;
 	}
+	public Date getVdate() {
+		return vdate;
+	}
+	public void setVdate(Date vdate) {
+		this.vdate = vdate;
+	}
+
 	public String getItem_code() {
 		return item_code;
 	}

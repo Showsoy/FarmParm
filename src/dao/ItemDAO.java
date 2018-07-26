@@ -27,19 +27,33 @@ public class ItemDAO {
 		}
 		return itemsDAO;
 	}
-
-	public ArrayList<ItemViewBean> userItemList(){
+	//인기많은순 - readcount desc 판매량순 - purchase desc 신상품순 - vdate desc 낮은가격순 - price asc, 높은 가격순 - price desc,  
+	public ArrayList<ItemViewBean> userItemList(int page, String category, String standard){
 		PreparedStatement pstmt = null;
 		ResultSet rs = null;
 		ArrayList<ItemViewBean> itemViewList = null;
+		int startrow = (page-1)*10;
+		String sql = "";
 		
 		try {
-			pstmt = conn.prepareStatement("SELECT * FROM items");
+			if(standard.equals("low")) {
+				sql = "SELECT * FROM item_view WHERE category = ? ORDER BY ? ASC LIMIT ?,9";
+				pstmt = conn.prepareStatement(sql);
+				pstmt.setString(1,category);
+				pstmt.setString(2,standard);
+				pstmt.setInt(3, startrow);
+			}else {
+				sql = "SELECT * FROM item_view WHERE category = ? ORDER BY ? DESC LIMIT ?,9";
+				pstmt = conn.prepareStatement(sql);
+				pstmt.setString(1,category);
+				pstmt.setString(2,standard);
+				pstmt.setInt(3, startrow);
+			}
 			rs = pstmt.executeQuery();
 			if(rs.next()) {
 				itemViewList = new ArrayList<ItemViewBean>();
 				do {
-					itemViewList.add(new ItemViewBean(rs.getString("item_code"),rs.getString("category"),
+					itemViewList.add(new ItemViewBean(rs.getDate("vdate"), rs.getString("item_code"),rs.getString("category"),
 							rs.getString("img_path"),rs.getString("item_name"),rs.getInt("price"),
 							rs.getInt("stock"),rs.getInt("readcount"), rs.getInt("purchase")));
 				}while(rs.next());
@@ -50,7 +64,6 @@ public class ItemDAO {
 			close(rs);
 			close(pstmt);
 		}
-		
 		return itemViewList;
 	}
 	public ArrayList<ItemViewBean> adminItemList(int page){
@@ -66,7 +79,7 @@ public class ItemDAO {
 			if(rs.next()) {
 				itemViewList = new ArrayList<ItemViewBean>();
 				do {
-					itemViewList.add(new ItemViewBean(rs.getString("item_code"),rs.getString("category"),
+					itemViewList.add(new ItemViewBean(rs.getDate("vdate"), rs.getString("item_code"),rs.getString("category"),
 							rs.getString("img_path"),rs.getString("item_name"),rs.getInt("price"),
 							rs.getInt("stock"),rs.getInt("readcount"), rs.getInt("purchase")));
 				}while(rs.next());
@@ -85,7 +98,6 @@ public class ItemDAO {
 		ResultSet rs = null;
 		ArrayList<ItemViewBean> itemViewList = null;
 		int startrow = (page-1)*10;
-		
 		try {
 			pstmt = conn.prepareStatement("SELECT * FROM item_view WHERE category = ? LIMIT ?,10");
 			pstmt.setString(1, category);
@@ -94,7 +106,7 @@ public class ItemDAO {
 			if(rs.next()) {
 				itemViewList = new ArrayList<ItemViewBean>();
 				do {
-					itemViewList.add(new ItemViewBean(rs.getString("item_code"),rs.getString("category"),
+					itemViewList.add(new ItemViewBean(rs.getDate("vdate"), rs.getString("item_code"),rs.getString("category"),
 							rs.getString("img_path"),rs.getString("item_name"),rs.getInt("price"),
 							rs.getInt("stock"),rs.getInt("readcount"), rs.getInt("purchase")));
 				}while(rs.next());
@@ -105,7 +117,6 @@ public class ItemDAO {
 			close(rs);
 			close(pstmt);
 		}
-		
 		return itemViewList;
 	}
 	public int itemListCount(){
@@ -148,13 +159,14 @@ public class ItemDAO {
 		
 		return listCount;
 	}
-	public int itemStockCount(){
+	public int itemStockCount(String item_code){
 		PreparedStatement pstmt = null;
 		ResultSet rs = null;
 		int listCount = 0;
 		
 		try {
-			pstmt = conn.prepareStatement("SELECT COUNT(*) FROM item_stock");
+			pstmt = conn.prepareStatement("SELECT COUNT(*) FROM item_stock WHERE item_code = ?");
+			pstmt.setString(1, item_code);
 			rs = pstmt.executeQuery();
 			if(rs.next()) {
 				listCount = rs.getInt(1);
@@ -251,19 +263,24 @@ public class ItemDAO {
 	}
 	
 	public int deleteItem(String item_code) {
-		PreparedStatement pstmt = null;
+		PreparedStatement pstmt1 = null;
+		PreparedStatement pstmt2 = null;
+		
 		int updateCount = 0;
 		
 		try {
-			pstmt = conn.prepareStatement("DELETE FROM items WHERE item_code=?");
-			pstmt.setString(1, item_code);
+			pstmt1 = conn.prepareStatement("DELETE FROM items WHERE item_code=?");
+			pstmt1.setString(1, item_code);
+			pstmt2 = conn.prepareStatement("UPDATE item_stock SET item_code = 'null' WHERE item_code=?");
+			pstmt2.setString(1, item_code);
 			
-			updateCount = pstmt.executeUpdate();
+			updateCount = pstmt1.executeUpdate()+pstmt2.executeUpdate();
 			
 		}catch(Exception e) {
 			e.printStackTrace();
 		}finally {
-			close(pstmt);
+			close(pstmt1);
+			close(pstmt2);
 		}
 		
 		return updateCount;
@@ -345,30 +362,44 @@ public class ItemDAO {
 		}
 		
 		try {
-			pstmt = conn.prepareStatement("SELECT item_code FROM items WHERE category = ?");
+			pstmt = conn.prepareStatement("SELECT item_code FROM items WHERE category = ? ORDER BY item_code ASC");
 			pstmt.setString(1, category);
 			rs = pstmt.executeQuery();
-			
-			for(int i=1;i<1000;i++) {
-				if(rs.next()) {
-				while(rs.next()) {
-					if(i==Integer.parseInt(rs.getString("item_code").substring(1)))
-						continue;
-					else {
-						item_code = item_code+String.format("%03d", i);
-						System.out.println(i+"a");
-						System.out.println(item_code);
-						break;
+			ArrayList<Integer> arry = new ArrayList<Integer>();
+			boolean flag = false;
+			while(rs.next()) {
+				arry.add(Integer.parseInt(rs.getString("item_code").substring(1)));
+			}
+			System.out.println(arry.size());
+			if (arry.size() > 0) {
+				for (int i = 1; i <= arry.get(arry.size() - 1); i++) {
+					for (int j = i - 1; j < arry.size(); j++) {
+						System.out.println(i+","+arry.get(j));
+						if (i == arry.get(j)) {
+							System.out.println("같다.b");
+							break;
+						} else if(i != arry.get(j)) {
+							System.out.println("다르다.b");
+							flag = true;
+							break;
+						}
+					}
+					if(i==arry.get(arry.size()-1)) {
+						System.out.println("생성1");
+						item_code = item_code + String.format("%03d", i+1);
+					}else {
+						if (!flag) {
+							System.out.println("다시.C");
+						}
+						else {
+							System.out.println("생성2");
+							item_code = item_code + String.format("%03d", i);
+							break;
+						}
 					}
 				}
-				if(item_code.length()>1) {
-					break;
-				}
-				System.out.println(i+"b");
-				}else {
-					item_code +="001";
-					break;
-				}
+			} else {
+				item_code += "001";
 			}
 			
 		}catch(Exception e) {
@@ -409,33 +440,38 @@ public class ItemDAO {
 		
 		return iSearchList;
 	}
-	public int insertItemStock(ItemStockBean itemStock) {
-		PreparedStatement pstmt = null;
+	public int insertItemStock(ItemStockBean itemStock, String item_code) {
+		PreparedStatement pstmt1 = null;
+		PreparedStatement pstmt2 = null;
 		ResultSet rs = null;
 		int insertCount = 0;
 		int oldStock = 0;
-		String sql1 = "SELECT stock FROM item_stock WHERE item_code = ? ORDER BY inumber DESC LIMIT 1";
+		int inumber = 0;
+		String sql1 = "SELECT stock, max(inumber) FROM item_stock WHERE item_code = ? ORDER BY inumber DESC LIMIT 1";
 		String sql2 = "INSERT INTO item_stock VALUES(?,?,?,?,?,?)";
 		
 		try {
-			pstmt = conn.prepareStatement(sql1);
-			rs = pstmt.executeQuery();
+			pstmt1 = conn.prepareStatement(sql1);
+			pstmt1.setString(1, item_code);
+			rs = pstmt1.executeQuery();
 
 			if(rs.next()) {
 				oldStock = rs.getInt(1);
+				inumber = rs.getInt(2)+1;
 			}
-			pstmt = conn.prepareStatement(sql2);
-			pstmt.setString(1, itemStock.getItem_code());
-			pstmt.setString(2, itemStock.getState());
-			pstmt.setDate(3, itemStock.getIdate());
-			pstmt.setInt(4, itemStock.getAmount());
-			pstmt.setInt(5, oldStock+itemStock.getAmount());
-			pstmt.setString(6, null);
-			insertCount = pstmt.executeUpdate();
+			pstmt2 = conn.prepareStatement(sql2);
+			pstmt2.setString(1, itemStock.getItem_code());
+			pstmt2.setString(2, itemStock.getState());
+			pstmt2.setDate(3, itemStock.getIdate());
+			pstmt2.setInt(4, itemStock.getAmount());
+			pstmt2.setInt(5, oldStock+itemStock.getAmount());
+			pstmt2.setInt(6, inumber);
+			insertCount = pstmt2.executeUpdate();
 		}catch(Exception e) {
 			e.printStackTrace();
 		}finally {
-			close(pstmt);
+			close(pstmt1);
+			close(pstmt2);
 			close(rs);
 		}
 		return insertCount;

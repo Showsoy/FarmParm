@@ -144,12 +144,12 @@
 		<td>${item.sale }</td>
 	</tr>
 	<tr>
-		<td colspan="3" id="td_info"><button onclick="location.href='itemEnterForm.im'">수정하기</button></td>
+		<td colspan="3" id="td_info"><button onclick="location.href='itemEnterForm.im?item_code=${item.item_code}'">입고등록</button></td>
 	</tr>
 	<tr>
-		<td colspan="3" id="td_info"><button onclick="location.href='itemModForm.im'">수정하기</button> 
+		<td colspan="3" id="td_info"><button onclick="location.href='itemModForm.im?item_code=${item.item_code}'">수정하기</button> 
 	
-			<button onclick="location.href='itemDelete.im'">삭제하기</button></td>
+			<button onclick="location.href='itemDelete.im?item_code=${item.item_code}'">삭제하기</button></td>
 	</tr>
 </table>
 <br><br>
@@ -174,32 +174,39 @@
 				<td>${stock.stock }</td>
 			</tr>
 			</c:forEach>
-			<%}else{
-			%>
-				<section id="emptyArea">등록된 글이 없습니다.</section>
-			<%} %>
 			<tr>
 				<td colspan="6" id="state_info"><!-- 페이지 수 넣을 것임 -->
-					<%if(i_nowPage<=1){ %>
-			[이전]&nbsp;
-		<%}else{ %>
-			<a href="itemView.im?i_page=<%=i_nowPage-1 %>">[이전]</a>&nbsp;
-		<%} %>
-		
-		<%for(int a=i_startPage;a<=i_endPage;a++){
-			if(a==i_nowPage){%>
-				[<%=a %>]
-			<%}else{ %>
-				<a href="itemView.im?i_page=<%=a%>">[<%=a %>]</a>&nbsp;
-			<%} %>
-		<%} 
-		if(i_nowPage>=i_maxPage){%>
-			[다음]
-		<%}else{ %>
-			<a href="itemView.im?i_page=<%=i_nowPage+1 %>">[다음]</a>
-		<%} %>
+					<c:if test="${i_pageInfo.page<=1 }">
+						[이전]&nbsp;
+					</c:if>
+					<c:if test="${i_pageInfo.page>1 }">
+						<a href="itemList.im?page=${i_pageInfo.page-1}">[이전]</a>&nbsp;
+					</c:if>
+					
+					<c:forEach var="a" begin="${i_pageInfo.startPage }" end="${i_pageInfo.endPage }" step="1">
+						<c:choose>
+							<c:when test="${a==i_pageInfo.page }">
+								[${a }]
+							</c:when>
+							<c:otherwise>
+								<a href="itemList.im?page=${a }">[${a }]</a>&nbsp;
+							</c:otherwise>
+						</c:choose>
+					</c:forEach>
+					<c:choose>
+						<c:when test="${i_pageInfo.page>=i_pageInfo.maxPage }">
+							[다음]
+						</c:when>
+						<c:otherwise>
+							<a href="itemList.im?page=${i_pageInfo.page+1 }">[다음]</a>
+						</c:otherwise>
+					</c:choose>
 				</td>
 			</tr>
+			<%}else{
+			%>
+				<tr><td colspan="5">등록된 상품이 없습니다.</td></tr>
+			<%} %>
 		</table>
 </div>
 </div>

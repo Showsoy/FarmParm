@@ -108,16 +108,6 @@ function chkForm(f){
 	}
 	document.joinform.submit();
 }
-function selCategory(sel) {
-	var choiceText = sel.options[sel.selectedIndex].text;
-	
-	if(choiceText!="선택"){
-		document.getElementById("codegen").innerHTML = "<input type='text' name='item_code' id='item_code' required='required' size='4'/>&nbsp;<button type='button' name='check' id='check' onclick='window.open(.'./codeGen.jsp?openInit=true/',/'/',/'width=370, height=200/')' id='gbutton'>자동생성</button>";
-	}
-	if(choiceText=="선택"){
-		document.getElementById("codegen").innerHTML = "분류를 선택해주세요.";
-	}
-}
 
 </script>
 </head>
@@ -137,7 +127,7 @@ function selCategory(sel) {
 						<label for="item_name">이름</label>
 					</td>
 					<td id="td_right">
-						<input type="text" name="item_name" id="item_name" required="required" size="20"/>
+						<input type="text" name="item_name" id="item_name" size="20"/>
 					</td>
 					<td id="td_left">
 						<label for="category">분류</label>
@@ -158,13 +148,14 @@ function selCategory(sel) {
 						<label for="price">가격</label>
 					</td>
 					<td id="td_right">
-						<input type="text" name="price" id="price" required="required" size="10"/>원
+						<input type="text" name="price" id="price" size="10"/>원
 					</td>
 					<td id="td_left">
 						<label for="item_code">코드</label>
 					</td>
 					<td id="codegen">
-						분류를 선택해주세요.
+						<input type="text" name="item_code" id="item_code" size="4"/>&nbsp;
+						<button type="button" name="check" id="check" onclick="window.open('./codeGen.jsp?openInit=true','','width=370, height=220')" id="gbutton">자동생성</button>
 					</td>
 				</tr>
 				<tr>
@@ -172,13 +163,13 @@ function selCategory(sel) {
 						<label for="origin">원산지</label>
 					</td>
 					<td id="td_right">
-						<input type="text" name="origin" id="origin" required="required"/>
+						<input type="text" name="origin" id="origin" />
 					</td>
 					<td id="td_left">
 						<label for="sale">할인율</label>
 					</td>
 					<td id="td_right">
-						<input type="text" name="sale" id="sale" required="required" value="0" size="10"/>%
+						<input type="text" name="sale" id="sale" value="0" size="10"/>%
 					</td>
 				</tr>
 				<tr>
@@ -186,7 +177,7 @@ function selCategory(sel) {
 						<label for="content">내용</label>
 					</td>	
 					<td colspan="3">
-						<textarea name="content" id="content" cols="60" rows="15" required="required"></textarea>
+						<textarea name="content" id="content" cols="60" rows="15"></textarea>
 					</td>
 				</tr>
 				<tr>

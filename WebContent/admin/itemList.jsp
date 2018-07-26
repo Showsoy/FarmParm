@@ -110,7 +110,7 @@ img{
 	font-size:14px;
 }
 #seldel{
-	width:300px;
+	width:480px;
 }
 </style>
 <script>
@@ -133,9 +133,11 @@ img{
 <div class="pageform">
 	<h3>&nbsp;&nbsp;상품관리</h3>
 	<hr color="#4CAF50" size="5">
+	<form action = "itemDelete.im" method="post">
 	<div class="mypage">
-		<p id="seldel"><button onclick="location.href='#'" id="wbutton" style="width:70px;">선택삭제</button>
-		<a href="itemList.im?category=야채">야채</a>
+		<p id="seldel"><button type="submit" id="wbutton" style="width:70px;">선택삭제</button>
+		&nbsp;&nbsp;&nbsp;
+		<a href="itemList.im?category=채소">채소</a>
 		<a href="itemList.im?category=과일">과일</a>
 		<a href="itemList.im?category=곡류">곡류</a>
 		<a href="itemList.im?category=차">차</a>
@@ -157,7 +159,7 @@ img{
 
 			<c:forEach var="itemList" items="${itemList }">
 			<tr>
-				<td><input type="checkbox" id="remove" name="remove"/></td>
+				<td><input type="checkbox" id="remove" name="remove" value="${itemList.item_code }"/></td>
 				<td>${itemList.category }</td>
 				<td colspan="2">
 				<p>&nbsp;&nbsp;&nbsp;&nbsp;
@@ -167,40 +169,48 @@ img{
 				<td>${itemList.price }</td>
 				<td>${itemList.purchase }</td>
 				<td>${itemList.stock }</td>
-				<td><button onclick="location.href='itemView.im?item_code=${itemList.item_code}'" id="gbutton">조회</button></td>
+				<td><button type="button" onclick="location.href='itemView.im?item_code=${itemList.item_code}'" id="gbutton">조회</button></td>
 			</tr>
 			</c:forEach>
 			<tr>
-				<td colspan="6" id="td_info">
-					<section id="pageList">
-		<%if(nowPage<=1){ %>
-			[이전]&nbsp;
-		<%}else{ %>
-			<a href="itemList.im?page=<%=nowPage-1 %>">[이전]</a>&nbsp;
-		<%} %>
-		
-		<%for(int a=startPage;a<=endPage;a++){
-			if(a==nowPage){%>
-				[<%=a %>]
-			<%}else{ %>
-				<a href="itemList.im?page=<%=a%>">[<%=a %>]</a>&nbsp;
-			<%} %>
-		<%} 
-		if(nowPage>=maxPage){%>
-			[다음]
-		<%}else{ %>
-			<a href="itemList.im?page=<%=nowPage+1 %>">[다음]</a>
-		<%} %>
-	</section>
-	<%}else{
-	%>
-		<section id="emptyArea">등록된 글이 없습니다.</section>
-	<%} %>
+				<td colspan="8" id="td_info">
+					<c:if test="${pageInfo.page<=1 }">
+						[이전]&nbsp;
+					</c:if>
+					<c:if test="${pageInfo.page>1 }">
+						<a href="itemList.im?page=${pageInfo.page-1}">[이전]</a>&nbsp;
+					</c:if>
+					
+					<c:forEach var="a" begin="${pageInfo.startPage }" end="${pageInfo.endPage }" step="1">
+						<c:choose>
+							<c:when test="${a==pageInfo.page }">
+								[${a }]
+							</c:when>
+							<c:otherwise>
+								<a href="itemList.im?page=${a }">[${a }]</a>&nbsp;
+							</c:otherwise>
+						</c:choose>
+					</c:forEach>
+					<c:choose>
+						<c:when test="${pageInfo.page>=pageInfo.maxPage }">
+							[다음]
+						</c:when>
+						<c:otherwise>
+							<a href="itemList.im?page=${pageInfo.page+1 }">[다음]</a>
+						</c:otherwise>
+					</c:choose>
 				</td>
 			</tr>
+			<%}else{
+			%><tr><td colspan="8">등록된 상품이 없습니다.</td></tr>
+			<%} %>
 		</table>
+		
+
 	</div>
+	</form>
 </div>
+
 <footer>
   <a href="#"><i class="fa fa-facebook-official"></i></a>
   <a href="#"><i class="fa fa-pinterest-p"></i></a>
