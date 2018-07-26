@@ -2,16 +2,13 @@ package admin.action;
 
 import java.io.PrintWriter;
 import java.sql.Date;
-import java.text.SimpleDateFormat;
 
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
-import javax.servlet.http.HttpSession;
 
 import action.Action;
 import svc.ItemService;
 import vo.ActionForward;
-import vo.ItemBean;
 import vo.ItemStockBean;
 
 public class ItemEnterProAction implements Action {
@@ -21,12 +18,14 @@ public class ItemEnterProAction implements Action {
 		// TODO Auto-generated method stub
 		request.setCharacterEncoding("UTF-8");
 		ActionForward forward = null;
-		
-		SimpleDateFormat sdf = new SimpleDateFormat("yyyy-MM-dd"); 
-		Date date = (Date) sdf.parse(request.getParameter("idate"));
+		String item_code = request.getParameter("item_code");
+		System.out.println(item_code);
+		String idate = request.getParameter("idate");
+		idate = idate.substring(0, 4)+"-"+idate.substring(4,6)+"-"+idate.substring(6);
+		Date date = Date.valueOf(idate);
 
 		ItemStockBean itemStock = new ItemStockBean(
-				request.getParameter("item_code"),
+				item_code,
 				"입고",
 				date,
 				Integer.parseInt(request.getParameter("amount")),
@@ -36,7 +35,7 @@ public class ItemEnterProAction implements Action {
 		
 		ItemService itemService = new ItemService();
 		
-		int insertCount = itemService.itemEnter(itemStock);
+		int insertCount = itemService.itemEnter(itemStock, item_code);
 		
 		if(insertCount<1) {
 			response.setContentType("text/html;charset=UTF-8");
@@ -46,7 +45,7 @@ public class ItemEnterProAction implements Action {
 			out.println("history.back();");
 			out.println("</script>");
 		}else {
-			forward= new ActionForward("./itemSearch.jsp",false);//리스트로 들어감
+			forward= new ActionForward("./itemList.im",true);//리스트로 들어감
 		}
 		return forward;
 	}

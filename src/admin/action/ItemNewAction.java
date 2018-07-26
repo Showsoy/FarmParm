@@ -86,7 +86,7 @@ public class ItemNewAction implements action.Action{
 				out.println("alert('재고등록실패 직접등록해주세요');");
 				out.println("</script>");
 			}
-			forward= new ActionForward("./adminPage.jsp",false);//리스트로 들어감
+			forward= new ActionForward("./itemList.im",true);//리스트로 들어감
 		}
 		return forward;
 	}

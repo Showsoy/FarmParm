@@ -16,13 +16,12 @@ public class ItemCodeGenAction implements Action {
 		ActionForward forward = null;
 		
 		String category = request.getParameter("category");
-		String item_code = null;
+		String item_code = "";
 		ItemService itemService = new ItemService();
 		item_code = itemService.makeItemCode(category);
 		request.setAttribute("item_code", item_code);
-		System.out.println(item_code);
 		
-		forward= new ActionForward("./codeGen.jsp",true);
+		forward= new ActionForward("./codeGen.jsp",false);
 		
 		return forward;
 	}

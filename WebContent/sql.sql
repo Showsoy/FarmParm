@@ -174,3 +174,7 @@ ALTER TABLE items DROP COLUMN is_hot;
 
 create view user_view as select users.user_id as user_id, users.grade as grade, (select sum((select price*amount from order_item, orders where orders.order_id=order_item.order_id)) from orders) as userpay from users left join orders on users.user_id = orders.user_id;
 
+--20180726 update--view 중복 수정안됨.
+USE `java2b`;
+DROP VIEW item_view;
+CREATE VIEW item_view AS SELECT (select idate from item_stock where state='등록' and items.item_code = item_stock.item_code) as vdate, items.item_code AS item_code, items.category AS category, items.img_path AS img_path, items.item_name AS item_name, items.price AS price, item_stock.stock AS stock, items.readcount AS readcount, (SELECT SUM(amount) FROM item_stock WHERE item_stock.state='출고' AND items.item_code = item_stock.item_code) AS purchase FROM items LEFT JOIN item_stock ON items.item_code = item_stock.item_code WHERE item_stock.inumber IN (SELECT MAX(inumber) FROM item_stock GROUP BY item_code);

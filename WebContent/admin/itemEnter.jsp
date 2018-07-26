@@ -55,7 +55,21 @@ td, tr{
 }
 </style>
 <script>
+var chkId = false;
+function chkForm(f){
+	
+	var idate = f.idate.value;
+	
+	var reg_idate = /^\d{8}$/
 
+	if (!reg_idate.test(idate)) {
+		alert("올바른 형식이 아닙니다.");
+		f.idate.focus();
+		return false;
+	}
+	//if(f.pass.value.trim()!=f.passChk.value.trim()){f.pass.value="";}
+	document.joinform.submit();
+}
 </script>
 </head>
 <link rel="stylesheet" type="text/css" href="../style/style.css">
@@ -67,10 +81,10 @@ td, tr{
 	<h3>&nbsp;&nbsp;입고등록</h3>
 	<hr color="#4CAF50" size="5">
 	<div class="mypage">
-	<form action="itemEnter.im" method="post" name="enterform">
+	<form action="itemEnterPro.im?item_code=${item.item_code }" method="post" name="enterform" onsubmit="return chkForm(this)">
 			<table>
 				<tr>
-					<th><img src="../images/${item.img_path }" width="300px"></th>
+					<th colspan="2"><img src="../images/${item.img_path }" width="200px"></th>
 					<td>${item.category }</td>
 					<td>${item.item_code }</td>
 					<td>${item.item_name }</td>
@@ -78,10 +92,10 @@ td, tr{
 					<td>${item.price }</td>
 				</tr>
 				<tr>
-					<td id="td_left">일자</td>
-					<td colspan="2"><input type="text" id="idate" name="idate" placeholder="ex)19991212"/></td>
+					<td colspan="2" id="td_left">일자</td>
+					<td colspan="2"><input type="text" id="idate" name="idate" placeholder="ex)20171212" size="10"/></td>
 					<td id="td_left">수량</td>
-					<td><input type="text" id="amount" name="amount"/></td>
+					<td><input type="text" id="amount" name="amount" size="4"/></td>
 					<td><button type="submit" id="gbutton" onclick="location.href='itemEnterPro.im?item_code=${item.item_code}'">입고</button></td>
 				</tr>
 			</table>

@@ -25,6 +25,7 @@ public class ItemDeleteAction implements action.Action{
 		if(item_code==null) {
 			codes = request.getParameterValues("remove");
 			for(int i=0;i<codes.length;i++) {
+				System.out.println(codes[i]);
 				deleteCount = itemService.deleteItem(codes[i]);
 			}
 		}else {
@@ -39,7 +40,7 @@ public class ItemDeleteAction implements action.Action{
 			out.println("history.back();");
 			out.println("</script>");
 		}else {
-			forward= new ActionForward("./ItemList.im",true);
+			forward= new ActionForward("./itemList.im",false);
 		}
 		return forward;
 	}

@@ -62,7 +62,6 @@ public class ItemListAction implements Action {
 		request.setAttribute("pageInfo", pageInfo);
 		request.setAttribute("itemList", itemList);
 		forward= new ActionForward("./itemList.jsp",false);
-		
 		return forward;
 	}
 

@@ -101,14 +101,14 @@ function chkForm(f){
 	<h3>&nbsp;&nbsp;상품수정</h3>
 	<hr color="#4CAF50" size="5">
 	<div class="mypage">
-	<form action="boardWritePro.bo" method="post" enctype="multipart/form-data" name="boardform" onsubmit="return chkForm(this)">
+	<form action="itemModPro.im" method="post" enctype="multipart/form-data" name="modform" onsubmit="return chkForm(this)">
 			<table>
 				<tr>
 					<td id="td_left">
 						<label for="item_name">이름</label>
 					</td>
 					<td id="td_right">
-						<input type="text" name="item_name" id="item_name" required="required" size="20" value="${item.item_name }"/>
+						<input type="text" name="item_name" id="item_name" size="20" value="${item.item_name }"/>
 					</td>
 					<td id="td_left">
 						<label for="category">분류</label>
@@ -163,13 +163,14 @@ function chkForm(f){
 						<label for="price">가격</label>
 					</td>
 					<td id="td_right">
-						<input type="text" name="price" id="price" required="required" size="10"/>원
+						<input type="text" name="price" id="price" size="10" value="${item.price }"/>원
 					</td>
 					<td id="td_left">
 						<label for="item_code">코드</label>
 					</td>
 					<td id="codegen">
-						<input type="text" name="item_code" id="item_code" required="required" size="4"/>&nbsp;<button type="button" name="check" id="check" onclick="window.open('./codeGen.jsp?openInit=true','','width=370, height=200')" id="gbutton">자동생성</button>
+						<input type="text" name="item_code" id="item_code" size="4" value="${item.item_code }"/>&nbsp;
+						<button type="button" name="check" id="check" onclick="window.open('./codeGen.jsp?openInit=true','','width=370, height=220')" id="gbutton">자동생성</button>
 					</td>
 				</tr>
 				<tr>
@@ -177,13 +178,13 @@ function chkForm(f){
 						<label for="origin">원산지</label>
 					</td>
 					<td id="td_right">
-						<input type="text" name="origin" id="origin" required="required"/>
+						<input type="text" name="origin" id="origin" value="${item.origin }"/>
 					</td>
 					<td id="td_left">
 						<label for="sale">할인율</label>
 					</td>
 					<td id="td_right">
-						<input type="text" name="sale" id="sale" required="required" value="0" size="10"/>%
+						<input type="text" name="sale" id="sale" value="0" size="10" value="${item.sale }"/>%
 					</td>
 				</tr>
 				<tr>
@@ -191,7 +192,7 @@ function chkForm(f){
 						<label for="content">내용</label>
 					</td>	
 					<td colspan="3">
-						<textarea name="content" id="content" cols="60" rows="15" required="required"></textarea>
+						<textarea name="content" id="content" cols="60" rows="15">${item.content }</textarea>
 					</td>
 				</tr>
 				<tr>

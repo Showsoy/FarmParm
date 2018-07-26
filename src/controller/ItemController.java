@@ -1,7 +1,6 @@
 package controller;
 
 import java.io.IOException;
-import java.io.PrintWriter;
 
 import javax.servlet.RequestDispatcher;
 import javax.servlet.ServletException;
@@ -9,10 +8,20 @@ import javax.servlet.annotation.WebServlet;
 import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
-import javax.servlet.http.HttpSession;
 
 import action.Action;
-import admin.action.*;
+import admin.action.ItemCodeGenAction;
+import admin.action.ItemDeleteAction;
+import admin.action.ItemEnterFormAction;
+import admin.action.ItemEnterProAction;
+import admin.action.ItemListAction;
+import admin.action.ItemModFormAction;
+import admin.action.ItemModProAction;
+import admin.action.ItemNewAction;
+import admin.action.ItemSearchAction;
+import admin.action.ItemViewAction;
+import admin.action.UserItemListAction;
+import admin.action.UserItemViewAction;
 import vo.ActionForward;
 
 /**
@@ -113,6 +122,20 @@ protected void doProcess(HttpServletRequest request, HttpServletResponse respons
     		}
     	}else if(command.equals("/itemDelete.im")) {
     		action = new ItemDeleteAction();
+    		try {
+    			forward = action.execute(request, response);
+    		}catch(Exception e) {
+    			e.printStackTrace();
+    		}
+    	}else if(command.equals("/uitemList.im")) {
+    		action = new UserItemListAction();
+    		try {
+    			forward = action.execute(request, response);
+    		}catch(Exception e) {
+    			e.printStackTrace();
+    		}
+    	}else if(command.equals("/uitemView.im")) {
+    		action = new UserItemViewAction();
     		try {
     			forward = action.execute(request, response);
     		}catch(Exception e) {

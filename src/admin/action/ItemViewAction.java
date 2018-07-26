@@ -35,6 +35,7 @@ public class ItemViewAction implements action.Action{
 //			out.println("location.href='../dog/dogList.dog';");
 //			out.println("</script>");
 //		}
+		String item_code = request.getParameter("item_code");
 		ItemService itemService = new ItemService();
 		
 		//재고 페이지
@@ -46,7 +47,7 @@ public class ItemViewAction implements action.Action{
 			i_page = Integer.parseInt(request.getParameter("i_page"));
 		}
 		
-		int listCount = itemService.itemStockCount();
+		int listCount = itemService.itemStockCount(item_code);
 		int i_maxPage = (int)((double)listCount/i_limit+0.95); 
 		int i_startPage = (((int)((double)i_page/i_limitPage+0.9))-1) *i_limitPage +1;
 		int i_endPage = i_startPage+i_limitPage-1;
@@ -60,13 +61,10 @@ public class ItemViewAction implements action.Action{
 		i_pageInfo.setPage(i_page);
 		i_pageInfo.setStartPage(i_startPage);
 		request.setAttribute("i_pageInfo", i_pageInfo);
-		System.out.println("1");
 		
 		forward = new ActionForward();
-		String item_code = request.getParameter("item_code");
 		ItemBean item = itemService.getItem(item_code);
 		ArrayList<ItemStockBean> itemStockList = itemService.getItemStockList(item_code,i_page);
-		System.out.println("2");
 		
 		request.setAttribute("item",item);
 		request.setAttribute("itemStockList", itemStockList);
