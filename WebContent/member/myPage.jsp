@@ -94,11 +94,11 @@ td, tr{
 	</tr>
 	<tr>
 		<td id="td_left"><label for="userID">이메일</label></td>
-		<td>${user.email}</td>
+		<td>${user.email}@${user.email_ad}</td>
 	</tr>
 	<tr>
 		<td id="td_left"><label for="userID">주소</label></td>
-		<td rowspan="3">${user.postcode}<br>${user.address}<br>/</td>
+		<td rowspan="3">${user.postcode}<br>${user.address}<br>${user.address_second}</td>
 	</tr>
 </table>
 <br><br>

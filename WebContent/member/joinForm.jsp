@@ -45,6 +45,7 @@ function chkForm(f){
 			return false;
 		}
 	}
+	/*
 	if (!reg_birth.test(birth)) {
 		alert("올바른 형식이 아닙니다.");
 		f.userBirth.focus();
@@ -64,7 +65,7 @@ function chkForm(f){
 		alert("올바른 번호가 아닙니다.");
 		f.userPhone.focus();
 		return false;
-	}
+	} */
 	//if(f.pass.value.trim()!=f.passChk.value.trim()){f.pass.value="";}
 	document.joinform.submit();
 }
@@ -79,7 +80,7 @@ function selectEmail(sel) {
 <body>
 <div class="join-page">
 		<div class="form">
-			<form class="login-form" name="joinform" action="./memberJoinAction.me" method="post" onsubmit="return chkForm(this)">
+			<form class="login-form" name="joinform" action="./memberJoinAction.us" method="post" onsubmit="return chkForm(this)">
 				<div id="header">
 				<a href="../common/main.jsp"><img src="../images/farm_logo.png" width="150px"></a>
 				<hr color="#4CAF50">
@@ -103,11 +104,12 @@ function selectEmail(sel) {
 		<input type="text" name="userName" id="userName" class="input100"/>
 		
 		<label for="userPhone">연락처</label>
-		<input type="text" name="userPhone" id="userPhone" class="input100"/>
+		<input type="text" name="userPhone" id="userPhone" 
+		placeholder="ex) -없이 입력해주세요" class="input100"/>
 	
 		<label for="userBirth">생년월일</label>
 		<input type="text" name="userBirth" id="userBirth" 
-		placeholder="ex) 19990303" class="input100"/>
+		placeholder="ex) 1999-03-03" class="input100"/>
 		
 		<label for="userGen">성별</label><br><br>
 		<div id="genCheck">

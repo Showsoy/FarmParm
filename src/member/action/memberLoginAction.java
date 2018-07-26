@@ -33,7 +33,7 @@ public class memberLoginAction implements Action{
 	   		PrintWriter out=response.getWriter();
 	   		out.println("<script>");
 	   		out.println("alert('로그인 실패');");
-	   		out.println("location.href='memberLogin.me';");
+	   		out.println("location.href='../member/login.jsp';");
 	   		out.println("</script>");
    		}
    		return forward;

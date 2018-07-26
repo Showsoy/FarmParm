@@ -25,7 +25,7 @@ public class memberMyPageAction implements Action{
 	   		UserService userService = new UserService();
 	   		UserBean user = userService.myPage(user_id);
 	   		session.setAttribute("user", user);
-	   		forward.setRedirect(false);
+	   		//forward.setRedirect(false);
 	   		forward.setPath("./member/myPage.jsp");
 	   		}
 		 

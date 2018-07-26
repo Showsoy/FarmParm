@@ -91,13 +91,13 @@ public class UserService {
 	}
 	
 	// 개인정보 수정 비밀번호 확인절차
-	public boolean myPwCheck(UserBean users) {
+	public boolean myPwCheck(String users, String pw) {
 		Connection con = getConnection();
 		UserDAO userDAO = UserDAO.getInstance();
 		userDAO.setConnection(con);
 		boolean modifyPw = false;
-		String loginId = userDAO.modifyPwCheck(users);
-		if(loginId != null){
+		boolean loginPw = userDAO.modifyPwCheck(users,pw);
+		if(loginPw){
 			modifyPw = true;
 		}
 		close(con);

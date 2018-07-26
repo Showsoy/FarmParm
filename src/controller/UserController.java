@@ -9,6 +9,8 @@ import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import action.Action;
 import member.action.memberLoginAction;
+import member.action.memberLogoutAction;
+import member.action.memberModifyAction;
 import member.action.memberMyPageAction;
 import member.action.memberPwCheckAction;
 import member.action.memberJoinAction;
@@ -75,10 +77,28 @@ protected void doProcess(HttpServletRequest request, HttpServletResponse respons
 			}
     	}else if(command.equals("/pwCheckForm.us")) {
     		forward=new ActionForward();
-			forward.setRedirect(true);
+			//forward.setRedirect(true);
 			forward.setPath("./member/pwCheck.jsp");
-    	}else if(command.equals("/member/pwCheck.us")) {
+    	}else if(command.equals("/pwCheck.us")) {
     		action = new memberPwCheckAction();
+			try{
+				forward=action.execute(request, response);
+			}catch(Exception e){
+				e.printStackTrace();
+			}
+    	}else if(command.equals("/memberLogout.us")) {
+    		action = new memberLogoutAction();
+			try{
+				forward=action.execute(request, response);
+			}catch(Exception e){
+				e.printStackTrace();
+			}
+    	}else if(command.equals("/myPage.us")) {
+    		forward=new ActionForward();
+			//forward.setRedirect(true);
+			forward.setPath("./member/myPage.jsp");
+    	}else if(command.equals("/memberMod.us")) {
+    		action = new memberModifyAction();
 			try{
 				forward=action.execute(request, response);
 			}catch(Exception e){

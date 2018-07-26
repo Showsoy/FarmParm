@@ -1,5 +1,7 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"
     pageEncoding="UTF-8"%>
+<%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
+<%@page import="vo.UserBean"%>
 <!DOCTYPE html PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN" "http://www.w3.org/TR/html4/loose.dtd">
 <html>
 <head>
@@ -62,19 +64,10 @@ function chkForm(f){
 		f.userPass.focus();
 		return false;
 	}
-	//비밀번호 db와 비교하기
-	if(f.userPass.value.trim()!=""){
-		if(f.userPass.value!=f.userPassre.value){
-			alert("비밀번호가 일치하지 않습니다.");
-			f.userPassre.value="";
-			f.userPassre.focus();
-			return false;
-		}
-	}
 	document.joinform.submit();
 }
 </script>
-<link rel="stylesheet" type="text/css" href="../style/style.css">
+<link rel="stylesheet" type="text/css" href="/FarmParm/style/style.css">
 <link rel="stylesheet" href="https://www.w3schools.com/w3css/3/w3.css">
 <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.6.3/css/font-awesome.min.css">
 <body>
@@ -87,7 +80,7 @@ function chkForm(f){
 	<table cellspacing="0" cellpadding="0">
 	<tr>
 		<td id="td_left"><label for="userID">아이디</label> </td>
-		<td></td>
+		<td>${user.user_id}</td>
 	</tr>
 	<tr>
 		<td id="td_left"><label for="userPass">비밀번호</label> </td>

@@ -9,7 +9,7 @@
 	if(request.getParameter("openInit")!=null){
 		openInit = "true";
 	}
-	String id = request.getParameter("userID");
+	String id = request.getParameter("id");
 
 	if(id == null){
 		id = "";
@@ -102,17 +102,17 @@ try{
 	Context init = new InitialContext();
 	DataSource ds = (DataSource)init.lookup("java:comp/env/jdbc/MySQLDB");
 	conn = ds.getConnection();
-	String id2 = request.getParameter(id);
 	
 	//수정합시다
 	pstmt = conn.prepareStatement("SELECT user_id FROM users WHERE user_id = ?");
-	pstmt.setString(1, id2);
+	pstmt.setString(1, id);
 	rs = pstmt.executeQuery();
 	
 	boolean flag = true;
 	
 	if(rs.next()){
 		result = "이미 사용중인 아이디 입니다.";
+		flag = false;
 	}else if(flag && !id.equals("")){
 		result = "사용 가능한 아이디 입니다. <br> <a href='#' onclick=\"ok('"+id+"')\">사용하기</a>";
 	}else{

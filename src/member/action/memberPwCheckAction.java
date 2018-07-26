@@ -1,32 +1,40 @@
 package member.action;
 
 import java.io.PrintWriter;
+
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import javax.servlet.http.HttpSession;
 import action.Action;
+import svc.UserService;
 import vo.ActionForward;
-import vo.UserBean;
 
 public class memberPwCheckAction implements Action{
 	public ActionForward execute(HttpServletRequest request,HttpServletResponse response) 
 		 	throws Exception{
 		HttpSession session = request.getSession();
 		String pw = request.getParameter("userPass");
-		String opw = (String)session.getAttribute(); //이거 밑에 null임
+		String user_id = (String)session.getAttribute("id");
+		
+		UserService userService = new UserService();
+   		boolean loginResult = userService.myPwCheck(user_id,pw);
+   		
 		ActionForward forward = null;
 		
-		System.out.println(pw + "이거?");
-		System.out.println(opw + "이거는?"); //이거 null 값으로 넘어옴
-		
-		if(pw==null){
-   			forward = new ActionForward();
-			forward.setRedirect(true);
-			forward.setPath("./main.jsp");
-   		}else if(pw==opw){
+		if(loginResult){
+			forward = new ActionForward();
+	   		//forward.setRedirect(false);
+	   		forward.setPath("./member/mymod.jsp");
+   		}else{
+   			response.setContentType("text/html;charset=UTF-8");
+			PrintWriter out = response.getWriter();
+			out.println("<script>");
+			out.println("alert('비밀번호가 맞지 않습니다.');");
+			out.println("history.back();");
+			out.println("</script>");
 	   		forward = new ActionForward();
-	   		forward.setRedirect(false);
-	   		forward.setPath("./member/myMod.jsp");
+			//forward.setRedirect(true);
+			//forward.setPath("./member/myPage.jsp");
 	   		}
 		 
 		return forward;

@@ -174,3 +174,12 @@ ALTER TABLE items DROP COLUMN is_hot;
 
 create view user_view as select users.user_id as user_id, users.grade as grade, (select sum((select price*amount from order_item, orders where orders.order_id=order_item.order_id)) from orders) as userpay from users left join orders on users.user_id = orders.user_id;
 
+-- users 테이블에 address_second / email_ad 추가하고, 순서 바꿈 --
+alter table users add address_second varchar(60) not null;
+alter table users modify column address_second varchar(60) after address;
+
+alter table users add email_ad varchar(45) not null;
+alter table users modify column email_ad varchar(45) after email;
+
+----------------------------------------------
+

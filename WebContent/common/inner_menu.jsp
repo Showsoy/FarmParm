@@ -23,11 +23,14 @@
 			<a href="<%=request.getContextPath()%>/memberLogin.us">장바구니</a>&nbsp;
 		</c:when>
 		<c:otherwise>
-			<a href="#">로그아웃</a>&nbsp;
+			<a href="<%=request.getContextPath()%>/memberLogout.us">로그아웃</a>&nbsp;
 		    <a href="<%=request.getContextPath()%>/mypage.us">마이페이지</a>&nbsp;
 			<a href="<%=request.getContextPath()%>/order/myOrders.jsp">주문/배송</a>&nbsp;
 			<a href="<%=request.getContextPath()%>/common/cs_center.jsp">고객센터</a>&nbsp;
 			<a href="<%=request.getContextPath()%>/order/cart.jsp">장바구니</a>&nbsp;
+			<c:if test="${id == 'admin'}">
+			<a href="<%=request.getContextPath()%>/memberList.us">회원관리</a>&nbsp;
+			</c:if>
 		</c:otherwise>
 	</c:choose>  
 </div>

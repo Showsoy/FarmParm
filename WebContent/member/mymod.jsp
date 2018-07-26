@@ -1,5 +1,7 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"
     pageEncoding="UTF-8"%>
+<%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
+<%@page import="vo.UserBean"%>
 <!DOCTYPE html PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN" "http://www.w3.org/TR/html4/loose.dtd">
 <html>
 <head>
@@ -73,7 +75,7 @@ td, tr{
 </style>
 </head>
 <script>
-var chkId = false;
+/* var chkId = false;
 function chkForm(f){
 	
 	var birth = f.userBirth.value;
@@ -108,7 +110,7 @@ function chkForm(f){
 	}
 	//if(f.pass.value.trim()!=f.passChk.value.trim()){f.pass.value="";}
 	document.joinform.submit();
-}
+} */
 function selectEmail(sel) {
 	var choiceText = sel.options[sel.selectedIndex].text;
 
@@ -117,7 +119,7 @@ function selectEmail(sel) {
 	}
 }
 </script>
-<link rel="stylesheet" type="text/css" href="../style/style.css">
+<link rel="stylesheet" type="text/css" href="/FarmParm/style/style.css">
 <link rel="stylesheet" href="https://www.w3schools.com/w3css/3/w3.css">
 <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.6.3/css/font-awesome.min.css">
 <body>
@@ -126,11 +128,11 @@ function selectEmail(sel) {
 	<h3>&nbsp;&nbsp;개인정보수정</h3>
 	<hr color="#4CAF50" size="5">
 	<div class="mypage">
-	<form action="#" method="post" onsubmit="return chkForm(this)">
+	<form action="/FarmParm/memberMod.us" method="post" onsubmit="return chkForm(this)">
 	<table cellspacing="0" cellpadding="0">
 	<tr>
 		<td id="td_left"><label for="userID">아이디</label> </td>
-		<td></td>
+		<td>${user.user_id}</td>
 	</tr>
 	<tr>
 		<td id="td_left"><label for="userID">비밀번호</label> </td>
@@ -138,44 +140,88 @@ function selectEmail(sel) {
 	</tr>
 	<tr>
 		<td id="td_left"><label for="userID">이름</label></td>
-		<td>\</td>
+		<td>${user.name}</td>
 	</tr>
 	<tr>
 		<td id="td_left"><label for="userPhone">연락처</label></td>
-		<td><input type="text" id="userPhone" name="userPhone" value="01011111111"></td>
+		<td><input type="text" id="userPhone" name="userPhone" value="${user.phone}"></td>
 	</tr>
 	<tr>
 		<td id="td_left"><label for="userBirth">생년월일</label></td>
-		<td><input type="text" id="userBirth" name="userBirth" value="19991111"></td>
+		<td><input type="text" id="userBirth" name="userBirth" value="${user.birth}"></td>
 	</tr>
 	<tr>
 		<td id="td_left"><label for="userGen">성별</label></td>
+		<c:if test="${user.gender == '남'}">
 		<td><input type="radio" name="userGen" value="남" checked="checked" id="userGen"/>&nbsp;남자&nbsp;
 		&nbsp;&nbsp;&nbsp;
 		<input type="radio" name="userGen" value="여">&nbsp;여자</td>
+		</c:if>
+		<c:if test="${user.gender == '여'}">
+		<td><input type="radio" name="userGen" value="남" id="userGen"/>&nbsp;남자&nbsp;
+		&nbsp;&nbsp;&nbsp;
+		<input type="radio" name="userGen" value="여" checked="checked">&nbsp;여자</td>
+		</c:if>
 	</tr>
 	<tr>
 		<td id="td_left"><label for="userID">이메일</label></td>
 		<td>
-		<input type="text" name="userEmailId" id="userEmailId"size="10" />&nbsp;@
+		<input type="text" name="userEmailId" id="userEmailId"size="10" value="${user.email}"/>&nbsp;@
 		<span id="emailform">
-			<select name="userEmailAd" id="userEmailAd" onchange="selectEmail(this)">
-						<option value="gmail.com">gmail.com</option>
-						<option value="naver.com">naver.com</option>
-						<option value="naver.com">daum.net</option>
-						<option value="naver.com">hotmail.co.kr</option>
-						<option value="null">직접입력</option>
-			</select>
+		<select name="userEmailAd" id="userEmailAd" onchange="selectEmail(this)">
+		
+		<c:choose>
+		<c:when test="${user.email_ad != 'gmail.com' or 'naver.com' or 'daum.net' or 'hotmail.co.kr'}">
+			<option value="${user.email_ad}" selected="selected">${user.email_ad}</option>
+			<option value="gmail.com">gmail.com</option>
+			<option value="naver.com">naver.com</option>
+			<option value="naver.com">daum.net</option>	
+			<option value="naver.com">hotmail.co.kr</option>
+			<option value="null">직접입력</option>
+		</c:when>
+		<c:otherwise>
+			<c:if test="${user.email_ad == 'gmail.com'}">
+				<option value="gmail.com" selected="selected">gmail.com</option>
+				<option value="naver.com">naver.com</option>
+				<option value="naver.com">daum.net</option>	
+				<option value="naver.com">hotmail.co.kr</option>
+				<option value="null">직접입력</option>
+			</c:if>
+			<c:if test="${user.email_ad == 'naver.com'}">
+				<option value="gmail.com">gmail.com</option>
+				<option value="naver.com" selected="selected">naver.com</option>
+				<option value="naver.com">daum.net</option>	
+				<option value="naver.com">hotmail.co.kr</option>
+				<option value="null">직접입력</option>
+			</c:if>
+			<c:if test="${user.email_ad == 'daum.net'}">
+				<option value="gmail.com">gmail.com</option>
+				<option value="naver.com">naver.com</option>
+				<option value="naver.com" selected="selected">daum.net</option>	
+				<option value="naver.com">hotmail.co.kr</option>
+				<option value="null">직접입력</option>
+			</c:if>
+			<c:if test="${user.email_ad == 'hotmail.co.kr'}">
+				<option value="gmail.com">gmail.com</option>
+				<option value="naver.com">naver.com</option>
+				<option value="naver.com">daum.net</option>	
+				<option value="naver.com" selected="selected">hotmail.co.kr</option>
+				<option value="null">직접입력</option>
+			</c:if>
+		</c:otherwise>
+		</c:choose>
+		
+		</select>
 		</span>
 		</td>
 	</tr>
 	<tr>
 		<td id="td_left"><label for="userID">주소</label></td>
 		<td rowspan="3">
-		<input type="text" name="userAddr1" id="userAddr1"size="7" />
+		<input type="text" value="${user.postcode}" name="userAddr1" id="userAddr1"size="7"/>
 		<button type="button" onclick="sample6_execDaumPostcode()" id="gbutton">주소검색</button> <br>
-		<input type="text" name="userAddr2" id="userAddr2" placeholder="주소" size="30"><br>
-		<input type="text" name="userAddr3" id="userAddr3" placeholder="상세주소" size="30">
+		<input type="text" name="userAddr2" id="userAddr2" value="${user.address}" size="30"/><br>
+		<input type="text" name="userAddr3" id="userAddr3" value="${user.address_second}" size="30"/>
 		<script src="http://dmaps.daum.net/map_js_init/postcode.v2.js"></script>
 		<script>
 		    function sample6_execDaumPostcode() {

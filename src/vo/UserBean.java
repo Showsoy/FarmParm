@@ -11,11 +11,14 @@ public class UserBean {
 	private String gender;
 	private String postcode;
 	private String address;
+	private String address_second;
 	private String email;
+	private String email_ad;
 	private String grade;
+	
 
 	public UserBean(String user_id, String passwd, String name, String phone, Date birth, String gender,
-			String postcode, String address, String email, String grade) {
+			String postcode, String address, String address_second, String email, String email_ad, String grade) {
 		super();
 		this.user_id = user_id;
 		this.passwd = passwd;
@@ -25,7 +28,9 @@ public class UserBean {
 		this.gender = gender;
 		this.postcode = postcode;
 		this.address = address;
+		this.address_second = address_second;
 		this.email = email;
+		this.email_ad = email_ad;
 		this.grade = grade;
 	}
 
@@ -37,6 +42,21 @@ public class UserBean {
 
 	public UserBean() {
 		// TODO Auto-generated constructor stub
+	}
+
+
+	public UserBean(String phone, Date birth, String gender, String postcode, String address,
+			String address_second, String email, String email_ad, String user_id) {
+		// TODO Auto-generated constructor stub
+		this.phone = phone;
+		this.birth = birth;
+		this.gender = gender;
+		this.postcode = postcode;
+		this.address = address;
+		this.address_second = address_second;
+		this.email = email;
+		this.email_ad = email_ad;
+		this.user_id = user_id;
 	}
 
 
@@ -103,13 +123,29 @@ public class UserBean {
 	public void setAddress(String address) {
 		this.address = address;
 	}
+	
+	public String getAddress_second() {
+		return address_second;
+	}
 
+	public void setAddress_second(String address_second) {
+		this.address_second = address_second;
+	}
+	
 	public String getEmail() {
 		return email;
 	}
 
 	public void setEmail(String email) {
 		this.email = email;
+	}
+	
+	public String getEmail_ad() {
+		return email_ad;
+	}
+	
+	public void setEmail_ad(String email_ad) {
+		this.email_ad = email_ad;
 	}
 
 	public String getGrade() {

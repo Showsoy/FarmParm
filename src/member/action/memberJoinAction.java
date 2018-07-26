@@ -22,7 +22,7 @@ public class memberJoinAction  implements Action{
    		Date birth = (Date) sdf.parse(request.getParameter("userBirth"));*/
    		
    		Date birth = Date.valueOf(request.getParameter("userBirth"));
-   		String address = request.getParameter("userAddr2") + request.getParameter("userAddr3");
+   		
    		users.setUser_id(request.getParameter("userID"));
    		users.setPasswd(request.getParameter("userPass"));
    		users.setName(request.getParameter("userName"));
@@ -30,8 +30,10 @@ public class memberJoinAction  implements Action{
    		users.setBirth(birth);
    		users.setGender(request.getParameter("userGen"));
    		users.setPostcode(request.getParameter("userAddr1"));
-   		users.setAddress(address);
+   		users.setAddress(request.getParameter("userAddr2"));
+   		users.setAddress_second(request.getParameter("userAddr3"));
    		users.setEmail(request.getParameter("userEmailId"));
+   		users.setEmail_ad(request.getParameter("userEmailAd"));
    		users.setGrade("일반");
    		
    		UserService userService = new UserService();
@@ -49,7 +51,7 @@ public class memberJoinAction  implements Action{
    		else{
    	    forward = new ActionForward();
    		forward.setRedirect(true);
-   		forward.setPath("../common/main.jsp");
+   		forward.setPath("../member/login.jsp");
    		}
    		return forward;
 }
