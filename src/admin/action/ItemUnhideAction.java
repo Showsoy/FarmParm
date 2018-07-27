@@ -5,10 +5,11 @@ import java.io.PrintWriter;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
+import action.Action;
 import svc.ItemService;
 import vo.ActionForward;
 
-public class ItemDeleteAction implements action.Action{
+public class ItemUnhideAction implements Action {
 
 	@Override
 	public ActionForward execute(HttpServletRequest request, HttpServletResponse response) throws Exception {
@@ -19,24 +20,23 @@ public class ItemDeleteAction implements action.Action{
 		ItemService itemService = new ItemService();
 		String codes[];
 		String item_code;
-		int deleteCount=0;
+		int updateCount=0;
 		item_code = request.getParameter("item_code");
 		
 		if(item_code==null) {
 			codes = request.getParameterValues("icheck");
 			for(int i=0;i<codes.length;i++) {
 				System.out.println(codes[i]);
-				deleteCount = itemService.deleteItem(codes[i]);
+				updateCount = itemService.unhideItem(codes[i]);
 			}
 		}else {
-			deleteCount = itemService.deleteItem(item_code);
+			updateCount = itemService.unhideItem(item_code);
 		}
-		
-		if(deleteCount==0) {
+		if(updateCount==0) {
 			response.setContentType("text/html;charset=UTF-8");
 			PrintWriter out = response.getWriter();
 			out.println("<script>");
-			out.println("alert('삭제실패');");
+			out.println("alert('숨김취소실패');");
 			out.println("history.back();");
 			out.println("</script>");
 		}else {

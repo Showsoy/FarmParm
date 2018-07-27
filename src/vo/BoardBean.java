@@ -12,6 +12,8 @@ public class BoardBean {
 	private int has_re;
 	private Date date;
 	private int readcount;
+	private int rgroup;
+	
 	public int getBoard_num() {
 		return board_num;
 	}
@@ -66,6 +68,10 @@ public class BoardBean {
 	public void setReadcount(int readcount) {
 		this.readcount = readcount;
 	}
-	
-	
+	public int getRgroup() {
+		return rgroup;
+	}
+	public void setRgroup(int rgroup) {
+		this.rgroup = rgroup;
+	}
 }

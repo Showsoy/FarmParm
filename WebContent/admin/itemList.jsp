@@ -1,19 +1,8 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"
     pageEncoding="UTF-8"%>
-<%@ page import="vo.PageInfo" %>
-<%@ page import="vo.ItemViewBean" %>
 <%@ page import="java.util.*" %>
 <%@ page import="java.text.SimpleDateFormat" %>
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
-<%
-	ArrayList<ItemViewBean> itemList = (ArrayList<ItemViewBean>)request.getAttribute("itemList");
-	PageInfo pageInfo = (PageInfo)request.getAttribute("pageInfo");
-	int listCount = pageInfo.getListCount();
-	int nowPage = pageInfo.getPage();
-	int maxPage = pageInfo.getMaxPage();
-	int startPage = pageInfo.getStartPage();
-	int endPage = pageInfo.getEndPage();	
-%>
 <!DOCTYPE html PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN" "http://www.w3.org/TR/html4/loose.dtd">
 <html>
 <head>
@@ -110,18 +99,22 @@ img{
 	font-size:14px;
 }
 #seldel{
-	width:480px;
+	width:650px;
 }
 </style>
 <script>
 	function checkAll(theForm){
-		if(theForm.remove.length==undefined){
-			theForm.remove.checked = theForm.allCheck.checked;
+		if(theForm.icheck.length==undefined){
+			theForm.icheck.checked = theForm.allCheck.checked;
 		}else{
-			for(var i=0;i<theForm.remove.length;i++){
-				theForm.remove[i].checked = theForm.allCheck.checked;
+			for(var i=0;i<theForm.icheck.length;i++){
+				theForm.icheck[i].checked = theForm.allCheck.checked;
 			}
 		}
+	}
+	function goto_url(act) {
+		 document.itemList.action = act;
+		 document.itemList.submit();
 	}
 </script>
 </head>
@@ -133,10 +126,13 @@ img{
 <div class="pageform">
 	<h3>&nbsp;&nbsp;상품관리</h3>
 	<hr color="#4CAF50" size="5">
-	<form action = "itemDelete.im" method="post">
+	<form method="post" name="itemList">
 	<div class="mypage">
-		<p id="seldel"><button type="submit" id="wbutton" style="width:70px;">선택삭제</button>
+		<p id="seldel"><button type="button" id="wbutton" style="width:70px;" onclick="goto_url('itemDelete.im');">선택삭제</button>
+		<button type="button" id="wbutton" style="width:70px;" onclick="goto_url('itemHide.im');">선택숨김</button>
+		<button type="button" id="wbutton" style="width:70px;" onclick="goto_url('itemUnhide.im');">숨김취소</button>
 		&nbsp;&nbsp;&nbsp;
+		<a href="itemList.im">전체</a>
 		<a href="itemList.im?category=채소">채소</a>
 		<a href="itemList.im?category=과일">과일</a>
 		<a href="itemList.im?category=곡류">곡류</a>
@@ -144,9 +140,8 @@ img{
 		<a href="itemList.im?category=가공">가공</a>
 		</p>
 		<table cellspacing="0" cellpadding="0">
-			<%
-				if(itemList!=null&&listCount>0){
-			%>
+			<c:choose>
+				<c:when test="${pageInfo.listCount>0 }">	
 			<tr id="top_menu">
 				<td id="td_check"><input type="checkbox" id="allCheck" name="allCheck" onClick="checkAll(this.form)"/></td>
 				<td>상품코드</td>
@@ -158,8 +153,15 @@ img{
 			</tr>
 
 			<c:forEach var="itemList" items="${itemList }">
-			<tr>
-				<td><input type="checkbox" id="remove" name="remove" value="${itemList.item_code }"/></td>
+				<c:choose>
+					<c:when test="${itemList.ihide>0 }">
+						<tr style="background-color:#EAEAEA;text-decoration: line-through;">
+					</c:when>
+					<c:otherwise>
+						<tr>
+					</c:otherwise>
+				</c:choose>
+				<td><input type="checkbox" id="icheck" name="icheck" value="${itemList.item_code }"/></td>
 				<td>${itemList.category }</td>
 				<td colspan="2">
 				<p>&nbsp;&nbsp;&nbsp;&nbsp;
@@ -201,9 +203,11 @@ img{
 					</c:choose>
 				</td>
 			</tr>
-			<%}else{
-			%><tr><td colspan="8">등록된 상품이 없습니다.</td></tr>
-			<%} %>
+			</c:when>
+			<c:otherwise>
+				<tr><td colspan="8">등록된 상품이 없습니다.</td></tr>
+			</c:otherwise>
+		</c:choose>
 		</table>
 		
 

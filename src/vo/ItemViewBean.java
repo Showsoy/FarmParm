@@ -9,12 +9,14 @@ public class ItemViewBean {
 	private String img_path;
 	private String item_name;
 	private int price;
+	private int sale;
 	private int stock;
 	private int readcount;
 	private int purchase;
+	private int ihide;
 	
-	public ItemViewBean(Date vdate, String item_code, String category, String img_path, String item_name, int price, int stock,
-			int readcount, int purchase) {
+	public ItemViewBean(Date vdate, String item_code, String category, String img_path, String item_name, int price, 
+			int sale, int stock, int readcount, int purchase, int ihide) {
 		super();
 		this.vdate = vdate;
 		this.item_code = item_code;
@@ -22,9 +24,11 @@ public class ItemViewBean {
 		this.img_path = img_path;
 		this.item_name = item_name;
 		this.price = price;
+		this.sale = sale;
 		this.stock = stock;
 		this.readcount = readcount;
 		this.purchase = purchase;
+		this.ihide = ihide;
 	}
 	public Date getVdate() {
 		return vdate;
@@ -63,6 +67,12 @@ public class ItemViewBean {
 	public void setPrice(int price) {
 		this.price = price;
 	}
+	public int getSale() {
+		return sale;
+	}
+	public void setSale(int sale) {
+		this.sale = sale;
+	}
 	public int getStock() {
 		return stock;
 	}
@@ -81,6 +91,10 @@ public class ItemViewBean {
 	public void setPurchase(int purchase) {
 		this.purchase = purchase;
 	}
-	
-	
+	public int getIhide() {
+		return ihide;
+	}
+	public void setIhide(int ihide) {
+		this.ihide = ihide;
+	}
 }

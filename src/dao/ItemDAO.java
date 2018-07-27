@@ -32,30 +32,25 @@ public class ItemDAO {
 		PreparedStatement pstmt = null;
 		ResultSet rs = null;
 		ArrayList<ItemViewBean> itemViewList = null;
-		int startrow = (page-1)*10;
+		int startrow = (page-1)*9;
 		String sql = "";
 		
 		try {
 			if(standard.equals("low")) {
-				sql = "SELECT * FROM item_view WHERE category = ? ORDER BY ? ASC LIMIT ?,9";
-				pstmt = conn.prepareStatement(sql);
-				pstmt.setString(1,category);
-				pstmt.setString(2,standard);
-				pstmt.setInt(3, startrow);
+				sql = "SELECT * FROM item_view WHERE category = ? AND ihide=0 ORDER BY price ASC LIMIT ?,9";
 			}else {
-				sql = "SELECT * FROM item_view WHERE category = ? ORDER BY ? DESC LIMIT ?,9";
-				pstmt = conn.prepareStatement(sql);
-				pstmt.setString(1,category);
-				pstmt.setString(2,standard);
-				pstmt.setInt(3, startrow);
+				sql = "SELECT * FROM item_view WHERE category = ? AND ihide=0 ORDER BY "+standard+" DESC LIMIT ?,9";
 			}
+			pstmt = conn.prepareStatement(sql);
+			pstmt.setString(1,category);
+			pstmt.setInt(2, startrow);
 			rs = pstmt.executeQuery();
 			if(rs.next()) {
 				itemViewList = new ArrayList<ItemViewBean>();
 				do {
 					itemViewList.add(new ItemViewBean(rs.getDate("vdate"), rs.getString("item_code"),rs.getString("category"),
-							rs.getString("img_path"),rs.getString("item_name"),rs.getInt("price"),
-							rs.getInt("stock"),rs.getInt("readcount"), rs.getInt("purchase")));
+							rs.getString("img_path"),rs.getString("item_name"),rs.getInt("price"),rs.getInt("sale"),
+							rs.getInt("stock"),rs.getInt("readcount"), rs.getInt("purchase"), rs.getInt("ihide")));
 				}while(rs.next());
 			}
 		}catch(Exception e) {
@@ -80,8 +75,8 @@ public class ItemDAO {
 				itemViewList = new ArrayList<ItemViewBean>();
 				do {
 					itemViewList.add(new ItemViewBean(rs.getDate("vdate"), rs.getString("item_code"),rs.getString("category"),
-							rs.getString("img_path"),rs.getString("item_name"),rs.getInt("price"),
-							rs.getInt("stock"),rs.getInt("readcount"), rs.getInt("purchase")));
+							rs.getString("img_path"),rs.getString("item_name"),rs.getInt("price"),rs.getInt("sale"),
+							rs.getInt("stock"),rs.getInt("readcount"), rs.getInt("purchase"), rs.getInt("ihide")));
 				}while(rs.next());
 			}
 		}catch(Exception e) {
@@ -107,8 +102,8 @@ public class ItemDAO {
 				itemViewList = new ArrayList<ItemViewBean>();
 				do {
 					itemViewList.add(new ItemViewBean(rs.getDate("vdate"), rs.getString("item_code"),rs.getString("category"),
-							rs.getString("img_path"),rs.getString("item_name"),rs.getInt("price"),
-							rs.getInt("stock"),rs.getInt("readcount"), rs.getInt("purchase")));
+							rs.getString("img_path"),rs.getString("item_name"),rs.getInt("price"),rs.getInt("sale"),
+							rs.getInt("stock"),rs.getInt("readcount"), rs.getInt("purchase"), rs.getInt("ihide")));
 				}while(rs.next());
 			}
 		}catch(Exception e) {
@@ -193,7 +188,7 @@ public class ItemDAO {
 			if(rs.next()) {
 				item = new ItemBean(rs.getString("item_code"),rs.getString("item_name"),rs.getInt("price"),
 						rs.getString("origin"),rs.getString("category"),rs.getString("img_path"),rs.getInt("sale"),
-						rs.getString("content"),rs.getInt("readcount"));
+						rs.getString("content"),rs.getInt("readcount"), rs.getInt("ihide"));
 			}
 			
 		}catch(Exception e) {
@@ -285,7 +280,44 @@ public class ItemDAO {
 		
 		return updateCount;
 	}
-	
+	public int hideItem(String item_code) {
+		PreparedStatement pstmt = null;
+		
+		int updateCount = 0;
+		
+		try {
+			pstmt = conn.prepareStatement("UPDATE items SET ihide = 1 WHERE item_code=?");
+			pstmt.setString(1, item_code);
+			
+			updateCount = pstmt.executeUpdate();
+			
+		}catch(Exception e) {
+			e.printStackTrace();
+		}finally {
+			close(pstmt);
+		}
+		
+		return updateCount;
+	}
+	public int unhideItem(String item_code) {
+		PreparedStatement pstmt = null;
+		
+		int updateCount = 0;
+		
+		try {
+			pstmt = conn.prepareStatement("UPDATE items SET ihide = 0 WHERE item_code=?");
+			pstmt.setString(1, item_code);
+			
+			updateCount = pstmt.executeUpdate();
+			
+		}catch(Exception e) {
+			e.printStackTrace();
+		}finally {
+			close(pstmt);
+		}
+		
+		return updateCount;
+	}
 	public int updateReadCount(String item_code) {
 		PreparedStatement pstmt = null;
 		int updateCount = 0;
@@ -306,7 +338,7 @@ public class ItemDAO {
 	public int insertItem(ItemBean item) {
 		PreparedStatement pstmt = null;
 		int insertCount = 0;
-		String sql = "INSERT INTO items VALUES(?,?,?,?,?,?,?,?,?)";
+		String sql = "INSERT INTO items VALUES(?,?,?,?,?,?,?,?,?,?)";
 		
 		try {
 			pstmt = conn.prepareStatement(sql);
@@ -319,6 +351,7 @@ public class ItemDAO {
 			pstmt.setInt(7, item.getSale());
 			pstmt.setString(8, item.getContent());
 			pstmt.setInt(9, item.getReadcount());
+			pstmt.setInt(10, 0);
 			insertCount = pstmt.executeUpdate();
 		}catch(Exception e){
 			e.printStackTrace();
@@ -329,6 +362,7 @@ public class ItemDAO {
 	}
 	public int enrollItemStock(ItemStockBean itemS) {
 		PreparedStatement pstmt = null;
+		
 		int insertCount = 0;
 		String sql = "INSERT INTO item_stock VALUES(?,?,now(),?,?,?)";
 		
@@ -338,7 +372,7 @@ public class ItemDAO {
 			pstmt.setString(2, itemS.getState());
 			pstmt.setInt(3, itemS.getAmount());
 			pstmt.setInt(4, itemS.getStock());
-			pstmt.setString(5, null);
+			pstmt.setInt(5, itemS.getInumber());
 			insertCount = pstmt.executeUpdate();
 		}catch(Exception e){
 			e.printStackTrace();
@@ -427,7 +461,7 @@ public class ItemDAO {
 				do {
 					iSearchList.add(new ItemBean(rs.getString("item_code"),rs.getString("item_name"),rs.getInt("price"),
 							rs.getString("origin"),rs.getString("category"),rs.getString("img_path"),rs.getInt("sale"),
-							rs.getString("content"),rs.getInt("readcount")));
+							rs.getString("content"),rs.getInt("readcount"), rs.getInt("ihide")));
 				}while(rs.next());
 			}
 			
@@ -447,7 +481,7 @@ public class ItemDAO {
 		int insertCount = 0;
 		int oldStock = 0;
 		int inumber = 0;
-		String sql1 = "SELECT stock, max(inumber) FROM item_stock WHERE item_code = ? ORDER BY inumber DESC LIMIT 1";
+		String sql1 = "SELECT stock, inumber FROM item_stock WHERE inumber = (SELECT MAX(inumber) FROM item_stock a WHERE a.item_code = ? GROUP BY item_code)";
 		String sql2 = "INSERT INTO item_stock VALUES(?,?,?,?,?,?)";
 		
 		try {

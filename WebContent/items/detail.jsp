@@ -1,5 +1,6 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"
     pageEncoding="UTF-8"%>
+<%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
 <!DOCTYPE html PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN" "http://www.w3.org/TR/html4/loose.dtd">
 <html>
 <head>
@@ -48,73 +49,115 @@
 }
 #detail_board tr td{
 	font-size:12px;
-	border-bottom: 1px solid #ddd;
 }
 #detail_board tr:nth-child(even) {background-color: #f2f2f2;}
+#idetail{
+	margin:0 auto;
+	display:inline-block;
+}
+#id_img{
+	float:left;
+}
+#id_text{
+	padding:0 50px 0 50px;
+	float:left;
+	font-size:12px;
+}
+#saled{
+	color:#4CAF50;
+}
+dt{
+	display:inline-block;
+	width:80px;
+	text-align:left;
+}
+dd{
+	display:inline-block;
+	width:80px;
+	text-align:center;
+}
 </style>
+<script>
+function goto_url(act) {
+	 document.itemform.action = act;
+	 document.itemform.submit();
+}
+</script>
 </head>
 <link rel="stylesheet" type="text/css" href="../style/style.css">
 <link rel="stylesheet" href="https://www.w3schools.com/w3css/3/w3.css">
 <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.6.3/css/font-awesome.min.css">
 <body>
 <jsp:include page="/common/top_menu.jsp" flush="false"/>
+<c:if test="${todayImageList!=null }">
 <div class="recent_view">
 		<h4>&nbsp;&nbsp;최근 본 상품</h4>
 		<table>
 		<tr>
-			<td><img src="../images/apple.jpg"/></td>
-			<td><img src="../images/apple.jpg"/></td>
-			<td><img src="../images/apple.jpg"/></td>
-			<td><img src="../images/apple.jpg"/></td>
-			<td><img src="../images/apple.jpg"/></td>
+			<c:forEach var="todayImage" items="${todayImageList }" varStatus="status" begin="0" end="5" step="1">
+				<td><img src="../images/${todayImage }" id="todayImage"/></td>
+			</c:forEach>
 		</tr>
 		</table>
-	</div>
+</div>
+</c:if>
+<c:set var="price" value="${item.price }"/>
+<c:set var="sale" value="${item.sale }"/>
+<%
+int price = (int)pageContext.getAttribute("price");
+int sale = (int)pageContext.getAttribute("sale");
+double saled = 1-(double)sale/100;
+int uprice = (int)(price*saled);
+pageContext.setAttribute("uprice", uprice);
+%>
 <div class="goodsform">
 	<h3>&nbsp;&nbsp;상품 페이지</h3>
 	<hr color="#4CAF50" size="5">
 	<div class="mypage">
-	<table cellspacing="0" cellpadding="0" class="detail_table">
-	<tr>
-		<th rowspan="5"><img src="../images/apple.jpg" width="300px"></th>
-		<td id="td_left">상품명</td>
-		<td><h2>청송사과 1kg</h2></td>
-	</tr>
-	<tr>
-		<td id="td_left">가격</td>
-		<td>1111</td>
-	</tr>
-	<tr>
-		<td id="td_left">원산지</td>
-		<td>청송 읍읍리</td>
-	</tr>
-	<tr>
-		<td id="td_left">수량</td>
-		<td>2</td>
-	</tr>
-	<tr>
-		<td id="td_left">옵션</td>
-		<td>/</td>
-	</tr>
-	<tr>
-		<td colspan="3" id="td_info">총 2222원</td>
-	</tr>
-	<tr>
-		<td colspan="3" id="td_info"><button onclick="location.href='../order/cart.jsp'">장바구니</button> 
-	
-			<button onclick="location.href='../order/order.jsp'">바로구매</button></td>
-	</tr>
-</table>
+	<form method="post" name="itemform">
+	<div id="idetail">
+		<div id="id_img">
+			<img src="../images/apple.jpg" width="400px">
+		</div>
+		<div id="id_text">
+			<dl>
+				<dt>상품이름</dt>
+				<dd><b>${item.item_name }</b></dd>
+			</dl>
+			<dl>
+				<dt>가격</dt>
+				<dd>${item.price }원</dd>
+			</dl>
+			<c:if test="${item.sale>0 }">
+				<dl>
+					<dt>할인가</dt>
+					<dd><b id="saled">${uprice }</b>원</dd>
+				</dl>
+			</c:if>
+			<dl>
+				<dt>원산지</dt>
+				<dd>${item.origin }</dd>
+			</dl>
+			<hr color="#4CAF50" size="5">
+			<dl>
+				<dt>수량</dt>
+				<dd><input type="text" id="count" name="count" size="1"/></dd>
+			</dl>
+			<hr color="#4CAF50" size="5">
+			<button type="button" onclick="goto_url('cartAdd.ct');">장바구니</button>
+			<button type="button" onclick="goto_url('itemOrder.od');">바로구매</button>
+		</div>
+	</div>
+	</form>
 <br><br>
 </div>
 <div class="goods_detail">
-	<h2>짱 맛있음</h2>
 	<h3>상품 소개</h3>
-	<img src="../images/applefarm.jpg">
+	<h4>${item.item_name }</h4>
+	<img src="../images/${item.img_path }">
 	<br><br>
 	<p>
-		2018년 6월, 유시민이 신간으로 찾아왔다. 경제학도, 정치가, '지식소매상'에서 최근에는 방송인으로도 종횡무진 활동하는 작가 유시민이 오랜 독서와 글쓰기의 원점인 역사 속으로 돌아왔다. 2017년 정의로운 국가의 모습과 시민의 역할을 모색한 국가란 무엇인가로 독자들의 뜨거운 반응을 얻은 이후, 유시민은 공부의 화두를 옮겨 동서양의 역사서들을 탐독하며 '역사란 무엇인가' 질문하고 답을 찾았다. 그 지적 탐구를 담은 역사의 역사는 유시민이 공개하는 역사 공부 노트이자 독자들과 함께 역사를 읽는 초대장이다.
-		촌철살인의 화법으로 사안을 정리하고 결론을 맺어주던 '공공 지성' 유시민은 이 책에서는 한마디로 역사를 정의한다거나 자신의 의견을 높이는 일을 삼간다. 대신 역사가들의 이야기를 전하고 그 아래 스민 메시지와 감정에 공감하는 데 집중한다. '위대한 역사가들이 우리에게 전하려고 했던 생각과 감정을 듣고 느껴봄으로써 역사가 무엇인지 밝히는 데 도움될 실마리'를 찾는 '역사 여행 가이드'로서 충실하다.
+		${item.content }		
 	</p>
 </div>
 <br><br><br>
