@@ -1,6 +1,7 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"
     pageEncoding="UTF-8"%>
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
+<%@page import="vo.UserBean"%>
 <!DOCTYPE html PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN" "http://www.w3.org/TR/html4/loose.dtd">
 <html>
 <head>
@@ -111,7 +112,7 @@ input:hover, .mypage button:active, .mypage button:focus {
 	}
 </script>
 </head>
-<link rel="stylesheet" type="text/css" href="../style/style.css">
+<link rel="stylesheet" type="text/css" href="/FarmParm/style/style.css">
 <link rel="stylesheet" href="https://www.w3schools.com/w3css/3/w3.css">
 <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.6.3/css/font-awesome.min.css">
 <body>
@@ -119,7 +120,6 @@ input:hover, .mypage button:active, .mypage button:focus {
 <div class="pageform">
 	<h3>&nbsp;&nbsp;회원관리</h3>
 	<hr color="#4CAF50" size="5">
-	<form action="#" method="post">
 	<div class="mypage">
 		<p id="seldel"><button onclick="location.href='#'" id="wbutton">선택삭제</button></p>
 		<table cellspacing="0" cellpadding="0">
@@ -131,38 +131,32 @@ input:hover, .mypage button:active, .mypage button:focus {
 				<td>주문금액</td>
 				<td>수정/삭제</td>
 			</tr>
+		<c:forEach var="user" items ="${userList}">
+		<c:choose>
+			<c:when test="${user.grade == '관리'}">
 			<tr>
 				<td><input type="checkbox" id="remove" name="remove" /></td>
-				<td>aaa123</td>
-				<td>일반개인</td>
-				<td>123456원</td>
-				<td><button onclick="location.href='#'" id="gbutton">수정</button>
-				<button onclick="location.href='#'" id="gbutton">삭제</button></td>
+				<td>${user.user_id}</td>
+				<td>${user.grade}</td>
+				<td>${user.tot_price}</td>
+				<td></td>
 			</tr>
+			</c:when>
+			<c:otherwise>
 			<tr>
 				<td><input type="checkbox" id="remove" name="remove" /></td>
-				<td>aaa123</td>
-				<td>일반개인</td>
-				<td>123456원</td>
-				<td><button onclick="location.href='#'" id="gbutton">수정</button>
-				<button onclick="location.href='#'" id="gbutton">삭제</button></td>
+				<td>${user.user_id}</td>
+				<td>${user.grade}</td>
+				<td>${user.tot_price}</td>
+				<td>
+					<button onclick="location.href='./memberModAdForm.us?uid=${user.user_id}'" id="gbutton">수정</button>
+					<button onclick="location.href='#'" id="gbutton">삭제</button>
+				</td>
+				
 			</tr>
-			<tr>
-				<td><input type="checkbox" id="remove" name="remove" /></td>
-				<td>aaa123</td>
-				<td>일반개인</td>
-				<td>123456원</td>
-				<td><button onclick="location.href='#'" id="gbutton">수정</button>
-				<button onclick="location.href='#'" id="gbutton">삭제</button></td>
-			</tr>
-			<tr>
-				<td><input type="checkbox" id="remove" name="remove" /></td>
-				<td>aaa123</td>
-				<td>일반개인</td>
-				<td>123456원</td>
-				<td><button onclick="location.href='#'" id="gbutton">수정</button>
-				<button onclick="location.href='#'" id="gbutton">삭제</button></td>
-			</tr>
+			</c:otherwise>
+		</c:choose>
+		</c:forEach>
 			<tr>
 				<td colspan="5" id="td_info">
 					<a href="#">둘러보기</a>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
@@ -171,7 +165,6 @@ input:hover, .mypage button:active, .mypage button:focus {
 			</tr>
 		</table>
 	</div>
-	</form>
 </div>
 <footer>
   <a href="#"><i class="fa fa-facebook-official"></i></a>

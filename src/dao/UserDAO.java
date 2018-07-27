@@ -10,6 +10,7 @@ import java.util.ArrayList;
 import javax.servlet.http.HttpSession;
 import javax.sql.DataSource;
 import vo.UserBean;
+import vo.UserViewBean;
 
 public class UserDAO {
 	
@@ -88,11 +89,11 @@ public class UserDAO {
 		return insertCount;
 	}
 	
-	// 회원관리 *아직 view테이블 없음 추후 수정 (UserBean 생성자 같이 수정)
-	public ArrayList<UserBean> users(){
+	// 회원관리
+	public ArrayList<UserViewBean> users(){
 		String sql="SELECT * FROM user_view";
-		ArrayList<UserBean> userList = new ArrayList<UserBean>();
-		UserBean ub = null;
+		ArrayList<UserViewBean> userViewBean = new ArrayList<UserViewBean>();
+		UserViewBean ub = null;
 		
 		try{
 			pstmt=con.prepareStatement(sql);
@@ -100,12 +101,12 @@ public class UserDAO {
 			
 			if(rs.next()){
 				do{
-					ub = new UserBean(
+					ub = new UserViewBean(
 					rs.getString("user_id"),
 					rs.getString("grade"),
-					rs.getString("price")
+					rs.getString("userpay")
 					);
-					userList.add(ub);
+					userViewBean.add(ub);
 				}while(rs.next());
 			}
 		}catch(Exception ex){
@@ -114,7 +115,7 @@ public class UserDAO {
 			close(rs);
 			close(pstmt);
 		}
-		return userList;
+		return userViewBean;
 	}
 	
 	// 회원목록 전체목록 불러오기 (아직 쓰이는곳 없음..)
@@ -153,6 +154,40 @@ public class UserDAO {
 		}
 		return userList;
 	}
+	// 회원정보 수정 form (관리자수정)
+	public UserBean AdSelectUser(String user_id){
+		String sql="SELECT * FROM users WHERE user_id=?";
+		UserBean ub = null;
+		try{
+			
+			pstmt=con.prepareStatement(sql);
+			pstmt.setString(1, user_id);
+			rs=pstmt.executeQuery();
+			
+			if(rs.next()){
+				ub = new UserBean(
+						rs.getString("user_id"),
+						rs.getString("passwd"),
+						rs.getString("name"),
+						rs.getString("phone"),
+						rs.getDate("birth"),
+						rs.getString("gender"),
+						rs.getString("postcode"),
+						rs.getString("address"),
+						rs.getString("address_second"),
+						rs.getString("email"),
+						rs.getString("email_ad"),
+						rs.getString("grade"));
+			}
+		}catch(Exception ex){
+			System.out.println(" 에러: " + ex);			
+		}finally{
+			close(rs);
+			close(pstmt);
+		}
+		
+		return ub;
+	}
 	
 	// 회원정보 수정 (관리자수정)
 	public int updateUserModify(UserBean users) {
@@ -161,21 +196,24 @@ public class UserDAO {
 		String sql = "";
 		
 		try {
-			sql = "UPDATE users SET user_id=?,passwd=?,name=?,phone=?,birth=?,gender=?,postcode=?,address=?,email=?,grade=? where user_id=?";
+			sql = "UPDATE users SET passwd=?,name=?,phone=?,birth=?,gender=?,postcode=?,address=?,address_second=?,email=?,email_ad=?,grade=? where user_id=?";
 								
 			pstmt = con.prepareStatement(sql);
-			pstmt.setString(1, users.getUser_id());
-			pstmt.setString(2, users.getPasswd());
-			pstmt.setString(3, users.getName());
-			pstmt.setString(4, users.getPhone());
-			pstmt.setDate(5, users.getBirth());
-			pstmt.setString(6, users.getGender());
-			pstmt.setString(7, users.getPostcode());
-			pstmt.setString(8, users.getAddress());
+			pstmt.setString(1, users.getPasswd());
+			pstmt.setString(2, users.getName());
+			pstmt.setString(3, users.getPhone());
+			pstmt.setDate(4, users.getBirth());
+			pstmt.setString(5, users.getGender());
+			pstmt.setString(6, users.getPostcode());
+			pstmt.setString(7, users.getAddress());
+			pstmt.setString(8, users.getAddress_second());
 			pstmt.setString(9, users.getEmail());
-			pstmt.setString(10, users.getGrade());
-			pstmt.setString(11, users.getUser_id());
+			pstmt.setString(10, users.getEmail_ad());
+			pstmt.setString(11, users.getGrade());
+			pstmt.setString(12, users.getUser_id());
 			updateCount = pstmt.executeUpdate();
+			
+			System.out.println(users.getGrade() + " dao에서 등급값");
 			
 		} catch (SQLException e) {
 			e.printStackTrace();
@@ -264,10 +302,6 @@ public class UserDAO {
 			pstmt.setString(9, users.getUser_id());
 			updateCount = pstmt.executeUpdate();
 			
-			System.out.println(users.getEmail()+" mail값 넘어오나?");
-			// email에 주소값 들어옴 확인해보기
-			System.out.println(updateCount + " 숫자 얼마?");
-			
 		} catch (SQLException e) {
 			e.printStackTrace();
 		} finally {
@@ -278,19 +312,22 @@ public class UserDAO {
 	}
 	
 	// 비밀번호 수정
-	public int updatePwModify(UserBean users) {
+	public int updatePwModify(String user_id, String old_pswd, String new_pswd_re) {
 		PreparedStatement pstmt = null;
 		int updateCount = 0;
 		String sql = "";
 		
 		try {
-			sql = "UPDATE users SET passwd=? where user_id=?";
+			sql = "UPDATE users SET passwd=? where user_id=? and passwd=?";
 			
 			pstmt = con.prepareStatement(sql);
-			pstmt.setString(1, users.getPasswd());
-			pstmt.setString(1, users.getUser_id());
-			
+			pstmt.setString(1, new_pswd_re);
+			pstmt.setString(2, user_id);
+			pstmt.setString(3, old_pswd);
 			updateCount = pstmt.executeUpdate();
+			
+			System.out.println(updateCount + " 수정은 됨?");
+			
 		} catch (SQLException e) {
 			e.printStackTrace();
 		} finally {

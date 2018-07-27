@@ -10,10 +10,14 @@ import javax.servlet.http.HttpServletResponse;
 import action.Action;
 import member.action.memberLoginAction;
 import member.action.memberLogoutAction;
-import member.action.memberModifyAction;
+import member.action.memberMyModifyAction;
 import member.action.memberMyPageAction;
 import member.action.memberPwCheckAction;
+import member.action.memberPwModifyAction;
+import member.action.memberAdModifyAction;
+import member.action.memberAdModifyFormAction;
 import member.action.memberJoinAction;
+import member.action.memberListAction;
 import vo.ActionForward;
 
 /**
@@ -94,11 +98,46 @@ protected void doProcess(HttpServletRequest request, HttpServletResponse respons
 				e.printStackTrace();
 			}
     	}else if(command.equals("/myPage.us")) {
+    		action = new memberMyPageAction();
+			try{
+				forward=action.execute(request, response);
+			}catch(Exception e){
+				e.printStackTrace();
+			}
+    	}else if(command.equals("/memberMod.us")) {
+    		action = new memberMyModifyAction();
+			try{
+				forward=action.execute(request, response);
+			}catch(Exception e){
+				e.printStackTrace();
+			}
+    	}else if(command.equals("/pwModify.us")) {
+    		action = new memberPwModifyAction();
+			try{
+				forward=action.execute(request, response);
+			}catch(Exception e){
+				e.printStackTrace();
+			}
+    	}else if(command.equals("/adminPage.us")) {
     		forward=new ActionForward();
 			//forward.setRedirect(true);
-			forward.setPath("./member/myPage.jsp");
-    	}else if(command.equals("/memberMod.us")) {
-    		action = new memberModifyAction();
+			forward.setPath("./admin/adminPage.jsp");
+    	}else if(command.equals("/memberList.us")) {
+    		action = new memberListAction();
+			try{
+				forward=action.execute(request, response);
+			}catch(Exception e){
+				e.printStackTrace();
+			}
+    	}else if(command.equals("/memberModAdForm.us")) {
+    		action = new memberAdModifyFormAction();
+			try{
+				forward=action.execute(request, response);
+			}catch(Exception e){
+				e.printStackTrace();
+			}
+    	}else if(command.equals("/memberModAd.us")) {
+    		action = new memberAdModifyAction();
 			try{
 				forward=action.execute(request, response);
 			}catch(Exception e){

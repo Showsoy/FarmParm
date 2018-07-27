@@ -1,6 +1,7 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"
     pageEncoding="UTF-8"%>
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
+<%@page import="vo.UserBean"%>
 <!DOCTYPE html PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN" "http://www.w3.org/TR/html4/loose.dtd">
 <html>
 <head>
@@ -87,7 +88,7 @@ function chkForm(f){
 	var reg_email2 = /^[0-9a-zA-Z]([-_\.]?[0-9a-zA-Z])*\.[a-zA-Z]{2,3}$/i;
 	var reg_phone = /^\d{10-11}$/
 
-	if (!reg_birth.test(birth)) {
+	/* if (!reg_birth.test(birth)) {
 		alert("올바른 형식이 아닙니다.");
 		f.userBirth.focus();
 		return false;
@@ -116,9 +117,9 @@ function selectEmail(sel) {
 	if (choiceText == '직접입력') {
 		document.getElementById("emailform").innerHTML = "<td><input type='text' name='email1' id='email1'/></td>";
 	}
-}
+} */
 </script>
-<link rel="stylesheet" type="text/css" href="../style/style.css">
+<link rel="stylesheet" type="text/css" href="/FarmParm/style/style.css">
 <link rel="stylesheet" href="https://www.w3schools.com/w3css/3/w3.css">
 <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.6.3/css/font-awesome.min.css">
 <body>
@@ -127,56 +128,107 @@ function selectEmail(sel) {
 	<h3>&nbsp;&nbsp;회원정보수정</h3>
 	<hr color="#4CAF50" size="5">
 	<div class="mypage">
-	<form action="#" method="post" onsubmit="return chkForm(this)">
+	<form action="/FarmParm/memberModAd.us" method="post" onsubmit="return chkForm(this)">
 	<table cellspacing="0" cellpadding="0">
 	<tr>
-		<td id="td_left"><label for="userID">아이디</label> </td>
-		<td><input type="text" id="userID" name="userID" value="aaa123"></td>
+		<td id="td_left"><label for="userID">아이디</label></td>
+		<td>${user.user_id}</td>
 	</tr>
 	<tr>
 		<td id="td_left"><label for="userPass">비밀번호</label> </td>
-		<td><input type="text" id="userPass" name="userPass"></td>
+		<td><input type="text" id="userPass" name="userPass" value="${user.passwd}"></td>
 	</tr>
 	<tr>
 		<td id="td_left"><label for="userName">이름</label></td>
-		<td><input type="text" id="userName" name="userName" value="박나래"></td>
+		<td><input type="text" id="userName" name="userName" value="${user.name}"></td>
 	</tr>
 	<tr>
 		<td id="td_left"><label for="userGrade">등급</label></td>
 		<td>
 		<select name="userGrade" id="userGrade">
-			<option value="gmail.com" selected>일반개인</option>
-			<option value="naver.com">일반사업</option>
-			<option value="naver.com">우수개인</option>
-			<option value="naver.com">우수사업</option>
+			<c:if test="${user.grade == '일반'}">
+				<option value="gmail.com" selected>일반개인</option>
+				<option value="naver.com">일반사업</option>
+				<option value="naver.com">우수개인</option>
+				<option value="naver.com">우수사업</option>
+			</c:if>
+			<c:if test="${user.grade == '우수'}">
+				<option value="gmail.com">일반개인</option>
+				<option value="naver.com">일반사업</option>
+				<option value="naver.com" selected>우수개인</option>
+				<option value="naver.com">우수사업</option>
+			</c:if>
+			
 		</select>
 		</td>
 	</tr>
 	<tr>
 		<td id="td_left"><label for="userPhone">연락처</label></td>
-		<td><input type="text" id="userPhone" name="userPhone" value="01011111111"></td>
+		<td><input type="text" id="userPhone" name="userPhone" value="${user.phone}"></td>
 	</tr>
 	<tr>
 		<td id="td_left"><label for="userBirth">생년월일</label></td>
-		<td><input type="text" id="userBirth" name="userBirth" value="19991111"></td>
+		<td><input type="text" id="userBirth" name="userBirth" value="${user.birth}"></td>
 	</tr>
 	<tr>
 		<td id="td_left"><label for="userGen">성별</label></td>
+		<c:if test="${user.gender == '남'}">
 		<td><input type="radio" name="userGen" value="남" checked="checked" id="userGen"/>&nbsp;남자&nbsp;
 		&nbsp;&nbsp;&nbsp;
 		<input type="radio" name="userGen" value="여">&nbsp;여자</td>
+		</c:if>
+		<c:if test="${user.gender == '여'}">
+		<td><input type="radio" name="userGen" value="남" id="userGen"/>&nbsp;남자&nbsp;
+		&nbsp;&nbsp;&nbsp;
+		<input type="radio" name="userGen" value="여" checked="checked">&nbsp;여자</td>
+		</c:if>
 	</tr>
 	<tr>
 		<td id="td_left"><label for="userID">이메일</label></td>
 		<td>
-		<input type="text" name="userEmailId" id="userEmailId"size="10" />&nbsp;@
+		<input type="text" name="userEmailId" id="userEmailId"size="10" value="${user.email}"/>&nbsp;@
 		<span id="emailform">
 			<select name="userEmailAd" id="userEmailAd" onchange="selectEmail(this)">
-						<option value="gmail.com">gmail.com</option>
-						<option value="naver.com">naver.com</option>
-						<option value="naver.com">daum.net</option>
-						<option value="naver.com">hotmail.co.kr</option>
-						<option value="null">직접입력</option>
+		<c:choose>
+		<c:when test="${user.email_ad != 'gmail.com' or 'naver.com' or 'daum.net' or 'hotmail.co.kr'}">
+			<option value="${user.email_ad}" selected="selected">${user.email_ad}</option>
+			<option value="gmail.com">gmail.com</option>
+			<option value="naver.com">naver.com</option>
+			<option value="naver.com">daum.net</option>	
+			<option value="naver.com">hotmail.co.kr</option>
+			<option value="null">직접입력</option>
+		</c:when>
+		<c:otherwise>
+			<c:if test="${user.email_ad == 'gmail.com'}">
+				<option value="gmail.com" selected="selected">gmail.com</option>
+				<option value="naver.com">naver.com</option>
+				<option value="naver.com">daum.net</option>	
+				<option value="naver.com">hotmail.co.kr</option>
+				<option value="null">직접입력</option>
+			</c:if>
+			<c:if test="${user.email_ad == 'naver.com'}">
+				<option value="gmail.com">gmail.com</option>
+				<option value="naver.com" selected="selected">naver.com</option>
+				<option value="naver.com">daum.net</option>	
+				<option value="naver.com">hotmail.co.kr</option>
+				<option value="null">직접입력</option>
+			</c:if>
+			<c:if test="${user.email_ad == 'daum.net'}">
+				<option value="gmail.com">gmail.com</option>
+				<option value="naver.com">naver.com</option>
+				<option value="naver.com" selected="selected">daum.net</option>	
+				<option value="naver.com">hotmail.co.kr</option>
+				<option value="null">직접입력</option>
+			</c:if>
+			<c:if test="${user.email_ad == 'hotmail.co.kr'}">
+				<option value="gmail.com">gmail.com</option>
+				<option value="naver.com">naver.com</option>
+				<option value="naver.com">daum.net</option>	
+				<option value="naver.com" selected="selected">hotmail.co.kr</option>
+				<option value="null">직접입력</option>
+			</c:if>
+		</c:otherwise>
+		</c:choose>
 			</select>
 		</span>
 		</td>
@@ -184,10 +236,10 @@ function selectEmail(sel) {
 	<tr>
 		<td id="td_left"><label for="userID">주소</label></td>
 		<td rowspan="3">
-		<input type="text" name="userAddr1" id="userAddr1"size="7" />
+		<input type="text" name="userAddr1" id="userAddr1"size="7" value="${user.postcode}" />
 		<button type="button" onclick="sample6_execDaumPostcode()" id="gbutton">주소검색</button> <br>
-		<input type="text" name="userAddr2" id="userAddr2" placeholder="주소" size="30"><br>
-		<input type="text" name="userAddr3" id="userAddr3" placeholder="상세주소" size="30">
+		<input type="text" name="userAddr2" id="userAddr2" placeholder="주소" size="30" value="${user.address}"/><br>
+		<input type="text" name="userAddr3" id="userAddr3" placeholder="상세주소" size="30" value="${user.address_second}"/>
 		<script src="http://dmaps.daum.net/map_js_init/postcode.v2.js"></script>
 		<script>
 		    function sample6_execDaumPostcode() {

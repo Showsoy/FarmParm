@@ -29,7 +29,7 @@
 			<a href="<%=request.getContextPath()%>/common/cs_center.jsp">고객센터</a>&nbsp;
 			<a href="<%=request.getContextPath()%>/order/cart.jsp">장바구니</a>&nbsp;
 			<c:if test="${id == 'admin'}">
-			<a href="<%=request.getContextPath()%>/memberList.us">회원관리</a>&nbsp;
+			<a href="<%=request.getContextPath()%>/adminPage.us">관리자페이지</a>&nbsp;
 			</c:if>
 		</c:otherwise>
 	</c:choose>  

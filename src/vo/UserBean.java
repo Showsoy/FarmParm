@@ -35,11 +35,6 @@ public class UserBean {
 	}
 
 
-	public UserBean(String string, String string2, String string3) {
-		// TODO Auto-generated constructor stub
-	}
-
-
 	public UserBean() {
 		// TODO Auto-generated constructor stub
 	}
@@ -57,6 +52,41 @@ public class UserBean {
 		this.email = email;
 		this.email_ad = email_ad;
 		this.user_id = user_id;
+	}
+
+
+	public UserBean(String passwd, String phone, Date birth, String gender, String postcode, String address,
+			String address_second, String email, String email_ad, String user_id) {
+		// TODO Auto-generated constructor stub
+		this.passwd = passwd;
+		this.phone = phone;
+		this.birth = birth;
+		this.gender = gender;
+		this.postcode = postcode;
+		this.address = address;
+		this.address_second = address_second;
+		this.email = email;
+		this.email_ad = email_ad;
+		this.user_id = user_id;
+	}
+
+
+	public UserBean(String passwd, String name, String phone, Date birth,String gender, String postcode,
+			String address, String address_second, String email, String email_second, String grade,
+		 String id) {
+		// TODO Auto-generated constructor stub
+		this.user_id = user_id;
+		this.passwd = passwd;
+		this.name = name;
+		this.phone = phone;
+		this.birth = birth;
+		this.gender = gender;
+		this.postcode = postcode;
+		this.address = address;
+		this.address_second = address_second;
+		this.email = email;
+		this.email_ad = email_ad;
+		this.grade = grade;
 	}
 
 

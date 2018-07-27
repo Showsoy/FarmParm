@@ -1,6 +1,7 @@
 package svc;
 
 import vo.UserBean;
+import vo.UserViewBean;
 import static db.JdbcUtil.*;
 import java.sql.Connection;
 import java.util.ArrayList;
@@ -42,12 +43,12 @@ public class UserService {
 		return joinSuccess;
 	}
 	
-	// 회원관리 *뷰페이지 없음
-	public ArrayList<UserBean> userList() {
+	// 회원관리
+	public ArrayList<UserViewBean> userList() {
 		Connection con = getConnection();
 		UserDAO userDAO = UserDAO.getInstance();
 		userDAO.setConnection(con);
-		ArrayList<UserBean> userList = userDAO.users();
+		ArrayList<UserViewBean> userList = userDAO.users();
 		close(con);
 		return userList;
 	}
@@ -57,7 +58,7 @@ public class UserService {
 		UserDAO userDAO = UserDAO.getInstance();
 		Connection con = getConnection();
 		userDAO.setConnection(con);
-		UserBean user = userDAO.selectUser(user_id);
+		UserBean user = userDAO.AdSelectUser(user_id);
 		close(con);
 		return user;
 	}
@@ -123,21 +124,21 @@ public class UserService {
 	}
 	
 	// 비밀번호수정
-	public boolean modifyPw(UserBean users) {
+	public boolean modifyPw(String user_id, String old_pswd, String new_pswd_re) {
 		UserDAO userDAO = UserDAO.getInstance();
 		Connection con = getConnection();
 		userDAO.setConnection(con);		
-		boolean isModifySuccess = false;
-		int insertCount = userDAO.updatePwModify(users);
-		if(insertCount>0){
-			commit(con);
-			isModifySuccess=true;
-		}else{
-			rollback(con);
-		}
+		boolean modifyPw = false;
 		
+		int loginPw = userDAO.updatePwModify(user_id,old_pswd,new_pswd_re);
+		
+		if(loginPw > 0){
+			commit(con);
+			modifyPw = true;
+		}
 		close(con);
-		return isModifySuccess;
+		
+		return modifyPw;
 	}
 	
 	// 아이디찾기

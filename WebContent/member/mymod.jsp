@@ -136,7 +136,7 @@ function selectEmail(sel) {
 	</tr>
 	<tr>
 		<td id="td_left"><label for="userID">비밀번호</label> </td>
-		<td><button type="button" onclick="location.href='pwModify.jsp'" id="gbutton">비밀번호 변경</button></td>
+		<td><button type="button" onclick="location.href='/FarmParm/member/pwModify.jsp'" id="gbutton">비밀번호 변경</button></td>
 	</tr>
 	<tr>
 		<td id="td_left"><label for="userID">이름</label></td>

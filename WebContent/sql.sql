@@ -187,4 +187,3 @@ alter table users modify column email_ad varchar(45) after email;
 USE `java2b`;
 DROP VIEW item_view;
 CREATE VIEW item_view AS SELECT (select idate from item_stock where state='등록' and items.item_code = item_stock.item_code) as vdate, items.item_code AS item_code, items.category AS category, items.img_path AS img_path, items.item_name AS item_name, items.price AS price, item_stock.stock AS stock, items.readcount AS readcount, (SELECT SUM(amount) FROM item_stock WHERE item_stock.state='출고' AND items.item_code = item_stock.item_code) AS purchase FROM items LEFT JOIN item_stock ON items.item_code = item_stock.item_code WHERE item_stock.inumber IN (SELECT MAX(inumber) FROM item_stock GROUP BY item_code);
->>>>>>> 06607d535df53e2708d384a614f516a19a06c1df

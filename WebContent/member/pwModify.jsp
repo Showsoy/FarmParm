@@ -1,4 +1,3 @@
-
 <%@ page language="java" contentType="text/html; charset=UTF-8"
     pageEncoding="UTF-8"%>
 <!DOCTYPE html PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN" "http://www.w3.org/TR/html4/loose.dtd">
@@ -83,7 +82,7 @@ function chkForm(f){
 	<h3>&nbsp;&nbsp;개인정보수정</h3>
 	<hr color="#4CAF50" size="5">
 	<div class="mypage">
-	<form action="#" method="post" onsubmit="return chkForm(this)">
+	<form action="/FarmParm/pwModify.us" method="post" onsubmit="return chkForm(this)">
 	<table cellspacing="0" cellpadding="0">
 	<tr>
 		<td id="td_left"><label for="userID">기존 비밀번호</label> </td>

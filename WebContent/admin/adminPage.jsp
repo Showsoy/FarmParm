@@ -36,7 +36,7 @@
 }
 </style>
 </head>
-<link rel="stylesheet" type="text/css" href="../style/style.css">
+<link rel="stylesheet" type="text/css" href="/FarmParm/style/style.css">
 <link rel="stylesheet" href="https://www.w3schools.com/w3css/3/w3.css">
 <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.6.3/css/font-awesome.min.css">
 <body>
@@ -47,7 +47,7 @@
 	<div class="mypage">
 	<div id="admin_menu">
 	<br><br>
-		<button onclick="location.href='../admin/userList.jsp'">회원관리</button>
+		<button onclick="location.href='./memberList.us'">회원관리</button>
 		<button onclick="location.href='./itemSearch.jsp'">입고등록</button><br>
 		<button onclick="location.href='./itemRegistForm.im'">상품등록</button>
 		<button onclick="location.href='./itemList.im'">상품목록</button>  
