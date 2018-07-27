@@ -10,9 +10,10 @@ public class ItemBean {
 	private int sale;
 	private String content;
 	private int readcount;
+	private int ihide;
 
 	public ItemBean(String item_code, String item_name, int price, String origin, String category, String img_path,
-			int sale, String content, int readcount) {
+			int sale, String content, int readcount, int ihide) {
 		super();
 		this.item_code = item_code;
 		this.item_name = item_name;
@@ -23,6 +24,7 @@ public class ItemBean {
 		this.sale = sale;
 		this.content = content;
 		this.readcount = readcount;
+		this.ihide = ihide;
 	}
 	
 	public String getItem_code() {
@@ -78,6 +80,14 @@ public class ItemBean {
 	}
 	public void setReadcount(int readcount) {
 		this.readcount = readcount;
+	}
+
+	public int getIhide() {
+		return ihide;
+	}
+
+	public void setIhide(int ihide) {
+		this.ihide = ihide;
 	}
 	
 }

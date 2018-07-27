@@ -2,6 +2,15 @@
 body {
     font-family: Arial, Helvetica, sans-serif;
 }
+dl{
+	
+}
+dt{
+}
+dd{
+	display:inline-block;
+	text-align:left;
+}
 .header {
     padding: 10px; /* some padding */
     text-align:center;
@@ -210,6 +219,7 @@ footer {
 }
 .recent_view table tr td img{
 	width:180px;
+	height:100px;
 }
 .detail_table{
 	width:700px;

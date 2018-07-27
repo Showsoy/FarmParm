@@ -169,4 +169,55 @@ public class ItemService {
 		close(conn);
 		return deleteCount;
 	}
+	public int hideItem(String item_code) {
+		ItemDAO itemDAO = ItemDAO.getInstance();
+		Connection conn = getConnection();
+		itemDAO.setConnection(conn);
+		int updateCount = itemDAO.hideItem(item_code);
+		
+		if(updateCount>0) {
+			commit(conn);
+		}else {
+			rollback(conn);
+		}
+		close(conn);
+		return updateCount;
+	}
+	public int unhideItem(String item_code) {
+		ItemDAO itemDAO = ItemDAO.getInstance();
+		Connection conn = getConnection();
+		itemDAO.setConnection(conn);
+		int updateCount = itemDAO.unhideItem(item_code);
+		
+		if(updateCount>0) {
+			commit(conn);
+		}else {
+			rollback(conn);
+		}
+		close(conn);
+		return updateCount;
+	}
+	public int updateReadCount(String item_code) {
+		ItemDAO itemDAO = ItemDAO.getInstance();
+		Connection conn = getConnection();
+		itemDAO.setConnection(conn);
+		int updateCount = itemDAO.updateReadCount(item_code);
+		
+		if(updateCount>0) {
+			commit(conn);
+		}else {
+			rollback(conn);
+		}
+		close(conn);
+		return updateCount;
+	}
+	public ArrayList<ItemViewBean> userItemList(int page, String category, String standard) {
+		ItemDAO itemDAO = ItemDAO.getInstance();
+		Connection conn = getConnection();
+		itemDAO.setConnection(conn);
+		ArrayList<ItemViewBean> itemList = itemDAO.userItemList(page,category,standard);
+		
+		close(conn);
+		return itemList;
+	}
 }

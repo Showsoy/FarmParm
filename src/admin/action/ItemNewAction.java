@@ -62,12 +62,12 @@ public class ItemNewAction implements action.Action{
 				image,
 				Integer.parseInt(multi.getParameter("sale")),
 				multi.getParameter("content"),
-				0);
+				0,0);
 		ItemStockBean itemS = new ItemStockBean(
 				multi.getParameter("item_code"),
 				"등록",
 				date,
-				0,0,0);
+				0,0,1);
 		boolean isRegistSuccess = itemService.registItem(item);
 		
 		if(!isRegistSuccess) {

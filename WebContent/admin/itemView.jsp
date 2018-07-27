@@ -38,7 +38,6 @@
 }
 #td_left{
 	background-color:#F6F6F6;
-	width:100px;
 }
 #td_info{
 	text-align:right;
@@ -119,7 +118,7 @@
 	
 	<table cellspacing="0" cellpadding="0" class="detail_table">
 	<tr>
-		<th rowspan="6"><img src="../images/${item.img_path }" width="300px"></th>
+		<th rowspan="7"><img src="../images/${item.img_path }" width="300px"></th>
 		<td id="td_left">분류</td>
 		<td>${item.category }</td>
 	</tr>
@@ -142,6 +141,19 @@
 	<tr>
 		<td id="td_left">할인</td>
 		<td>${item.sale }</td>
+	</tr>
+	<tr>
+		<td id="td_left">상태</td>
+		<td>
+			<c:choose>
+				<c:when test="${item.ihide eq 0 }">
+					노출&nbsp;&nbsp;<button type="button" id="gbutton" onclick="location.href='itemHide.im?item_code=${item.item_code}'">숨기기</button>
+				</c:when>
+				<c:otherwise>
+					숨김&nbsp;&nbsp;<button type="button" id="gbutton" onclick="location.href='itemUnhide.im?item_code=${item.item_code}'">보이기</button>
+				</c:otherwise>
+			</c:choose>
+		</td>
 	</tr>
 	<tr>
 		<td colspan="3" id="td_info"><button onclick="location.href='itemEnterForm.im?item_code=${item.item_code}'">입고등록</button></td>

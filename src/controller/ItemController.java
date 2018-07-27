@@ -14,14 +14,16 @@ import admin.action.ItemCodeGenAction;
 import admin.action.ItemDeleteAction;
 import admin.action.ItemEnterFormAction;
 import admin.action.ItemEnterProAction;
+import admin.action.ItemHideAction;
 import admin.action.ItemListAction;
 import admin.action.ItemModFormAction;
 import admin.action.ItemModProAction;
 import admin.action.ItemNewAction;
 import admin.action.ItemSearchAction;
+import admin.action.ItemUnhideAction;
 import admin.action.ItemViewAction;
-import admin.action.UserItemListAction;
-import admin.action.UserItemViewAction;
+import item.action.UserItemListAction;
+import item.action.UserItemViewAction;
 import vo.ActionForward;
 
 /**
@@ -44,10 +46,10 @@ protected void doProcess(HttpServletRequest request, HttpServletResponse respons
     	String RequestURI = request.getRequestURI();
     	String contextPath = request.getContextPath();
     	String command = RequestURI.substring(contextPath.length());
-    	System.out.println(command);
     	String[] commands;
 		commands = command.split("/");
 		command = "/"+commands[commands.length-1];
+    	System.out.println(command);
     	
     	ActionForward forward = null;
     	Action action = null;
@@ -122,6 +124,20 @@ protected void doProcess(HttpServletRequest request, HttpServletResponse respons
     		}
     	}else if(command.equals("/itemDelete.im")) {
     		action = new ItemDeleteAction();
+    		try {
+    			forward = action.execute(request, response);
+    		}catch(Exception e) {
+    			e.printStackTrace();
+    		}
+    	}else if(command.equals("/itemHide.im")) {
+    		action = new ItemHideAction();
+    		try {
+    			forward = action.execute(request, response);
+    		}catch(Exception e) {
+    			e.printStackTrace();
+    		}
+    	}else if(command.equals("/itemUnhide.im")) {
+    		action = new ItemUnhideAction();
     		try {
     			forward = action.execute(request, response);
     		}catch(Exception e) {

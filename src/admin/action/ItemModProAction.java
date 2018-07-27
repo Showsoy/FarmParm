@@ -63,7 +63,7 @@ public class ItemModProAction implements action.Action{
 				image,
 				Integer.parseInt(multi.getParameter("sale")),
 				multi.getParameter("content"),
-				0);
+				0,0);
 		
 		boolean isModifySuccess = itemService.updateItem(item, multi.getParameter("item_code"));
 		
