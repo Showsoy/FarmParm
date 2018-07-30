@@ -50,7 +50,6 @@ public class UserBean {
 		this.address = address;
 		this.address_second = address_second;
 		this.email = email;
-		this.email_ad = email_ad;
 		this.user_id = user_id;
 	}
 
@@ -66,7 +65,6 @@ public class UserBean {
 		this.address = address;
 		this.address_second = address_second;
 		this.email = email;
-		this.email_ad = email_ad;
 		this.user_id = user_id;
 	}
 
@@ -81,12 +79,60 @@ public class UserBean {
 		this.birth = birth;
 		this.gender = gender;
 		this.email = email;
-		this.email_ad = email_ad;
 		this.postcode = postcode;
 		this.address = address;
 		this.address_second = address_second;
 	}
 
+
+// 회원정보 수정 form 불러오는 빈 (관리자모드)
+	public UserBean(String user_id, String passwd, String name, String grade, String phone, Date birth,
+			String gender, String email, String postcode, String address, String address_second) {
+		// TODO Auto-generated constructor stub
+		this.user_id = user_id;
+		this.passwd = passwd;
+		this.name = name;
+		this.grade = grade;
+		this.phone = phone;
+		this.birth = birth;
+		this.gender = gender;
+		this.email = email;
+		this.postcode = postcode;
+		this.address = address;
+		this.address_second = address_second;
+	}
+
+// 마이페이지 보여주는 빈
+	public UserBean(String user_id, String passwd, String name, String phone, Date birth, String gender,
+			String postcode, String address, String address_second, String email, String grade) {
+		// TODO Auto-generated constructor stub
+		this.user_id = user_id;
+		this.passwd = passwd;
+		this.name = name;
+		this.phone = phone;
+		this.birth = birth;
+		this.gender = gender;
+		this.postcode = postcode;
+		this.address = address;
+		this.address_second = address_second;
+		this.email = email;
+		this.grade = grade;
+	}
+
+// 내정보 수정 불러오는 빈
+	public UserBean(String user_id, String name, String phone, Date birth, String gender, String email,
+			String postcode, String address, String address_second) {
+		// TODO Auto-generated constructor stub
+		this.user_id = user_id;
+		this.name = name;
+		this.phone = phone;
+		this.birth = birth;
+		this.gender = gender;
+		this.email = email;
+		this.postcode = postcode;
+		this.address = address;
+		this.address_second = address_second;
+	}
 
 
 	public String getUser_id() {

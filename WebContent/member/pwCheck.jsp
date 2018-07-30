@@ -80,7 +80,7 @@ function chkForm(f){
 	<table cellspacing="0" cellpadding="0">
 	<tr>
 		<td id="td_left"><label for="userID">아이디</label> </td>
-		<td>${user.user_id}</td>
+		<td>${id}</td>
 	</tr>
 	<tr>
 		<td id="td_left"><label for="userPass">비밀번호</label> </td>

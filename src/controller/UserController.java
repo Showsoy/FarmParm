@@ -8,16 +8,17 @@ import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import action.Action;
-import member.action.memberLoginAction;
-import member.action.memberLogoutAction;
-import member.action.memberMyModifyAction;
-import member.action.memberMyPageAction;
-import member.action.memberPwCheckAction;
-import member.action.memberPwModifyAction;
-import member.action.memberAdModifyAction;
-import member.action.memberAdModifyFormAction;
-import member.action.memberJoinAction;
-import member.action.memberListAction;
+import member.action.MemberLoginAction;
+import member.action.MemberLogoutAction;
+import member.action.MemberModifyFormAction;
+import member.action.MemberMyModifyAction;
+import member.action.MemberMyPageAction;
+import member.action.MemberPwCheckAction;
+import member.action.MemberPwModifyAction;
+import member.action.MemberAdModifyAction;
+import member.action.MemberAdModifyFormAction;
+import member.action.MemberJoinAction;
+import member.action.MemberListAction;
 import vo.ActionForward;
 
 /**
@@ -51,7 +52,7 @@ protected void doProcess(HttpServletRequest request, HttpServletResponse respons
 			forward.setRedirect(true);
 			forward.setPath("./member/login.jsp");
 		}else if(command.equals("/member/memberLoginAction.us")){
-			action = new memberLoginAction();
+			action = new MemberLoginAction();
 			try{
 				forward=action.execute(request, response);
 			}catch(Exception e){
@@ -62,7 +63,7 @@ protected void doProcess(HttpServletRequest request, HttpServletResponse respons
 			forward.setRedirect(true);
 			forward.setPath("./member/joinForm.jsp");
     	}else if(command.equals("/member/memberJoinAction.us")) {
-    		action = new memberJoinAction();
+    		action = new MemberJoinAction();
 			try{
 				forward=action.execute(request, response);
 			}catch(Exception e){
@@ -73,7 +74,7 @@ protected void doProcess(HttpServletRequest request, HttpServletResponse respons
 			forward.setRedirect(true);
 			forward.setPath("./dulpTest.jsp?openInit=true");
     	}else if(command.equals("/mypage.us")) {
-    		action = new memberMyPageAction();
+    		action = new MemberMyPageAction();
 			try{
 				forward=action.execute(request, response);
 			}catch(Exception e){
@@ -84,35 +85,35 @@ protected void doProcess(HttpServletRequest request, HttpServletResponse respons
 			//forward.setRedirect(true);
 			forward.setPath("./member/pwCheck.jsp");
     	}else if(command.equals("/pwCheck.us")) {
-    		action = new memberPwCheckAction();
+    		action = new MemberPwCheckAction();
 			try{
 				forward=action.execute(request, response);
 			}catch(Exception e){
 				e.printStackTrace();
 			}
     	}else if(command.equals("/memberLogout.us")) {
-    		action = new memberLogoutAction();
+    		action = new MemberLogoutAction();
 			try{
 				forward=action.execute(request, response);
 			}catch(Exception e){
 				e.printStackTrace();
 			}
     	}else if(command.equals("/myPage.us")) {
-    		action = new memberMyPageAction();
+    		action = new MemberMyPageAction();
 			try{
 				forward=action.execute(request, response);
 			}catch(Exception e){
 				e.printStackTrace();
 			}
     	}else if(command.equals("/memberMod.us")) {
-    		action = new memberMyModifyAction();
+    		action = new MemberMyModifyAction();
 			try{
 				forward=action.execute(request, response);
 			}catch(Exception e){
 				e.printStackTrace();
 			}
     	}else if(command.equals("/pwModify.us")) {
-    		action = new memberPwModifyAction();
+    		action = new MemberPwModifyAction();
 			try{
 				forward=action.execute(request, response);
 			}catch(Exception e){
@@ -123,21 +124,28 @@ protected void doProcess(HttpServletRequest request, HttpServletResponse respons
 			//forward.setRedirect(true);
 			forward.setPath("./admin/adminPage.jsp");
     	}else if(command.equals("/memberList.us")) {
-    		action = new memberListAction();
+    		action = new MemberListAction();
 			try{
 				forward=action.execute(request, response);
 			}catch(Exception e){
 				e.printStackTrace();
 			}
     	}else if(command.equals("/memberModAdForm.us")) {
-    		action = new memberAdModifyFormAction();
+    		action = new MemberAdModifyFormAction();
 			try{
 				forward=action.execute(request, response);
 			}catch(Exception e){
 				e.printStackTrace();
 			}
     	}else if(command.equals("/memberModAd.us")) {
-    		action = new memberAdModifyAction();
+    		action = new MemberAdModifyAction();
+			try{
+				forward=action.execute(request, response);
+			}catch(Exception e){
+				e.printStackTrace();
+			}
+    	}else if(command.equals("/mymod.us")) {
+    		action = new MemberModifyFormAction();
 			try{
 				forward=action.execute(request, response);
 			}catch(Exception e){

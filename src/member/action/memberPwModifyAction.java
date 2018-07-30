@@ -8,7 +8,7 @@ import action.Action;
 import svc.UserService;
 import vo.ActionForward;
 
-public class memberPwModifyAction implements Action{
+public class MemberPwModifyAction implements Action{
 	public ActionForward execute(HttpServletRequest request,HttpServletResponse response) 
 		 	throws Exception{
 		HttpSession session = request.getSession();

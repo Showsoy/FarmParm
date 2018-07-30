@@ -58,6 +58,30 @@ public class UserDAO {
 		return loginId;
 	}
 	
+	// 로그인 시 salt값 불러옴
+	public String selectLoginSalt(String id){
+		String loginSalt = null;
+		String sql="SELECT usalt FROM users WHERE user_id=?";
+		
+		try{
+			pstmt=con.prepareStatement(sql);
+			pstmt.setString(1, id);
+			rs = pstmt.executeQuery();
+			
+			if(rs.next()){
+				loginSalt = rs.getString("usalt");
+			}
+		}catch(Exception ex){
+			System.out.println(" 에러: " + ex);			
+		}finally{
+			close(rs);
+			close(pstmt);
+		}
+		
+		
+		return loginSalt;
+	}
+	
 	// 회원가입
 	public int insertUser(UserBean users){
 		String sql="INSERT INTO users VALUES (?,?,?,?,?,?,?,?,?,?,?,?)";
@@ -75,10 +99,12 @@ public class UserDAO {
 			pstmt.setString(8, users.getAddress());
 			pstmt.setString(9, users.getAddress_second());
 			pstmt.setString(10, users.getEmail());
-			pstmt.setString(11, users.getEmail_ad());
-			pstmt.setString(12, users.getGrade()); // 회원등급 어디서 넘어오는지 아직 미지수.
+			pstmt.setString(11, users.getGrade()); // 회원등급 어디서 넘어오는지 아직 미지수.
+			pstmt.setString(12, users.getUsalt());
 			
 			insertCount=pstmt.executeUpdate();
+			
+			System.out.println(insertCount + " :등록되나?");
 			
 		}catch(Exception ex){
 			System.out.println(" 에러: " + ex);			
@@ -118,33 +144,18 @@ public class UserDAO {
 		return userViewBean;
 	}
 	
-	// 회원목록 전체목록 불러오기 (아직 쓰이는곳 없음..)
-	public ArrayList<UserBean> selectUserList(){
-		String sql="SELECT * FROM users";
-		ArrayList<UserBean> userList = new ArrayList<UserBean>();
-		UserBean ub = null;
+	// 회원정보 수정 form 에서 email값 받아오기 (관리자 수정)
+	public String selectEmail(String id){
+		String email = null;
+		String sql="SELECT email FROM users WHERE user_id=?";
+		
 		try{
-			
 			pstmt=con.prepareStatement(sql);
-			rs=pstmt.executeQuery();
+			pstmt.setString(1, id);
+			rs = pstmt.executeQuery();
 			
 			if(rs.next()){
-				do{
-					ub = new UserBean(
-					rs.getString("user_id"),
-					rs.getString("passwd"),
-					rs.getString("name"),
-					rs.getString("phone"),
-					rs.getDate("birth"),
-					rs.getString("gender"),
-					rs.getString("postcode"),
-					rs.getString("address"),
-					rs.getString("address_second"),
-					rs.getString("email"),
-					rs.getString("email_ad"),
-					rs.getString("grade"));
-					userList.add(ub);
-				}while(rs.next());
+				email = rs.getString("email");
 			}
 		}catch(Exception ex){
 			System.out.println(" 에러: " + ex);			
@@ -152,14 +163,15 @@ public class UserDAO {
 			close(rs);
 			close(pstmt);
 		}
-		return userList;
+		
+		return email;
 	}
+	
 	// 회원정보 수정 form (관리자수정)
 	public UserBean AdSelectUser(String user_id){
 		String sql="SELECT * FROM users WHERE user_id=?";
 		UserBean ub = null;
 		try{
-			
 			pstmt=con.prepareStatement(sql);
 			pstmt.setString(1, user_id);
 			rs=pstmt.executeQuery();
@@ -174,10 +186,9 @@ public class UserDAO {
 						rs.getDate("birth"),
 						rs.getString("gender"),
 						rs.getString("email"),
-						rs.getString("email_ad"),
 						rs.getString("postcode"),
 						rs.getString("address"),
-						rs.getString("address_second"));	
+						rs.getString("address_second"));
 			}
 		}catch(Exception ex){
 			System.out.println(" 에러: " + ex);			
@@ -212,20 +223,6 @@ public class UserDAO {
 			pstmt.setString(11, user.getAddress_second());
 			pstmt.setString(12, user.getUser_id());
 			updateCount = pstmt.executeUpdate();
-			
-			System.out.println(user.getPasswd()+" : 비밀번호/" 
-			+ user.getName()+" : 이름/"
-			+ user.getGrade()+" : 등급/"
-			+ user.getPhone()+" : 폰번호/"
-			+ user.getBirth()+" : 생일/"
-			+ user.getGender()+" : 성별/"
-			+ user.getEmail()+" : 이메일1/"
-			+ user.getEmail_ad()+" : 이메일2/"
-			+ user.getPostcode()+" : 우편번호/"
-			+ user.getAddress()+" : 주소1/"
-			+ user.getAddress_second()+" : 주소2/"
-			+ user.getUser_id()+" : 아이디/"
-			);
 
 		} catch (SQLException e) {
 			e.printStackTrace();
@@ -258,7 +255,6 @@ public class UserDAO {
 						rs.getString("address"),
 						rs.getString("address_second"),
 						rs.getString("email"),
-						rs.getString("email_ad"),
 						rs.getString("grade"));
 			}
 		}catch(Exception ex){
@@ -293,6 +289,39 @@ public class UserDAO {
 		
 		return modifyPw;
 	}
+	
+	// 개인정보수정 form
+	public UserBean myModForm(String user_id){
+		String sql="SELECT * FROM users WHERE user_id=?";
+		UserBean ub = null;
+		try{
+			pstmt=con.prepareStatement(sql);
+			pstmt.setString(1, user_id);
+			rs=pstmt.executeQuery();
+			
+			if(rs.next()){
+				ub = new UserBean(
+						rs.getString("user_id"),
+						rs.getString("name"),
+						rs.getString("phone"),
+						rs.getDate("birth"),
+						rs.getString("gender"),
+						rs.getString("email"),
+						rs.getString("postcode"),
+						rs.getString("address"),
+						rs.getString("address_second"));
+			}
+		}catch(Exception ex){
+			System.out.println(" 에러: " + ex);			
+		}finally{
+			close(rs);
+			close(pstmt);
+		}
+		
+		
+		return ub;
+	}
+	
 	// 개인정보수정
 	public int updateMyModify(UserBean users) {
 		PreparedStatement pstmt = null;
@@ -300,7 +329,7 @@ public class UserDAO {
 		String sql = "";
 		
 		try {
-			sql = "UPDATE users SET phone=?,birth=?,gender=?,postcode=?,address=?,address_second=?,email=?,email_ad=? where user_id=?";
+			sql = "UPDATE users SET phone=?,birth=?,gender=?,postcode=?,address=?,address_second=?,email=? where user_id=?";
 			
 			pstmt = con.prepareStatement(sql);
 			pstmt.setString(1, users.getPhone());
@@ -310,8 +339,7 @@ public class UserDAO {
 			pstmt.setString(5, users.getAddress());
 			pstmt.setString(6, users.getAddress_second());
 			pstmt.setString(7, users.getEmail());
-			pstmt.setString(8, users.getEmail_ad());
-			pstmt.setString(9, users.getUser_id());
+			pstmt.setString(8, users.getUser_id());
 			updateCount = pstmt.executeUpdate();
 			
 		} catch (SQLException e) {

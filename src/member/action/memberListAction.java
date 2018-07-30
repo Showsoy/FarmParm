@@ -10,7 +10,7 @@ import svc.UserService;
 import vo.ActionForward;
 import vo.UserViewBean;
 
-public class memberListAction implements Action{
+public class MemberListAction implements Action{
 	public ActionForward execute(HttpServletRequest request,HttpServletResponse response) 
 		 	throws Exception{
 			 	HttpSession session=request.getSession();

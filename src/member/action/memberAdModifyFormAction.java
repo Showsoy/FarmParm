@@ -9,12 +9,21 @@ import svc.UserService;
 import vo.ActionForward;
 import vo.UserBean;
 
-public class memberAdModifyFormAction implements Action{
+public class MemberAdModifyFormAction implements Action{
 	public ActionForward execute(HttpServletRequest request,HttpServletResponse response) 
 		 	throws Exception{
 		HttpSession session = request.getSession();
 		String id = (String)session.getAttribute("id");
 		String uid = request.getParameter("uid");
+		
+		UserService userService = new UserService();
+		
+		String email = userService.email(uid);
+		String emails[] = new String[2];
+		emails = email.split("@");
+		
+		System.out.println(emails[0]+" "+emails[1] + " : 이거 찍히나?");
+
 		
 		ActionForward forward = null;
 
@@ -24,9 +33,10 @@ public class memberAdModifyFormAction implements Action{
 			forward.setPath("./memberLogin.us");
    		}else{
 	   		forward = new ActionForward();
-	   		UserService userService = new UserService();
 	   		UserBean user = userService.modifyUserForm(uid);
-	   		session.setAttribute("user", user);
+	   		request.setAttribute("user", user);
+	   		request.setAttribute("email1", emails[0]);
+	   		request.setAttribute("email2", emails[1]);
 	   		//forward.setRedirect(false);
 	   		forward.setPath("./admin/userMod.jsp");
 	   		}

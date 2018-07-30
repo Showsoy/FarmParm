@@ -8,19 +8,26 @@ import action.Action;
 import svc.UserService;
 import vo.ActionForward;
 import vo.UserBean;
+import vo.Util;
 
-public class memberLoginAction implements Action{
+public class MemberLoginAction implements Action{
 	public ActionForward execute(HttpServletRequest request, HttpServletResponse response) 
 			throws Exception{
 		
 		HttpSession session=request.getSession();
 		UserBean users = new UserBean();
+		String id = request.getParameter("userID");
+
+		UserService userService = new UserService();
+
+		String salt = userService.salt(id);
+		String passwd = Util.getPassword(request.getParameter("userPass"),salt);
 		
 		users.setUser_id(request.getParameter("userID"));
-		users.setPasswd(request.getParameter("userPass"));
+		users.setPasswd(passwd);
 		
-		UserService userService = new UserService();
-   		boolean loginResult = userService.login(users);
+		boolean loginResult = userService.login(users);
+		
    		ActionForward forward = null;
    		if(loginResult){
    	    forward = new ActionForward();
@@ -35,6 +42,7 @@ public class memberLoginAction implements Action{
 	   		out.println("alert('로그인 실패');");
 	   		out.println("location.href='../member/login.jsp';");
 	   		out.println("</script>");
+	   		
    		}
    		return forward;
 	}

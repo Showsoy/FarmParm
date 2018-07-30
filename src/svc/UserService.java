@@ -17,11 +17,24 @@ public class UserService {
 		userDAO.setConnection(con);
 		boolean loginResult = false;
 		String loginId = userDAO.selectLoginId(users);
+		
 		if(loginId != null){
 			loginResult = true;
 		}
 		close(con);
 		return loginResult;
+	}
+	
+	// 로그인시 salt값 받아오기
+	public String salt(String id) {
+		Connection con = getConnection();
+		UserDAO userDAO = UserDAO.getInstance();
+		userDAO.setConnection(con);
+		String loginSalt = userDAO.selectLoginSalt(id);
+		
+		
+		return loginSalt;
+		
 	}
 	
 	
@@ -51,6 +64,17 @@ public class UserService {
 		ArrayList<UserViewBean> userList = userDAO.users();
 		close(con);
 		return userList;
+	}
+	
+	// 회원정보 수정 form 에서 email값 받아오기 (관리자 수정)
+	public String email(String id) {
+		Connection con = getConnection();
+		UserDAO userDAO = UserDAO.getInstance();
+		userDAO.setConnection(con);
+		String loginSalt = userDAO.selectEmail(id);
+		
+		return loginSalt;
+		
 	}
 	
 	// 회원정보 수정 form (관리자 수정)
@@ -103,6 +127,16 @@ public class UserService {
 		}
 		close(con);
 		return modifyPw;
+	}
+	
+	// 개인정보수정 form
+	public UserBean myModForm(String ub) {
+		UserDAO userDAO = UserDAO.getInstance();
+		Connection con = getConnection();
+		userDAO.setConnection(con);
+		UserBean user = userDAO.myModForm(ub);
+		close(con);
+		return user;
 	}
 	
 	// 개인정보수정

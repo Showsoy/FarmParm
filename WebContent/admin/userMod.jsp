@@ -186,12 +186,12 @@ function selectEmail(sel) {
 	<tr>
 		<td id="td_left"><label for="userID">이메일</label></td>
 		<td>
-		<input type="text" name="userEmailId" id="userEmailId"size="10" value="${user.email}"/>&nbsp;@
+		<input type="text" name="userEmailId" id="userEmailId"size="10" value="${email1}"/>&nbsp;@
 		<span id="emailform">
 			<select name="userEmailAd" id="userEmailAd" onchange="selectEmail(this)">
 		<c:choose>
-		<c:when test="${user.email_ad != 'gmail.com' or 'naver.com' or 'daum.net' or 'hotmail.co.kr'}">
-			<option value="${user.email_ad}" selected="selected">${user.email_ad}</option>
+		<c:when test="${email2 != 'gmail.com' or 'naver.com' or 'daum.net' or 'hotmail.co.kr'}">
+			<option value="${email2}" selected="selected">${email2}</option>
 			<option value="gmail.com">gmail.com</option>
 			<option value="naver.com">naver.com</option>
 			<option value="naver.com">daum.net</option>	
@@ -199,28 +199,28 @@ function selectEmail(sel) {
 			<option value="null">직접입력</option>
 		</c:when>
 		<c:otherwise>
-			<c:if test="${user.email_ad == 'gmail.com'}">
+			<c:if test="${email2 == 'gmail.com'}">
 				<option value="gmail.com" selected="selected">gmail.com</option>
 				<option value="naver.com">naver.com</option>
 				<option value="naver.com">daum.net</option>	
 				<option value="naver.com">hotmail.co.kr</option>
 				<option value="null">직접입력</option>
 			</c:if>
-			<c:if test="${user.email_ad == 'naver.com'}">
+			<c:if test="${email2 == 'naver.com'}">
 				<option value="gmail.com">gmail.com</option>
 				<option value="naver.com" selected="selected">naver.com</option>
 				<option value="naver.com">daum.net</option>	
 				<option value="naver.com">hotmail.co.kr</option>
 				<option value="null">직접입력</option>
 			</c:if>
-			<c:if test="${user.email_ad == 'daum.net'}">
+			<c:if test="${email2 == 'daum.net'}">
 				<option value="gmail.com">gmail.com</option>
 				<option value="naver.com">naver.com</option>
 				<option value="naver.com" selected="selected">daum.net</option>	
 				<option value="naver.com">hotmail.co.kr</option>
 				<option value="null">직접입력</option>
 			</c:if>
-			<c:if test="${user.email_ad == 'hotmail.co.kr'}">
+			<c:if test="${email2 == 'hotmail.co.kr'}">
 				<option value="gmail.com">gmail.com</option>
 				<option value="naver.com">naver.com</option>
 				<option value="naver.com">daum.net</option>	

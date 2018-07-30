@@ -94,7 +94,7 @@ td, tr{
 	</tr>
 	<tr>
 		<td id="td_left"><label for="userID">이메일</label></td>
-		<td>${user.email}@${user.email_ad}</td>
+		<td>${email1}@${email2}</td>
 	</tr>
 	<tr>
 		<td id="td_left"><label for="userID">주소</label></td>
@@ -102,7 +102,7 @@ td, tr{
 	</tr>
 </table>
 <br><br>
-			<button onclick="location.href='pwCheckForm.us'">수정</button> 
+			<button onclick="location.href='pwCheckForm.us?id=${user.user_id}'">수정</button> 
 	
 			<button onclick="location.href='<%=request.getContextPath()%>/common/main.jsp'">홈으로</button> 
 		

@@ -8,8 +8,9 @@ import javax.servlet.http.HttpSession;
 import action.Action;
 import svc.UserService;
 import vo.ActionForward;
+import vo.Util;
 
-public class memberPwCheckAction implements Action{
+public class MemberPwCheckAction implements Action{
 	public ActionForward execute(HttpServletRequest request,HttpServletResponse response) 
 		 	throws Exception{
 		HttpSession session = request.getSession();
@@ -17,14 +18,18 @@ public class memberPwCheckAction implements Action{
 		String user_id = (String)session.getAttribute("id");
 		
 		UserService userService = new UserService();
-   		boolean loginResult = userService.myPwCheck(user_id,pw);
+
+		String salt = userService.salt(user_id);
+		String passwd = Util.getPassword(pw,salt);
+		
+   		boolean loginResult = userService.myPwCheck(user_id,passwd);
    		
 		ActionForward forward = null;
 		
 		if(loginResult){
 			forward = new ActionForward();
 	   		//forward.setRedirect(false);
-	   		forward.setPath("./member/mymod.jsp");
+	   		forward.setPath("mymod.us");
    		}else{
    			response.setContentType("text/html;charset=UTF-8");
 			PrintWriter out = response.getWriter();

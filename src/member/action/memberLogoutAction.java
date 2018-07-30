@@ -6,7 +6,7 @@ import javax.servlet.http.HttpSession;
 import action.Action;
 import vo.ActionForward;
 
-public class memberLogoutAction implements Action{
+public class MemberLogoutAction implements Action{
 	
 	public ActionForward execute(HttpServletRequest request,HttpServletResponse response) 
 		 	throws Exception{

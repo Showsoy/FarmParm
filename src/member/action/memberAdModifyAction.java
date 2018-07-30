@@ -11,7 +11,7 @@ import vo.ActionForward;
 import vo.UserViewBean;
 import vo.Util;
 
-public class memberAdModifyAction implements Action{
+public class MemberAdModifyAction implements Action{
 	public ActionForward execute(HttpServletRequest request,
 			HttpServletResponse response) throws Exception{
 		HttpSession session = request.getSession();
