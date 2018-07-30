@@ -165,7 +165,7 @@ img{
 				<td>${itemList.category }</td>
 				<td colspan="2">
 				<p>&nbsp;&nbsp;&nbsp;&nbsp;
-				<img src="../images/${itemList.img_path }" width="100px" align="center">
+				<img src="../images/${itemList.img_path }" width="100px" height="70px" align="center">
 				&nbsp;&nbsp;&nbsp;${itemList.item_name }</p></td>
 				
 				<td>${itemList.price }</td>

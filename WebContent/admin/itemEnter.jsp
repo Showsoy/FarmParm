@@ -84,7 +84,7 @@ function chkForm(f){
 	<form action="itemEnterPro.im?item_code=${item.item_code }" method="post" name="enterform" onsubmit="return chkForm(this)">
 			<table>
 				<tr>
-					<th colspan="2"><img src="../images/${item.img_path }" width="200px"></th>
+					<th colspan="2"><img src="../images/${item.img_path }" width="200px" height="140px"></th>
 					<td>${item.category }</td>
 					<td>${item.item_code }</td>
 					<td>${item.item_name }</td>

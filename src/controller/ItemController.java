@@ -22,6 +22,10 @@ import admin.action.ItemNewAction;
 import admin.action.ItemSearchAction;
 import admin.action.ItemUnhideAction;
 import admin.action.ItemViewAction;
+import item.action.CartAddAction;
+import item.action.CartChangeQtyAction;
+import item.action.CartListAction;
+import item.action.CartRemoveAction;
 import item.action.UserItemListAction;
 import item.action.UserItemViewAction;
 import vo.ActionForward;
@@ -49,7 +53,6 @@ protected void doProcess(HttpServletRequest request, HttpServletResponse respons
     	String[] commands;
 		commands = command.split("/");
 		command = "/"+commands[commands.length-1];
-    	System.out.println(command);
     	
     	ActionForward forward = null;
     	Action action = null;
@@ -152,6 +155,34 @@ protected void doProcess(HttpServletRequest request, HttpServletResponse respons
     		}
     	}else if(command.equals("/uitemView.im")) {
     		action = new UserItemViewAction();
+    		try {
+    			forward = action.execute(request, response);
+    		}catch(Exception e) {
+    			e.printStackTrace();
+    		}
+    	}else if(command.equals("/cartList.im")) {
+    		action = new CartListAction();
+    		try {
+    			forward = action.execute(request, response);
+    		}catch(Exception e) {
+    			e.printStackTrace();
+    		}
+    	}else if(command.equals("/changeCart.im")) {
+    		action = new CartChangeQtyAction();
+    		try {
+    			forward = action.execute(request, response);
+    		}catch(Exception e) {
+    			e.printStackTrace();
+    		}
+    	}else if(command.equals("/removeCart.im")) {
+    		action = new CartRemoveAction();
+    		try {
+    			forward = action.execute(request, response);
+    		}catch(Exception e) {
+    			e.printStackTrace();
+    		}
+    	}else if(command.equals("/addCart.im")) {
+    		action = new CartAddAction();
     		try {
     			forward = action.execute(request, response);
     		}catch(Exception e) {
