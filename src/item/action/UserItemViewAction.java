@@ -60,24 +60,27 @@ public class UserItemViewAction implements action.Action{
 		todayImageCookie.setMaxAge(60*60*24);
 		Cookie[] cookieArray = request.getCookies();
 		
-		//삭제해주기or 쿠키 5개?
+		//이전 쿠키값 삭제
 		if(cookieArray!=null) {
 			for(int i=0;i<cookieArray.length;i++) {
 				if(cookieArray[i].getName().equals("today"+item_code)) {
 					Cookie temp = new Cookie("today"+item_code,"");
 					temp.setMaxAge(0);
 					response.addCookie(temp);
-					response.addCookie(todayImageCookie);
+					System.out.println("dd");
 				}
 			}
 		}
-		
+		response.addCookie(todayImageCookie);
 		
 		//Cookie load
 		ArrayList<String> todayImageList = new ArrayList<String>();
 		//길이가 8이면 7부터 -> 7 6 5 4 3, 2전까지 2는 길이 - 6
+		int count = 0;
 		if (cookieArray != null) {
-			for (int i = cookieArray.length - 1; i > cookieArray.length - 6; i--) {
+			for (int i = cookieArray.length - 1; i >= 0; i--) {
+				if (count == 5)
+					break;
 				if (cookieArray[i].getName().startsWith("today")) {
 					todayImageList.add(cookieArray[i].getValue());
 				}
@@ -88,7 +91,7 @@ public class UserItemViewAction implements action.Action{
 		request.setAttribute("item",item);
 		String page = request.getParameter("page");
 		request.setAttribute("page", page);
-		forward= new ActionForward("../items/detail.jsp",false);
+		forward= new ActionForward("../item/detail.jsp",false);
 		
 		return forward;
 	}

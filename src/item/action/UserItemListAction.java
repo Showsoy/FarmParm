@@ -68,7 +68,7 @@ public class UserItemListAction implements Action {
 		Cookie[] cookieArray = request.getCookies();
 		int count = 0;
 		if (cookieArray != null) {
-			for (int i = cookieArray.length-1; i > 0; i--) {
+			for (int i = cookieArray.length-1; i >= 0; i--) {
 				if(count==5) break;
 				if (cookieArray[i].getName().startsWith("today")) {
 					todayImageList.add(cookieArray[i].getValue());
@@ -81,7 +81,7 @@ public class UserItemListAction implements Action {
 		request.setAttribute("category", category);
 		request.setAttribute("pageInfo", pageInfo);
 		request.setAttribute("itemList", itemList);
-		forward= new ActionForward("../items/uitemList.jsp",false);
+		forward= new ActionForward("../item/uitemList.jsp",false);
 		return forward;
 	}
 

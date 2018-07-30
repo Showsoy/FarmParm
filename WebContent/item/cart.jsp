@@ -1,5 +1,6 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"
     pageEncoding="UTF-8"%>
+<%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
 <!DOCTYPE html PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN" "http://www.w3.org/TR/html4/loose.dtd">
 <html>
 <head>
@@ -100,15 +101,25 @@ img{
 }
 </style>
 <script>
-	function checkAll(theForm){
-		if(theForm.remove.length==undefined){
-			theForm.remove.checked = theForm.allCheck.checked;
-		}else{
-			for(var i=0;i<theForm.remove.length;i++){
-				theForm.remove[i].checked = theForm.allCheck.checked;
+	function checkAll(theForm) {
+		if (theForm.icheck.length == undefined) {
+			theForm.icheck.checked = theForm.allCheck.checked;
+		} else {
+			for (var i = 0; i < theForm.icheck.length; i++) {
+				theForm.icheck[i].checked = theForm.allCheck.checked;
 			}
 		}
 	}
+	var selPrice = 0;
+	//체크하면 + 체크풀면 - value 수정
+	function checkItem(f){
+		if(f.icheck.checked == true){
+			selPrice += icheck.value;
+		}else{
+			selPrice -= icheck.value;
+		}
+	}
+	
 </script>
 </head>
 <link rel="stylesheet" type="text/css" href="../style/style.css">
@@ -130,53 +141,25 @@ img{
 				<td>수량</td>
 				<td>삭제</td>
 			</tr>
+			<c:forEach var="cart" items="${cartList }" varStatus="status">
 			<tr>
-				<td><input type="checkbox" id="remove" name="remove"/></td>
+				<td><input type="checkbox" id="icheck" name="icheck" value="${cart.kind }"/></td>
 				<td colspan="2">
 				<p>&nbsp;&nbsp;&nbsp;&nbsp;
-				<img src="../images/apple.jpg" width="100px" align="center">
+				<img src="../images/${cart.image }" width="100px" height="70px" align="center">
 				&nbsp;&nbsp;&nbsp;청송사과 1kg</p></td>
 				
-				<td>20000</td>
-				<td><input type="text" id="quant" name="quant" value="1" size="1">
-				<button onclick="location.href='#'" id="wbutton" style="width:50px;">변경</button>
+				<td>${cart.price }</td>
+				<td><input type="text" id="qty" name="qty" value="${cart.qty }" size="1">
+				<button onclick="location.href='changeCart.im&item_code=${cart.kind }'" id="wbutton" style="width:50px;">변경</button>
 				</td>
-				<td><button onclick="location.href='#'" id="gbutton">삭제</button></td>
+				<td><button onclick="location.href='removeCart.im&item_code=${cart.kind }'" id="gbutton">삭제</button></td>
 			</tr>
-			<tr>
-				<td><input type="checkbox" id="remove" name="remove"/></td>
-				<td colspan="2">
-				<p>&nbsp;&nbsp;&nbsp;&nbsp;
-				<img src="../images/apple.jpg" width="100px" align="center">
-				&nbsp;&nbsp;&nbsp;청송사과 1kg</p></td>
-				<td>20000</td>
-				<td>1</td>
-				<td><button onclick="location.href='#'" id="gbutton">삭제</button></td>
-			</tr>
-			<tr>
-				<td><input type="checkbox" id="remove" name="remove"/></td>
-				<td colspan="2">
-				<p>&nbsp;&nbsp;&nbsp;&nbsp;
-				<img src="../images/apple.jpg" width="100px" align="center">
-				&nbsp;&nbsp;&nbsp;청송사과 1kg</p></td>
-				<td>20000</td>
-				<td>1</td>
-				<td><button onclick="location.href='#'" id="gbutton">삭제</button></td>
-			</tr>
-			<tr>
-				<td><input type="checkbox" id="remove" name="remove"/></td>
-				<td colspan="2">
-				<p>&nbsp;&nbsp;&nbsp;&nbsp;
-				<img src="../images/apple.jpg" width="100px" align="center">
-				&nbsp;&nbsp;&nbsp;청송사과 1kg</p></td>
-				<td>20000</td>
-				<td>1</td>
-				<td><button onclick="location.href='#'" id="gbutton">삭제</button></td>
-			</tr>
+			</c:forEach>
 			<tr id="tr_total">
 				<td colspan="6">
 					<div>
-						<h5>총 주문 금액 <b>000000원</b></h5>
+						<h5>총 주문 금액 <b>${totalMoney }</b></h5>
 						선택금액!!!!<br>
 						배송비 +3000원
 						<br><br>
@@ -184,6 +167,11 @@ img{
 					</div>
 				<td>
 			</tr>
+			<c:if test="${cartList==null }">
+				<tr>
+					<td colspan="6">정보가 없습니다.</td>
+				</tr>
+			</c:if>
 			<tr>
 				<td colspan="6" id="td_info">
 					<a href="#">둘러보기</a>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
@@ -194,15 +182,6 @@ img{
 	</div>
 	</form>
 </div>
-<footer>
-  <a href="#"><i class="fa fa-facebook-official"></i></a>
-  <a href="#"><i class="fa fa-pinterest-p"></i></a>
-  <a href="#"><i class="fa fa-twitter"></i></a>
-  <a href="#"><i class="fa fa-flickr"></i></a>
-  <a href="#"><i class="fa fa-linkedin"></i></a>
-  <p class="w3-medium">
-    Powered by <a href="https://www.w3schools.com/w3css/default.asp" target="_blank">w3.css</a>
-  </p>
-</footer>
+ <jsp:include page="/common/inner_menu.jsp" flush="false"/>
 </body>
 </html>
