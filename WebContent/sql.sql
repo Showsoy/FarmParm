@@ -195,3 +195,10 @@ ALTER TABLE cs_board ADD rgroup int;
 ALTER TABLE items ADD ihide int default 0;
 CREATE VIEW item_view AS SELECT (select idate from item_stock where state='등록' and items.item_code = item_stock.item_code) as vdate, items.item_code AS item_code, items.category AS category, items.img_path AS img_path, items.item_name AS item_name, items.price AS price, items.sale AS sale, (select stock from item_stock a where inumber = (select max(inumber) from item_stock b where a.item_code = b.item_code and b.item_code = items.item_code)) AS stock, items.readcount AS readcount, (SELECT SUM(amount) FROM item_stock WHERE item_stock.state='출고' AND items.item_code = item_stock.item_code) AS purchase, items.ihide as ihide FROM items LEFT JOIN item_stock ON items.item_code = item_stock.item_code group by items.item_code;
 
+
+
+alter table users drop column email_ad;
+alter table users modify passwd varchar(300) not null;
+alter table users add usalt varchar(300) not null;
+
+

@@ -58,22 +58,28 @@ public class UserItemViewAction implements action.Action{
 		//Cookie add
 		Cookie todayImageCookie = new Cookie("today"+item_code, item.getImg_path());
 		todayImageCookie.setMaxAge(60*60*24);
-		response.addCookie(todayImageCookie);
-		Cookie[] cookies = request.getCookies();
+		Cookie[] cookieArray = request.getCookies();
 		
 		//삭제해주기or 쿠키 5개?
+		if(cookieArray!=null) {
+			for(int i=0;i<cookieArray.length;i++) {
+				if(cookieArray[i].getName().equals("today"+item_code)) {
+					Cookie temp = new Cookie("today"+item_code,"");
+					temp.setMaxAge(0);
+					response.addCookie(temp);
+					response.addCookie(todayImageCookie);
+				}
+			}
+		}
+		
 		
 		//Cookie load
 		ArrayList<String> todayImageList = new ArrayList<String>();
-		Cookie[] cookieArray = request.getCookies();
-		int count = 0;
+		//길이가 8이면 7부터 -> 7 6 5 4 3, 2전까지 2는 길이 - 6
 		if (cookieArray != null) {
-			for (int i = cookieArray.length - 1; i > 0; i--) {
-				if (count == 5)
-					break;
+			for (int i = cookieArray.length - 1; i > cookieArray.length - 6; i--) {
 				if (cookieArray[i].getName().startsWith("today")) {
 					todayImageList.add(cookieArray[i].getValue());
-					count++;
 				}
 			}
 		}

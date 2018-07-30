@@ -481,12 +481,13 @@ public class ItemDAO {
 		int insertCount = 0;
 		int oldStock = 0;
 		int inumber = 0;
-		String sql1 = "SELECT stock, inumber FROM item_stock WHERE inumber = (SELECT MAX(inumber) FROM item_stock a WHERE a.item_code = ? GROUP BY item_code)";
+		String sql1 = "SELECT stock, inumber FROM item_stock WHERE inumber = (SELECT MAX(inumber) FROM item_stock a WHERE a.item_code = ? GROUP BY item_code) WHERE item_code = ?";
 		String sql2 = "INSERT INTO item_stock VALUES(?,?,?,?,?,?)";
 		
 		try {
 			pstmt1 = conn.prepareStatement(sql1);
 			pstmt1.setString(1, item_code);
+			pstmt1.setString(2, item_code);
 			rs = pstmt1.executeQuery();
 
 			if(rs.next()) {

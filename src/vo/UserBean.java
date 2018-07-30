@@ -13,12 +13,12 @@ public class UserBean {
 	private String address;
 	private String address_second;
 	private String email;
-	private String email_ad;
 	private String grade;
+	private String usalt;
 	
 
 	public UserBean(String user_id, String passwd, String name, String phone, Date birth, String gender,
-			String postcode, String address, String address_second, String email, String email_ad, String grade) {
+			String postcode, String address, String address_second, String email, String grade, String usalt) {
 		super();
 		this.user_id = user_id;
 		this.passwd = passwd;
@@ -30,8 +30,8 @@ public class UserBean {
 		this.address = address;
 		this.address_second = address_second;
 		this.email = email;
-		this.email_ad = email_ad;
 		this.grade = grade;
+		this.usalt = usalt;
 	}
 
 
@@ -168,14 +168,6 @@ public class UserBean {
 	public void setEmail(String email) {
 		this.email = email;
 	}
-	
-	public String getEmail_ad() {
-		return email_ad;
-	}
-	
-	public void setEmail_ad(String email_ad) {
-		this.email_ad = email_ad;
-	}
 
 	public String getGrade() {
 		return grade;
@@ -184,5 +176,14 @@ public class UserBean {
 	public void setGrade(String grade) {
 		this.grade = grade;
 	}
+	public String getUsalt() {
+		return usalt;
+	}
 
+
+	public void setUsalt(String usalt) {
+		this.usalt = usalt;
+	}
+	
+	
 }
