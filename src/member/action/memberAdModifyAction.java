@@ -8,7 +8,7 @@ import javax.servlet.http.HttpSession;
 import action.Action;
 import svc.UserService;
 import vo.ActionForward;
-import vo.UserBean;
+import vo.UserViewBean;
 
 public class memberAdModifyAction implements Action{
 	public ActionForward execute(HttpServletRequest request,
@@ -16,25 +16,25 @@ public class memberAdModifyAction implements Action{
 		HttpSession session = request.getSession();
 		UserService userService = new UserService();
 		
-		String id = (String)session.getAttribute("uid");
+		//String id = (String)session.getAttribute("uid");
+		String uid = request.getParameter("uid");
 		Date birth = Date.valueOf(request.getParameter("userBirth"));
 		
-			UserBean user = new UserBean(
+		UserViewBean user = new UserViewBean(
 					request.getParameter("userPass"),
 					request.getParameter("userName"),
+					request.getParameter("userGrade"),
 					request.getParameter("userPhone"), 
 					birth,
 					request.getParameter("userGen"),
+					request.getParameter("userEmailId"),
+					request.getParameter("userEmailAd"),
 					request.getParameter("userAddr1"),
 					request.getParameter("userAddr2"),
 					request.getParameter("userAddr3"),
-					request.getParameter("userEmailId"),
-					request.getParameter("userEmailAd"),
-					request.getParameter("userGrade"),
-					id
+					uid
 					);
-			
-			System.out.println(request.getParameter("userGrade") + " action에서 등급 값");
+
 			
 			ActionForward forward = null;
 			boolean isRegistSuccess = userService.modifyUsers(user);

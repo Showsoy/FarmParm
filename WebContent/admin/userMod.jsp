@@ -128,7 +128,7 @@ function selectEmail(sel) {
 	<h3>&nbsp;&nbsp;회원정보수정</h3>
 	<hr color="#4CAF50" size="5">
 	<div class="mypage">
-	<form action="/FarmParm/memberModAd.us" method="post" onsubmit="return chkForm(this)">
+	<form action="/FarmParm/memberModAd.us?uid=${user.user_id}" method="post" onsubmit="return chkForm(this)">
 	<table cellspacing="0" cellpadding="0">
 	<tr>
 		<td id="td_left"><label for="userID">아이디</label></td>
@@ -147,16 +147,16 @@ function selectEmail(sel) {
 		<td>
 		<select name="userGrade" id="userGrade">
 			<c:if test="${user.grade == '일반'}">
-				<option value="gmail.com" selected>일반개인</option>
-				<option value="naver.com">일반사업</option>
-				<option value="naver.com">우수개인</option>
-				<option value="naver.com">우수사업</option>
+				<option value="일반" selected>일반개인</option>
+				<option value="일반">일반사업</option>
+				<option value="우수">우수개인</option>
+				<option value="우수">우수사업</option>
 			</c:if>
 			<c:if test="${user.grade == '우수'}">
-				<option value="gmail.com">일반개인</option>
-				<option value="naver.com">일반사업</option>
-				<option value="naver.com" selected>우수개인</option>
-				<option value="naver.com">우수사업</option>
+				<option value="일반">일반개인</option>
+				<option value="일반">일반사업</option>
+				<option value="우수" selected>우수개인</option>
+				<option value="우수">우수사업</option>
 			</c:if>
 			
 		</select>

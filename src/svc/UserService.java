@@ -64,12 +64,12 @@ public class UserService {
 	}
 	
 	// 회원정보 수정 (관리자 수정)
-	public boolean modifyUsers(UserBean users) {
+	public boolean modifyUsers(UserViewBean user) {
 		UserDAO userDAO = UserDAO.getInstance();
 		Connection con = getConnection();
 		userDAO.setConnection(con);		
 		boolean isModifySuccess = false;
-		int insertCount = userDAO.updateUserModify(users);
+		int insertCount = userDAO.updateUserModify(user);
 		if(insertCount>0){
 			commit(con);
 			isModifySuccess=true;

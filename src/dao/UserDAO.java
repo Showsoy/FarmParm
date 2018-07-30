@@ -169,15 +169,15 @@ public class UserDAO {
 						rs.getString("user_id"),
 						rs.getString("passwd"),
 						rs.getString("name"),
+						rs.getString("grade"),
 						rs.getString("phone"),
 						rs.getDate("birth"),
 						rs.getString("gender"),
-						rs.getString("postcode"),
-						rs.getString("address"),
-						rs.getString("address_second"),
 						rs.getString("email"),
 						rs.getString("email_ad"),
-						rs.getString("grade"));
+						rs.getString("postcode"),
+						rs.getString("address"),
+						rs.getString("address_second"));	
 			}
 		}catch(Exception ex){
 			System.out.println(" 에러: " + ex);			
@@ -190,31 +190,43 @@ public class UserDAO {
 	}
 	
 	// 회원정보 수정 (관리자수정)
-	public int updateUserModify(UserBean users) {
+	public int updateUserModify(UserViewBean user) {
 		PreparedStatement pstmt = null;
 		int updateCount = 0;
 		String sql = "";
 		
 		try {
-			sql = "UPDATE users SET passwd=?,name=?,phone=?,birth=?,gender=?,postcode=?,address=?,address_second=?,email=?,email_ad=?,grade=? where user_id=?";
+			sql = "UPDATE users SET passwd=?,name=?,grade=?,phone=?,birth=?,gender=?,email=?,email_ad=?,postcode=?,address=?,address_second=? where user_id=?";
 								
 			pstmt = con.prepareStatement(sql);
-			pstmt.setString(1, users.getPasswd());
-			pstmt.setString(2, users.getName());
-			pstmt.setString(3, users.getPhone());
-			pstmt.setDate(4, users.getBirth());
-			pstmt.setString(5, users.getGender());
-			pstmt.setString(6, users.getPostcode());
-			pstmt.setString(7, users.getAddress());
-			pstmt.setString(8, users.getAddress_second());
-			pstmt.setString(9, users.getEmail());
-			pstmt.setString(10, users.getEmail_ad());
-			pstmt.setString(11, users.getGrade());
-			pstmt.setString(12, users.getUser_id());
+			pstmt.setString(1, user.getPasswd());
+			pstmt.setString(2, user.getName());
+			pstmt.setString(3, user.getGrade());
+			pstmt.setString(4, user.getPhone());
+			pstmt.setDate(5, user.getBirth());
+			pstmt.setString(6, user.getGender());
+			pstmt.setString(7, user.getEmail());
+			pstmt.setString(8, user.getEmail_ad());
+			pstmt.setString(9, user.getPostcode());
+			pstmt.setString(10, user.getAddress());
+			pstmt.setString(11, user.getAddress_second());
+			pstmt.setString(12, user.getUser_id());
 			updateCount = pstmt.executeUpdate();
 			
-			System.out.println(users.getGrade() + " dao에서 등급값");
-			
+			System.out.println(user.getPasswd()+" : 비밀번호/" 
+			+ user.getName()+" : 이름/"
+			+ user.getGrade()+" : 등급/"
+			+ user.getPhone()+" : 폰번호/"
+			+ user.getBirth()+" : 생일/"
+			+ user.getGender()+" : 성별/"
+			+ user.getEmail()+" : 이메일1/"
+			+ user.getEmail_ad()+" : 이메일2/"
+			+ user.getPostcode()+" : 우편번호/"
+			+ user.getAddress()+" : 주소1/"
+			+ user.getAddress_second()+" : 주소2/"
+			+ user.getUser_id()+" : 아이디/"
+			);
+
 		} catch (SQLException e) {
 			e.printStackTrace();
 		} finally {

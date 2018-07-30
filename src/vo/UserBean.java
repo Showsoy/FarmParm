@@ -70,24 +70,23 @@ public class UserBean {
 		this.user_id = user_id;
 	}
 
-
-	public UserBean(String passwd, String name, String phone, Date birth,String gender, String postcode,
-			String address, String address_second, String email, String email_second, String grade,
-		 String id) {
+	public UserBean(String user_id, String passwd, String name, String grade, String phone, Date birth,
+			String gender, String email, String email_ad, String postcode, String address, String address_second) {
 		// TODO Auto-generated constructor stub
 		this.user_id = user_id;
 		this.passwd = passwd;
 		this.name = name;
+		this.grade = grade;
 		this.phone = phone;
 		this.birth = birth;
 		this.gender = gender;
+		this.email = email;
+		this.email_ad = email_ad;
 		this.postcode = postcode;
 		this.address = address;
 		this.address_second = address_second;
-		this.email = email;
-		this.email_ad = email_ad;
-		this.grade = grade;
 	}
+
 
 
 	public String getUser_id() {
