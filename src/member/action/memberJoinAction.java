@@ -2,7 +2,6 @@ package member.action;
 
 import java.io.PrintWriter;
 import java.sql.Date;
-import java.text.SimpleDateFormat;
 
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
@@ -11,6 +10,7 @@ import action.Action;
 import svc.UserService;
 import vo.ActionForward;
 import vo.UserBean;
+import vo.Util;
 
 public class memberJoinAction  implements Action{
 	public ActionForward execute(HttpServletRequest request, HttpServletResponse response) 
@@ -18,13 +18,13 @@ public class memberJoinAction  implements Action{
 		
 		UserBean users = new UserBean();
    		boolean joinResult=false;
-   		/*SimpleDateFormat sdf = new SimpleDateFormat("yyyy-mm-dd");
-   		Date birth = (Date) sdf.parse(request.getParameter("userBirth"));*/
-   		
-   		Date birth = Date.valueOf(request.getParameter("userBirth"));
+   		Util util = new Util();
+		Date birth = util.transformDate(request.getParameter("userBirth"));
+		String salt = Util.getSalt();
+		String passwd = Util.getPassword(request.getParameter("userPass"), salt);
    		
    		users.setUser_id(request.getParameter("userID"));
-   		users.setPasswd(request.getParameter("userPass"));
+   		users.setPasswd(passwd);
    		users.setName(request.getParameter("userName"));
    		users.setPhone(request.getParameter("userPhone"));
    		users.setBirth(birth);
@@ -33,8 +33,8 @@ public class memberJoinAction  implements Action{
    		users.setAddress(request.getParameter("userAddr2"));
    		users.setAddress_second(request.getParameter("userAddr3"));
    		users.setEmail(request.getParameter("userEmailId"));
-   		users.setEmail_ad(request.getParameter("userEmailAd"));
    		users.setGrade("일반");
+   		users.setUsalt(salt);
    		
    		UserService userService = new UserService();
    		joinResult = userService.joinUser(users);

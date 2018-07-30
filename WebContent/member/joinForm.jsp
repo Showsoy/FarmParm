@@ -109,7 +109,7 @@ function selectEmail(sel) {
 	
 		<label for="userBirth">생년월일</label>
 		<input type="text" name="userBirth" id="userBirth" 
-		placeholder="ex) 1999-03-03" class="input100"/>
+		placeholder="ex) 19990303" class="input100"/>
 		
 		<label for="userGen">성별</label><br><br>
 		<div id="genCheck">

@@ -9,6 +9,7 @@ import action.Action;
 import svc.UserService;
 import vo.ActionForward;
 import vo.UserBean;
+import vo.Util;
 
 public class memberAdModifyAction implements Action{
 	public ActionForward execute(HttpServletRequest request,
@@ -17,7 +18,8 @@ public class memberAdModifyAction implements Action{
 		UserService userService = new UserService();
 		
 		String id = (String)session.getAttribute("uid");
-		Date birth = Date.valueOf(request.getParameter("userBirth"));
+		Util util = new Util();
+		Date birth = util.transformDate(request.getParameter("userBirth"));
 		
 			UserBean user = new UserBean(
 					request.getParameter("userPass"),

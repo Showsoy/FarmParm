@@ -10,6 +10,7 @@ import action.Action;
 import svc.ItemService;
 import vo.ActionForward;
 import vo.ItemStockBean;
+import vo.Util;
 
 public class ItemEnterProAction implements Action {
 
@@ -19,10 +20,8 @@ public class ItemEnterProAction implements Action {
 		request.setCharacterEncoding("UTF-8");
 		ActionForward forward = null;
 		String item_code = request.getParameter("item_code");
-		System.out.println(item_code);
-		String idate = request.getParameter("idate");
-		idate = idate.substring(0, 4)+"-"+idate.substring(4,6)+"-"+idate.substring(6);
-		Date date = Date.valueOf(idate);
+		Util util = new Util();
+		Date date = util.transformDate(request.getParameter("idate"));
 
 		ItemStockBean itemStock = new ItemStockBean(
 				item_code,
