@@ -37,8 +37,6 @@ public class UserItemListAction implements Action {
 		else if(standard.equals("pc"))  standard = "purchase";
 		else if(standard.equals("rc"))  standard = "readcount";
 		
-		System.out.println(standard);
-		
 		ItemService itemService = new ItemService();
 		listCount = itemService.itemListCountIn(category);
 		itemList = itemService.userItemList(page, category, standard);

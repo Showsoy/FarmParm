@@ -1,9 +1,11 @@
 package dao;
+import static db.JdbcUtil.close;
+
 import java.sql.Connection;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.util.ArrayList;
-import static db.JdbcUtil.*;
+import java.util.HashMap;
 
 import vo.ItemBean;
 import vo.ItemStockBean;
@@ -474,40 +476,48 @@ public class ItemDAO {
 		
 		return iSearchList;
 	}
-	public int insertItemStock(ItemStockBean itemStock, String item_code) {
-		PreparedStatement pstmt1 = null;
-		PreparedStatement pstmt2 = null;
+	public HashMap<String, Integer> findRecentStock(String item_code) {
+		PreparedStatement pstmt = null;
 		ResultSet rs = null;
-		int insertCount = 0;
-		int oldStock = 0;
-		int inumber = 0;
-		String sql1 = "SELECT stock, inumber FROM item_stock WHERE inumber = (SELECT MAX(inumber) FROM item_stock a WHERE a.item_code = ? GROUP BY item_code) WHERE item_code = ?";
-		String sql2 = "INSERT INTO item_stock VALUES(?,?,?,?,?,?)";
-		
+		String sql = "SELECT stock, inumber FROM item_stock WHERE inumber = (SELECT MAX(inumber) FROM item_stock a WHERE a.item_code = ? GROUP BY item_code) AND item_code = ?";
+		HashMap<String, Integer> imap = new HashMap<String, Integer>(); 
 		try {
-			pstmt1 = conn.prepareStatement(sql1);
-			pstmt1.setString(1, item_code);
-			pstmt1.setString(2, item_code);
-			rs = pstmt1.executeQuery();
-
+			pstmt = conn.prepareStatement(sql);
+			pstmt.setString(1, item_code);
+			pstmt.setString(2, item_code);
+			rs = pstmt.executeQuery();
+			
 			if(rs.next()) {
-				oldStock = rs.getInt(1);
-				inumber = rs.getInt(2)+1;
+				imap.put("stock", rs.getInt("stock"));
+				imap.put("inumber", rs.getInt("inumber"));
 			}
-			pstmt2 = conn.prepareStatement(sql2);
-			pstmt2.setString(1, itemStock.getItem_code());
-			pstmt2.setString(2, itemStock.getState());
-			pstmt2.setDate(3, itemStock.getIdate());
-			pstmt2.setInt(4, itemStock.getAmount());
-			pstmt2.setInt(5, oldStock+itemStock.getAmount());
-			pstmt2.setInt(6, inumber);
-			insertCount = pstmt2.executeUpdate();
 		}catch(Exception e) {
 			e.printStackTrace();
 		}finally {
-			close(pstmt1);
-			close(pstmt2);
+			close(pstmt);
 			close(rs);
+		}
+		
+		return imap;
+	}
+	public int itemStockInOut(ItemStockBean itemStock, HashMap<String, Integer> imap) {
+		PreparedStatement pstmt = null;
+		int insertCount = 0;
+		String sql = "INSERT INTO item_stock VALUES(?,?,?,?,?,?)";
+		
+		try {
+			pstmt = conn.prepareStatement(sql);
+			pstmt.setString(1, itemStock.getItem_code());
+			pstmt.setString(2, itemStock.getState());
+			pstmt.setDate(3, itemStock.getIdate());
+			pstmt.setInt(4, Math.abs(itemStock.getAmount()));
+			pstmt.setInt(5, imap.get("stock")+itemStock.getAmount());
+			pstmt.setInt(6, imap.get("inumber")+1);
+			insertCount = pstmt.executeUpdate();
+		}catch(Exception e) {
+			e.printStackTrace();
+		}finally {
+			close(pstmt);
 		}
 		return insertCount;
 	}

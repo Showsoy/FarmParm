@@ -22,6 +22,7 @@ function chkForm(f){
 	var mail2 = f.userEmailAd.value;
 	var phone = f.userPhone.value;
 	
+	//생년월일 1) 1/2 5) 0/1 7)0/1/2/3  
 	var reg_birth = /^\d{8}$/
 	var reg_email1 = /^[0-9a-zA-Z]([-_\.]?[0-9a-zA-Z])+$/i;
 	var reg_email2 = /^[0-9a-zA-Z]([-_\.]?[0-9a-zA-Z])*\.[a-zA-Z]{2,3}$/i;

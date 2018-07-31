@@ -28,8 +28,14 @@
 	color : #43A047;
 	font-size:14px;
 }
+.mypage table img{
+	padding : 4px 4px 10px 4px;
+}
 td, tr{
 	border: 1px solid #ddd;
+}
+th{
+	text-align:center;
 }
 .mypage button {
 	font-family:"Nanum Gothic";
@@ -37,7 +43,6 @@ td, tr{
 	text-transform: uppercase;
 	outline: 0;
 	background: black;
-	width: 100px;
 	border: 0;
 	padding: 10px;
 	color: #FFFFFF;
@@ -84,7 +89,7 @@ function chkForm(f){
 	<form action="itemEnterPro.im?item_code=${item.item_code }" method="post" name="enterform" onsubmit="return chkForm(this)">
 			<table>
 				<tr>
-					<th colspan="2"><img src="../images/${item.img_path }" width="200px" height="140px"></th>
+					<th colspan="3"><img src="../images/${item.img_path }" width="200px" height="140px"></th>
 					<td>${item.category }</td>
 					<td>${item.item_code }</td>
 					<td>${item.item_name }</td>
@@ -92,30 +97,28 @@ function chkForm(f){
 					<td>${item.price }</td>
 				</tr>
 				<tr>
-					<td colspan="2" id="td_left">일자</td>
+					<td  id="td_left">구분</td>
+					<td>
+					<select id="inandout" name="inandout">
+						<option value="item_in" selected>입고</option>
+						<option value="item_out">출고</option>
+					</select>
+					</td>
+					<td id="td_left">일자</td>
 					<td colspan="2"><input type="text" id="idate" name="idate" placeholder="ex)20171212" size="10"/></td>
 					<td id="td_left">수량</td>
 					<td><input type="text" id="amount" name="amount" size="4"/></td>
-					<td><button type="submit" id="gbutton" onclick="location.href='itemEnterPro.im?item_code=${item.item_code}'">입고</button></td>
+					<td><button type="submit" id="gbutton" onclick="location.href='itemEnterPro.im?item_code=${item.item_code}'">등록</button></td>
 				</tr>
 			</table>
 			<br>
 			<section id="commandCell">
-				<button onclick="location.href='adminPage.jsp'">관리자 페이지</button> 
+				<button type="button" onclick="location.href='adminPage.jsp'" style="width:150px;">관리자페이지</button> 
 			</section>
 		</form>
 	</div>
 	
 </div>
-<footer>
-  <a href="#"><i class="fa fa-facebook-official"></i></a>
-  <a href="#"><i class="fa fa-pinterest-p"></i></a>
-  <a href="#"><i class="fa fa-twitter"></i></a>
-  <a href="#"><i class="fa fa-flickr"></i></a>
-  <a href="#"><i class="fa fa-linkedin"></i></a>
-  <p class="w3-medium">
-    Powered by <a href="https://www.w3schools.com/w3css/default.asp" target="_blank">w3.css</a>
-  </p>
-</footer>
+ <jsp:include page="/common/footer.jsp" flush="false"/>
 </body>
 </html>

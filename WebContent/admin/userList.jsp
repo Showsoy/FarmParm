@@ -164,17 +164,10 @@ input:hover, .mypage button:active, .mypage button:focus {
 				</td>
 			</tr>
 		</table>
+		<br><br><br>
+		<button type="button" onclick="location.href='adminPage.jsp'" style="width:150px;">관리자페이지</button>
 	</div>
 </div>
-<footer>
-  <a href="#"><i class="fa fa-facebook-official"></i></a>
-  <a href="#"><i class="fa fa-pinterest-p"></i></a>
-  <a href="#"><i class="fa fa-twitter"></i></a>
-  <a href="#"><i class="fa fa-flickr"></i></a>
-  <a href="#"><i class="fa fa-linkedin"></i></a>
-  <p class="w3-medium">
-    Powered by <a href="https://www.w3schools.com/w3css/default.asp" target="_blank">w3.css</a>
-  </p>
-</footer>
+ <jsp:include page="/common/footer.jsp" flush="false"/>
 </body>
 </html>

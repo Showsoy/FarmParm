@@ -2,6 +2,7 @@ package admin.action;
 
 import java.io.PrintWriter;
 import java.sql.Date;
+import java.util.HashMap;
 
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
@@ -25,16 +26,18 @@ public class ItemEnterProAction implements Action {
 
 		ItemStockBean itemStock = new ItemStockBean(
 				item_code,
-				"입고",
+				request.getParameter("inandout").equals("입고") ? "입고" : "출고",
 				date,
-				Integer.parseInt(request.getParameter("amount")),
+				request.getParameter("inandout").equals("입고") ? 
+						Integer.parseInt(request.getParameter("amount")):-Integer.parseInt(request.getParameter("amount")),
 				0,
 				0);
 		
 		
 		ItemService itemService = new ItemService();
 		
-		int insertCount = itemService.itemEnter(itemStock, item_code);
+		HashMap<String, Integer> imap = itemService.findRecentStock(item_code);
+		int insertCount = itemService.itemStockInOut(itemStock, imap);
 		
 		if(insertCount<1) {
 			response.setContentType("text/html;charset=UTF-8");

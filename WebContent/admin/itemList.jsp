@@ -98,8 +98,16 @@ img{
 	color:#5D5D5D;
 	font-size:14px;
 }
+#listmenu{
+	display:flex;
+	flex-wrap:wrap;
+}
 #seldel{
-	width:650px;
+	float:left;
+}
+#orderby{
+	float:left;
+	text-align:right;
 }
 </style>
 <script>
@@ -128,17 +136,22 @@ img{
 	<hr color="#4CAF50" size="5">
 	<form method="post" name="itemList">
 	<div class="mypage">
-		<p id="seldel"><button type="button" id="wbutton" style="width:70px;" onclick="goto_url('itemDelete.im');">선택삭제</button>
+	<div id="listmenu">
+		<span id="seldel">
+		<button type="button" id="wbutton" style="width:70px;" onclick="goto_url('itemDelete.im');">선택삭제</button>
 		<button type="button" id="wbutton" style="width:70px;" onclick="goto_url('itemHide.im');">선택숨김</button>
 		<button type="button" id="wbutton" style="width:70px;" onclick="goto_url('itemUnhide.im');">숨김취소</button>
-		&nbsp;&nbsp;&nbsp;
-		<a href="itemList.im">전체</a>
-		<a href="itemList.im?category=채소">채소</a>
-		<a href="itemList.im?category=과일">과일</a>
-		<a href="itemList.im?category=곡류">곡류</a>
-		<a href="itemList.im?category=차">차</a>
-		<a href="itemList.im?category=가공">가공</a>
-		</p>
+		</span>
+		<span id="orderby">
+			<a href="itemList.im">전체</a>
+			<a href="itemList.im?category=채소">채소</a>
+			<a href="itemList.im?category=과일">과일</a>
+			<a href="itemList.im?category=곡류">곡류</a>
+			<a href="itemList.im?category=차">차</a>
+			<a href="itemList.im?category=가공">가공</a>
+		</span>
+	</div>
+		<br>
 		<table cellspacing="0" cellpadding="0">
 			<c:choose>
 				<c:when test="${pageInfo.listCount>0 }">	
@@ -209,21 +222,11 @@ img{
 			</c:otherwise>
 		</c:choose>
 		</table>
-		
-
+	<br><br><br>
+	<button type="button" onclick="location.href='adminPage.jsp'" style="width:150px;">관리자페이지</button>
 	</div>
 	</form>
 </div>
-
-<footer>
-  <a href="#"><i class="fa fa-facebook-official"></i></a>
-  <a href="#"><i class="fa fa-pinterest-p"></i></a>
-  <a href="#"><i class="fa fa-twitter"></i></a>
-  <a href="#"><i class="fa fa-flickr"></i></a>
-  <a href="#"><i class="fa fa-linkedin"></i></a>
-  <p class="w3-medium">
-    Powered by <a href="https://www.w3schools.com/w3css/default.asp" target="_blank">w3.css</a>
-  </p>
-</footer>
+ <jsp:include page="/common/footer.jsp" flush="false"/>
 </body>
 </html>

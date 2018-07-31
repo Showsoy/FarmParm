@@ -78,10 +78,18 @@ dd{
 }
 </style>
 <script>
-function goto_url(act) {
-	 document.itemform.action = act;
-	 document.itemform.submit();
-}
+	function goto_url(act) {
+		document.itemform.action = act;
+		var qty = document.getElementById("qty").value;
+		var reg_qty = /^[1-9]{1}$|^[1-4]{1}[0-9]{1}$|^50$/;
+		
+		if (!reg_qty.test(qty)) {
+			alert("1~50의 숫자만 가능합니다.");
+			document.qty.focus();
+			return false;
+		}
+		document.itemform.submit();
+	}
 </script>
 </head>
 <link rel="stylesheet" type="text/css" href="../style/style.css">
@@ -117,7 +125,7 @@ pageContext.setAttribute("uprice", uprice);
 	<form method="post" name="itemform">
 	<div id="idetail">
 		<div id="id_img">
-			<img src="../images/apple.jpg" width="400px">
+			<img src="../images/${item.img_path }" width="400px">
 		</div>
 		<div id="id_text">
 			<dl>
@@ -141,11 +149,11 @@ pageContext.setAttribute("uprice", uprice);
 			<hr color="#4CAF50" size="5">
 			<dl>
 				<dt>수량</dt>
-				<dd><input type="text" id="count" name="count" size="1"/></dd>
+				<dd><input type="text" id="qty" name="qty" size="1" value="1"/></dd>
 			</dl>
 			<hr color="#4CAF50" size="5">
-			<button type="button" onclick="goto_url('cartAdd.ct');">장바구니</button>
-			<button type="button" onclick="goto_url('itemOrder.od');">바로구매</button>
+			<button type="button" onclick="goto_url('addCart.ct?item_code=${item.item_code}');">장바구니</button>
+			<button type="button" onclick="goto_url('itemOrder.od?item_code=${item.item_code}');">바로구매</button>
 		</div>
 	</div>
 	</form>
@@ -244,16 +252,6 @@ pageContext.setAttribute("uprice", uprice);
 	</div>
 </div>
 <br><br><br><br>
-<footer>
-  <a href="#"><i class="fa fa-facebook-official"></i></a>
-  <a href="#"><i class="fa fa-pinterest-p"></i></a>
-  <a href="#"><i class="fa fa-twitter"></i></a>
-  <a href="#"><i class="fa fa-flickr"></i></a>
-  <a href="#"><i class="fa fa-linkedin"></i></a>
-  <p class="w3-medium">
-    Powered by <a href="https://www.w3schools.com/w3css/default.asp" target="_blank">w3.css</a>
-  </p>
-</footer>
-
+ <jsp:include page="/common/footer.jsp" flush="false"/>
 </body>
 </html>
