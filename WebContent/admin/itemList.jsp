@@ -101,6 +101,9 @@ img{
 #listmenu{
 	display:flex;
 	flex-wrap:wrap;
+	width:850px;
+	padding:0 0 5px 0;
+	margin:0 auto;
 }
 #seldel{
 	float:left;
@@ -108,6 +111,7 @@ img{
 #orderby{
 	float:left;
 	text-align:right;
+	padding : 13px 0 0 400px;
 }
 </style>
 <script>
@@ -151,7 +155,6 @@ img{
 			<a href="itemList.im?category=가공">가공</a>
 		</span>
 	</div>
-		<br>
 		<table cellspacing="0" cellpadding="0">
 			<c:choose>
 				<c:when test="${pageInfo.listCount>0 }">	
