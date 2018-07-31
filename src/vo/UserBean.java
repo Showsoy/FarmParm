@@ -134,6 +134,20 @@ public class UserBean {
 		this.address_second = address_second;
 	}
 
+// 내정보 수정하는 빈
+	public UserBean(String phone, Date birth, String gender, String postcode, String address,
+			String address_second, String email, String user_id) {
+		// TODO Auto-generated constructor stub
+		this.user_id = user_id;
+		this.phone = phone;
+		this.birth = birth;
+		this.gender = gender;
+		this.postcode = postcode;
+		this.address = address;
+		this.address_second = address_second;
+		this.email = email;
+	}
+
 
 	public String getUser_id() {
 		return user_id;

@@ -207,21 +207,19 @@ public class UserDAO {
 		String sql = "";
 		
 		try {
-			sql = "UPDATE users SET passwd=?,name=?,grade=?,phone=?,birth=?,gender=?,email=?,email_ad=?,postcode=?,address=?,address_second=? where user_id=?";
+			sql = "UPDATE users SET name=?,grade=?,phone=?,birth=?,gender=?,email=?,postcode=?,address=?,address_second=? where user_id=?";
 								
 			pstmt = con.prepareStatement(sql);
-			pstmt.setString(1, user.getPasswd());
-			pstmt.setString(2, user.getName());
-			pstmt.setString(3, user.getGrade());
-			pstmt.setString(4, user.getPhone());
-			pstmt.setDate(5, user.getBirth());
-			pstmt.setString(6, user.getGender());
-			pstmt.setString(7, user.getEmail());
-			pstmt.setString(8, user.getEmail_ad());
-			pstmt.setString(9, user.getPostcode());
-			pstmt.setString(10, user.getAddress());
-			pstmt.setString(11, user.getAddress_second());
-			pstmt.setString(12, user.getUser_id());
+			pstmt.setString(1, user.getName());
+			pstmt.setString(2, user.getGrade());
+			pstmt.setString(3, user.getPhone());
+			pstmt.setDate(4, user.getBirth());
+			pstmt.setString(5, user.getGender());
+			pstmt.setString(6, user.getEmail());
+			pstmt.setString(7, user.getPostcode());
+			pstmt.setString(8, user.getAddress());
+			pstmt.setString(9, user.getAddress_second());
+			pstmt.setString(10, user.getUser_id());
 			updateCount = pstmt.executeUpdate();
 
 		} catch (SQLException e) {
@@ -352,18 +350,17 @@ public class UserDAO {
 	}
 	
 	// 비밀번호 수정
-	public int updatePwModify(String user_id, String old_pswd, String new_pswd_re) {
+	public int updatePwModify(String user_id, String new_pswd_re) {
 		PreparedStatement pstmt = null;
 		int updateCount = 0;
 		String sql = "";
 		
 		try {
-			sql = "UPDATE users SET passwd=? where user_id=? and passwd=?";
+			sql = "UPDATE users SET passwd=? where user_id=?";
 			
 			pstmt = con.prepareStatement(sql);
 			pstmt.setString(1, new_pswd_re);
 			pstmt.setString(2, user_id);
-			pstmt.setString(3, old_pswd);
 			updateCount = pstmt.executeUpdate();
 			
 			System.out.println(updateCount + " 수정은 됨?");
@@ -376,6 +373,29 @@ public class UserDAO {
 		
 		return updateCount;
 	}
+	// 비밀번호 가져오기
+	public String selectPass(String id){
+	String pass = null;
+	String sql="SELECT passwd FROM users WHERE user_id=?";
+	
+	try{
+		pstmt=con.prepareStatement(sql);
+		pstmt.setString(1, id);
+		rs = pstmt.executeQuery();
+		
+		if(rs.next()){
+			pass = rs.getString("passwd");
+		}
+	}catch(Exception ex){
+		System.out.println(" 에러: " + ex);			
+	}finally{
+		close(rs);
+		close(pstmt);
+	}
+	
+	
+	return pass;
+}
 			
 	// 아이디 찾기
 	public String findUserId(UserBean users){
@@ -426,13 +446,13 @@ public class UserDAO {
 	}
 	
 	// 회원정보삭제
-	public int deleteUser(String user_id){
-		String sql="DELETE users WHERE user_id=?";
+	public int deleteUser(String uid){
+		String sql="DELETE from users WHERE user_id=?";
 		int deleteCount = 0;
 
 		try{
 			pstmt=con.prepareStatement(sql);
-			pstmt.setString(1, user_id);
+			pstmt.setString(1, uid);
 			deleteCount = pstmt.executeUpdate();
 		}catch(Exception ex){
 			System.out.println("deleteMember 에러: " + ex);	

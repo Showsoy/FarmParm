@@ -150,7 +150,7 @@ input:hover, .mypage button:active, .mypage button:focus {
 				<td>${user.tot_price}</td>
 				<td>
 					<button onclick="location.href='./memberModAdForm.us?uid=${user.user_id}'" id="gbutton">수정</button>
-					<button onclick="location.href='#'" id="gbutton">삭제</button>
+					<button type="button" onclick="location.href='memberDelete.us?uid=${user.user_id}'" id="gbutton">삭제</button>
 				</td>
 				
 			</tr>

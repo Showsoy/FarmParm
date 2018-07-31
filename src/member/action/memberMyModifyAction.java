@@ -9,15 +9,18 @@ import action.Action;
 import svc.UserService;
 import vo.ActionForward;
 import vo.UserBean;
+import vo.Util;
 
 public class MemberMyModifyAction implements Action{
 	public ActionForward execute(HttpServletRequest request,
 			HttpServletResponse response) throws Exception{
 		HttpSession session = request.getSession();
 		UserService userService = new UserService();
+		Util util = new Util();
 		
 		String id = (String)session.getAttribute("id");
-		Date birth = Date.valueOf(request.getParameter("userBirth"));
+		Date birth = util.transformDate(request.getParameter("userBirth"));
+		String email = (request.getParameter("userEmailId") +"@"+ request.getParameter("userEmailAd"));
 		
 			UserBean user = new UserBean(
 					request.getParameter("userPhone"), 
@@ -26,8 +29,7 @@ public class MemberMyModifyAction implements Action{
 					request.getParameter("userAddr1"),
 					request.getParameter("userAddr2"),
 					request.getParameter("userAddr3"),
-					request.getParameter("userEmailId"),
-					request.getParameter("userEmailAd"),
+					email,
 					id
 					);
 			

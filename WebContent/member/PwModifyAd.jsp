@@ -1,7 +1,10 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"
     pageEncoding="UTF-8"%>
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
-<%@page import="vo.UserBean"%>
+<% String uid = request.getParameter("uid"); %>
+<%=uid%> 
+<!-- 이 값을 넘길 수는 없는지 -->
+
 <!DOCTYPE html PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN" "http://www.w3.org/TR/html4/loose.dtd">
 <html>
 <head>
@@ -9,9 +12,9 @@
 <title>Insert title here</title>
 <style>
 .mypage table{
-	width:300px;
+	width:700px;
 	margin:0 auto;
-	text-align:center;
+	text-align:left;
 	padding : 15px;
 	border-radius:10px;
 	border-collapse: collapse;
@@ -52,7 +55,7 @@ td, tr{
 }
 #td_left{
 	background-color:#F6F6F6;
-	width:100px;
+	width:200px;
 }
 </style>
 </head>
@@ -64,10 +67,18 @@ function chkForm(f){
 		f.userPass.focus();
 		return false;
 	}
+	if(f.userPass.value.trim()!=""){
+		if(f.userPass.value!=f.userPassre.value){
+			alert("비밀번호가 일치하지 않습니다.");
+			f.userPassre.value="";
+			f.userPassre.focus();
+			return false;
+		}
+	}
 	document.joinform.submit();
 }
 </script>
-<link rel="stylesheet" type="text/css" href="/FarmParm/style/style.css">
+<link rel="stylesheet" type="text/css" href="../style/style.css">
 <link rel="stylesheet" href="https://www.w3schools.com/w3css/3/w3.css">
 <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.6.3/css/font-awesome.min.css">
 <body>
@@ -76,20 +87,24 @@ function chkForm(f){
 	<h3>&nbsp;&nbsp;개인정보수정</h3>
 	<hr color="#4CAF50" size="5">
 	<div class="mypage">
-	<form action="./pwCheck.us" name="pwcheck" method="post" onsubmit="return chkForm(this)">
+	<form action="/FarmParm/pwAdModify.us" method="post" onsubmit="return chkForm(this)">
 	<table cellspacing="0" cellpadding="0">
 	<tr>
-		<td id="td_left"><label for="userID">아이디</label> </td>
-		<td>${id}</td>
+		<td id="td_left"><label for="userID">관리자 비밀번호</label></td>
+		<td><input type="password" id="old_pswd" name="ad_pswd"></td>
 	</tr>
 	<tr>
-		<td id="td_left"><label for="userPass">비밀번호</label> </td>
+		<td id="td_left"><label for="userID">변경할 비밀번호</label> </td>
 		<td><input type="password" id="userPass" name="userPass"></td>
+	</tr>
+	<tr>
+		<td id="td_left"><label for="userID">비밀번호 확인</label> </td>
+		<td><input type="password" id="userPassre" name="userPassre"></td>
 	</tr>
 </table>
 <br><br>
-		<button type="submit" id="submit">확인</button>
-		<button type="button" onclick="location.href='/FarmParm/common/main.jsp'">돌아가기</button> 
+			<button onclick="location.href='pwModify.jsp?uid='">확인</button> 
+			<button type="button" onclick="history.back();">돌아가기</button> 
 		</form>
 	</div>
 </div>
