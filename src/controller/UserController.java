@@ -17,6 +17,8 @@ import member.action.MemberPwCheckAction;
 import member.action.MemberPwModifyAction;
 import member.action.MemberAdModifyAction;
 import member.action.MemberAdModifyFormAction;
+import member.action.MemberAdPwModifyAction;
+import member.action.MemberDeleteAction;
 import member.action.MemberJoinAction;
 import member.action.MemberListAction;
 import vo.ActionForward;
@@ -146,6 +148,20 @@ protected void doProcess(HttpServletRequest request, HttpServletResponse respons
 			}
     	}else if(command.equals("/mymod.us")) {
     		action = new MemberModifyFormAction();
+			try{
+				forward=action.execute(request, response);
+			}catch(Exception e){
+				e.printStackTrace();
+			}
+    	}else if(command.equals("/memberDelete.us")) {
+    		action = new MemberDeleteAction();
+			try{
+				forward=action.execute(request, response);
+			}catch(Exception e){
+				e.printStackTrace();
+			}
+    	}else if(command.equals("/pwAdModify.us")) {
+    		action = new MemberAdPwModifyAction();
 			try{
 				forward=action.execute(request, response);
 			}catch(Exception e){

@@ -1,6 +1,7 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"
     pageEncoding="UTF-8"%>
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
+<%@ taglib prefix="fmt" uri="http://java.sun.com/jsp/jstl/fmt" %>
 <%@page import="vo.UserBean"%>
 <!DOCTYPE html PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN" "http://www.w3.org/TR/html4/loose.dtd">
 <html>
@@ -135,8 +136,8 @@ function selectEmail(sel) {
 		<td>${user.user_id}</td>
 	</tr>
 	<tr>
-		<td id="td_left"><label for="userPass">비밀번호</label> </td>
-		<td><input type="text" id="userPass" name="userPass" value="${user.passwd}"></td>
+		<td id="td_left"><label for="userPass">비밀번호</label></td>
+		<td><button type="button" onclick="location.href='/FarmParm/member/PwModifyAd.jsp?uid=${user.user_id}'" id="gbutton">비밀번호 변경</button></td>
 	</tr>
 	<tr>
 		<td id="td_left"><label for="userName">이름</label></td>
@@ -168,7 +169,7 @@ function selectEmail(sel) {
 	</tr>
 	<tr>
 		<td id="td_left"><label for="userBirth">생년월일</label></td>
-		<td><input type="text" id="userBirth" name="userBirth" value="${user.birth}"></td>
+		<td><input type="text" id="userBirth" name="userBirth" value="<fmt:formatDate value="${user.birth}" pattern="yyyyMMdd"/>"></td>
 	</tr>
 	<tr>
 		<td id="td_left"><label for="userGen">성별</label></td>
@@ -293,8 +294,8 @@ function selectEmail(sel) {
 			</section>
 <br><br>
 	
-			<button onclick="location.href='userList.jsp'">삭제</button>
-			<button onclick="location.href='userList.jsp'">목록</button> 
+			<button type="button" onclick="location.href='memberDelete.us?uid=${user.user_id}'">삭제</button>
+			<button type="button" onclick="location.href='/FarmParm/memberList.us'">목록</button> 
 		</form>
 	</div>
 </div>

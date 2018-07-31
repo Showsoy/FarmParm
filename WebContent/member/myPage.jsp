@@ -73,10 +73,6 @@ td, tr{
 		<td>${user.user_id}</td>
 	</tr>
 	<tr>
-		<td id="td_left"><label for="userID">비밀번호</label> </td>
-		<td>${user.passwd}</td>
-	</tr>
-	<tr>
 		<td id="td_left"><label for="userID">이름</label></td>
 		<td>${user.name}</td>
 	</tr>

@@ -21,6 +21,7 @@ public class MemberJoinAction  implements Action{
 		Date birth = util.transformDate(request.getParameter("userBirth"));
 		String salt = Util.getSalt();
 		String passwd = Util.getPassword(request.getParameter("userPass"), salt);
+		String email = request.getParameter("userEmailId") +"@"+ request.getParameter("userEmailAd");
    		
    		users.setUser_id(request.getParameter("userID"));
    		users.setPasswd(passwd);
@@ -31,7 +32,7 @@ public class MemberJoinAction  implements Action{
    		users.setPostcode(request.getParameter("userAddr1"));
    		users.setAddress(request.getParameter("userAddr2"));
    		users.setAddress_second(request.getParameter("userAddr3"));
-   		users.setEmail(request.getParameter("userEmailId"));
+   		users.setEmail(email);
    		users.setGrade("일반");
    		users.setUsalt(salt);
    		

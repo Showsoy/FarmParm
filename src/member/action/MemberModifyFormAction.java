@@ -34,7 +34,7 @@ public class MemberModifyFormAction implements Action{
 	   		request.setAttribute("email1", emails[0]);
 	   		request.setAttribute("email2", emails[1]);
 	   		//forward.setRedirect(false);
-	   		forward.setPath("./admin/userMod.jsp");
+	   		forward.setPath("./member/mymod.jsp");
 	   		}
 		 
 		return forward;

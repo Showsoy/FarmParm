@@ -14,30 +14,27 @@ import vo.Util;
 public class MemberAdModifyAction implements Action{
 	public ActionForward execute(HttpServletRequest request,
 			HttpServletResponse response) throws Exception{
-		HttpSession session = request.getSession();
+		//HttpSession session = request.getSession();
 		UserService userService = new UserService();
 		
-		//String id = (String)session.getAttribute("uid");
 		String uid = request.getParameter("uid");
 		Util util = new Util();
 		Date birth = util.transformDate(request.getParameter("userBirth"));
+		String email = (request.getParameter("userEmailId") +"@"+ request.getParameter("userEmailAd"));
 		
 		UserViewBean user = new UserViewBean(
-					request.getParameter("userPass"),
 					request.getParameter("userName"),
 					request.getParameter("userGrade"),
-					request.getParameter("userPhone"), 
+					request.getParameter("userPhone"),
 					birth,
 					request.getParameter("userGen"),
-					request.getParameter("userEmailId"),
-					request.getParameter("userEmailAd"),
+					email,
 					request.getParameter("userAddr1"),
 					request.getParameter("userAddr2"),
 					request.getParameter("userAddr3"),
 					uid
 					);
 
-			
 			ActionForward forward = null;
 			boolean isRegistSuccess = userService.modifyUsers(user);
 				

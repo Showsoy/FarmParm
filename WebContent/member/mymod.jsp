@@ -150,7 +150,7 @@ function selectEmail(sel) {
 	<tr>
 		<td id="td_left"><label for="userBirth">생년월일</label></td>
 		
-		<td><input type="text" id="userBirth" name="userBirth" value="<fmt:formatDate value="${user.value}" pattern="yyyyMMdd"/>"></td>
+		<td><input type="text" id="userBirth" name="userBirth" value="<fmt:formatDate value="${user.birth}" pattern="yyyyMMdd"/>"></td>
 	</tr>
 	<tr>
 		<td id="td_left"><label for="userGen">성별</label></td>

@@ -21,8 +21,6 @@ public class MemberAdModifyFormAction implements Action{
 		String email = userService.email(uid);
 		String emails[] = new String[2];
 		emails = email.split("@");
-		
-		System.out.println(emails[0]+" "+emails[1] + " : 이거 찍히나?");
 
 		
 		ActionForward forward = null;
@@ -37,6 +35,7 @@ public class MemberAdModifyFormAction implements Action{
 	   		request.setAttribute("user", user);
 	   		request.setAttribute("email1", emails[0]);
 	   		request.setAttribute("email2", emails[1]);
+	   		request.setAttribute("uid", uid);
 	   		//forward.setRedirect(false);
 	   		forward.setPath("./admin/userMod.jsp");
 	   		}

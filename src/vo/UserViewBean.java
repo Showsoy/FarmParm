@@ -25,26 +25,22 @@ public class UserViewBean{
 		this.tot_price = tot_price;
 	}
 	
-	public UserViewBean(String passwd, String name, String grade, String phone, Date birth, String gender, 
-			String email, String email_ad, String postcode,
-			String address, String address_second, 
-			 String user_id){
-			// TODO Auto-generated constructor stub
-			this.passwd = passwd;
-			this.name = name;
-			this.grade = grade;
-			this.phone = phone;
-			this.birth = birth;
-			this.gender = gender;
-			this.email = email;
-			this.email_ad = email_ad;
-			this.postcode = postcode;
-			this.address = address;
-			this.address_second = address_second;
-			this.user_id = user_id;
+	
+// 회원정보수정 빈 (관리자모드)
+	public UserViewBean(String name, String grade, String phone, Date birth,
+			String gender, String email, String postcode, String address, String address_second, String user_id) {
+		// TODO Auto-generated constructor stub
+		this.name = name;
+		this.grade = grade;
+		this.phone = phone;
+		this.birth = birth;
+		this.gender = gender;
+		this.email = email;
+		this.postcode = postcode;
+		this.address = address;
+		this.address_second = address_second;
+		this.user_id = user_id;
 	}
-	
-	
 
 	public String getUser_id() {
 		return user_id;

@@ -32,7 +32,7 @@ public class UserService {
 		userDAO.setConnection(con);
 		String loginSalt = userDAO.selectLoginSalt(id);
 		
-		
+		close(con);
 		return loginSalt;
 		
 	}
@@ -72,6 +72,7 @@ public class UserService {
 		UserDAO userDAO = UserDAO.getInstance();
 		userDAO.setConnection(con);
 		String loginSalt = userDAO.selectEmail(id);
+		close(con);
 		
 		return loginSalt;
 		
@@ -158,13 +159,13 @@ public class UserService {
 	}
 	
 	// 비밀번호수정
-	public boolean modifyPw(String user_id, String old_pswd, String new_pswd_re) {
+	public boolean modifyPw(String user_id, String new_pswd_re) {
 		UserDAO userDAO = UserDAO.getInstance();
 		Connection con = getConnection();
 		userDAO.setConnection(con);		
 		boolean modifyPw = false;
 		
-		int loginPw = userDAO.updatePwModify(user_id,old_pswd,new_pswd_re);
+		int loginPw = userDAO.updatePwModify(user_id,new_pswd_re);
 		
 		if(loginPw > 0){
 			commit(con);
@@ -173,6 +174,17 @@ public class UserService {
 		close(con);
 		
 		return modifyPw;
+	}
+	
+	//비밀번호 가져오기
+	public String passwd(String id) {
+		Connection con = getConnection();
+		UserDAO userDAO = UserDAO.getInstance();
+		userDAO.setConnection(con);
+		String pass = userDAO.selectPass(id);
+		close(con);
+		
+		return pass;
 	}
 	
 	// 아이디찾기
@@ -204,12 +216,12 @@ public class UserService {
 	}
 	
 	// 회원정보삭제
-	public boolean deleteMember(String user_id) {
+	public boolean deleteMember(String uid) {
 		boolean deleteResult = false;
 		Connection con = getConnection();
 		UserDAO userDAO = UserDAO.getInstance();
 		userDAO.setConnection(con);
-		int deleteCount = userDAO.deleteUser(user_id);
+		int deleteCount = userDAO.deleteUser(uid);
 		if(deleteCount > 0){
 			commit(con);
 			deleteResult = true;
