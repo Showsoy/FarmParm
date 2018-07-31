@@ -48,22 +48,14 @@
 	<div id="admin_menu">
 	<br><br>
 		<button onclick="location.href='./memberList.us'">회원관리</button>
-		<button onclick="location.href='./itemSearch.jsp'">입고등록</button><br>
+		<button onclick="location.href='./itemSearch.jsp'">입출고등록</button><br>
 		<button onclick="location.href='./itemRegistForm.im'">상품등록</button>
 		<button onclick="location.href='./itemList.im'">상품목록</button>  
 	</div>
 	</div>
 	
 </div>
-<footer>
-  <a href="#"><i class="fa fa-facebook-official"></i></a>
-  <a href="#"><i class="fa fa-pinterest-p"></i></a>
-  <a href="#"><i class="fa fa-twitter"></i></a>
-  <a href="#"><i class="fa fa-flickr"></i></a>
-  <a href="#"><i class="fa fa-linkedin"></i></a>
-  <p class="w3-medium">
-    Powered by <a href="https://www.w3schools.com/w3css/default.asp" target="_blank">w3.css</a>
-  </p>
+ <jsp:include page="/common/footer.jsp" flush="false"/>
 </footer>
 </body>
 </html>

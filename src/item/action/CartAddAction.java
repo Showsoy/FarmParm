@@ -16,8 +16,12 @@ public class CartAddAction implements Action {
 		CartService cartService = new CartService();
 		String item_code = request.getParameter("item_code");
 		ItemBean cartItem = cartService.getCartItem(item_code);
-		cartService.addCart(request, cartItem);
-		ActionForward forward = new ActionForward("../item/cartList.im",true);
+		int qty=1;
+		if(request.getParameter("qty")!=null) {
+			qty = Integer.parseInt(request.getParameter("qty"));
+		}
+		cartService.addCart(request, cartItem, qty);
+		ActionForward forward = new ActionForward("../item/cartList.ct",true);
 		return forward;
 	}
 

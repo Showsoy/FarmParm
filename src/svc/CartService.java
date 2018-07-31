@@ -14,6 +14,7 @@ import vo.Cart;
 import vo.ItemBean;
 
 public class CartService {
+	
 	public ItemBean getCartItem(String item_code) {
 		ItemDAO itemDAO = ItemDAO.getInstance();
 		Connection conn = getConnection();
@@ -23,7 +24,7 @@ public class CartService {
 		return item;
 	}
 	
-	public void addCart(HttpServletRequest request, ItemBean cartItem) {
+	public void addCart(HttpServletRequest request, ItemBean cartItem, int qty) {
 
 		HttpSession session = request.getSession();
 		ArrayList<Cart> cartList = (ArrayList<Cart>)session.getAttribute("cartList");
@@ -36,18 +37,16 @@ public class CartService {
 		boolean isNewCart = true;
 		
 		for(int i=0;i<cartList.size();i++) {
-			if(cartItem.getItem_code().equals(cartItem.getItem_code())) {
+			if(cartItem.getItem_code().equals(cartList.get(i).getItem_code())) {
 				isNewCart = false;
 				cartList.get(i).setQty(cartList.get(i).getQty()+1);
 				break;
 			}
 		}
 		if(isNewCart) {
-			Cart cart = new Cart();
-			cart.setImage(cartItem.getImg_path());
-			cart.setKind(cartItem.getItem_code());
-			cart.setPrice(cartItem.getPrice());
-			cart.setQty(1);
+			int salePrice = cartItem.getPrice() * (100-cartItem.getSale())/100;
+			Cart cart = new Cart(cartItem.getImg_path(), cartItem.getItem_code(), 
+					cartItem.getItem_name(), cartItem.getPrice(), salePrice, qty);
 			cartList.add(cart);
 		}
 	}
@@ -63,10 +62,12 @@ public class CartService {
 	public void changeCartQty(HttpServletRequest request, String item_code, int qty) {
 		HttpSession session = request.getSession();
 		ArrayList<Cart> cartList = (ArrayList<Cart>)session.getAttribute("cartList");
-		
+		System.out.println(item_code);
 		for(int i=0;i<cartList.size();i++) {
-			if(cartList.get(i).getKind().equals(item_code)) {
+			if(cartList.get(i).getItem_code().equals(item_code)) {
+				System.out.println("일치");
 				cartList.get(i).setQty(qty);
+				System.out.println(cartList.get(i).getQty());
 			}
 		}
 	}
@@ -76,13 +77,22 @@ public class CartService {
 		
 		for(int i=0;i<codeArray.length;i++) {
 			for(int j=0;j<cartList.size();j++) {
-				if(cartList.get(j).getKind().equals(codeArray[i])) {
+				if(cartList.get(j).getItem_code().equals(codeArray[i])) {
 					cartList.remove(cartList.get(j));
 				}
 			}
 		}
 	}
-	
+	public void cartRemove(HttpServletRequest request, String item_code) {
+		HttpSession session = request.getSession();
+		ArrayList<Cart> cartList = (ArrayList<Cart>) session.getAttribute("cartList");
+
+		for (int j = 0; j < cartList.size(); j++) {
+			if (cartList.get(j).getItem_code().equals(item_code)) {
+				cartList.remove(cartList.get(j));
+			}
+		}
+	}
 	//서비스는 있지만 미구현.
 	public ArrayList<Cart> getCartSearchList(int start_money,int end_money, HttpServletRequest request){
 		HttpSession session = request.getSession();

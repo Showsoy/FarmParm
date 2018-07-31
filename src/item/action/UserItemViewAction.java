@@ -53,8 +53,9 @@ public class UserItemViewAction implements action.Action{
 		
 		forward = new ActionForward();
 		ItemBean item = itemService.getItem(item_code);
-		int updateCount = itemService.updateReadCount(item_code);
-		
+		if(id!=null&&!id.equals("admin")) {
+			int updateCount = itemService.updateReadCount(item_code);
+		}
 		//Cookie add
 		Cookie todayImageCookie = new Cookie("today"+item_code, item.getImg_path());
 		todayImageCookie.setMaxAge(60*60*24);
@@ -67,7 +68,6 @@ public class UserItemViewAction implements action.Action{
 					Cookie temp = new Cookie("today"+item_code,"");
 					temp.setMaxAge(0);
 					response.addCookie(temp);
-					System.out.println("dd");
 				}
 			}
 		}
@@ -83,9 +83,11 @@ public class UserItemViewAction implements action.Action{
 					break;
 				if (cookieArray[i].getName().startsWith("today")) {
 					todayImageList.add(cookieArray[i].getValue());
+					count++;
 				}
 			}
 		}
+		
 		request.setAttribute("todayImageList", todayImageList);
 		
 		request.setAttribute("item",item);

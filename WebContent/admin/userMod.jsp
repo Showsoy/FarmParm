@@ -287,23 +287,18 @@ function selectEmail(sel) {
 		</script>
 	</tr>
 </table>
+<br>
+			<section id="commandCell">
+				<button type="submit">수정</button>
+				<button type="button" onclick="location.href='adminPage.jsp'">관리자 페이지</button>
+			</section>
 <br><br>
-			<button type="submit">수정</button> 
 	
 			<button type="button" onclick="location.href='memberDelete.us?uid=${user.user_id}'">삭제</button>
 			<button type="button" onclick="location.href='/FarmParm/memberList.us'">목록</button> 
 		</form>
 	</div>
 </div>
-<footer>
-  <a href="#"><i class="fa fa-facebook-official"></i></a>
-  <a href="#"><i class="fa fa-pinterest-p"></i></a>
-  <a href="#"><i class="fa fa-twitter"></i></a>
-  <a href="#"><i class="fa fa-flickr"></i></a>
-  <a href="#"><i class="fa fa-linkedin"></i></a>
-  <p class="w3-medium">
-    Powered by <a href="https://www.w3schools.com/w3css/default.asp" target="_blank">w3.css</a>
-  </p>
-</footer>
+ <jsp:include page="/common/footer.jsp" flush="false"/>
 </body>
 </html>

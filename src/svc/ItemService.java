@@ -1,12 +1,17 @@
 package svc;
-import static db.JdbcUtil.*;
+import static db.JdbcUtil.close;
+import static db.JdbcUtil.commit;
+import static db.JdbcUtil.getConnection;
+import static db.JdbcUtil.rollback;
+
 import java.sql.Connection;
 import java.util.ArrayList;
+import java.util.HashMap;
 
+import dao.ItemDAO;
 import vo.ItemBean;
 import vo.ItemStockBean;
 import vo.ItemViewBean;
-import dao.ItemDAO;
 
 public class ItemService {
 	public boolean registItem(ItemBean item) {
@@ -131,11 +136,20 @@ public class ItemService {
 		close(conn);
 		return iSearchList;
 	}
-	public int itemEnter(ItemStockBean itemStock, String item_code) {
+	public HashMap<String, Integer> findRecentStock(String item_code){
 		ItemDAO itemDAO = ItemDAO.getInstance();
 		Connection conn = getConnection();
 		itemDAO.setConnection(conn);
-		int insertCount = itemDAO.insertItemStock(itemStock, item_code);
+		HashMap<String, Integer> imap = itemDAO.findRecentStock(item_code);
+		
+		close(conn);
+		return imap;
+	}
+	public int itemStockInOut(ItemStockBean itemStock, HashMap<String, Integer> imap) {
+		ItemDAO itemDAO = ItemDAO.getInstance();
+		Connection conn = getConnection();
+		itemDAO.setConnection(conn);
+		int insertCount = itemDAO.itemStockInOut(itemStock, imap);
 
 		if(insertCount>0) {
 			commit(conn);

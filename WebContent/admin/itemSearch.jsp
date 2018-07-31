@@ -14,6 +14,58 @@ img{
 th{
 	text-align:center;
 }
+#wbutton{
+	font-family:"Nanum Gothic";
+	font-weight: 500;
+	text-transform: uppercase;
+	outline: 0;
+	background: #fff;
+	border: 0;
+	padding: 5px;
+	border : 1px solid #ccc;
+	border-radius : 5px;
+	color: #191919;
+	font-size: 14px;
+	-webkit-transition: all 0.3 ease;
+	transition: all 0.3 ease;
+	cursor: pointer;
+}
+#wbutton:active{
+	background: #F6F6F6;
+}
+#gbutton {
+	font-family:"Nanum Gothic";
+	font-weight: 700;
+	text-transform: uppercase;
+	outline: 0;
+	background: #4CAF50;
+	width: 60px;
+	border: 0;
+	padding: 5px;
+	color: #FFFFFF;
+	font-size: 14px;
+	-webkit-transition: all 0.3 ease;
+	transition: all 0.3 ease;
+	cursor: pointer;
+}
+#gbutton:hover, #gbutton:active, #gbutton:focus {
+	background: #43A047;
+}
+#bbutton {
+	font-family:"Nanum Gothic";
+	font-weight: 700;
+	text-transform: uppercase;
+	outline: 0;
+	background: black;
+	width: 100px;
+	border: 0;
+	padding: 10px;
+	color: #FFFFFF;
+	font-size: 14px;
+	-webkit-transition: all 0.3 ease;
+	transition: all 0.3 ease;
+	cursor: pointer;
+}
 </style>
 </head>
 <link rel="stylesheet" type="text/css" href="../style/style.css">
@@ -26,7 +78,7 @@ th{
 	<hr color="#4CAF50" size="5">
 	<div class="mypage">
 	<form action="itemSearch.im" method="post">
-		<input type="text" id="keyword" name="keyword" size="20"/>&nbsp;<button type="submit">검색</button>
+		<input type="text" id="keyword" name="keyword" size="20" placeholder="분류 이름 원산지로 검색가능"/>&nbsp;<button type="submit" id="wbutton">검색</button>
 	</form>
 	<br><br><br>
 	<table cellspacing="0" cellpadding="0" class="detail_table">
@@ -51,17 +103,10 @@ th{
 	</tr>
 	</c:forEach>
 	</table>
+	<br><br><br>
+	<button type="button" id="bbutton" onclick="location.href='adminPage.jsp'" style="width:150px;">관리자페이지</button>
 	</div>
 </div>
-<footer>
-  <a href="#"><i class="fa fa-facebook-official"></i></a>
-  <a href="#"><i class="fa fa-pinterest-p"></i></a>
-  <a href="#"><i class="fa fa-twitter"></i></a>
-  <a href="#"><i class="fa fa-flickr"></i></a>
-  <a href="#"><i class="fa fa-linkedin"></i></a>
-  <p class="w3-medium">
-    Powered by <a href="https://www.w3schools.com/w3css/default.asp" target="_blank">w3.css</a>
-  </p>
-</footer>
+ <jsp:include page="/common/footer.jsp" flush="false"/>
 </body>
 </html>

@@ -192,21 +192,11 @@ function chkForm(f){
 			<br>
 			<section id="commandCell">
 				<button type="submit">등록</button>
-				<button onclick="location.href='adminPage.jsp'">목록</button> 
+				<button type="button" onclick="location.href='adminPage.jsp'" style="width:120px;">관리자 페이지</button>
 			</section>
 		</form>
-	</div>
-	
+	</div>	
 </div>
-<footer>
-  <a href="#"><i class="fa fa-facebook-official"></i></a>
-  <a href="#"><i class="fa fa-pinterest-p"></i></a>
-  <a href="#"><i class="fa fa-twitter"></i></a>
-  <a href="#"><i class="fa fa-flickr"></i></a>
-  <a href="#"><i class="fa fa-linkedin"></i></a>
-  <p class="w3-medium">
-    Powered by <a href="https://www.w3schools.com/w3css/default.asp" target="_blank">w3.css</a>
-  </p>
-</footer>
+ <jsp:include page="/common/footer.jsp" flush="false"/>
 </body>
 </html>

@@ -104,6 +104,9 @@
 #gbutton:hover, #gbutton:active, #gbutton:focus {
 	background: #43A047;
 }
+th{
+	text-align:center;
+}
 </style>
 </head>
 <link rel="stylesheet" type="text/css" href="../style/style.css">
@@ -156,7 +159,7 @@
 		</td>
 	</tr>
 	<tr>
-		<td colspan="3" id="td_info"><button onclick="location.href='itemEnterForm.im?item_code=${item.item_code}'">입고등록</button></td>
+		<td colspan="3" id="td_info"><button onclick="location.href='itemEnterForm.im?item_code=${item.item_code}'">입출고등록</button></td>
 	</tr>
 	<tr>
 		<td colspan="3" id="td_info"><button onclick="location.href='itemModForm.im?item_code=${item.item_code}'">수정하기</button> 
@@ -221,20 +224,11 @@
 			<%} %>
 		</table>
 </div>
+<br><br><br><br>
+<button type="button" onclick="location.href='adminPage.jsp'" style="width:150px;">관리자페이지</button>
 </div>
-<br><br><br>
 </div>
 <br><br><br><br>
-<footer>
-  <a href="#"><i class="fa fa-facebook-official"></i></a>
-  <a href="#"><i class="fa fa-pinterest-p"></i></a>
-  <a href="#"><i class="fa fa-twitter"></i></a>
-  <a href="#"><i class="fa fa-flickr"></i></a>
-  <a href="#"><i class="fa fa-linkedin"></i></a>
-  <p class="w3-medium">
-    Powered by <a href="https://www.w3schools.com/w3css/default.asp" target="_blank">w3.css</a>
-  </p>
-</footer>
-
+ <jsp:include page="/common/footer.jsp" flush="false"/>
 </body>
 </html>

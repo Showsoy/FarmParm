@@ -11,10 +11,18 @@ public class CartRemoveAction implements action.Action{
 	@Override
 	public ActionForward execute(HttpServletRequest request, HttpServletResponse response) throws Exception {
 		// TODO Auto-generated method stub
-		String[] kindArray = request.getParameterValues("icheck");
 		CartService cartService = new CartService();
-		cartService.cartRemove(request, kindArray);
-		ActionForward forward = new ActionForward("./cartList.im",true);
+		if(request.getParameter("item_code")==null) {
+			String[] kindArray = request.getParameterValues("icheck");
+			cartService.cartRemove(request, kindArray);
+		}else {
+			String item_code = request.getParameter("item_code");
+			cartService.cartRemove(request, item_code);
+		}
+		
+		
+		
+		ActionForward forward = new ActionForward("./cartList.ct",true);
 		return forward;
 
 	}

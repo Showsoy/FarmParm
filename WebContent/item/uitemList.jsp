@@ -3,23 +3,6 @@
 <%@ page import="java.util.*" %>
 <%@ page import="java.text.SimpleDateFormat" %>
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
-<%
-/*
-String cookie = request.getHeader("Cookie");
-String key="";
-String value="";
-
-if(cookie!=null){
-	Cookie cookies[] = request.getCookies();
-	
-	for(int i=0;i<cookies.length;i++){
-		key = cookies[i].getName();
-		value=cookies[i].getValue();
-		System.out.println("<h2>쿠키 이름 : "+key+"</h2>");
-		System.out.println("<h2>쿠키 값 : "+value+"</h2>");
-	}
-}*/
-%>
 <!DOCTYPE html PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN" "http://www.w3.org/TR/html4/loose.dtd">
 <html>
 <head>
@@ -44,9 +27,9 @@ th, td {
 	text-align:center;
 }
 #orderby{
-	width:800px;
 	text-align:right;
 	font-size:14px;
+	padding:5px 5px 5px 720px;
 }
 </style>
 </head>
@@ -99,7 +82,8 @@ th, td {
 				<div class="caption">
 					${itemList.item_name }<br>
 					${itemList.price }원<br>
-					${itemList.sale }% ${uprice }원
+					${itemList.sale }% ${uprice }원<br>
+					<a href="addCart.ct?item_code=${itemList.item_code }">장바구니</a>
 				</div>
 			</li>
 		</c:forEach>
@@ -140,15 +124,6 @@ th, td {
 	</c:choose>
 </div>
 </div>
-<footer>
-  <a href="#"><i class="fa fa-facebook-official"></i></a>
-  <a href="#"><i class="fa fa-pinterest-p"></i></a>
-  <a href="#"><i class="fa fa-twitter"></i></a>
-  <a href="#"><i class="fa fa-flickr"></i></a>
-  <a href="#"><i class="fa fa-linkedin"></i></a>
-  <p class="w3-medium">
-    Powered by <a href="https://www.w3schools.com/w3css/default.asp" target="_blank">w3.css</a>
-  </p>
-</footer>
+<jsp:include page="/common/footer.jsp" flush="false"/>
 </body>
 </html>

@@ -196,30 +196,21 @@ function carousel() {
 <!-- 농부 소개 -->
 <section class="w3-row-padding w3-center w3-light-grey">
   <article class="w3-third">
-    <p>John</p>
+    <p>슬기농부</p>
     <img src="../images/common.jpg" alt="Random Name">
     <p>슰기슬기</p>
   </article>
   <article class="w3-third">
     <p>Paul</p>
     <img src="../images/common1.jpg" alt="Random Name">
-    <p>조이조이</p>
+    <p>조이농부</p>
   </article>
   <article class="w3-third">
-    <p>Ringo</p>
+    <p>윤아농부</p>
     <img src="../images/common2.jpg" alt="Random Name">
     <p>유나우나</p>
   </article>
 </section>
-<footer>
-  <a href="#"><i class="fa fa-facebook-official"></i></a>
-  <a href="#"><i class="fa fa-pinterest-p"></i></a>
-  <a href="#"><i class="fa fa-twitter"></i></a>
-  <a href="#"><i class="fa fa-flickr"></i></a>
-  <a href="#"><i class="fa fa-linkedin"></i></a>
-  <p class="w3-medium">
-    Powered by <a href="https://www.w3schools.com/w3css/default.asp" target="_blank">w3.css</a>
-  </p>
-</footer>
+ <jsp:include page="/common/footer.jsp" flush="false"/>
 </body>
 </html>
