@@ -1,7 +1,19 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"
     pageEncoding="UTF-8"%>
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
-<%@page import="vo.UserBean"%>
+<%@page import="vo.UserViewBean"%>
+<%@page import="vo.PageInfo"%>
+<%@ page import="java.util.*"%>
+<%@ page import="java.text.SimpleDateFormat"%>
+<%
+	ArrayList<UserViewBean> articleList=(ArrayList<UserViewBean>)request.getAttribute("articleList");
+    PageInfo pageInfo = (PageInfo)request.getAttribute("pageInfo");
+	int listCount=pageInfo.getListCount();
+	int nowPage=pageInfo.getPage();
+	int maxPage=pageInfo.getMaxPage();
+	int startPage=pageInfo.getStartPage();
+	int endPage=pageInfo.getEndPage();
+%>
 <!DOCTYPE html PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN" "http://www.w3.org/TR/html4/loose.dtd">
 <html>
 <head>
@@ -102,11 +114,11 @@ input:hover, .mypage button:active, .mypage button:focus {
 </style>
 <script>
 	function checkAll(theForm){
-		if(theForm.remove.length==undefined){
-			theForm.remove.checked = theForm.allCheck.checked;
+		if(theForm.ckb.length==undefined){
+			theForm.ckb.checked = theForm.allCheck.checked;
 		}else{
-			for(var i=0;i<theForm.remove.length;i++){
-				theForm.remove[i].checked = theForm.allCheck.checked;
+			for(var i=0;i<theForm.ckb.length;i++){
+				theForm.ckb[i].checked = theForm.allCheck.checked;
 			}
 		}
 	}
@@ -116,58 +128,87 @@ input:hover, .mypage button:active, .mypage button:focus {
 <link rel="stylesheet" href="https://www.w3schools.com/w3css/3/w3.css">
 <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.6.3/css/font-awesome.min.css">
 <body>
+<form>
 <jsp:include page="/common/top_menu.jsp" flush="false"/>
+
 <div class="pageform">
 	<h3>&nbsp;&nbsp;회원관리</h3>
 	<hr color="#4CAF50" size="5">
 	<div class="mypage">
-		<p id="seldel"><button onclick="location.href='#'" id="wbutton">선택삭제</button></p>
 		<table cellspacing="0" cellpadding="0">
 			<tr id="top_menu">
 				<td id="td_check">
 				<input type="checkbox" id="allCheck" name="allCheck" onClick="checkAll(this.form)"/></td>
+				<td>번호</td>
 				<td>아이디</td>
 				<td>등급</td>
 				<td>주문금액</td>
 				<td>수정/삭제</td>
 			</tr>
-		<c:forEach var="user" items ="${userList}">
-		<c:choose>
-			<c:when test="${user.grade == '관리'}">
+			<% 
+			for(int i=0;i<articleList.size();i++){
+			String grade = articleList.get(i).getGrade();
+			if(grade.equals("관리")){
+			%>
+			
+	<p id="seldel">
+	<button onclick="location.href='memberDelete.us?uid=<%=articleList.get(i).getUser_id()%>'" id="wbutton">선택삭제</button>
+	</p> 
+	<!-- 여기 삭제 되도록 하기 -->
+	
 			<tr>
-				<td><input type="checkbox" id="remove" name="remove" /></td>
-				<td>${user.user_id}</td>
-				<td>${user.grade}</td>
-				<td>${user.tot_price}</td>
+				<td><input type="checkbox" id="ckb" name="ckb" /></td>
+				<td><%=i+1%></td>
+				<td><%=articleList.get(i).getUser_id()%></td>
+				<td><%=articleList.get(i).getGrade()%></td>
+				<td><%=articleList.get(i).getTot_price()%></td>
 				<td></td>
 			</tr>
-			</c:when>
-			<c:otherwise>
+		<%}else{ %>
 			<tr>
-				<td><input type="checkbox" id="remove" name="remove" /></td>
-				<td>${user.user_id}</td>
-				<td>${user.grade}</td>
-				<td>${user.tot_price}</td>
+				<td><input type="checkbox" id="ckb" name="remove" /></td>
+				<td><%=i+1%></td>
+				<td><%=articleList.get(i).getUser_id()%></td>
+				<td><%=articleList.get(i).getGrade() %></td>
+				<td><%=articleList.get(i).getTot_price() %></td>
 				<td>
-					<button onclick="location.href='./memberModAdForm.us?uid=${user.user_id}'" id="gbutton">수정</button>
-					<button type="button" onclick="location.href='memberDelete.us?uid=${user.user_id}'" id="gbutton">삭제</button>
+					<button type="button" onclick="location.href='./memberModAdForm.us?uid=<%=articleList.get(i).getUser_id()%>'" id="gbutton">수정</button>
+					<button type="button" onclick="location.href='memberDelete.us?uid=<%=articleList.get(i).getUser_id()%>'" id="gbutton">삭제</button>
 				</td>
-				
 			</tr>
-			</c:otherwise>
-		</c:choose>
-		</c:forEach>
+		<%} }%>
 			<tr>
-				<td colspan="5" id="td_info">
-					<a href="#">둘러보기</a>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
-					<a href="#">배송비정책</a>
-				</td>
+			<td colspan="6" id="td_info">
+	<section id="pageList">
+		<%if(nowPage<=1){ %>
+		이전&nbsp;
+		<%}else{ %>
+		<a href="memberList.us?page=<%=nowPage-1 %>">이전</a>&nbsp;
+		<%} %>
+		<%for(int a=startPage;a<=endPage;a++){
+				if(a==nowPage){%>
+		<%=a %>
+		<%}else{ %>
+		<a href="memberList.us?page=<%=a%>"><%=a %>
+		</a>&nbsp;
+		<%} %>
+		<%} %>
+
+		<%if(nowPage>=maxPage){ %>
+		&nbsp;다음
+		<%}else{ %>
+		<a href="memberList.us?page=<%=nowPage+1 %>">다음</a>
+		<%} %>
+	</section>
+			</td>
 			</tr>
 		</table>
 		<br><br><br>
-		<button type="button" onclick="location.href='adminPage.jsp'" style="width:150px;">관리자페이지</button>
+		<!-- <button type="button" onclick="location.href='/admin/adminPage.jsp'" style="width:150px;" id="wbutton">관리자페이지</button> -->
 	</div>
 </div>
+
  <jsp:include page="/common/footer.jsp" flush="false"/>
+</form>
 </body>
 </html>

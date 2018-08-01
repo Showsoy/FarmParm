@@ -26,8 +26,8 @@ function chkForm(f){
 	var reg_birth = /^\d{8}$/
 	var reg_email1 = /^[0-9a-zA-Z]([-_\.]?[0-9a-zA-Z])+$/i;
 	var reg_email2 = /^[0-9a-zA-Z]([-_\.]?[0-9a-zA-Z])*\.[a-zA-Z]{2,3}$/i;
-	var reg_phone = /^\d{10-11}$/
-	
+	var reg_phone = /^[0-9]{10,11}$/
+
 	
 	if(!chkId){
 		alert("아이디 중복 확인이 필요합니다!");
@@ -46,7 +46,6 @@ function chkForm(f){
 			return false;
 		}
 	}
-	/*
 	if (!reg_birth.test(birth)) {
 		alert("올바른 형식이 아닙니다.");
 		f.userBirth.focus();
@@ -66,10 +65,11 @@ function chkForm(f){
 		alert("올바른 번호가 아닙니다.");
 		f.userPhone.focus();
 		return false;
-	} */
+	}
 	//if(f.pass.value.trim()!=f.passChk.value.trim()){f.pass.value="";}
 	document.joinform.submit();
 }
+
 function selectEmail(sel) {
 	var choiceText = sel.options[sel.selectedIndex].text;
 

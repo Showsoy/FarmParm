@@ -116,7 +116,7 @@ try{
 	}else if(flag && !id.equals("")){
 		result = "사용 가능한 아이디 입니다. <br> <a href='#' onclick=\"ok('"+id+"')\">사용하기</a>";
 	}else{
-		result = "아이디를 입력하세요.";
+		result = "중복체크를 해주세요.";
 	}
 	
 }catch(Exception e){

@@ -9,34 +9,13 @@
 </style>
 <link rel="stylesheet" type="text/css" href="../style/style2.css">
 </head>
-<script>
-function chkForm(f){
-	var age = f.userAge.value;
-	var reg_age = /^\d{8}$/
-	
-	if(f.userName.value.trim()==""){
-		alert("이름은 필수사항입니다.");
-		f.userName.focus();
-		return false;
-	}
-	if (!reg_age.test(age)) {
-		alert("올바른 형식이 아닙니다.");
-		f.userAge.focus();
-		return false;
-	}
-	//if(f.pass.value.trim()!=f.passChk.value.trim()){f.pass.value="";}
-	document.joinform.submit();
-}
-</script>
 <body>
 	<div class="login-page">
 		<div class="form">
 			<form class="login-form" name="idfindform" action="findIdAction.us" method="post" onsubmit="return chkForm(this)">
-				<h3>아이디 찾기</h3>
-				<input type="text" id="userName" name="userName" placeholder="이름" maxlength="10" class="input100"/>
-				<input type="text" name="userAge" id="userAge" placeholder="생년월일   ex) 19990303" class="input100"/>
-				<button type="submit" class="input100">찾기</button> 
-				<br><br>
+				<br/>
+				<h3>회원님의 아이디는 <br/>${user_id} 입니다.</h3>
+				<br>
 				<div id="footer">
 				<a href="login.jsp">로그인</a>&nbsp;&nbsp;|&nbsp;&nbsp;
 				<a href="#">문제발생</a>&nbsp;&nbsp;|&nbsp;&nbsp;
