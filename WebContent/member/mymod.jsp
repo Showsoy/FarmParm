@@ -76,7 +76,7 @@ td, tr{
 </style>
 </head>
 <script>
-/* var chkId = false;
+ var chkId = false;
 function chkForm(f){
 	
 	var birth = f.userBirth.value;
@@ -87,7 +87,7 @@ function chkForm(f){
 	var reg_birth = /^\d{8}$/
 	var reg_email1 = /^[0-9a-zA-Z]([-_\.]?[0-9a-zA-Z])+$/i;
 	var reg_email2 = /^[0-9a-zA-Z]([-_\.]?[0-9a-zA-Z])*\.[a-zA-Z]{2,3}$/i;
-	var reg_phone = /^\d{10-11}$/
+	var reg_phone = /^[0-9]{10,11}$/
 
 	if (!reg_birth.test(birth)) {
 		alert("올바른 형식이 아닙니다.");
@@ -111,7 +111,7 @@ function chkForm(f){
 	}
 	//if(f.pass.value.trim()!=f.passChk.value.trim()){f.pass.value="";}
 	document.joinform.submit();
-} */
+}
 function selectEmail(sel) {
 	var choiceText = sel.options[sel.selectedIndex].text;
 
@@ -273,7 +273,7 @@ function selectEmail(sel) {
 <br><br>
 			<button type="submit">수정</button> 
 	
-			<button onclick="location.href='myPage.jsp'">돌아가기</button> 
+			<button type="button" onclick="history.back();">돌아가기</button> 
 		</form>
 	</div>
 </div>

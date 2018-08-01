@@ -1,9 +1,10 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"
     pageEncoding="UTF-8"%>
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
+
+<!-- 회원 아이디값 받아옴 -->
 <% String uid = request.getParameter("uid"); %>
-<%=uid%> 
-<!-- 이 값을 넘길 수는 없는지 -->
+<c:set var="uid" scope="request" value="<%=uid%>"/>
 
 <!DOCTYPE html PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN" "http://www.w3.org/TR/html4/loose.dtd">
 <html>
@@ -87,7 +88,7 @@ function chkForm(f){
 	<h3>&nbsp;&nbsp;개인정보수정</h3>
 	<hr color="#4CAF50" size="5">
 	<div class="mypage">
-	<form action="/FarmParm/pwAdModify.us" method="post" onsubmit="return chkForm(this)">
+	<form action="/FarmParm/pwAdModify.us?uid=${uid}" method="post" onsubmit="return chkForm(this)">
 	<table cellspacing="0" cellpadding="0">
 	<tr>
 		<td id="td_left"><label for="userID">관리자 비밀번호</label></td>
@@ -103,7 +104,7 @@ function chkForm(f){
 	</tr>
 </table>
 <br><br>
-			<button onclick="location.href='pwModify.jsp?uid='">확인</button> 
+			<button onclick="location.href='pwModify.jsp'">확인</button> 
 			<button type="button" onclick="history.back();">돌아가기</button> 
 		</form>
 	</div>

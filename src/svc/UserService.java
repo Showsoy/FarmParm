@@ -4,8 +4,10 @@ import vo.UserBean;
 import vo.UserViewBean;
 import static db.JdbcUtil.*;
 import java.sql.Connection;
+import java.sql.Date;
 import java.util.ArrayList;
 
+import dao.BoardDAO;
 import dao.UserDAO;
 
 public class UserService {
@@ -56,12 +58,26 @@ public class UserService {
 		return joinSuccess;
 	}
 	
-	// 회원관리
-	public ArrayList<UserViewBean> userList() {
+	// 회원 수 불러오기
+	public int getListCount() throws Exception{
+		// TODO Auto-generated method stub
+		
+		int listCount = 0;
 		Connection con = getConnection();
 		UserDAO userDAO = UserDAO.getInstance();
 		userDAO.setConnection(con);
-		ArrayList<UserViewBean> userList = userDAO.users();
+		listCount = userDAO.selectListCount();
+		close(con);
+		return listCount;
+		
+	}
+	
+	// 회원관리
+	public ArrayList<UserViewBean> userList(int page, int limit) throws Exception{
+		Connection con = getConnection();
+		UserDAO userDAO = UserDAO.getInstance();
+		userDAO.setConnection(con);
+		ArrayList<UserViewBean> userList = userDAO.users(page,limit);
 		close(con);
 		return userList;
 	}
@@ -159,13 +175,13 @@ public class UserService {
 	}
 	
 	// 비밀번호수정
-	public boolean modifyPw(String user_id, String new_pswd_re) {
+	public boolean modifyPw(String user_id, String new_pswd_last) {
 		UserDAO userDAO = UserDAO.getInstance();
 		Connection con = getConnection();
 		userDAO.setConnection(con);		
 		boolean modifyPw = false;
 		
-		int loginPw = userDAO.updatePwModify(user_id,new_pswd_re);
+		int loginPw = userDAO.updatePwModify(user_id,new_pswd_last);
 		
 		if(loginPw > 0){
 			commit(con);
@@ -188,31 +204,26 @@ public class UserService {
 	}
 	
 	// 아이디찾기
-	public boolean findId(UserBean users) {
+	public String findId(String name, Date birth){
 		Connection con = getConnection();
 		UserDAO userDAO = UserDAO.getInstance();
 		userDAO.setConnection(con);
-		boolean findResult = false;
-		String loginId = userDAO.findUserId(users);
-		if(loginId != null){
-			findResult = true;
-		}
+		String loginId = userDAO.findUserId(name,birth);
+
 		close(con);
-		return findResult;
+		
+		return loginId;
 	}
 	
 	// 비밀번호찾기
-	public boolean findPw(UserBean users) {
+	public String findPw(String user_id) {
 		Connection con = getConnection();
 		UserDAO userDAO = UserDAO.getInstance();
 		userDAO.setConnection(con);
-		boolean findResult = false;
-		String loginPw = userDAO.findUserPw(users);
-		if(loginPw != null){
-			findResult = true;
-		}
+		String email = userDAO.findUserPw(user_id);
 		close(con);
-		return findResult;
+		
+		return email;
 	}
 	
 	// 회원정보삭제

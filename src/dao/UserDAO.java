@@ -116,33 +116,65 @@ public class UserDAO {
 	}
 	
 	// 회원관리
-	public ArrayList<UserViewBean> users(){
-		String sql="SELECT * FROM user_view";
-		ArrayList<UserViewBean> userViewBean = new ArrayList<UserViewBean>();
-		UserViewBean ub = null;
-		
+	public int selectListCount() {
+
+		int listCount= 0;
+		PreparedStatement pstmt = null;
+		ResultSet rs = null;
+
 		try{
-			pstmt=con.prepareStatement(sql);
-			rs=pstmt.executeQuery();
-			
+
+			pstmt=con.prepareStatement("select count(*) from users");
+			rs = pstmt.executeQuery();
+
 			if(rs.next()){
-				do{
-					ub = new UserViewBean(
-					rs.getString("user_id"),
-					rs.getString("grade"),
-					rs.getString("userpay")
-					);
-					userViewBean.add(ub);
-				}while(rs.next());
+				listCount=rs.getInt(1);
 			}
 		}catch(Exception ex){
-			System.out.println(" 에러: " + ex);			
+			System.out.println("getListCount 에러: " + ex);			
 		}finally{
 			close(rs);
 			close(pstmt);
 		}
-		return userViewBean;
+
+		return listCount;
+
 	}
+	
+	// 회원목록 불러오기
+	public ArrayList<UserViewBean> users(int page,int limit){
+		PreparedStatement pstmt = null;
+		ResultSet rs = null;
+		String user_list_sql="select * from user_view order by user_id asc limit ?,10";
+		ArrayList<UserViewBean> articleList = new ArrayList<UserViewBean>();
+		UserViewBean userList = null;
+		int startrow=(page-1)*10; //읽기 시작할 row 번호..	
+
+		try{
+			pstmt = con.prepareStatement(user_list_sql);
+			pstmt.setInt(1, startrow);
+			rs = pstmt.executeQuery();
+
+			while(rs.next()){
+				userList = new UserViewBean(
+				rs.getString("user_id"),
+				rs.getString("grade"),
+				rs.getString("userpay"));
+				
+				articleList.add(userList);	
+			}
+
+		}catch(Exception ex){
+			System.out.println("에러 : " + ex);
+		}finally{
+			close(rs);
+			close(pstmt);
+		}
+
+		return articleList;
+
+	}
+
 	
 	// 회원정보 수정 form 에서 email값 받아오기 (관리자 수정)
 	public String selectEmail(String id){
@@ -350,7 +382,7 @@ public class UserDAO {
 	}
 	
 	// 비밀번호 수정
-	public int updatePwModify(String user_id, String new_pswd_re) {
+	public int updatePwModify(String user_id, String new_pswd_last) {
 		PreparedStatement pstmt = null;
 		int updateCount = 0;
 		String sql = "";
@@ -359,11 +391,11 @@ public class UserDAO {
 			sql = "UPDATE users SET passwd=? where user_id=?";
 			
 			pstmt = con.prepareStatement(sql);
-			pstmt.setString(1, new_pswd_re);
+			pstmt.setString(1, new_pswd_last);
 			pstmt.setString(2, user_id);
 			updateCount = pstmt.executeUpdate();
 			
-			System.out.println(updateCount + " 수정은 됨?");
+
 			
 		} catch (SQLException e) {
 			e.printStackTrace();
@@ -398,14 +430,14 @@ public class UserDAO {
 }
 			
 	// 아이디 찾기
-	public String findUserId(UserBean users){
+	public String findUserId(String name, Date birth){
 		String findId = null;
 		String sql="SELECT user_id FROM users WHERE name=? AND birth=?";
 		
 		try{
 			pstmt=con.prepareStatement(sql);
-			pstmt.setString(1, users.getName());
-			pstmt.setDate(2, users.getBirth());
+			pstmt.setString(1, name);
+			pstmt.setDate(2, birth);
 			rs = pstmt.executeQuery();
 			
 			if(rs.next()){
@@ -418,22 +450,22 @@ public class UserDAO {
 			close(pstmt);
 		}
 		
+		
 		return findId;
 	}
 	
 	// 비밀번호 찾기
-	public String findUserPw(UserBean users){
-		String findPw = null;
-		String sql="SELECT passwd FROM users WHERE user_id=? AND email=?";
+	public String findUserPw(String user_id){
+		String email = null;
+		String sql="SELECT email FROM users WHERE user_id=?";
 		
 		try{
 			pstmt=con.prepareStatement(sql);
-			pstmt.setString(1, users.getName());
-			pstmt.setDate(2, users.getBirth());
+			pstmt.setString(1, user_id);
 			rs = pstmt.executeQuery();
 			
 			if(rs.next()){
-				findPw = rs.getString("passwd");
+				email = rs.getString("email");
 			}
 		}catch(Exception ex){
 			System.out.println(" 에러: " + ex);			
@@ -442,7 +474,7 @@ public class UserDAO {
 			close(pstmt);
 		}
 		
-		return findPw;
+		return email;
 	}
 	
 	// 회원정보삭제

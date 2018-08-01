@@ -87,9 +87,9 @@ function chkForm(f){
 	var reg_birth = /^\d{8}$/
 	var reg_email1 = /^[0-9a-zA-Z]([-_\.]?[0-9a-zA-Z])+$/i;
 	var reg_email2 = /^[0-9a-zA-Z]([-_\.]?[0-9a-zA-Z])*\.[a-zA-Z]{2,3}$/i;
-	var reg_phone = /^\d{10-11}$/
+	var reg_phone = /^[0-9]{10,11}$/
 
-	/* if (!reg_birth.test(birth)) {
+	if (!reg_birth.test(birth)) {
 		alert("올바른 형식이 아닙니다.");
 		f.userBirth.focus();
 		return false;
@@ -118,7 +118,7 @@ function selectEmail(sel) {
 	if (choiceText == '직접입력') {
 		document.getElementById("emailform").innerHTML = "<td><input type='text' name='email1' id='email1'/></td>";
 	}
-} */
+}
 </script>
 <link rel="stylesheet" type="text/css" href="/FarmParm/style/style.css">
 <link rel="stylesheet" href="https://www.w3schools.com/w3css/3/w3.css">
@@ -137,7 +137,7 @@ function selectEmail(sel) {
 	</tr>
 	<tr>
 		<td id="td_left"><label for="userPass">비밀번호</label></td>
-		<td><button type="button" onclick="location.href='/FarmParm/member/PwModifyAd.jsp?uid=${user.user_id}'" id="gbutton">비밀번호 변경</button></td>
+		<td><button type="button" onclick="location.href='/FarmParm/admin/pwModifyAd.jsp?uid=${user.user_id}'" id="gbutton">비밀번호 변경</button></td>
 	</tr>
 	<tr>
 		<td id="td_left"><label for="userName">이름</label></td>

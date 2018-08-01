@@ -10,15 +10,18 @@ import javax.servlet.http.HttpServletResponse;
 import action.Action;
 import member.action.MemberLoginAction;
 import member.action.MemberLogoutAction;
+import member.action.MemberLostPwModifyAction;
 import member.action.MemberModifyFormAction;
 import member.action.MemberMyModifyAction;
 import member.action.MemberMyPageAction;
 import member.action.MemberPwCheckAction;
+import member.action.MemberPwFindAction;
 import member.action.MemberPwModifyAction;
 import member.action.MemberAdModifyAction;
 import member.action.MemberAdModifyFormAction;
 import member.action.MemberAdPwModifyAction;
 import member.action.MemberDeleteAction;
+import member.action.MemberIdFindAction;
 import member.action.MemberJoinAction;
 import member.action.MemberListAction;
 import vo.ActionForward;
@@ -162,6 +165,27 @@ protected void doProcess(HttpServletRequest request, HttpServletResponse respons
 			}
     	}else if(command.equals("/pwAdModify.us")) {
     		action = new MemberAdPwModifyAction();
+			try{
+				forward=action.execute(request, response);
+			}catch(Exception e){
+				e.printStackTrace();
+			}
+    	}else if(command.equals("/member/findIdAction.us")) {
+    		action = new MemberIdFindAction();
+			try{
+				forward=action.execute(request, response);
+			}catch(Exception e){
+				e.printStackTrace();
+			}
+    	}else if(command.equals("/member/findPwAction.us")) {
+    		action = new MemberPwFindAction();
+			try{
+				forward=action.execute(request, response);
+			}catch(Exception e){
+				e.printStackTrace();
+			}
+    	}else if(command.equals("/lostPwModify.us")) {
+    		action = new MemberLostPwModifyAction();
 			try{
 				forward=action.execute(request, response);
 			}catch(Exception e){
