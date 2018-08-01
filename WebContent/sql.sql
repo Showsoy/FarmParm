@@ -205,3 +205,16 @@ alter table users add usalt varchar(300) not null;
 USE `java2b`;
 DROP VIEW item_view;
 CREATE VIEW item_view AS SELECT (select idate from item_stock where state='등록' and items.item_code = item_stock.item_code) as vdate, items.item_code AS item_code, items.category AS category, items.img_path AS img_path, items.item_name AS item_name, items.price AS price, items.sale AS sale, (select stock from item_stock a where inumber = (select max(inumber) from item_stock b where a.item_code = b.item_code and b.item_code = items.item_code)) AS stock, items.readcount AS readcount, (SELECT SUM(amount) FROM item_stock WHERE item_stock.state='주문' AND items.item_code = item_stock.item_code) AS purchase, items.ihide as ihide FROM items LEFT JOIN item_stock ON items.item_code = item_stock.item_code group by items.item_code;
+
+---20180801 게시판 계층 추가, auto_increment추가, 기본키 이름 통일, 공지와 고객센터 내용 길이-----
+USE `java2b`;
+ALTER TABLE review_board ADD rstep int default 1;
+ALTER TABLE qna_board ADD rstep int default 1;
+ALTER TABLE cs_board ADD rstep int default 1;
+ALTER TABLE review_board CHANGE bnum bnum int;
+ALTER TABLE qna_board CHANGE bnum bnum int;
+ALTER TABLE cs_board CHANGE bnum bnum int;
+ALTER TABLE notice CHANGE bnum bnum int auto_increment;
+ALTER TABLE cs_board ADD hide char(4) default 'SHOW';
+ALTER TABLE cs_board MODIFY content varchar(300);
+ALTER TABLE notice MODIFY content varchar(300);

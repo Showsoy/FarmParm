@@ -195,7 +195,7 @@ th{
 						[이전]&nbsp;
 					</c:if>
 					<c:if test="${i_pageInfo.page>1 }">
-						<a href="itemList.im?page=${i_pageInfo.page-1}">[이전]</a>&nbsp;
+						<a href="itemView.im?item_code=${item.item_code }&page=${page }&i_page=${i_pageInfo.page-1}">[이전]</a>&nbsp;
 					</c:if>
 					
 					<c:forEach var="a" begin="${i_pageInfo.startPage }" end="${i_pageInfo.endPage }" step="1">
@@ -204,7 +204,7 @@ th{
 								[${a }]
 							</c:when>
 							<c:otherwise>
-								<a href="itemList.im?page=${a }">[${a }]</a>&nbsp;
+								<a href="itemView.im?item_code=${item.item_code }&page=${page }&i_page=${a }">[${a }]</a>&nbsp;
 							</c:otherwise>
 						</c:choose>
 					</c:forEach>
@@ -213,18 +213,19 @@ th{
 							[다음]
 						</c:when>
 						<c:otherwise>
-							<a href="itemList.im?page=${i_pageInfo.page+1 }">[다음]</a>
+							<a href="itemView.im?item_code=${item.item_code }&page=${page }&i_page=${i_pageInfo.page+1 }">[다음]</a>
 						</c:otherwise>
 					</c:choose>
 				</td>
 			</tr>
 			<%}else{
 			%>
-				<tr><td colspan="5">등록된 상품이 없습니다.</td></tr>
+				<tr><td colspan="5">등록된 데이터가 없습니다.</td></tr>
 			<%} %>
 		</table>
 </div>
 <br><br><br><br>
+<button type="button" onclick="location.href='itemList.im?page=${page}'">목록</button>
 <button type="button" onclick="location.href='adminPage.jsp'" style="width:150px;">관리자페이지</button>
 </div>
 </div>

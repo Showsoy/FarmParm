@@ -20,7 +20,7 @@ public class ItemEnterFormAction implements Action {
 		ActionForward forward = null;
 		
 		HttpSession session = request.getSession();
-		String id = (String)session.getAttribute("user_id");
+		String id = (String)session.getAttribute("id");
 
 		
 //		if(id==null) {

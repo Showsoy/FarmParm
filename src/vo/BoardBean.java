@@ -4,7 +4,7 @@ import java.sql.Date;
 
 public class BoardBean {
 	private int board_num;
-	private String item_code;
+	private String code;
 	private String user_id;
 	private String content;
 	private String subject;
@@ -13,18 +13,34 @@ public class BoardBean {
 	private Date date;
 	private int readcount;
 	private int rgroup;
+	private int rstep;
 	
+	public BoardBean(int board_num, String code, String user_id, String content, String subject, String img_path,
+			int has_re, Date date, int readcount, int rgroup, int rstep) {
+		super();
+		this.board_num = board_num;
+		this.code = code;
+		this.user_id = user_id;
+		this.content = content;
+		this.subject = subject;
+		this.img_path = img_path;
+		this.has_re = has_re;
+		this.date = date;
+		this.readcount = readcount;
+		this.rgroup = rgroup;
+		this.rstep = rstep;
+	}
 	public int getBoard_num() {
 		return board_num;
 	}
 	public void setBoard_num(int board_num) {
 		this.board_num = board_num;
 	}
-	public String getItem_code() {
-		return item_code;
+	public String getCode() {
+		return code;
 	}
-	public void setItem_code(String item_code) {
-		this.item_code = item_code;
+	public void setCode(String code) {
+		this.code = code;
 	}
 	public String getUser_id() {
 		return user_id;
@@ -74,4 +90,11 @@ public class BoardBean {
 	public void setRgroup(int rgroup) {
 		this.rgroup = rgroup;
 	}
+	public int getRstep() {
+		return rstep;
+	}
+	public void setRstep(int rstep) {
+		this.rstep = rstep;
+	}
+	
 }

@@ -51,7 +51,6 @@ public class ItemListAction implements Action {
 		int endPage = startPage+limitPage-1;
 		
 		if(endPage>maxPage) endPage = maxPage;
-		System.out.print(maxPage+" ");System.out.print(startPage+" ");System.out.print(endPage+" ");
 		//System.out.println(itemList);
 		PageInfo pageInfo = new PageInfo();
 		pageInfo.setEndPage(endPage);

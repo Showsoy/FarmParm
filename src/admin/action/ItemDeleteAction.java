@@ -25,7 +25,6 @@ public class ItemDeleteAction implements action.Action{
 		if(item_code==null) {
 			codes = request.getParameterValues("icheck");
 			for(int i=0;i<codes.length;i++) {
-				System.out.println(codes[i]);
 				deleteCount = itemService.deleteItem(codes[i]);
 			}
 		}else {

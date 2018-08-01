@@ -20,7 +20,7 @@ public class ItemViewAction implements action.Action{
 		ActionForward forward = null;
 		
 		HttpSession session = request.getSession();
-		String id = (String)session.getAttribute("user_id");
+		String id = (String)session.getAttribute("id");
 
 		
 //		if(id==null) {
@@ -53,7 +53,6 @@ public class ItemViewAction implements action.Action{
 		int i_endPage = i_startPage+i_limitPage-1;
 		
 		if(i_endPage>i_maxPage) i_endPage = i_maxPage;
-		System.out.print(i_maxPage+" ");System.out.print(i_startPage+" ");System.out.print(i_endPage+" ");
 		PageInfo i_pageInfo = new PageInfo();
 		i_pageInfo.setEndPage(i_endPage);
 		i_pageInfo.setListCount(listCount);
@@ -70,7 +69,8 @@ public class ItemViewAction implements action.Action{
 		request.setAttribute("itemStockList", itemStockList);
 		String page = request.getParameter("page");
 		request.setAttribute("page", page);
-		forward= new ActionForward("./itemView.jsp",false);
+		request.setAttribute("i_page", i_page);
+		forward= new ActionForward("./itemView.jsp?page="+page,false);
 		
 		return forward;
 	}

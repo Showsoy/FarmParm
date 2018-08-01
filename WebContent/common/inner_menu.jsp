@@ -19,7 +19,7 @@
 			<a href="<%=request.getContextPath()%>/memberJoinForm.us">회원가입</a>&nbsp;
 			<a href="<%=request.getContextPath()%>/mypage.us">마이페이지</a>&nbsp;
 			<a href="<%=request.getContextPath()%>/memberLogin.us">주문/배송</a>&nbsp;
-			<a href="<%=request.getContextPath()%>/common/cs_center.jsp">고객센터</a>&nbsp;
+			<a href="<%=request.getContextPath()%>/common/csList.bo">고객센터</a>&nbsp;
 			<a href="<%=request.getContextPath()%>/item/cartList.ct">장바구니</a>&nbsp;
 		</c:when>
 		<c:otherwise>

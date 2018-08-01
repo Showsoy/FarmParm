@@ -26,7 +26,7 @@ public class ItemNewAction implements action.Action{
 		ActionForward forward = null;
 		
 		HttpSession session = request.getSession();
-		String id = (String)session.getAttribute("user_id");
+		String id = (String)session.getAttribute("id");
 //		if(id==null) {
 //			forward = new ActionForward();
 //			forward.setRedirect(true);

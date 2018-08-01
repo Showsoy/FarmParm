@@ -26,9 +26,9 @@ public class ItemEnterProAction implements Action {
 
 		ItemStockBean itemStock = new ItemStockBean(
 				item_code,
-				request.getParameter("inandout").equals("입고") ? "입고" : "출고",
+				request.getParameter("inandout").equals("item_in") ? "입고" : "출고",
 				date,
-				request.getParameter("inandout").equals("입고") ? 
+				request.getParameter("inandout").equals("item_in") ? 
 						Integer.parseInt(request.getParameter("amount")):-Integer.parseInt(request.getParameter("amount")),
 				0,
 				0);

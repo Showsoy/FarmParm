@@ -208,7 +208,7 @@ public class ItemDAO {
 		ArrayList<ItemStockBean> itemStockList = null;
 		int startrow = (i_page-1)*10;
 		try {
-			pstmt = conn.prepareStatement("SELECT * FROM item_stock WHERE item_code=? LIMIT ?,10");
+			pstmt = conn.prepareStatement("SELECT * FROM item_stock WHERE item_code=? ORDER BY idate DESC LIMIT ?,10");
 			pstmt.setString(1, item_code);
 			pstmt.setInt(2, startrow);
 			rs = pstmt.executeQuery();

@@ -108,7 +108,10 @@ function chkForm(f){
 	}
 	document.joinform.submit();
 }
-
+function selCategory(sel) {
+	chkCode = false;
+	document.getElementById("item_code").value="";
+}
 </script>
 </head>
 <link rel="stylesheet" type="text/css" href="../style/style.css">
