@@ -17,6 +17,8 @@ import member.action.MemberMyPageAction;
 import member.action.MemberPwCheckAction;
 import member.action.MemberPwFindAction;
 import member.action.MemberPwModifyAction;
+import member.action.MemberSearchAction;
+import member.action.MemberSelectDeleteAction;
 import member.action.MemberAdModifyAction;
 import member.action.MemberAdModifyFormAction;
 import member.action.MemberAdPwModifyAction;
@@ -128,7 +130,7 @@ protected void doProcess(HttpServletRequest request, HttpServletResponse respons
     		forward=new ActionForward();
 			//forward.setRedirect(true);
 			forward.setPath("./admin/adminPage.jsp");
-    	}else if(command.equals("/memberList.us")) {
+    	}else if(command.equals("/admin/memberList.us")) {
     		action = new MemberListAction();
 			try{
 				forward=action.execute(request, response);
@@ -186,6 +188,20 @@ protected void doProcess(HttpServletRequest request, HttpServletResponse respons
 			}
     	}else if(command.equals("/lostPwModify.us")) {
     		action = new MemberLostPwModifyAction();
+			try{
+				forward=action.execute(request, response);
+			}catch(Exception e){
+				e.printStackTrace();
+			}
+    	}else if(command.equals("/searchMemberList.us")) {
+    		action = new MemberSearchAction();
+			try{
+				forward=action.execute(request, response);
+			}catch(Exception e){
+				e.printStackTrace();
+			}
+    	}else if(command.equals("/memberSelectDelete.us")) {
+    		action = new MemberSelectDeleteAction();
 			try{
 				forward=action.execute(request, response);
 			}catch(Exception e){
