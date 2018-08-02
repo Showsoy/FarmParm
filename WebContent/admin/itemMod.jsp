@@ -55,7 +55,7 @@ td, tr{
 }
 </style>
 <script>
-var chkCode = false;
+var chkCode = true;
 function chkForm(f){
 	var price = f.price.value;
 	var sale = f.sale.value;
@@ -90,6 +90,10 @@ function chkForm(f){
 	}
 	document.joinform.submit();
 }
+function selCategory(sel) {
+	chkCode = false;
+	document.getElementById("item_code").value="";
+}
 </script>
 </head>
 <link rel="stylesheet" type="text/css" href="../style/style.css">
@@ -102,6 +106,8 @@ function chkForm(f){
 	<hr color="#4CAF50" size="5">
 	<div class="mypage">
 	<form action="itemModPro.im" method="post" enctype="multipart/form-data" name="modform" onsubmit="return chkForm(this)">
+			<input type="hidden" id="oldImage" name="oldImage" value="${item.img_path}"/>
+			<input type="hidden" id="old_code" name="old_code" value="${old_code }"/>
 			<table>
 				<tr>
 					<td id="td_left">
@@ -114,7 +120,7 @@ function chkForm(f){
 						<label for="category">분류</label>
 					</td>
 					<td id="td_right">
-						<select name="category" id="category">
+						<select name="category" id="category" onchange="selCategory(this)">
 							<c:choose>
 							<c:when test="${item.category eq '채소' }">
 								<option value="채소" selected>채소</option>

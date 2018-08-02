@@ -8,7 +8,7 @@
 </head>
 <body>
 <div class="header">
-   <a href="<%=request.getContextPath()%>/common/main.jsp"><img src="<%=request.getContextPath()%>/images/farm_logo.png" width="150px"></a>
+   <a href="<%=request.getContextPath()%>/common/main.im"><img src="<%=request.getContextPath()%>/images/farm_logo.png" width="150px"></a>
   <div>A website created by me.</div>
   <jsp:include page="/common/inner_menu.jsp" flush="false"/>
 </div>
@@ -33,7 +33,7 @@
 	      	가공류</a>
 	    </div>
       <a href="<%=request.getContextPath()%>/common/location.jsp">오시는 길</a>
-      <a href="<%=request.getContextPath()%>/admin/notice.jsp"> 안내사항</a>
+      <a href="<%=request.getContextPath()%>/common/noList.bo"> 안내사항</a>
     </div>
   </li>
  </ul>
@@ -43,7 +43,7 @@
     <div class="dropdown-content">
       <a href="<%=request.getContextPath()%>/items/introduction.jsp">농원소개</a>
       <a href="<%=request.getContextPath()%>/common/location.jsp">오시는 길</a>
-      <a href="<%=request.getContextPath()%>/admin/notice.jsp">안내사항</a>
+      <a href="<%=request.getContextPath()%>/common/noList.bo">안내사항</a>
     </div>
   </li>
   <li><a href="<%=request.getContextPath()%>/items/uitemList.im?category=채소&std=new" class="dropbtn">&nbsp;&nbsp;&nbsp;&nbsp;채소&nbsp;&nbsp;&nbsp;&nbsp;</a></li>

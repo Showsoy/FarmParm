@@ -28,8 +28,12 @@ th, td {
 }
 #orderby{
 	text-align:right;
-	font-size:14px;
+	font-size:12px;
 	padding:5px 5px 5px 720px;
+}
+#or_price{
+	text-decoration:line-through;
+	font-size:12px;
 }
 </style>
 </head>
@@ -81,8 +85,15 @@ th, td {
 				<img src="../images/${itemList.img_path }"/></a>
 				<div class="caption">
 					${itemList.item_name }<br>
-					${itemList.price }원<br>
-					${itemList.sale }% ${uprice }원<br>
+				<c:choose>
+					<c:when test="${itemList.sale==0 }">
+						${itemList.price }원<br>
+					</c:when>
+					<c:otherwise>
+						<span id="or_price">${itemList.price }원</span><br>
+						${uprice }원(${itemList.sale }%)<br>
+					</c:otherwise>
+				</c:choose>	
 					<a href="addCart.ct?item_code=${itemList.item_code }">장바구니</a>
 				</div>
 			</li>

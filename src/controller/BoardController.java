@@ -16,6 +16,10 @@ import board.action.CsBoardReplyAction;
 import board.action.CsBoardReplyFormAction;
 import board.action.CsBoardViewAction;
 import board.action.CsBoardWriteAction;
+import board.action.NoticeListAction;
+import board.action.NoticeRemoveAction;
+import board.action.NoticeViewAction;
+import board.action.NoticeWriteAction;
 import vo.ActionForward;
 
 /**
@@ -53,7 +57,6 @@ public class BoardController extends HttpServlet {
     			e.printStackTrace();
     		}
     	}else if(command.equals("/csWrite.bo")) {
-    		System.out.println("1");
     		action = new CsBoardWriteAction();
     		try {
     			forward = action.execute(request, response);
@@ -83,6 +86,34 @@ public class BoardController extends HttpServlet {
     		}
     	}else if(command.equals("/csReply.bo")) {
     		action = new CsBoardReplyAction();
+    		try {
+    			forward = action.execute(request, response);
+    		}catch(Exception e) {
+    			e.printStackTrace();
+    		}
+    	}else if(command.equals("/noList.bo")) {
+    		action = new NoticeListAction();
+    		try {
+    			forward = action.execute(request, response);
+    		}catch(Exception e) {
+    			e.printStackTrace();
+    		}
+    	}else if(command.equals("/noWrite.bo")) {
+    		action = new NoticeWriteAction();
+    		try {
+    			forward = action.execute(request, response);
+    		}catch(Exception e) {
+    			e.printStackTrace();
+    		}
+    	}else if(command.equals("/noView.bo")) {
+    		action = new NoticeViewAction();
+    		try {
+    			forward = action.execute(request, response);
+    		}catch(Exception e) {
+    			e.printStackTrace();
+    		}
+    	}else if(command.equals("/noRemove.bo")) {
+    		action = new NoticeRemoveAction();
     		try {
     			forward = action.execute(request, response);
     		}catch(Exception e) {

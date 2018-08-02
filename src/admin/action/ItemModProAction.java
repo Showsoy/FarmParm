@@ -47,15 +47,14 @@ public class ItemModProAction implements action.Action{
 		realFolder = context.getRealPath(saveFolder);
 		MultipartRequest multi = new MultipartRequest(request, realFolder, fileSize, encType, new DefaultFileRenamePolicy());
 		
-		String image = multi.getFilesystemName("image");
+		String image = multi.getFilesystemName("img_path");
+		String item_code = multi.getParameter("item_code");
 		
-		if(multi.getFilesystemName("image")==null) {
+		if(multi.getFilesystemName("img_path")==null) {
 			image = multi.getParameter("oldImage");
-		}else {
-			image = multi.getFilesystemName("image");
 		}
 		ItemBean item = new ItemBean(
-				multi.getParameter("item_code"),
+				item_code,
 				multi.getParameter("item_name"),
 				Integer.parseInt(multi.getParameter("price")),
 				multi.getParameter("origin"),
@@ -65,7 +64,7 @@ public class ItemModProAction implements action.Action{
 				multi.getParameter("content"),
 				0,0);
 		
-		boolean isModifySuccess = itemService.updateItem(item, multi.getParameter("item_code"));
+		boolean isModifySuccess = itemService.updateItem(item, multi.getParameter("old_code"));
 		
 		if(!isModifySuccess) {
 			response.setContentType("text/html;charset=UTF-8");
@@ -75,7 +74,7 @@ public class ItemModProAction implements action.Action{
 			out.println("history.back();");
 			out.println("</script>");
 		}else {
-			forward= new ActionForward("./ItemView.im",true);
+			forward= new ActionForward("./itemView.im?item_code="+item_code,true);
 		}
 		
 		return forward;

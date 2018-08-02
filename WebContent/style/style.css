@@ -11,6 +11,12 @@ dd{
 	display:inline-block;
 	text-align:left;
 }
+a{
+	text-decoration:none;
+}
+a:hover{
+	text-decoration:underline;
+}
 .header {
     padding: 10px; /* some padding */
     text-align:center;

@@ -22,15 +22,13 @@ public class CsBoardViewAction implements Action {
 		HttpSession session = request.getSession();
 		String id = (String)session.getAttribute("id");
 		
-		
-		
 		int board_num = Integer.parseInt(request.getParameter("bnum"));
 		BoardService boardService = new BoardService();
 		BoardBean board = boardService.selectCsBoard(board_num);
 		BoardBean rboard = boardService.selectReply("cs_board", board.getRgroup());
 		
-		if(board.getCode().equals("HIDE"))
-			if(id==null || !board.getUser_id().equals(id)) {
+		if (board.getCode().equals("HIDE")) {
+			if (id == null || !board.getUser_id().equals(id)) {
 				response.setContentType("text/html;charset=UTF-8");
 				PrintWriter out = response.getWriter();
 				out.println("<script>");
@@ -38,13 +36,19 @@ public class CsBoardViewAction implements Action {
 				out.println("history.back();");
 				out.println("</script>");
 			}else {
-				forward = new ActionForward();
-				request.setAttribute("board",board);
-				request.setAttribute("rboard",rboard);
+				request.setAttribute("board", board);
+				request.setAttribute("rboard", rboard);
 				String page = request.getParameter("page");
 				request.setAttribute("page", page);
-				forward= new ActionForward("./csView.jsp",false);
+				forward = new ActionForward("./csView.jsp", false);
 			}
+		} else {
+			request.setAttribute("board", board);
+			request.setAttribute("rboard", rboard);
+			String page = request.getParameter("page");
+			request.setAttribute("page", page);
+			forward = new ActionForward("./csView.jsp", false);
+		}
 		
 		return forward;
 	}

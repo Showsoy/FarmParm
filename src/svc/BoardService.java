@@ -12,11 +12,38 @@ import dao.BoardDAO;
 import vo.BoardBean;
 
 public class BoardService {
+	public int selectNoticeCount() {
+		BoardDAO boardDAO = BoardDAO.getInstance();
+		Connection conn = getConnection();
+		boardDAO.setConnection(conn);
+		int listCount = boardDAO.selectNoticeCount();
+		
+		close(conn);
+		return listCount;
+	}
+	public int searchNoticeCount(String keyword) {
+		BoardDAO boardDAO = BoardDAO.getInstance();
+		Connection conn = getConnection();
+		boardDAO.setConnection(conn);
+		int listCount = boardDAO.searchNoticeCount(keyword);
+		
+		close(conn);
+		return listCount;
+	}
 	public int selectListCount(String bName) {
 		BoardDAO boardDAO = BoardDAO.getInstance();
 		Connection conn = getConnection();
 		boardDAO.setConnection(conn);
 		int listCount = boardDAO.selectListCount(bName);
+		
+		close(conn);
+		return listCount;
+	}
+	public int searchListCount(String keyword) {
+		BoardDAO boardDAO = BoardDAO.getInstance();
+		Connection conn = getConnection();
+		boardDAO.setConnection(conn);
+		int listCount = boardDAO.searchListCount(keyword);
 		
 		close(conn);
 		return listCount;
@@ -39,11 +66,29 @@ public class BoardService {
 		close(conn);
 		return articleList;
 	}
+	public ArrayList<BoardBean> searchNoticedList(String keyword, int page) {
+		BoardDAO boardDAO = BoardDAO.getInstance();
+		Connection conn = getConnection();
+		boardDAO.setConnection(conn);
+		ArrayList<BoardBean> articleList = boardDAO.searchNoticeList(keyword, page);
+		
+		close(conn);
+		return articleList;
+	}
 	public ArrayList<BoardBean> selectCsBoardList(int page) {
 		BoardDAO boardDAO = BoardDAO.getInstance();
 		Connection conn = getConnection();
 		boardDAO.setConnection(conn);
 		ArrayList<BoardBean> articleList = boardDAO.selectCsBoardList(page);
+		
+		close(conn);
+		return articleList;
+	}
+	public ArrayList<BoardBean> searchCsBoardList(String keyword, int page) {
+		BoardDAO boardDAO = BoardDAO.getInstance();
+		Connection conn = getConnection();
+		boardDAO.setConnection(conn);
+		ArrayList<BoardBean> articleList = boardDAO.searchCsBoardList(keyword, page);
 		
 		close(conn);
 		return articleList;
@@ -215,6 +260,20 @@ public class BoardService {
 		}
 		close(conn);
 		return isModifySuccess;
+	}
+	public int removeNotice(int board_num) {
+		BoardDAO boardDAO = BoardDAO.getInstance();
+		Connection conn = getConnection();
+		boardDAO.setConnection(conn);
+		int deleteCount = boardDAO.removeNotice(board_num);
+		if(deleteCount>0) {
+			commit(conn);
+		}else {
+			rollback(conn);
+		}
+		
+		close(conn);
+		return deleteCount;
 	}
 	public int removeArticle(String bName, int board_num) {
 		BoardDAO boardDAO = BoardDAO.getInstance();

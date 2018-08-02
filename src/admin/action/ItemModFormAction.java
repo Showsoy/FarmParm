@@ -38,8 +38,8 @@ public class ItemModFormAction implements action.Action{
 		String item_code = request.getParameter("item_code");
 		ItemService itemService = new ItemService();
 		ItemBean item = itemService.getItem(item_code);
-		System.out.println(item.getCategory());
 		request.setAttribute("item",item);
+		request.setAttribute("old_code", item_code);
 		forward= new ActionForward("./itemMod.jsp",false);
 		
 		return forward;
