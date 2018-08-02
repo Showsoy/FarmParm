@@ -89,7 +89,7 @@ function chkForm(f){
 </table>
 <br><br>
 		<button type="submit" id="submit">확인</button>
-		<button type="button" onclick="location.href='/FarmParm/common/main.jsp'">돌아가기</button> 
+		<button type="button" onclick="history.back();">돌아가기</button> 
 		</form>
 	</div>
 </div>

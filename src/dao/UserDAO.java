@@ -115,7 +115,7 @@ public class UserDAO {
 		return insertCount;
 	}
 	
-	// 회원관리
+	// 회원관리_1
 	public int selectListCount() {
 
 		int listCount= 0;
@@ -124,7 +124,7 @@ public class UserDAO {
 
 		try{
 
-			pstmt=con.prepareStatement("select count(*) from users");
+			pstmt=con.prepareStatement("select count(*) from user_view");
 			rs = pstmt.executeQuery();
 
 			if(rs.next()){
@@ -141,14 +141,68 @@ public class UserDAO {
 
 	}
 	
-	// 회원목록 불러오기
+	// 회원관리_1_2(검색 내용 불러오기, id값 사용)
+	public int getSearchList(String user_id) {
+
+		int listCount= 0;
+		PreparedStatement pstmt = null;
+		ResultSet rs = null;
+
+		try{
+
+			pstmt=con.prepareStatement("select count(*) from user_view where=?");
+			pstmt.setString(1, user_id);
+			rs = pstmt.executeQuery();
+
+			if(rs.next()){
+				listCount=rs.getInt(1);
+			}
+		}catch(Exception ex){
+			System.out.println("getListCount 에러: " + ex);			
+		}finally{
+			close(rs);
+			close(pstmt);
+		}
+
+		return listCount;
+
+	}
+	
+	// 회원관리_1_3(검색 내용 불러오기, grade값 사용)
+	public int getSearchList_2(String grade) {
+
+		int listCount= 0;
+		PreparedStatement pstmt = null;
+		ResultSet rs = null;
+
+		try{
+
+			pstmt=con.prepareStatement("select count(*) from grade where=?");
+			pstmt.setString(1, grade);
+			rs = pstmt.executeQuery();
+
+			if(rs.next()){
+				listCount=rs.getInt(1);
+			}
+		}catch(Exception ex){
+			System.out.println("getListCount 에러: " + ex);			
+		}finally{
+			close(rs);
+			close(pstmt);
+		}
+
+		return listCount;
+
+	}
+	
+	// 회원관리_2
 	public ArrayList<UserViewBean> users(int page,int limit){
 		PreparedStatement pstmt = null;
 		ResultSet rs = null;
-		String user_list_sql="select * from user_view order by user_id asc limit ?,10";
+		String user_list_sql="select * from user_view order by user_id asc limit ?,5";
 		ArrayList<UserViewBean> articleList = new ArrayList<UserViewBean>();
 		UserViewBean userList = null;
-		int startrow=(page-1)*10; //읽기 시작할 row 번호..	
+		int startrow=(page-1)*5; //읽기 시작할 row 번호..	
 
 		try{
 			pstmt = con.prepareStatement(user_list_sql);
@@ -494,6 +548,78 @@ public class UserDAO {
 		
 		return deleteCount;
 	}
+	
+	// 회원관리에서 아이디로 검색하기
+	public ArrayList<UserViewBean> searchId(int page,int limit, String search_id){
+		PreparedStatement pstmt = null;
+		ResultSet rs = null;
+		String user_list_sql="select * from user_view where user_id=? order by user_id asc limit ?,5";
+		ArrayList<UserViewBean> articleList = new ArrayList<UserViewBean>();
+		UserViewBean userList = null;
+		int startrow=(page-1)*5; //읽기 시작할 row 번호..	
+
+		try{
+			pstmt = con.prepareStatement(user_list_sql);
+			pstmt.setString(1, search_id);
+			pstmt.setInt(2, startrow);
+			rs = pstmt.executeQuery();
+
+			while(rs.next()){
+				userList = new UserViewBean(
+				rs.getString("user_id"),
+				rs.getString("grade"),
+				rs.getString("userpay"));
+				
+				articleList.add(userList);
+			}
+
+		}catch(Exception ex){
+			System.out.println("에러 : " + ex);
+		}finally{
+			close(rs);
+			close(pstmt);
+		}
+
+			System.out.println(search_id);
+		return articleList;
+
+	}
+
+	// 회원관리에서 등급으로 검색하기
+	public ArrayList<UserViewBean> searchGrade(int page,int limit, String grade){
+		PreparedStatement pstmt = null;
+		ResultSet rs = null;
+		String user_list_sql="select * from user_view where grade=? order by user_id asc limit ?,5 ";
+		ArrayList<UserViewBean> articleList = new ArrayList<UserViewBean>();
+		UserViewBean userList = null;
+		int startrow=(page-1)*5; //읽기 시작할 row 번호..	
+
+		try{
+			pstmt = con.prepareStatement(user_list_sql);
+			pstmt.setString(1, grade);
+			pstmt.setInt(2, startrow);
+			rs = pstmt.executeQuery();
+
+			while(rs.next()){
+				userList = new UserViewBean(
+				rs.getString("user_id"),
+				rs.getString("grade"),
+				rs.getString("userpay"));
+				
+				articleList.add(userList);	
+			}
+
+		}catch(Exception ex){
+			System.out.println("에러 : " + ex);
+		}finally{
+			close(rs);
+			close(pstmt);
+		}
+
+		return articleList;
+
+	}
+	
 	
 
 }

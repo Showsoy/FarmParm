@@ -272,8 +272,7 @@ function selectEmail(sel) {
 </table>
 <br><br>
 			<button type="submit">수정</button> 
-	
-			<button type="button" onclick="history.back();">돌아가기</button> 
+			<button type="button" onclick="location.href='./mypage.us'">돌아가기</button> 
 		</form>
 	</div>
 </div>

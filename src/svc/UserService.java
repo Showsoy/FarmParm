@@ -58,7 +58,7 @@ public class UserService {
 		return joinSuccess;
 	}
 	
-	// 회원 수 불러오기
+	// 회원관리_1
 	public int getListCount() throws Exception{
 		// TODO Auto-generated method stub
 		
@@ -72,7 +72,35 @@ public class UserService {
 		
 	}
 	
-	// 회원관리
+	// 회원관리_1_2(검색 내용 불러오기, id값 사용)
+	public int getSearchList(String user_id) throws Exception{
+		// TODO Auto-generated method stub
+		
+		int listCount = 0;
+		Connection con = getConnection();
+		UserDAO userDAO = UserDAO.getInstance();
+		userDAO.setConnection(con);
+		listCount = userDAO.getSearchList(user_id);
+		close(con);
+		return listCount;
+		
+	}
+	
+	// 회원관리_1_3(검색 내용 불러오기, grade값 사용)
+		public int getSearchList_2(String grade) throws Exception{
+			// TODO Auto-generated method stub
+			
+			int listCount = 0;
+			Connection con = getConnection();
+			UserDAO userDAO = UserDAO.getInstance();
+			userDAO.setConnection(con);
+			listCount = userDAO.getSearchList_2(grade);
+			close(con);
+			return listCount;
+			
+		}
+	
+	// 회원관리_2
 	public ArrayList<UserViewBean> userList(int page, int limit) throws Exception{
 		Connection con = getConnection();
 		UserDAO userDAO = UserDAO.getInstance();
@@ -242,6 +270,27 @@ public class UserService {
 		}
 		close(con);
 		return deleteResult;
+	}
+	
+	// 회원관리에서 아이디로 검색하기
+	public ArrayList<UserViewBean> searchId(int page, int limit, String search_id) throws Exception{
+		Connection con = getConnection();
+		UserDAO userDAO = UserDAO.getInstance();
+		userDAO.setConnection(con);
+		ArrayList<UserViewBean> userList = userDAO.searchId(page, limit, search_id);
+		
+		close(con);
+		return userList;
+	}
+	
+	// 회원관리에서 등급으로 검색하기
+	public ArrayList<UserViewBean> searchGrade(int page, int limit, String grade) throws Exception{
+		Connection con = getConnection();
+		UserDAO userDAO = UserDAO.getInstance();
+		userDAO.setConnection(con);
+		ArrayList<UserViewBean> userList = userDAO.searchGrade(page,limit,grade);
+		close(con);
+		return userList;
 	}
 	
 }
