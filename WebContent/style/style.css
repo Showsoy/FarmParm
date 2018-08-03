@@ -94,7 +94,7 @@ li {
     float: left;
 }
 
-li a, .dropbtn {
+.dropbtn {
     display: inline-block;
     color: white;
     text-align: center;
@@ -326,12 +326,7 @@ footer {
 		float:left;
 		overflow: hidden;
 }
-#goods_container img{
-		width:300px;
-		height:200px;
-		margin:5px 15px 0 15px;
-		border:1px solid #ccc;
-}
+
 #goods_container .caption h1, .prod-list .caption p {
 	color: black;
 	padding:0px 20px 0 0;

@@ -14,7 +14,14 @@ public class MemberModifyFormAction implements Action{
 		 	throws Exception{
 		HttpSession session = request.getSession();
 		String id = (String)session.getAttribute("id");
-		
+		if(id==null) {
+			response.setContentType("text/html;charset=UTF-8");
+			PrintWriter out = response.getWriter();
+			out.println("<script>");
+			out.println("alert('로그인이 필요합니다.');");
+			out.println("location.href='../member/memberLogin.us?turn=ok';");
+			out.println("</script>");
+		}
 		UserService userService = new UserService();
 		
 		String email = userService.email(id);

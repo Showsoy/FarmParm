@@ -293,4 +293,14 @@ public class UserService {
 		return userList;
 	}
 	
+	public UserBean selectUserInfo(String id) {
+		Connection conn = getConnection();
+		UserDAO userDAO = UserDAO.getInstance();
+		userDAO.setConnection(conn);
+		UserBean user = userDAO.selectUserInfo(id);
+		
+		close(conn);
+		return user;
+	}
+	
 }

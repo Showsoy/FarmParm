@@ -113,7 +113,9 @@ td, tr{
 					</td>
 				</tr>
 			</table>
-			<span style="padding:0 0 0 650px;"><button type="button" id="wbutton" onclick="location.href='noRemove.bo?bnum=${board.board_num}'">삭제</button></span>
+			<c:if test="${id eq 'admin' }">
+				<span style="padding:0 0 0 650px;"><button type="button" id="wbutton" onclick="location.href='noRemove.bo?bnum=${board.board_num}'">삭제</button></span>
+			</c:if>
 			<br>
 			<section id="commandCell">
 				<button type="button" onclick="location.href='noList.bo'">목록</button>

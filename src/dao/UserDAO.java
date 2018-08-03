@@ -33,7 +33,25 @@ public class UserDAO {
 	public void setConnection(Connection con){
 		this.con = con;
 	}
-
+	public UserBean selectUserInfo(String id) {
+		PreparedStatement pstmt = null;
+		ResultSet rs = null;
+		String sql = "SELECT * FROM users WHERE user_id = ?";
+		UserBean user = null;
+		
+		try {
+			pstmt = con.prepareStatement(sql);
+			pstmt.setString(1, id);
+			rs = pstmt.executeQuery();
+			
+			if(rs.next()) {
+				user = new UserBean(rs.getString("user_id"), "", rs.getString("name"), rs.getString("phone"), rs.getDate("birth"), rs.getString("gender"), rs.getString("postcode"), rs.getString("address"), rs.getString("address_second"), rs.getString("email"), rs.getString("grade"), "", rs.getInt("point"));
+			}
+		}catch(Exception e) {
+			e.printStackTrace();
+		}
+		return user;
+	}
 	// 로그인
 	public String selectLoginId(UserBean users){
 		String loginId = null;
@@ -84,7 +102,7 @@ public class UserDAO {
 	
 	// 회원가입
 	public int insertUser(UserBean users){
-		String sql="INSERT INTO users VALUES (?,?,?,?,?,?,?,?,?,?,?,?)";
+		String sql="INSERT INTO users VALUES (?,?,?,?,?,?,?,?,?,?,?,?,?)";
 		int insertCount=0;
 		
 		try{
@@ -101,7 +119,7 @@ public class UserDAO {
 			pstmt.setString(10, users.getEmail());
 			pstmt.setString(11, users.getGrade()); // 회원등급 어디서 넘어오는지 아직 미지수.
 			pstmt.setString(12, users.getUsalt());
-			
+			pstmt.setInt(13, 0);
 			insertCount=pstmt.executeUpdate();
 			
 			System.out.println(insertCount + " :등록되나?");

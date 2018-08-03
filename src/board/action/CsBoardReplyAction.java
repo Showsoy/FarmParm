@@ -26,31 +26,46 @@ public class CsBoardReplyAction implements Action {
 		
 		HttpSession session = request.getSession();
 		String id = (String)session.getAttribute("id");
-		
-		BoardService boardService = new BoardService();
-		int bnum = Integer.parseInt(request.getParameter("bnum"));
-		int rbnum = boardService.searchBNum("cs_board");
-		BoardBean parent = boardService.selectCsBoard(bnum);
-		
-		Date date = new Date(0, 0, 0);
-		
-		BoardBean board = new BoardBean(
-				rbnum,
-				parent.getCode(),
-				"admin",
-				request.getParameter("content"),
-				"답변",
-				"",0,date,0,parent.getRgroup(),2);
-		boolean isWriteSuccess = boardService.replyCsBoard(board);
-		if(!isWriteSuccess) {
+		if(id==null) {
 			response.setContentType("text/html;charset=UTF-8");
 			PrintWriter out = response.getWriter();
 			out.println("<script>");
-			out.println("alert('등록실패');");
-			out.println("history.back();");
+			out.println("alert('로그인이 필요합니다.');");
+			out.println("location.href='../member/memberLogin.us?turn=ok';");
+			out.println("</script>");
+		}else if(!id.equals("admin")) {
+			response.setContentType("text/html;charset=UTF-8");
+			PrintWriter out = response.getWriter();
+			out.println("<script>");
+			out.println("alert('권한이 없습니다.');");
+			out.println("location.href='../common/main.im';");
 			out.println("</script>");
 		}else {
-			forward= new ActionForward("./csView.bo?bnum="+bnum,true);//리스트로 들어감
+			BoardService boardService = new BoardService();
+			int bnum = Integer.parseInt(request.getParameter("bnum"));
+			int rbnum = boardService.searchBNum("cs_board");
+			BoardBean parent = boardService.selectCsBoard(bnum);
+			
+			Date date = new Date(0, 0, 0);
+			
+			BoardBean board = new BoardBean(
+					rbnum,
+					parent.getCode(),
+					"admin",
+					request.getParameter("content"),
+					"답변",
+					"",0,date,0,parent.getRgroup(),2);
+			boolean isWriteSuccess = boardService.replyCsBoard(board);
+			if(!isWriteSuccess) {
+				response.setContentType("text/html;charset=UTF-8");
+				PrintWriter out = response.getWriter();
+				out.println("<script>");
+				out.println("alert('등록실패');");
+				out.println("history.back();");
+				out.println("</script>");
+			}else {
+				forward= new ActionForward("./csView.bo?bnum="+bnum,true);//리스트로 들어감
+			}
 		}
 		return forward;
 	}

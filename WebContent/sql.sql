@@ -218,3 +218,12 @@ ALTER TABLE notice CHANGE bnum bnum int auto_increment;
 ALTER TABLE cs_board ADD hide char(4) default 'SHOW';
 ALTER TABLE cs_board MODIFY content varchar(300);
 ALTER TABLE notice MODIFY content varchar(300);
+
+---20180803 order_id 정수형, auto_increment 초기값,
+USE `java2b`;
+alter table orders modify order_id int auto_increment;
+alter table order_item modify order_id int;
+alter table orders auto_increment=1;
+alter table users add point int default=0;
+drop view order_view;
+CREATE VIEW order_view AS SELECT order_item.order_id AS order_id, items.item_name AS item_name, items.price AS price, order_item.amount as amount FROM order_item LEFT OUTER JOIN items ON order_item.item_code = items.item_code;

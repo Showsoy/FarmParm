@@ -1,5 +1,10 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"
 	pageEncoding="UTF-8"%>
+<%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
+<%
+	String dd = (String)request.getAttribute("turn");
+	System.out.println(dd);
+%>
 <!DOCTYPE html PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN" "http://www.w3.org/TR/html4/loose.dtd">
 <html>
 <head>
@@ -30,6 +35,9 @@ function chkForm(f){
 		<div class="form">
 			<form class="login-form" name="loginform" action="./memberLoginAction.us" method="post" onsubmit="return chkForm(this)">
 				<a href="../common/main.jsp"><img src="../images/farm_logo.png" width="150px"></a><br><br>
+				<c:if test="${turn eq 'ok' }">
+					<input type="hidden" id="turn" name="turn" value="ok">
+				</c:if>
 				<input type="text" id="userID" name="userID" placeholder="아이디" maxlength="20" class="input100"/> 
 				<input type="password" name="userPass" id="userPass" placeholder="비밀번호" class="input100"/> 
 				<button type="submit" class="input100">로그인</button> 
