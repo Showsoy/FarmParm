@@ -137,7 +137,7 @@ protected void doProcess(HttpServletRequest request, HttpServletResponse respons
 			}catch(Exception e){
 				e.printStackTrace();
 			}
-    	}else if(command.equals("/memberModAdForm.us")) {
+    	}else if(command.equals("/admin/memberModAdForm.us")) {
     		action = new MemberAdModifyFormAction();
 			try{
 				forward=action.execute(request, response);

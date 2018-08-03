@@ -218,3 +218,6 @@ ALTER TABLE notice CHANGE bnum bnum int auto_increment;
 ALTER TABLE cs_board ADD hide char(4) default 'SHOW';
 ALTER TABLE cs_board MODIFY content varchar(300);
 ALTER TABLE notice MODIFY content varchar(300);
+
+--20180803 필드삭제--
+alter table users drop column email_ad;

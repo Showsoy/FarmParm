@@ -37,7 +37,7 @@ public class MemberAdModifyFormAction implements Action{
 	   		request.setAttribute("email2", emails[1]);
 	   		request.setAttribute("uid", uid);
 	   		//forward.setRedirect(false);
-	   		forward.setPath("./admin/userMod.jsp");
+	   		forward.setPath("/admin/userMod.jsp");
 	   		}
 		 
 		return forward;

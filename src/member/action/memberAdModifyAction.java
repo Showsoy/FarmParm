@@ -45,7 +45,7 @@ public class MemberAdModifyAction implements Action{
 				out.println("alert('수정되었습니다.');");
 				/*out.println("document.id.action='/FarmParm/member/myPage.jsp';");
 				out.println("document.id.submit();");*/
-				out.println("location.href='./memberList.us';");
+				out.println("location.href='../memberList.us';");
 				out.println("</script>");
 				
 				/*forward = new ActionForward();
