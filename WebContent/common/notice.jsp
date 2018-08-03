@@ -87,7 +87,7 @@ a:hover{
 	<div class="mypage">
 		<c:if test="${keyword !=null }">
 			<div id="search_info">
-				"${keyword }" 검색결과... <a href="csList.bo">전체보기</a>
+				"${keyword }" 검색결과... <a href="noList.bo">전체보기</a>
 			</div>
 		</c:if>
 		<br>
@@ -97,24 +97,18 @@ a:hover{
 				<td colspan="2" style="width:200px;">제목</td>
 				<td style="width:150px;">작성자</td>
 				<td style="width:150px;">작성일</td>
-				<td style="width:100px;">답변</td>
+				<td style="width:100px;">조회수</td>
 			</tr>
 			<c:choose>
 				<c:when test="${pageInfo.listCount>0 }">	
-				<c:set var="num" value="${pageInfo.listCount-(pageInfo.page-1)*10 }"/>
 					<c:forEach var="board" items="${boardList }">
 					<tr>
-						<td>${num }</td>
-						<c:set var="num" value="${num-1 }"/>
+						<td>${board.board_num }</td>
 						<td colspan="2">
-						<p><a href="csView.bo?bnum=${board.board_num }&page=${pageInfo.page}">${board.subject }</a></p></td>
-						<td>${board.user_id }</td>
+						<p><a href="noView.bo?bnum=${board.board_num }&page=${pageInfo.page}">${board.subject }</a></p></td>
+						<td>관리자</td>
 						<td>${board.date }</td>
-						<td>
-							<c:if test="${board.has_re == 1 }">
-								완료
-							</c:if>
-						</td>
+						<td>${board.readcount }</td>
 					</tr>
 					</c:forEach>
 			<tr>
@@ -154,10 +148,10 @@ a:hover{
 		</table>
 		<br>
 		<section id="commandCell">
-			<form action="csList.bo" name="csearch" method="post">
+			<form action="noList.bo" name="nsearch" method="post">
 				<input type="text" id="keyword" name="keyword" size="20"/>
 				<button type="submit" id="wbutton">검색</button>
-				<button type="button" onclick="location.href='csWrite.jsp'" id="wbutton">글쓰기</button>
+				<button type="button" onclick="location.href='noWrite.jsp'" id="wbutton">글쓰기</button>
 			</form>
 			
 		</section>

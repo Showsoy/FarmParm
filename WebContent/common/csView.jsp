@@ -11,9 +11,9 @@
 	width:700px;
 	margin:0 auto;
 	text-align:left;
-	padding : 15px;
-	border-radius:10px;
-	border-collapse: collapse;
+	padding:1px;
+	border-radius:5px;
+	border: 1px solid #D9E5FF;
 }
 .mypage tr{
 	padding-top: 12px;
@@ -21,15 +21,14 @@
 }
 .mypage td{
 	padding:5px 5px 5px 10px;
+	
+    border-bottom: 3px solid #fff;
 }
 .mypage table td label{
 	font-weight:700;
 	font-family:"Nanum Gothic";
 	color : #43A047;
 	font-size:14px;
-}
-td, tr{
-	border: 1px solid #ddd;
 }
 .mypage button {
 	font-family:"Nanum Gothic";
@@ -71,6 +70,35 @@ td, tr{
 	background-color:#F6F6F6;
 	width:100px;
 }
+#td_parent{
+	background-color:#F6FFCC;
+}
+#td_child{
+	background-color:#EBF7FF;
+}
+#top_td{
+	font-size:12px;
+}
+#wbutton{
+	font-family:"Nanum Gothic";
+	font-weight: 500;
+	width:50px;
+	text-transform: uppercase;
+	outline: 0;
+	background: #fff;
+	border: 0;
+	padding: 4px;
+	border : 1px solid #ccc;
+	border-radius : 5px;
+	color: #191919;
+	font-size: 14px;
+	-webkit-transition: all 0.3 ease;
+	transition: all 0.3 ease;
+	cursor: pointer;
+}
+#wbutton:active{
+	background: #F6F6F6;
+}
 </style>
 <script>
 function fc_chk_byte(memo) { 
@@ -110,6 +138,10 @@ function fc_chk2() {
 	if(event.keyCode == 13) 
 	event.returnValue=false; 
 }
+function goto_url(act) {
+	document.csview.action = act;
+	document.csview.submit();
+}
 </script>
 </head>
 <link rel="stylesheet" type="text/css" href="../style/style.css">
@@ -121,42 +153,63 @@ function fc_chk2() {
 	<h3>&nbsp;&nbsp;고객센터</h3>
 	<hr color="#4CAF50" size="5">
 	<div class="mypage">
-	<form action="csWrite.bo" method="post" enctype="multipart/form-data" name="csboard" onsubmit="return chkForm(this)">
-			<table>
+	<form method="post" name="csview">
+			<table cellspacing="0" cellpadding="0">
 				<tr>
-					<td id="td_left">
+					<td id="td_left" colspan="2" style="text-align:right;">
+						<label>작성일</label> <span id="top_td">${board.date }</span>
+						&nbsp;&nbsp;<label>답변상태</label>
+						<span id="top_td"><c:choose>
+							<c:when test="${board.has_re == 1 }">
+									완료
+							</c:when>
+							<c:otherwise>
+								미완
+							</c:otherwise>
+						</c:choose></span>&nbsp;&nbsp;
+					</td>
+				</tr>
+				<tr>
+					<td id="td_parent" style="width:100px;">
 						<label for="subject">제목</label>
 					</td>
-					<td id="td_right">
+					<td id="td_parent">
 						${board.subject }
 					</td>
 				</tr>
 				<tr>
-					<td id="td_left">
+					<td id="td_parent">
 						<label for="content">내용</label>
 					</td>	
-					<td>
-						<img src="../images/${img_path }"/>
+					<td id="td_parent">
+						<c:if test="${board.img_path!=null }">
+						<img src="../images/${board.img_path }"/>
+						</c:if>
 						<p>${board.content }</p>
 					</td>
 				</tr>
+				<!-- id eq 'admin' 추가 -->
+			<c:if test="${board.has_re == 1}">
+					<tr>
+						<td id="td_child">
+							<label for="content">답변</label>
+						</td>	
+						<td id="td_child">
+							${rboard.content }
+						</td>
+					</tr>
+			</c:if>
 			</table>
-			<table>
-				<tr>
-					<td id="td_left">
-						<label for="content">내용</label>
-					</td>	
-					<td>
-						<p>${rboard.content }</p>
-					</td>
-				</tr>
-			</table>
-			<!--<c:if test="${id eq 'admin' }">-->
-			<form action="csReply.bo?bnum=${board.bnum }&page=${page}" method="post" name="replyform">
+			<!--<c:if test="${board.user_id eq id || id eq 'admin'}">
+				<span><a href="csRemove.bo?bnum=${board.board_num }">삭제</a></span>
+			</c:if>	-->
+			<span style="padding:0 0 0 650px;"><button type="button" id="wbutton" onclick="goto_url('csRemove.bo?bnum=${board.board_num}')">삭제</button></span>
+			<br><br>
+			<c:if test="${board.has_re == 0}">
 				<table>
 					<tr>
 						<td id="td_left" colspan="2">
-							<label for="subject">답변 글입니다.</label>
+							<label for="subject">답변 글쓰기</label>
 						</td>
 					</tr>
 					<tr>
@@ -167,14 +220,14 @@ function fc_chk2() {
 							<textarea name="content" id="content" cols="60" rows="15" onkeyup="fc_chk_byte(this);" onkeypress="fc_chk2();"></textarea>
 						</td>
 					</tr>
+					<tr>
+						<td colspan="2">
+							<span style="padding:0 0 0 300px;"><button type="button" id="wbutton" onclick="goto_url('csReply.bo?bnum=${board.board_num}&page=${page }')" style="width:80px;">답변하기</button></span>
+						</td>
+					</tr>
 				</table>
-				<button type="submit">답변하기</button>
-			</form>
-			<!--</c:if>-->
+			</c:if>
 			<br>
-			<c:if test="${board.user_id eq id || id eq 'admin'}">
-				<span><a href="csRemove.bo?bnum=${board.board_num }">삭제</a></span>
-			</c:if>	
 			<section id="commandCell">
 				<button type="button" onclick="location.href='csList.bo?page=${page}'">목록</button>
 			</section>

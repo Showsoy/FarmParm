@@ -117,6 +117,56 @@ public class ItemDAO {
 		}
 		return itemViewList;
 	}
+	public ArrayList<ItemViewBean> newItemList(){
+		PreparedStatement pstmt = null;
+		ResultSet rs = null;
+		ArrayList<ItemViewBean> itemViewList = null;
+		String sql = "SELECT * FROM item_view ORDER BY vdate DESC LIMIT 0,8";
+		
+		try {
+			pstmt = conn.prepareStatement(sql);
+			rs = pstmt.executeQuery();
+			if(rs.next()) {
+				itemViewList = new ArrayList<ItemViewBean>();
+				do {
+					itemViewList.add(new ItemViewBean(rs.getDate("vdate"), rs.getString("item_code"),rs.getString("category"),
+							rs.getString("img_path"),rs.getString("item_name"),rs.getInt("price"),rs.getInt("sale"),
+							rs.getInt("stock"),rs.getInt("readcount"), rs.getInt("purchase"), rs.getInt("ihide")));
+				}while(rs.next());
+			}
+		}catch(Exception e) {
+			e.printStackTrace();
+		}finally {
+			close(rs);
+			close(pstmt);
+		}
+		return itemViewList;
+	}
+	public ArrayList<ItemViewBean> bestItemList(){
+		PreparedStatement pstmt = null;
+		ResultSet rs = null;
+		ArrayList<ItemViewBean> itemViewList = null;
+		String sql = "SELECT * FROM item_view ORDER BY purchase DESC LIMIT 0,8";
+		
+		try {
+			pstmt = conn.prepareStatement(sql);
+			rs = pstmt.executeQuery();
+			if(rs.next()) {
+				itemViewList = new ArrayList<ItemViewBean>();
+				do {
+					itemViewList.add(new ItemViewBean(rs.getDate("vdate"), rs.getString("item_code"),rs.getString("category"),
+							rs.getString("img_path"),rs.getString("item_name"),rs.getInt("price"),rs.getInt("sale"),
+							rs.getInt("stock"),rs.getInt("readcount"), rs.getInt("purchase"), rs.getInt("ihide")));
+				}while(rs.next());
+			}
+		}catch(Exception e) {
+			e.printStackTrace();
+		}finally {
+			close(rs);
+			close(pstmt);
+		}
+		return itemViewList;
+	}
 	public int itemListCount(){
 		PreparedStatement pstmt = null;
 		ResultSet rs = null;
@@ -234,20 +284,21 @@ public class ItemDAO {
 	public int updateItem(ItemBean item, String item_code) {
 		PreparedStatement pstmt = null;
 		int updateCount = 0;
-		String sql = "UPDATE items SET item_name=?, price=?, origin=?, category=?,"
+		String sql = "UPDATE items SET item_code=?, item_name=?, price=?, origin=?, category=?,"
 				+ "img_path=?, sale=?, content=?, readcount=? WHERE item_code=?";
 		
 		try {
 			pstmt = conn.prepareStatement(sql);
-			pstmt.setString(1, item.getItem_name());
-			pstmt.setInt(2, item.getPrice());
-			pstmt.setString(3, item.getOrigin());
-			pstmt.setString(4, item.getCategory());
-			pstmt.setString(5, item.getImg_path());
-			pstmt.setInt(6, item.getSale());
-			pstmt.setString(7, item.getContent());
-			pstmt.setInt(8, item.getReadcount());
-			pstmt.setString(9, item_code);
+			pstmt.setString(1, item.getItem_code());
+			pstmt.setString(2, item.getItem_name());
+			pstmt.setInt(3, item.getPrice());
+			pstmt.setString(4, item.getOrigin());
+			pstmt.setString(5, item.getCategory());
+			pstmt.setString(6, item.getImg_path());
+			pstmt.setInt(7, item.getSale());
+			pstmt.setString(8, item.getContent());
+			pstmt.setInt(9, item.getReadcount());
+			pstmt.setString(10, item_code);
 			
 			updateCount = pstmt.executeUpdate();
 			
@@ -259,7 +310,26 @@ public class ItemDAO {
 		
 		return updateCount;
 	}
-	
+	public int updateItemStock(String old_code,String new_code) {
+		PreparedStatement pstmt = null;
+		int updateCount = 0;
+		String sql = "UPDATE item_stock set item_code = ? WHERE item_code = ?";
+		
+		try {
+			pstmt = conn.prepareStatement(sql);
+			pstmt.setString(1, new_code);
+			pstmt.setString(2, old_code);
+			
+			updateCount = pstmt.executeUpdate();
+			
+		}catch(Exception e) {
+			e.printStackTrace();
+		}finally {
+			close(pstmt);
+		}
+		
+		return updateCount;
+	}
 	public int deleteItem(String item_code) {
 		PreparedStatement pstmt1 = null;
 		PreparedStatement pstmt2 = null;

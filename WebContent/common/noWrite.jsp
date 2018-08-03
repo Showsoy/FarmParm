@@ -1,6 +1,5 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"
     pageEncoding="UTF-8"%>
-<%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
 <!DOCTYPE html PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN" "http://www.w3.org/TR/html4/loose.dtd">
 <html>
 <head>
@@ -49,31 +48,12 @@ td, tr{
 .mypage button:hover, .mypage button:active, .mypage button:focus {
 	background: #191919;
 }
-#gbutton {
-	font-family:"Nanum Gothic";
-	font-weight: 700;
-	text-transform: uppercase;
-	outline: 0;
-	background: #4CAF50;
-	width: 70px;
-	border: 0;
-	padding: 5px;
-	color: #FFFFFF;
-	font-size: 14px;
-	-webkit-transition: all 0.3 ease;
-	transition: all 0.3 ease;
-	cursor: pointer;
-}
-#gbutton:hover, #gbutton:active, #gbutton:focus {
-	background: #43A047;
-}
 #td_left{
 	background-color:#F6F6F6;
 	width:100px;
 }
 </style>
 <script>
-
 function fc_chk_byte(memo) { 
 	var ari_max=600;
 	var ls_str = memo.value;
@@ -119,28 +99,23 @@ function fc_chk2() {
 <body>
 <jsp:include page="/common/top_menu.jsp" flush="false"/>
 <div class="pageform">
-	<h3>&nbsp;&nbsp;고객센터</h3>
+	<h3>&nbsp;&nbsp;안내사항</h3>
 	<hr color="#4CAF50" size="5">
 	<div class="mypage">
-	<form action="csWrite.bo" method="post" enctype="multipart/form-data" name="csboard">
-	<input type="hidden" id="user_id" name="user_id" value="${id }"/>
+	<form action="noWrite.bo" method="post" enctype="multipart/form-data" name="notice" onsubmit="return chkForm(this)">
 			<table>
 				<tr>
 					<td id="td_left">
 						<label for="item_name">제목</label>
 					</td>
 					<td id="td_right">
-						<input type="text" name="subject" id="subject" size="40" required/>
+						<input type="text" name="subject" id="subject" size="40"/>
 					</td>
-					<td id="td_left">
-						<input type="radio" name="hide" value="HIDE">&nbsp;숨김글
-					</td>
-				</tr>
 				<tr>
 					<td id="td_left">
 						<label for="content">내용</label>
 					</td>	
-					<td colspan="2">
+					<td>
 						<textarea name="content" id="content" cols="60" rows="15" onkeyup="fc_chk_byte(this);" onkeypress="fc_chk2();"></textarea>
 					</td>
 				</tr>
@@ -148,7 +123,7 @@ function fc_chk2() {
 					<td id="td_left">
 						<label for="img_path">파일 첨부</label>
 					</td>
-					<td id="td_right" colspan="2">
+					<td id="td_right">
 						<input type="file" name="img_path" id="img_path"/>
 					</td>
 				</tr>
@@ -156,10 +131,11 @@ function fc_chk2() {
 			<br>
 			<section id="commandCell">
 				<button type="submit">등록</button>
-				<button type="button" onclick="location.href='csList.bo?page=${page}'">목록</button>
+				<button type="button" onclick="location.href='noList.bo'">목록</button>
 			</section>
 		</form>
-	</div>	
+	</div>
+	
 </div>
  <jsp:include page="/common/footer.jsp" flush="false"/>
 </body>

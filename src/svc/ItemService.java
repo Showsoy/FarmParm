@@ -73,10 +73,18 @@ public class ItemService {
 		itemDAO.setConnection(conn);
 		boolean isModifySuccess = false;
 		int updateCount = itemDAO.updateItem(item, item_code);
-		
+		int updateCount2 = 0;
 		if(updateCount>0) {
-			commit(conn);
-			isModifySuccess = true;
+			if(!item.getItem_code().equals(item_code)) {
+				updateCount2 = itemDAO.updateItemStock(item_code, item.getItem_code());
+				if(updateCount2>0) {
+					commit(conn);
+					isModifySuccess = true;
+				}
+			}else {
+				commit(conn);
+				isModifySuccess = true;
+			}
 		}else {
 			rollback(conn);
 		}
@@ -236,6 +244,7 @@ public class ItemService {
 		return itemList;
 	}
 	
+	//큐엔에이
 	public boolean itemQna(ItemBoardBean itemBoardBean, String id) throws Exception{
 		// TODO Auto-generated method stub
 		
@@ -256,5 +265,22 @@ public class ItemService {
 		close(con);
 		return isWriteSuccess;
 		
+	public ArrayList<ItemViewBean> bestItemList() {
+		ItemDAO itemDAO = ItemDAO.getInstance();
+		Connection conn = getConnection();
+		itemDAO.setConnection(conn);
+		ArrayList<ItemViewBean> itemList = itemDAO.bestItemList();
+		
+		close(conn);
+		return itemList;
+	}
+	public ArrayList<ItemViewBean> newItemList() {
+		ItemDAO itemDAO = ItemDAO.getInstance();
+		Connection conn = getConnection();
+		itemDAO.setConnection(conn);
+		ArrayList<ItemViewBean> itemList = itemDAO.newItemList();
+		
+		close(conn);
+		return itemList;
 	}
 }

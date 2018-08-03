@@ -20,18 +20,28 @@ public class CsBoardListAction implements Action {
 		ActionForward forward = null;
 		
 		ArrayList<BoardBean> boardList = new ArrayList<BoardBean>();
+		String keyword = "";
 		int page = 1;
 		int limit = 10;
 		int limitPage = 10;
 		int listCount = 10;
 		
-		if(request.getParameter("page")!=null) {
+		if(request.getParameter("page")!=null&&!request.getParameter("page").equals("")) {
 			page = Integer.parseInt(request.getParameter("page"));
 		}
 		
 		BoardService boardService = new BoardService();
-		listCount = boardService.selectListCount("cs_board");
-		boardList = boardService.selectCsBoardList(page);
+		
+		if(request.getParameter("keyword")!=null) {
+			keyword = request.getParameter("keyword");
+			listCount = boardService.searchListCount(keyword);
+			boardList = boardService.searchCsBoardList(keyword, page);
+			request.setAttribute("keyword", keyword);
+		}else {
+			listCount = boardService.selectListCount("cs_board");
+			boardList = boardService.selectCsBoardList(page);
+		}
+		
 		int maxPage = (int)((double)listCount/limit+0.95);
 		int startPage = (((int)((double)page/limitPage+0.9))-1) *limitPage +1;
 		int endPage = startPage+limitPage-1;

@@ -27,11 +27,77 @@ public class BoardDAO {
 		}
 		return boardDAO;
 	}
+	public int selectNoticeCount() {
+		int listCount = 0;
+		PreparedStatement pstmt = null;
+		ResultSet rs = null;
+		String sql = "SELECT COUNT(*) FROM notice";
+		
+		try {
+			pstmt = conn.prepareStatement(sql);
+			rs = pstmt.executeQuery();
+			
+			if(rs.next()) {
+				listCount = rs.getInt(1);
+			}
+		}catch(Exception e) {
+			e.printStackTrace();
+		}finally {
+			close(rs);
+			close(pstmt);
+		}
+		
+		return listCount;
+	}
+	public int searchNoticeCount(String keyword) {
+		int listCount = 0;
+		PreparedStatement pstmt = null;
+		ResultSet rs = null;
+		String sql = "SELECT COUNT(*) FROM notice WHERE content LIKE '%"+keyword+"%' OR subject LIKE '%"+keyword+"%'";
+		
+		try {
+			pstmt = conn.prepareStatement(sql);
+			rs = pstmt.executeQuery();
+			
+			if(rs.next()) {
+				listCount = rs.getInt(1);
+			}
+		}catch(Exception e) {
+			e.printStackTrace();
+		}finally {
+			close(rs);
+			close(pstmt);
+		}
+		
+		return listCount;
+	}
 	public int selectListCount(String bName) {
 		int listCount = 0;
 		PreparedStatement pstmt = null;
 		ResultSet rs = null;
 		String sql = "SELECT COUNT(*) FROM "+bName+" WHERE rstep=1";
+		
+		try {
+			pstmt = conn.prepareStatement(sql);
+			rs = pstmt.executeQuery();
+			
+			if(rs.next()) {
+				listCount = rs.getInt(1);
+			}
+		}catch(Exception e) {
+			e.printStackTrace();
+		}finally {
+			close(rs);
+			close(pstmt);
+		}
+		
+		return listCount;
+	}
+	public int searchListCount(String keyword) {
+		int listCount = 0;
+		PreparedStatement pstmt = null;
+		ResultSet rs = null;
+		String sql = "SELECT COUNT(*) FROM cs_board WHERE rstep=1 AND content LIKE '%"+keyword+"%' OR subject LIKE '%"+keyword+"%'";
 		
 		try {
 			pstmt = conn.prepareStatement(sql);
@@ -101,10 +167,68 @@ public class BoardDAO {
 		
 		return articleList;
 	}
+	public ArrayList<BoardBean> searchNoticeList(String keyword, int page){
+		PreparedStatement pstmt = null;
+		ResultSet rs = null;
+		String sql = "SELECT * FROM notice WHERE content LIKE '%"+keyword+"%' OR subject LIKE '%"+keyword+"%' ORDER BY bnum DESC LIMIT ?,10";
+		ArrayList<BoardBean> articleList = new ArrayList<BoardBean>();
+		BoardBean board = null;
+		int startrow = (page-1)*10;
+		
+		try {
+			pstmt = conn.prepareStatement(sql);
+			pstmt.setInt(1, startrow);
+			rs = pstmt.executeQuery();
+			
+			while(rs.next()) {
+				board = new BoardBean(rs.getInt("bnum"), null, null, 
+						rs.getString("content"), rs.getString("subject"), rs.getString("img_path"), 
+						0, rs.getDate("ndate"), rs.getInt("readcount"), 0, 0);
+				articleList.add(board);
+				
+			}
+		}catch(Exception e) {
+			e.printStackTrace();
+		}finally {
+			close(rs);
+			close(pstmt);
+		}
+		
+		return articleList;
+	}
 	public ArrayList<BoardBean> selectCsBoardList(int page){
 		PreparedStatement pstmt = null;
 		ResultSet rs = null;
-		String sql = "SELECT * FROM review_board ORDER BY rgroup DESC, rstep ASC LIMIT ?,10";
+		String sql = "SELECT * FROM cs_board WHERE rstep=1 ORDER BY rgroup DESC, rstep ASC LIMIT ?,10";
+		ArrayList<BoardBean> articleList = new ArrayList<BoardBean>();
+		BoardBean board = null;
+		int startrow = (page-1)*10;
+		
+		try {
+			pstmt = conn.prepareStatement(sql);
+			pstmt.setInt(1, startrow);
+			rs = pstmt.executeQuery();
+			
+			while(rs.next()) {
+				board = new BoardBean(rs.getInt("bnum"), rs.getString("hide"), rs.getString("user_id"), 
+						rs.getString("content"), rs.getString("subject"), rs.getString("img_path"), 
+						rs.getInt("has_re"), rs.getDate("cdate"), 0, rs.getInt("rgroup"), rs.getInt("rstep"));
+				articleList.add(board);
+				
+			}
+		}catch(Exception e) {
+			e.printStackTrace();
+		}finally {
+			close(rs);
+			close(pstmt);
+		}
+		
+		return articleList;
+	}
+	public ArrayList<BoardBean> searchCsBoardList(String keyword, int page){
+		PreparedStatement pstmt = null;
+		ResultSet rs = null;
+		String sql = "SELECT * FROM cs_board WHERE rstep=1 AND content LIKE '%"+keyword+"%' OR subject LIKE '%"+keyword+"%' ORDER BY rgroup DESC, rstep ASC LIMIT ?,10";
 		ArrayList<BoardBean> articleList = new ArrayList<BoardBean>();
 		BoardBean board = null;
 		int startrow = (page-1)*10;
@@ -133,7 +257,7 @@ public class BoardDAO {
 	public ArrayList<BoardBean> selectArticleList(String bName, int page){
 		PreparedStatement pstmt = null;
 		ResultSet rs = null;
-		String sql = "SELECT * FROM "+bName+" ORDER BY rgroup DESC, rstep ASC LIMIT ?,5";
+		String sql = "SELECT * FROM "+bName+" WHERE rstep=1 ORDER BY rgroup DESC, rstep ASC LIMIT ?,5";
 		ArrayList<BoardBean> articleList = new ArrayList<BoardBean>();
 		BoardBean board = null;
 		int startrow = (page-1)*10;
@@ -275,7 +399,8 @@ public class BoardDAO {
 			pstmt = conn.prepareStatement(sql);
 			rs = pstmt.executeQuery();
 			
-			if(rs.next()) bnum = rs.getInt(1);
+			if(rs.next()) bnum = rs.getInt(1)+1;
+			else bnum = 1;
 		}catch(Exception e) {
 			e.printStackTrace();
 		}finally {
@@ -317,9 +442,9 @@ public class BoardDAO {
 			pstmt.setString(2, board.getUser_id());
 			pstmt.setString(3, board.getContent().replaceAll("<", "&lt;").replaceAll(">", "&gt;").replaceAll("\r\n", "<br>"));
 			pstmt.setString(4, board.getSubject().replaceAll("<", "&lt;").replaceAll(">", "&gt;").replaceAll("\r\n", "<br>"));
-			pstmt.setString(5, board.getImg_path().replaceAll("<", "&lt;").replaceAll(">", "&gt;").replaceAll("\r\n", "<br>"));
+			pstmt.setString(5, board.getImg_path());
 			pstmt.setInt(6, board.getHas_re());
-			pstmt.setInt(8, board.getRgroup());
+			pstmt.setInt(7, board.getRgroup());
 			pstmt.setInt(8, board.getRstep());
 			pstmt.setString(9, board.getCode());
 			
@@ -344,7 +469,7 @@ public class BoardDAO {
 			pstmt.setString(3, board.getUser_id());
 			pstmt.setString(4, board.getContent().replaceAll("<", "&lt;").replaceAll(">", "&gt;").replaceAll("\r\n", "<br>"));
 			pstmt.setString(5, board.getSubject().replaceAll("<", "&lt;").replaceAll(">", "&gt;").replaceAll("\r\n", "<br>"));
-			pstmt.setString(6, board.getImg_path().replaceAll("<", "&lt;").replaceAll(">", "&gt;").replaceAll("\r\n", "<br>"));
+			pstmt.setString(6, board.getImg_path());
 			pstmt.setInt(7, board.getHas_re());
 			pstmt.setInt(8, board.getRgroup());
 			pstmt.setInt(9, board.getRstep());
@@ -382,7 +507,6 @@ public class BoardDAO {
 		String sql = "";
 		int insertCount = 0;
 		int rgroup = board.getRgroup();
-		int rstep = board.getRstep();
 		
 		try {
 			sql = "UPDATE cs_board SET has_re = has_re+1 WHERE rgroup = ?";
@@ -395,7 +519,6 @@ public class BoardDAO {
 				commit(conn);
 			}
 			
-			rstep += 1;
 			sql = "INSERT INTO cs_board VALUES(?,'admin',?,?,null,0,now(),?,?,?)";
 			
 			pstmt = conn.prepareStatement(sql);
@@ -403,13 +526,12 @@ public class BoardDAO {
 			pstmt.setString(2, board.getContent());
 			pstmt.setString(3, board.getSubject());
 			pstmt.setInt(4, rgroup);
-			pstmt.setInt(5, rstep);
+			pstmt.setInt(5, 2);
 			pstmt.setString(6, board.getCode());
 			insertCount = pstmt.executeUpdate();
 		}catch(Exception e) {
 			System.out.println("boardReply에러 : "+e);
 		}finally {
-			close(rs);
 			close(pstmt);
 		}
 		return insertCount;
@@ -473,10 +595,28 @@ public class BoardDAO {
 		
 		return updateCount;
 	}
+	public int removeNotice(int board_num) {
+		PreparedStatement pstmt = null;
+		int deleteCount = 0;
+		String sql = "DELETE FROM notice WHERE bnum=?";
+		
+		try {
+			pstmt = conn.prepareStatement(sql);
+			pstmt.setInt(1, board_num);
+			
+			deleteCount = pstmt.executeUpdate();
+		}catch(Exception e) {
+			e.printStackTrace();
+		}finally {
+			close(pstmt);
+		}
+		
+		return deleteCount;
+	}
 	public int removeArticle(String bName, int board_num) {
 		PreparedStatement pstmt = null;
 		int deleteCount = 0;
-		String sql = "DELETE FROM "+bName+" WHERE bnum=?";
+		String sql = "DELETE FROM "+bName+" WHERE rgroup=?";
 		
 		try {
 			pstmt = conn.prepareStatement(sql);

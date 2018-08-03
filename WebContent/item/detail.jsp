@@ -193,6 +193,7 @@ pageContext.setAttribute("uprice", uprice);
 	</p>
 </div>
 <br><br><br>
+<!-- 여기서부터 인클루드 -->
 <div class="review">
 <h3>&nbsp;&nbsp;상품후기</h3>
 	<hr color="#4CAF50" size="5">
@@ -251,6 +252,9 @@ pageContext.setAttribute("uprice", uprice);
 		</div>
 	</div>
 	<br><br><br><br>
+<!-- 따로 인클루드 시키기 ======= -->
+ <jsp:include page="review.jsp" flush="false"/>
+	<br><br>
 	<div class="qna">
 	<h3>&nbsp;&nbsp;상품문의</h3>
 	<hr color="#4CAF50" size="5">

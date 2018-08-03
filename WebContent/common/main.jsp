@@ -46,74 +46,18 @@ function carousel() {
 
 	<div id="container">
 		<ul class="prod-list" align="center">
-			<li><img src="../images/apple.jpg" alt="1">
-			<p>dd</p>
+		<c:forEach var="best" items="${bestList }">
+			<li><img src="../images/${best.img_path }" alt="${best.item_name }">
+			<p>${best.item_name }</p>
 				<div class="caption">
-					<h1>사과</h1>
+					<h1>${best.item_name }</h1>
 					<p>
-						<br><a href="../items/detail.jsp">상품보러가기</a><br><a href="#">장바구니</a>
+						<br><a href="uitemView.im?item_code=${best.item_code }">상품보러가기</a><br>
+						<a href="addCart.ct?item_code=${best.item_code }">장바구니</a>
 					</p>
 				</div> 
 			</li>
-			<li><img src="../images/apple.jpg" alt="2">
-			<p>dd</p>
-			<div class="caption">
-					<h1>ㅎㅎ</h1>
-					<p>
-						<br>견종 : 포메라니안<br>성별 : 남아<br>나이 : 2개월<br>분양가 :
-						20만원<br>기타 사항 : 슬개골이 약함
-					</p>
-				</div></li>
-			<li><img src="../images/apple.jpg" alt="3">
-			<p>dd</p>
-			<div class="caption">
-					<h1>3번</h1>
-					<p>
-						<br>견종 : 말티즈<br>성별 : 여아<br>나이 : 2개월<br>분양가 :
-						5만원<br>기타 사항 : 난폭함
-					</p>
-				</div></li>
-			<li><img src="../images/apple.jpg" alt="4">
-			<p>dd</p>
-			<div class="caption">
-					<h1>4번</h1>
-					<p>
-						<br>견종 : 믹스<br>성별 : 남아<br>나이 : 2개월<br>분양가 :
-						5만원<br>기타 사항 : 말티즈+푸들 믹스
-					</p>
-				</div></li>
-			<li><img src="../images/apple.jpg" alt="5">
-			<div class="caption">
-					<h1>5번</h1>
-					<p>
-						<br>견종 : 푸들<br>성별 : 남아<br>나이 : 2개월<br>분양가 :
-						10만원<br>기타 사항 : 블랙 푸들
-					</p>
-				</div></li>
-			<li><img src="../images/apple.jpg" alt="6">
-			<div class="caption">
-					<h1>6번</h1>
-					<p>
-						<br>견종 : 비숑프리제<br>성별 : 여아<br>나이 : 3개월<br>분양가 :
-						25만원<br>기타 사항 : 활발함
-					</p>
-				</div></li>
-			<li><img src="../images/apple.jpg" alt="7">
-			<div class="caption">
-					<h1>7번</h1>
-					<p>
-						<br>견종 : 크림 푸들<br>성별 : 남아<br>나이 : 2개월<br>분양가 :
-						30만원<br>기타 사항 : 없음
-					</p>
-				</div></li>
-			<li><img src="../images/apple.jpg" alt="8">
-			<div class="caption">
-					<h1>8번</h1>
-					<p>
-						<br>견종 : 크림 푸들<br>성별 : 여아<br>나이 : 1개월<br>분양가 :
-						30만원<br>기타 사항 : 없음
-					</p>
-				</div></li>
+		</c:forEach>
 		</ul>
 	</div>
 
@@ -125,70 +69,18 @@ function carousel() {
 </section>
 <div id="container">
 		<ul class="prod-list" align="center">
-			<li><img src="../images/apple.jpg" alt="1">
+			<c:forEach var="newList" items="${newList }">
+			<li><img src="../images/${newList.img_path }" alt="${newList.item_name }">
+			<p>${newList.item_name }</p>
 				<div class="caption">
-					<h1>1번</h1>
+					<h1>${newList.item_name }</h1>
 					<p>
-						<br>견종 : 푸들<br>성별 : 남아<br>나이 : 2개월<br>분양가 :
-						10만원<br>기타 사항 : 브라운 푸들
+						<br><a href="uitemView.im?item_code=${newList.item_code }">상품보러가기</a><br>
+						<a href="addCart.ct?item_code=${newList.item_code }">장바구니</a>
 					</p>
-				</div></li>
-			<li><img src="../images/apple.jpg" alt="2">
-			<div class="caption">
-					<h1>2번</h1>
-					<p>
-						<br>견종 : 포메라니안<br>성별 : 남아<br>나이 : 2개월<br>분양가 :
-						20만원<br>기타 사항 : 슬개골이 약함
-					</p>
-				</div></li>
-			<li><img src="../images/apple.jpg" alt="3">
-			<div class="caption">
-					<h1>3번</h1>
-					<p>
-						<br>견종 : 말티즈<br>성별 : 여아<br>나이 : 2개월<br>분양가 :
-						5만원<br>기타 사항 : 난폭함
-					</p>
-				</div></li>
-			<li><img src="../images/apple.jpg" alt="4">
-			<div class="caption">
-					<h1>4번</h1>
-					<p>
-						<br>견종 : 믹스<br>성별 : 남아<br>나이 : 2개월<br>분양가 :
-						5만원<br>기타 사항 : 말티즈+푸들 믹스
-					</p>
-				</div></li>
-			<li><img src="../images/apple.jpg" alt="5">
-			<div class="caption">
-					<h1>5번</h1>
-					<p>
-						<br>견종 : 푸들<br>성별 : 남아<br>나이 : 2개월<br>분양가 :
-						10만원<br>기타 사항 : 블랙 푸들
-					</p>
-				</div></li>
-			<li><img src="../images/apple.jpg" alt="6">
-			<div class="caption">
-					<h1>6번</h1>
-					<p>
-						<br>견종 : 비숑프리제<br>성별 : 여아<br>나이 : 3개월<br>분양가 :
-						25만원<br>기타 사항 : 활발함
-					</p>
-				</div></li>
-			<li><img src="../images/apple.jpg" alt="7">
-			<div class="caption">
-					<h1>7번</h1>
-					<p>
-						<br>견종 : 크림 푸들<br>성별 : 남아<br>나이 : 2개월<br>분양가 :
-						30만원<br>기타 사항 : 없음
-					</p>
-				</div></li>
-			<li><img src="../images/apple.jpg" alt="8">
-			<div class="caption">
-					<h1>8번</h1>
-					<p>
-						<br>견종 : 크림 푸들<br>성별 : 여아<br>나이 : 1개월<br>분양가 :
-						30만원<br>기타 사항 : 없음
-					</p>
-				</div></li>
+				</div> 
+			</li>
+		</c:forEach>
 		</ul>
 	</div>
 

@@ -16,7 +16,7 @@ import svc.BoardService;
 import vo.ActionForward;
 import vo.BoardBean;
 
-public class NoticeWriteAction implements Action {
+public class NoticeModProAction implements Action {
 
 	@Override
 	public ActionForward execute(HttpServletRequest request, HttpServletResponse response) throws Exception {
@@ -36,9 +36,8 @@ public class NoticeWriteAction implements Action {
 //		}
 		
 		BoardService boardService = new BoardService();
-	
-		Date date = new Date(0, 0, 0);	
-		int bnum = boardService.searchBNum("notice");
+		int bnum = Integer.parseInt(request.getParameter("bnum"));
+		Date date = new Date(0, 0, 0);
 		
 		String realFolder = "";
 		String saveFolder = "/images";
@@ -49,6 +48,12 @@ public class NoticeWriteAction implements Action {
 		realFolder = context.getRealPath(saveFolder);
 		MultipartRequest multi = new MultipartRequest(request, realFolder, fileSize, encType, new DefaultFileRenamePolicy());
 		String image = multi.getFilesystemName("img_path");
+		
+		if(image==null) {
+			image = multi.getParameter("oldImage");
+			//<input type="hidden" id="oldImage" name="oldImage" value="${item.img_path}"/>
+		}
+		
 		BoardBean board = new BoardBean(
 				bnum,
 				"",
@@ -61,7 +66,7 @@ public class NoticeWriteAction implements Action {
 			response.setContentType("text/html;charset=UTF-8");
 			PrintWriter out = response.getWriter();
 			out.println("<script>");
-			out.println("alert('등록실패');");
+			out.println("alert('수정실패');");
 			out.println("history.back();");
 			out.println("</script>");
 		}else {

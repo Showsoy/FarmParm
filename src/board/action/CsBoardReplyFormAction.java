@@ -38,7 +38,7 @@ public class CsBoardReplyFormAction implements Action {
 		BoardBean article = boardService.selectCsBoard(board_num);
 		request.setAttribute("article", article);
 		request.setAttribute("page", nowPage);
-		forward.setPath("./qna_board_reply.jsp");
+		forward= new ActionForward("./cs_view.jsp",false);
 		return forward;
 	}
 

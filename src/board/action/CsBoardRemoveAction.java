@@ -23,14 +23,13 @@ public class CsBoardRemoveAction implements Action {
 		int board_num;
 		int deleteCount=0;
 		
-		if(request.getParameter("board_num")==null) {
+		if(request.getParameter("bnum")==null) {
 			nums = request.getParameterValues("icheck");
 			for(int i=0;i<nums.length;i++) {
-				System.out.println(nums[i]);
 				deleteCount = boardService.removeArticle("cs_board", Integer.parseInt(nums[i]));
 			}
 		}else {
-			board_num = Integer.parseInt(request.getParameter("board_num"));
+			board_num = Integer.parseInt(request.getParameter("bnum"));
 			deleteCount = boardService.removeArticle("cs_board", board_num);
 		}
 		
@@ -42,7 +41,7 @@ public class CsBoardRemoveAction implements Action {
 			out.println("history.back();");
 			out.println("</script>");
 		}else {
-			forward= new ActionForward("./itemList.im",false);
+			forward= new ActionForward("./csList.bo",true);
 		}
 		return forward;
 	}

@@ -55,8 +55,8 @@ public class CsBoardWriteAction implements Action {
 		String image = multi.getFilesystemName("img_path");
 		BoardBean board = new BoardBean(
 				bnum,
-				multi.getParameter("hide")==null ? "HIDE" : "SHOW",
-				multi.getParameter("user_id"),
+				multi.getParameter("hide")==null ? "SHOW" : "HIDE",
+				id,
 				multi.getParameter("content"),
 				multi.getParameter("subject"),
 				image,0,date,0,bnum,1);
@@ -69,7 +69,7 @@ public class CsBoardWriteAction implements Action {
 			out.println("history.back();");
 			out.println("</script>");
 		}else {
-			forward= new ActionForward("./csList.im",true);//리스트로 들어감
+			forward= new ActionForward("./csView.bo?bnum="+bnum,true);//리스트로 들어감
 		}
 		return forward;
 	}
