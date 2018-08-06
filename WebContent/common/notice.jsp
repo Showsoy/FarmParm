@@ -151,7 +151,9 @@ a:hover{
 			<form action="noList.bo" name="nsearch" method="post">
 				<input type="text" id="keyword" name="keyword" size="20"/>
 				<button type="submit" id="wbutton">검색</button>
-				<button type="button" onclick="location.href='noWrite.jsp'" id="wbutton">글쓰기</button>
+				<c:if test="${id eq 'admin' }">
+					<button type="button" onclick="location.href='noWrite.jsp'" id="wbutton">글쓰기</button>
+				</c:if>
 			</form>
 			
 		</section>

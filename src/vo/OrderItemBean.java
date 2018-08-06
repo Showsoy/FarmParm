@@ -2,19 +2,28 @@ package vo;
 
 public class OrderItemBean {
 	private String item_code;
-	private String order_id;
+	private int order_id;
 	private int amount;
 	private int price;
+	
+	
+	public OrderItemBean(String item_code, int order_id, int amount, int price) {
+		super();
+		this.item_code = item_code;
+		this.order_id = order_id;
+		this.amount = amount;
+		this.price = price;
+	}
 	public String getItem_code() {
 		return item_code;
 	}
 	public void setItem_code(String item_code) {
 		this.item_code = item_code;
 	}
-	public String getOrder_id() {
+	public int getOrder_id() {
 		return order_id;
 	}
-	public void setOrder_id(String order_id) {
+	public void setOrder_id(int order_id) {
 		this.order_id = order_id;
 	}
 	public int getAmount() {

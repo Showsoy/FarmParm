@@ -3,7 +3,7 @@ package vo;
 import java.sql.Date;
 
 public class OrderBean {
-	private String order_id;
+	private int order_id;
 	private String user_id;
 	private Date dati;
 	private String del_addr;
@@ -11,7 +11,7 @@ public class OrderBean {
 	private int depoint;
 	private String state;
 
-	public OrderBean(String order_id, String user_id, Date dati, String del_addr, String del_postcode, int depoint,
+	public OrderBean(int order_id, String user_id, Date dati, String del_addr, String del_postcode, int depoint,
 			String state) {
 		super();
 		this.order_id = order_id;
@@ -23,11 +23,11 @@ public class OrderBean {
 		this.state = state;
 	}
 
-	public String getOrder_id() {
+	public int getOrder_id() {
 		return order_id;
 	}
 
-	public void setOrder_id(String order_id) {
+	public void setOrder_id(int order_id) {
 		this.order_id = order_id;
 	}
 

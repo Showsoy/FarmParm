@@ -1,5 +1,6 @@
 package admin.action;
 
+import java.io.PrintWriter;
 import java.util.ArrayList;
 
 import javax.servlet.http.HttpServletRequest;
@@ -22,25 +23,28 @@ public class ItemSearchAction implements Action {
 		HttpSession session = request.getSession();
 		String id = (String)session.getAttribute("id");
 		
-//		if(id==null) {
-//			forward = new ActionForward();
-//			forward.setRedirect(true);
-//			forward.setPath("./memberLogin.me");
-//		}else if(!id.equals("admin")) {
-//			response.setContentType("text/html;charset=UTF-8");
-//			PrintWriter out = response.getWriter();
-//			out.println("<script>");
-//			out.println("alert('관리자가 아닙니다.');");
-//			out.println("location.href='../dog/dogList.dog';");
-//			out.println("</script>");
-//		}
-		forward = new ActionForward();
-		String keyword = request.getParameter("keyword");
-		ItemService itemService = new ItemService();
-		ArrayList<ItemBean> iSearchList = itemService.searchItem(keyword);
-		request.setAttribute("iSearchList",iSearchList);
-		forward= new ActionForward("./itemSearch.jsp",false);
-		
+		if(id==null) {
+			response.setContentType("text/html;charset=UTF-8");
+			PrintWriter out = response.getWriter();
+			out.println("<script>");
+			out.println("alert('로그인이 필요합니다.');");
+			out.println("location.href='../member/memberLogin.us?turn=ok';");
+			out.println("</script>");
+		}else if(!id.equals("admin")) {
+			response.setContentType("text/html;charset=UTF-8");
+			PrintWriter out = response.getWriter();
+			out.println("<script>");
+			out.println("alert('권한이 없습니다.');");
+			out.println("location.href='../common/main.im';");
+			out.println("</script>");
+		}else {
+			forward = new ActionForward();
+			String keyword = request.getParameter("keyword");
+			ItemService itemService = new ItemService();
+			ArrayList<ItemBean> iSearchList = itemService.searchItem(keyword);
+			request.setAttribute("iSearchList",iSearchList);
+			forward= new ActionForward("./itemSearch.jsp",false);
+		}
 		return forward;
 	}
 

@@ -14,8 +14,25 @@ import vo.UserViewBean;
 public class MemberListAction implements Action{
 	public ActionForward execute(HttpServletRequest request,HttpServletResponse response) 
 		 	throws Exception{
-			 	HttpSession session=request.getSession();
-		   		ActionForward forward = null;
+		ActionForward forward = null;
+		HttpSession session = request.getSession();
+		String id = (String)session.getAttribute("id");
+		
+		if(id==null) {
+			response.setContentType("text/html;charset=UTF-8");
+			PrintWriter out = response.getWriter();
+			out.println("<script>");
+			out.println("alert('로그인이 필요합니다.');");
+			out.println("location.href='../member/memberLogin.us?turn=ok';");
+			out.println("</script>");
+		}else if(!id.equals("admin")) {
+			response.setContentType("text/html;charset=UTF-8");
+			PrintWriter out = response.getWriter();
+			out.println("<script>");
+			out.println("alert('권한이 없습니다.');");
+			out.println("location.href='../common/main.im';");
+			out.println("</script>");
+		}else {
 		   		
 		   		ArrayList<UserViewBean> articleList = new ArrayList<UserViewBean>();
 			  	int page=1;
@@ -48,7 +65,8 @@ public class MemberListAction implements Action{
 				request.setAttribute("articleList", articleList);
 				forward = new ActionForward();
 				forward.setPath("/admin/userList.jsp");
-		   		return forward;
+		}
+		return forward;
 		   		
 			 }
 		   	   /* forward = new ActionForward();

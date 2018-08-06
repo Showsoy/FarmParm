@@ -27,18 +27,19 @@ public class ItemNewAction implements action.Action{
 		
 		HttpSession session = request.getSession();
 		String id = (String)session.getAttribute("id");
-//		if(id==null) {
-//			forward = new ActionForward();
-//			forward.setRedirect(true);
-//			forward.setPath("./memberLogin.me");
-//		}else if(!id.equals("admin")) {
-//			response.setContentType("text/html;charset=UTF-8");
-//			PrintWriter out = response.getWriter();
-//			out.println("<script>");
-//			out.println("alert('관리자가 아닙니다.');");
-//			out.println("location.href='../dog/dogList.dog';");
-//			out.println("</script>");
-//		}
+		
+		if(id==null) {
+			forward = new ActionForward();
+			forward.setRedirect(true);
+			forward.setPath("./memberLogin.me");
+		}else if(!id.equals("admin")) {
+			response.setContentType("text/html;charset=UTF-8");
+			PrintWriter out = response.getWriter();
+			out.println("<script>");
+			out.println("alert('관리자가 아닙니다.');");
+			out.println("location.href='../common/main.im';");
+			out.println("</script>");
+		}
 		
 		ItemService itemService = new ItemService();
 	

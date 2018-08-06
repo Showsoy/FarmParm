@@ -108,6 +108,15 @@ th{
 	text-align:center;
 }
 </style>
+<script>
+	function deleteCheck(v){
+		var flag = confirm('한 번 삭제한 상품은 복구할 수 없습니다.\n그래도 삭제하시겠습니까?');
+		if(flag){
+			location.href=("itemDelete.im?item_code="+v);
+		}
+		
+	}
+</script>
 </head>
 <link rel="stylesheet" type="text/css" href="../style/style.css">
 <link rel="stylesheet" href="https://www.w3schools.com/w3css/3/w3.css">
@@ -164,7 +173,7 @@ th{
 	<tr>
 		<td colspan="3" id="td_info"><button onclick="location.href='itemModForm.im?item_code=${item.item_code}'">수정하기</button> 
 	
-			<button onclick="location.href='itemDelete.im?item_code=${item.item_code}'">삭제하기</button></td>
+			<button onclick="deleteCheck('${item.item_code}');">삭제하기</button></td>
 	</tr>
 </table>
 <br><br>

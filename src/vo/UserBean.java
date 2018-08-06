@@ -15,10 +15,11 @@ public class UserBean {
 	private String email;
 	private String grade;
 	private String usalt;
+	private int point;
 	
 
 	public UserBean(String user_id, String passwd, String name, String phone, Date birth, String gender,
-			String postcode, String address, String address_second, String email, String grade, String usalt) {
+			String postcode, String address, String address_second, String email, String grade, String usalt, int point) {
 		super();
 		this.user_id = user_id;
 		this.passwd = passwd;
@@ -32,6 +33,7 @@ public class UserBean {
 		this.email = email;
 		this.grade = grade;
 		this.usalt = usalt;
+		this.point = point;
 	}
 
 
@@ -243,6 +245,16 @@ public class UserBean {
 
 	public void setUsalt(String usalt) {
 		this.usalt = usalt;
+	}
+
+
+	public int getPoint() {
+		return point;
+	}
+
+
+	public void setPoint(int point) {
+		this.point = point;
 	}
 	
 	

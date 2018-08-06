@@ -190,7 +190,7 @@ pageContext.setAttribute("uprice", uprice);
 			</dl>
 			<hr color="#4CAF50" size="5">
 			<button type="button" onclick="goto_url('addCart.ct?item_code=${item.item_code}');">장바구니</button>
-			<button type="button" onclick="goto_url('itemOrder.od?item_code=${item.item_code}');">바로구매</button>
+			<button type="button" onclick="goto_url('odForm.od?type=one&item_code=${item.item_code}');">바로구매</button>
 		</div>
 	</div>
 	</form>

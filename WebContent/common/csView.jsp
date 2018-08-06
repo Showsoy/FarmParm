@@ -200,12 +200,11 @@ function goto_url(act) {
 					</tr>
 			</c:if>
 			</table>
-			<!--<c:if test="${board.user_id eq id || id eq 'admin'}">
-				<span><a href="csRemove.bo?bnum=${board.board_num }">삭제</a></span>
-			</c:if>	-->
-			<span style="padding:0 0 0 650px;"><button type="button" id="wbutton" onclick="goto_url('csRemove.bo?bnum=${board.board_num}')">삭제</button></span>
+			<c:if test="${board.user_id eq id || id eq 'admin'}">
+				<span style="padding:0 0 0 650px;"><button type="button" id="wbutton" onclick="goto_url('csRemove.bo?bnum=${board.board_num}')">삭제</button></span>
+			</c:if>
 			<br><br>
-			<c:if test="${board.has_re == 0}">
+			<c:if test="${board.has_re == 0 && id eq 'admin'}">
 				<table>
 					<tr>
 						<td id="td_left" colspan="2">

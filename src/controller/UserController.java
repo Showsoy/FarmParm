@@ -1,13 +1,22 @@
 package controller;
 
 import java.io.IOException;
+
 import javax.servlet.RequestDispatcher;
 import javax.servlet.ServletException;
 import javax.servlet.annotation.WebServlet;
 import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
+
 import action.Action;
+import member.action.MemberAdModifyAction;
+import member.action.MemberAdModifyFormAction;
+import member.action.MemberAdPwModifyAction;
+import member.action.MemberDeleteAction;
+import member.action.MemberIdFindAction;
+import member.action.MemberJoinAction;
+import member.action.MemberListAction;
 import member.action.MemberLoginAction;
 import member.action.MemberLogoutAction;
 import member.action.MemberLostPwModifyAction;
@@ -19,13 +28,6 @@ import member.action.MemberPwFindAction;
 import member.action.MemberPwModifyAction;
 import member.action.MemberSearchAction;
 import member.action.MemberSelectDeleteAction;
-import member.action.MemberAdModifyAction;
-import member.action.MemberAdModifyFormAction;
-import member.action.MemberAdPwModifyAction;
-import member.action.MemberDeleteAction;
-import member.action.MemberIdFindAction;
-import member.action.MemberJoinAction;
-import member.action.MemberListAction;
 import vo.ActionForward;
 
 /**
@@ -55,10 +57,15 @@ protected void doProcess(HttpServletRequest request, HttpServletResponse respons
     	System.out.println(command);
     	
     	if(command.equals("/memberLogin.us")){
-			forward=new ActionForward();
+    		forward=new ActionForward();
 			forward.setRedirect(true);
 			forward.setPath("./member/login.jsp");
-		}else if(command.equals("/member/memberLoginAction.us")){
+		}else if(command.equals("/member/memberLogin.us")){
+			forward=new ActionForward();
+			forward.setRedirect(false);
+			forward.setPath("login.jsp");
+			if(request.getParameter("turn")!=null) request.setAttribute("turn", request.getParameter("turn"));
+    	}else if(command.equals("/member/memberLoginAction.us")){
 			action = new MemberLoginAction();
 			try{
 				forward=action.execute(request, response);
@@ -105,7 +112,7 @@ protected void doProcess(HttpServletRequest request, HttpServletResponse respons
 			}catch(Exception e){
 				e.printStackTrace();
 			}
-    	}else if(command.equals("/myPage.us")) {
+    	}else if(command.equals("/member/myPage.us")) {
     		action = new MemberMyPageAction();
 			try{
 				forward=action.execute(request, response);

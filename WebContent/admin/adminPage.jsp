@@ -1,5 +1,20 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"
     pageEncoding="UTF-8"%>
+<%
+	String id = (String)session.getAttribute("id");
+
+	if(id==null) {
+		out.println("<script>");
+		out.println("alert('로그인 한 회원만 쓸 수 있습니다.');");
+		out.println("location.href='../member/memberLogin.us?turn=ok';");
+		out.println("</script>");
+	}else if(!id.equals("admin")){
+		out.println("<script>");
+		out.println("alert('권한이 없습니다.');");
+		out.println("location.href='../common/main.im';");
+		out.println("</script>");
+	}
+%>
 <!DOCTYPE html PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN" "http://www.w3.org/TR/html4/loose.dtd">
 <html>
 <head>

@@ -35,6 +35,19 @@ th, td {
 	text-decoration:line-through;
 	font-size:12px;
 }
+#new_price{
+	line-height:24px;
+}
+#sale_icon{
+	width:15px;
+	border:0;
+}
+#prod_image{
+		width:300px;
+		height:200px;
+		margin:5px 15px 0 15px;
+		border:1px solid #ccc;
+}
 </style>
 </head>
 <link rel="stylesheet" type="text/css" href="../style/style.css">
@@ -62,10 +75,15 @@ th, td {
 	<c:choose>
 		<c:when test="${pageInfo.listCount>0 }">
 		<span id="orderby">
+			<img src="../images/checked.png"/>
 			<a href="uitemList.im?category=${category }&std=new">신상품순</a>
+			<img src="../images/checked.png"/>
 			<a href="uitemList.im?category=${category }&std=high">가격높은순</a>
+			<img src="../images/checked.png"/>
 			<a href="uitemList.im?category=${category }&std=low">가격낮은순</a>
+			<img src="../images/checked.png"/>
 			<a href="uitemList.im?category=${category }&std=pc">판매량순</a>
+			<img src="../images/checked.png"/>
 			<a href="uitemList.im?category=${category }&std=rc">인기순</a>
 		</span>
 	<div id="goods_container">
@@ -82,19 +100,21 @@ th, td {
 		%>
 			<li>
 				<a href="uitemView.im?item_code=${itemList.item_code }">
-				<img src="../images/${itemList.img_path }"/></a>
+				<img id="prod_image" src="../images/${itemList.img_path }"/></a>
 				<div class="caption">
-					${itemList.item_name }<br>
+				<a href="uitemView.im?item_code=${itemList.item_code }">
+					${itemList.item_name }</a><br>
 				<c:choose>
 					<c:when test="${itemList.sale==0 }">
 						${itemList.price }원<br>
 					</c:when>
 					<c:otherwise>
 						<span id="or_price">${itemList.price }원</span><br>
-						${uprice }원(${itemList.sale }%)<br>
+						<img src="../images/sale.png" style="width:24px;height:15px;border:none;padding:0;margin:0;">
+						<span id="new_price" style="line-height:5px;margin:0 auto;font-size:14px;">${uprice }원(-${itemList.sale }%)</span><br>
 					</c:otherwise>
 				</c:choose>	
-					<a href="addCart.ct?item_code=${itemList.item_code }">장바구니</a>
+					<a href="addCart.ct?item_code=${itemList.item_code }" style="color:black;paddin:0;font-size:13px;"><img src="../images/cart.png"/> 장바구니</a>
 				</div>
 			</li>
 		</c:forEach>

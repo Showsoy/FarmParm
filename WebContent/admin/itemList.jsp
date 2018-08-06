@@ -125,8 +125,16 @@ img{
 		}
 	}
 	function goto_url(act) {
-		 document.itemList.action = act;
-		 document.itemList.submit();
+		if(act=='itemDelete.im'){
+			var flag = confirm('한 번 삭제한 상품은 복구할 수 없습니다.\n그래도 삭제하시겠습니까?');
+			if(flag){
+				document.itemList.action = act;
+				document.itemList.submit();
+			}
+		}else{
+			document.itemList.action = act;
+			document.itemList.submit();
+		}	
 	}
 </script>
 </head>

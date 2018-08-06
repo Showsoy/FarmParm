@@ -17,6 +17,7 @@ public class MemberLoginAction implements Action{
 		HttpSession session=request.getSession();
 		UserBean users = new UserBean();
 		String id = request.getParameter("userID");
+		String turn = request.getParameter("turn");
 
 		UserService userService = new UserService();
 
@@ -27,13 +28,21 @@ public class MemberLoginAction implements Action{
 		users.setPasswd(passwd);
 		
 		boolean loginResult = userService.login(users);
-		
    		ActionForward forward = null;
    		if(loginResult){
-   	    forward = new ActionForward();
-   		session.setAttribute("id", users.getUser_id());
-   		forward.setRedirect(true);
-   		forward.setPath("../common/main.jsp");
+   			session.setAttribute("id", users.getUser_id());
+   			if(turn!=null&&turn.equals("ok")) {
+   				response.setContentType("text/html;charset=utf-8");
+   		   		PrintWriter out=response.getWriter();
+   		   		out.println("<script>");
+   		   		out.println("history.go(-2);");
+   		   		out.println("</script>");
+   			}
+   			else {
+		   	    forward = new ActionForward();
+		   		forward.setRedirect(true);
+		   		forward.setPath("../common/main.im");
+   			}
    		}
    		else{
    			response.setContentType("text/html;charset=utf-8");
