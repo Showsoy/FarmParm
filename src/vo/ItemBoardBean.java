@@ -3,6 +3,7 @@ package vo;
 import java.sql.Date;
 
 public class ItemBoardBean {
+	private String bnum;
 	private String item_code;
 	private String user_id;
 	private String content;
@@ -13,7 +14,12 @@ public class ItemBoardBean {
 	private int rgroup;
 	private int rstep;
 	
-	
+
+	public ItemBoardBean() {
+		// TODO Auto-generated constructor stub
+	}
+
+
 	public String getItem_code() {
 		return item_code;
 	}
@@ -68,7 +74,11 @@ public class ItemBoardBean {
 	public void setRstep(int rstep) {
 		this.rstep = rstep;
 	}
-	
-	
+	public String getBnum() {
+		return bnum;
+	}
+	public void setBnum(String bnum) {
+		this.bnum = bnum;
+	}
 	
 }

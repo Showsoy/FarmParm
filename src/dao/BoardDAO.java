@@ -457,22 +457,32 @@ public class BoardDAO {
 		}
 		return insertCount;
 	}
-	public int writeArticle(String bName, BoardBean board) {
+	public int writeArticle(String id, BoardBean board) {
 		PreparedStatement pstmt = null;
-		String sql = "INSERT INTO "+bName+" VALUES(?,?,?,?,?,?,?,now(),?,?)";
+		ResultSet rs = null;
+		int num = 0;
+		String sql = "INSERT INTO qna_board VALUES(?,?,?,?,?,?,?,now(),?,?)";
 		int insertCount = 0;
 		
 		try {
+			pstmt = conn.prepareStatement("SELECT max(bnum) from qna_board");
+			rs = pstmt.executeQuery();
+			
+			if(rs.next())
+				num = rs.getInt(1)+1;
+			else
+				num = 1;
+
 			pstmt = conn.prepareStatement(sql);
-			pstmt.setInt(1, board.getBoard_num());
+			pstmt.setInt(1, num);
 			pstmt.setString(2, board.getCode());
-			pstmt.setString(3, board.getUser_id());
+			pstmt.setString(3, id);
 			pstmt.setString(4, board.getContent().replaceAll("<", "&lt;").replaceAll(">", "&gt;").replaceAll("\r\n", "<br>"));
 			pstmt.setString(5, board.getSubject().replaceAll("<", "&lt;").replaceAll(">", "&gt;").replaceAll("\r\n", "<br>"));
 			pstmt.setString(6, board.getImg_path());
-			pstmt.setInt(7, board.getHas_re());
-			pstmt.setInt(8, board.getRgroup());
-			pstmt.setInt(9, board.getRstep());
+			pstmt.setInt(7, 0);
+			pstmt.setInt(8, 0);
+			pstmt.setInt(9, 0);
 			
 			insertCount = pstmt.executeUpdate();
 			
@@ -483,7 +493,68 @@ public class BoardDAO {
 		}
 		return insertCount;
 	}
-	public int updateReadCount(int board_num) {
+	// 상품문의 글 리스트
+		public int qnaListCount() {
+
+			int listCount= 0;
+			PreparedStatement pstmt = null;
+			ResultSet rs = null;
+
+			try{
+
+				pstmt=conn.prepareStatement("select count(*) from qna_board");
+				rs = pstmt.executeQuery();
+
+				if(rs.next()){
+					listCount=rs.getInt(1);
+				}
+			}catch(Exception ex){
+				System.out.println("에러: " + ex);			
+			}finally{
+				close(rs);
+				close(pstmt);
+			}
+
+			return listCount;
+
+		}
+	
+		// 상품문의 글 리스트_2
+				public ArrayList<BoardBean> qna_list(int page,int limit){
+					PreparedStatement pstmt = null;
+					ResultSet rs = null;
+					Connection conn = getConnection();
+					String qna_list_sql="select * from qna_board order by user_id asc limit ?,5";
+					ArrayList<BoardBean> articleList = new ArrayList<BoardBean>();
+					BoardBean boardBean = null;
+					int startrow=(page-1)*5; //읽기 시작할 row 번호..	
+					
+					try{
+						pstmt = conn.prepareStatement(qna_list_sql);
+						pstmt.setInt(1, startrow);
+						rs = pstmt.executeQuery();
+
+						while(rs.next()){
+							boardBean = new BoardBean(
+							rs.getInt("bnum"),
+							rs.getString("subject"),
+							rs.getString("user_id"),
+							rs.getDate("qdate"));
+							
+							articleList.add(boardBean);	
+						}
+
+					}catch(Exception ex){
+						System.out.println("에러 : " + ex);
+					}finally{
+						close(rs);
+						close(pstmt);
+					}
+
+					return articleList;
+				}
+
+		public int updateReadCount(int board_num) {
 		PreparedStatement pstmt = null;
 		int updateCount = 0;
 		String sql = "UPDATE notice SET readcount=readcount+1 WHERE bnum=?";

@@ -2,9 +2,20 @@
     pageEncoding="UTF-8"%>
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
 <%@ page import="java.util.*, java.text.*"  %>
+<%@page import="vo.BoardBean"%>
+<%@page import="vo.PageInfo"%>
 <%
  java.text.SimpleDateFormat formatter = new java.text.SimpleDateFormat("yyyyMMdd");
  String today = formatter.format(new java.util.Date());
+%>
+<%
+	ArrayList<BoardBean> articleList = (ArrayList<BoardBean>)request.getAttribute("articleList");
+    PageInfo pageInfo = (PageInfo)request.getAttribute("pageInfo");
+	int listCount=pageInfo.getListCount();
+	int nowPage=pageInfo.getPage();
+	int maxPage=pageInfo.getMaxPage();
+	int startPage=pageInfo.getStartPage();
+	int endPage=pageInfo.getEndPage();
 %>
 <!DOCTYPE html PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN" "http://www.w3.org/TR/html4/loose.dtd">
 <html>
@@ -121,6 +132,7 @@ dd{
 <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.6.3/css/font-awesome.min.css">
 <body>
 <jsp:include page="/common/top_menu.jsp" flush="false"/>
+
 <c:if test="${todayImageList!=null }">
 <div class="recent_view">
 		<h4>&nbsp;&nbsp;최근 본 상품</h4>
@@ -142,6 +154,7 @@ double saled = 1-(double)sale/100;
 int uprice = (int)(price*saled);
 pageContext.setAttribute("uprice", uprice);
 %>
+
 <div class="goodsform">
 	<h3>&nbsp;&nbsp;상품 페이지</h3>
 	<hr color="#4CAF50" size="5">
@@ -193,7 +206,7 @@ pageContext.setAttribute("uprice", uprice);
 	</p>
 </div>
 <br><br><br>
-<!-- 여기서부터 인클루드 -->
+
 <div class="review">
 <h3>&nbsp;&nbsp;상품후기</h3>
 	<hr color="#4CAF50" size="5">
@@ -252,7 +265,7 @@ pageContext.setAttribute("uprice", uprice);
 		</div>
 	</div>
 	<br><br><br><br>
-<!-- 따로 인클루드 시키기 ======= -->
+	
  <jsp:include page="review.jsp" flush="false"/>
 	<br><br>
 	<div class="qna">
@@ -267,17 +280,48 @@ pageContext.setAttribute("uprice", uprice);
 				<td>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;작성자</td>
 				<td>작성일</td>
 			</tr>
+			<% 
+			for(int i=0;i<articleList.size();i++){
+			%>
 			<tr height="30px">
-				<td>1</td>
-				<td colspan="2">언제옹냐</td>
-				<td>나래</td>
-				<td>2018-07-07</td>
+				<td><%=articleList.get(i).getBoard_num()%></td>
+				<td colspan="2"><%=articleList.get(i).getSubject()%></td>
+				<td><%=articleList.get(i).getUser_id()%></td>
+				<td><%=articleList.get(i).getDate()%></td>
+			</tr>
+			<%} %>
+		<tr>
+			<td colspan="6" id="td_info">
+			<br>
+	<section id="pageList">
+		<%if(nowPage<=1){ %>
+		이전&nbsp;
+		<%}else{ %>
+		<a href="memberList.us?page=<%=nowPage-1 %>">이전</a>&nbsp;
+		<%} %>
+		<%for(int a=startPage;a<=endPage;a++){
+				if(a==nowPage){%>
+		<%=a %>
+		<%}else{ %>
+		<a href="memberList.us?page=<%=a%>"><%=a %>
+		</a>&nbsp;
+		<%} %>
+		<%} %>
+
+		<%if(nowPage>=maxPage){ %>
+		&nbsp;다음
+		<%}else{ %>
+		<a href="memberList.us?page=<%=nowPage+1 %>">다음</a>
+		<%} %>
+		
+	</section>
+			</td>
 			</tr>
 		</table>
 		<br><br><br>
 		
 		<div id="qna_regist">
-		<form action="qnaRegist.im?qdate=<%=today %>&item_code=${item.item_code }" method="post" enctype="multipart/form-data" name="itemnew" onsubmit="return chkForm(this)">
+		<form action="qnaRegist.bo?qdate=<%=today %>&item_code=${item.item_code }" method="post" enctype="multipart/form-data" name="itemnew" onsubmit="return chkForm(this)">
 			<table>
 				<tr>
 					<td id="td_left">
