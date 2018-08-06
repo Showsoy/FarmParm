@@ -172,12 +172,34 @@ public class BoardService {
 		close(conn);
 		return isWriteSuccess;
 	}
-	public boolean writeArticle(String bName, BoardBean board) {
+	// 상품문의 글 리스트
+	public int qnaListCount() throws Exception{
+		// TODO Auto-generated method stub
+		
+		int listCount = 0;
+		Connection con = getConnection();
+		BoardDAO boardDAO = BoardDAO.getInstance();
+		boardDAO.setConnection(con);
+		listCount = boardDAO.qnaListCount();
+		close(con);
+		return listCount;
+		
+	}
+	// 상품문의 글 리스트_2
+	public ArrayList<BoardBean> qna_list(int page, int limit) throws Exception{
+		Connection con = getConnection();
+		BoardDAO boardDAO = BoardDAO.getInstance();
+		boardDAO.setConnection(con);
+		ArrayList<BoardBean> userList = boardDAO.qna_list(page,limit);
+		close(con);
+		return userList;
+	}
+	public boolean writeArticle(String id, BoardBean board) {
 		BoardDAO boardDAO = BoardDAO.getInstance();
 		Connection conn = getConnection();
 		boardDAO.setConnection(conn);
 		boolean isWriteSuccess = false;
-		int insertCount = boardDAO.writeArticle(bName, board);
+		int insertCount = boardDAO.writeArticle(id, board);
 		
 		if(insertCount>0) {
 			commit(conn);
