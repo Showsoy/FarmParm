@@ -10,9 +10,12 @@ public class OrderBean {
 	private String del_postcode;
 	private int depoint;
 	private String state;
+	private int pay;
+	private String payment;
+	private String receiver;
 
 	public OrderBean(int order_id, String user_id, Date dati, String del_addr, String del_postcode, int depoint,
-			String state) {
+			String state, int pay, String payment, String receiver) {
 		super();
 		this.order_id = order_id;
 		this.user_id = user_id;
@@ -21,6 +24,9 @@ public class OrderBean {
 		this.del_postcode = del_postcode;
 		this.depoint = depoint;
 		this.state = state;
+		this.pay = pay;
+		this.payment = payment;
+		this.receiver = receiver;
 	}
 
 	public int getOrder_id() {
@@ -79,4 +85,28 @@ public class OrderBean {
 		this.state = state;
 	}
 
+	public int getPay() {
+		return pay;
+	}
+
+	public void setPay(int pay) {
+		this.pay = pay;
+	}
+
+	public String getPayment() {
+		return payment;
+	}
+
+	public void setPayment(String payment) {
+		this.payment = payment;
+	}
+
+	public String getReceiver() {
+		return receiver;
+	}
+
+	public void setReceiver(String receiver) {
+		this.receiver = receiver;
+	}
+	
 }

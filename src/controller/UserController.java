@@ -200,14 +200,15 @@ protected void doProcess(HttpServletRequest request, HttpServletResponse respons
 			}catch(Exception e){
 				e.printStackTrace();
 			}
-    	}else if(command.equals("/searchMemberList.us")) {
+    	}else if(command.equals("/admin/searchMemberList.us")) {
+    		System.out.println("dd");
     		action = new MemberSearchAction();
 			try{
 				forward=action.execute(request, response);
 			}catch(Exception e){
 				e.printStackTrace();
 			}
-    	}else if(command.equals("/memberSelectDelete.us")) {
+    	}else if(command.equals("/admin/memberSelectDelete.us")) {
     		action = new MemberSelectDeleteAction();
 			try{
 				forward=action.execute(request, response);

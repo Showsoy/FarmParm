@@ -235,8 +235,8 @@ selPrice = "<%=(int)request.getAttribute("totalMoney")%>";
 			</c:if>
 			<tr>
 				<td colspan="6" id="td_info">
-					<button onclick="goto_url('odForm.od?type=all');">전체주문</button>
-					<button onclick="goto_url('odForm.od?type=sel');">선택주문</button>
+					<button onclick="goto_url('../order/odForm.od?type=all');">전체주문</button>
+					<button onclick="goto_url('../order/odForm.od?type=sel');">선택주문</button>
 				</td>
 			</tr>
 		</table>

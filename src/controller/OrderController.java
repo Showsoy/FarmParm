@@ -10,8 +10,8 @@ import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
 import action.Action;
-import item.action.CartChangeQtyAction;
 import order.action.OrderFormAction;
+import order.action.OrderProAction;
 import vo.ActionForward;
 
 /**
@@ -49,7 +49,7 @@ protected void doProcess(HttpServletRequest request, HttpServletResponse respons
     			e.printStackTrace();
     		}
     	}else if(command.equals("/order.od")) {
-    		action = new CartChangeQtyAction();
+    		action = new OrderProAction();
     		try {
     			forward = action.execute(request, response);
     		}catch(Exception e) {

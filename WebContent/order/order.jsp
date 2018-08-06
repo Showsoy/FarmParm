@@ -2,6 +2,8 @@
     pageEncoding="UTF-8"%>
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
 <%@ taglib prefix="fmt" uri="http://java.sun.com/jsp/jstl/fmt" %>
+<%@ page import="java.util.ArrayList" %>
+<%@ page import="vo.OrderViewBean" %>
 <!DOCTYPE html PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN" "http://www.w3.org/TR/html4/loose.dtd">
 <html>
 <head>
@@ -99,15 +101,28 @@ td, tr{
 	background-color:#F6F6F6;
 	text-weight:700;
 }
+#order_sheet{
+	text-align:right;
+}
+#td_name{
+	text-align:left;
+}
+
 </style>
 <script>
-	function depoint(t){
-		var depoint = document.getElementById("depoint").value;
+	function depointf(f,v,t){
+		var depoint = f.depoint.value;
 		if(isNaN(depoint)){
 			alert('잘못 입력하셨습니다.');
+			f.depoint.value="";
+			f.depoint.focus();
+		}else if(parseInt(depoint)>parseInt(v)){
+			alert('사용 가능 포인트 초과');
+			f.depoint.value="";
+			f.depoint.focus();
 		}else{
 			document.getElementById("usepoint").innerHTML = depoint;
-			document.getElementById("allprice").innerHTML = parseInt(t)-parseInt(depoint);
+			document.getElementById("allprice").innerHTML = parseInt(f.totalMoney.value)-parseInt(depoint);
 		}
 	}
 </script>
@@ -121,31 +136,49 @@ td, tr{
 	<h3>&nbsp;&nbsp;결제</h3>
 	<hr color="#4CAF50" size="5">
 	<div class="mypage">
+	<form action="order.od" name="orderform" method="post">
 	<div id="order_info">
 		<div id="grade"><b id="grade_deco">|</b>결제상품</div>
-		<table cellspacing="0" cellpadding="0">
+		<table cellspacing="0" cellpadding="0" id="order_sheet">
 	<tr id="order_top_menu">
-		<td>상품명</td>
-		<td>가격</td>
+		<td id="td_name">상품명</td>
+		<td>단가</td>
 		<td>수량</td>
+		<td>총 가격</td>
 		<td>적립</td>
 	</tr>
 	<c:forEach var="order" items="${orderList }" varStatus="status">
 	<tr>
-		<td>${order.item_name }</td>
+		<td id="td_name">${order.item_name }</td>
 		<td>${order.price }원</td>
 		<td>${order.amount }개</td>
-		<fmt:parseNumber var="point" value="${(order.price) div 20 }" integerOnly="true"/>
+		<td>${order.price*order.amount }</td>
+		<fmt:parseNumber var="point" value="${(order.price*order.amount) div 20 }" integerOnly="true"/>
 		<td>${point }점</td>
+		<input type="hidden" id="od_item_code" name="od_item_code" value="${order.item_code }">
+		<input type="hidden" id="od_item_name" name="od_item_name" value="${order.item_name }">
+		<input type="hidden" id="od_price" name="od_price" value="${order.price }">
+		<input type="hidden" id="od_amount" name="od_amount" value="${order.amount }">
 	</tr>
 	</c:forEach>
+	<c:if test="${parcel eq 'exist' }">
+	<tr>
+		<td id="td_name">택배비</td>
+		<td>3000원</td>
+		<td>-</td>
+		<td>3000원</td>
+		<td>-</td>
+	</tr>
+	</c:if>
 	</table>
 	<br>
+	<div id="grade"><b id="grade_deco">|</b>포인트 사용</div>
 	<div id="point" style="background-color:#F6FFCC;padding:10px;">
-		사용 가능 포인트<b>${user.point }</b> 점 중 <input type="text" id="depoint" name="depoint" size="5"/>
-		<button type="button" onclick="depoint(${totalMoney })" id="wbutton">사용</button>
+		사용 가능 포인트 <b>${user.point }</b> 점 중 <input type="text" id="depoint" name="depoint" size="5"/>
+		<button type="button" onClick="depointf(this.form,${user.point})" id="wbutton">사용</button>
 	</div>
 	<p class="right"><font size="3em">총 &nbsp;${totalMoney }원</font><br>
+	<input type="hidden" id="totalMoney" name="totalMoney" value="${totalMoney }"> 
 	<font size="2em">포인트 사용 <font color="red" id="usepoint"></font>원</font><br><br>
 	<font size="4em"><b>총 결제금액 <b id="grade_deco"><span id="allprice">${totalMoney }</span></b>원</b></font></p>
 	</div>
@@ -153,12 +186,12 @@ td, tr{
 	<div id="grade"><b id="grade_deco">|</b>배송지 정보</div>
 	<table cellspacing="0" cellpadding="0">
 	<tr>
-		<td id="td_left"><label for="userID">주문인</label></td>
+		<td id="td_left"><label for="userName">주문인</label></td>
 		<td>${user.name }</td>
 	</tr>
 	<tr>
-		<td id="td_left"><label for="userID">받는 사람</label></td>
-		<td><input type="text" id="name" name="name" value="${user.name }"></td>
+		<td id="td_left"><label for="receiver">받는 사람</label></td>
+		<td><input type="text" id="receiver" name="receiver" value="${user.name }"></td>
 	</tr>
 	<tr>
 		<td id="td_left"><label for="userID">연락처</label></td>
@@ -228,22 +261,23 @@ td, tr{
 		</td>
 	</tr>
 </table>
+<br>
+<div id="grade"><b id="grade_deco">|</b>결제방법</div>
+<div id="paymentform">
+		<input type="radio" name="payment" value="계좌이체" checked="checked" id="payment"/>&nbsp;계좌이체&nbsp;
+		&nbsp;&nbsp;&nbsp;
+		<input type="radio" name="payment" value="무통장입금">&nbsp;무통장입금&nbsp;
+		&nbsp;&nbsp;&nbsp;
+		<input type="radio" name="payment" value="신용카드">&nbsp;신용카드&nbsp;
+		<hr color="#4CAF50">
+		</div>
 <br><br>
-			<button onclick="location.href='../common/error.jsp'">결제</button> 
+			<button type="submit">결제</button> 
 	
-			<button onclick="location.href='../common/main.jsp'">돌아가기</button> 
-		
+			<button type="button" onclick="location.href='main.im'">돌아가기</button> 
+</form>	
 	</div>
 	</div>
-<footer>
-  <a href="#"><i class="fa fa-facebook-official"></i></a>
-  <a href="#"><i class="fa fa-pinterest-p"></i></a>
-  <a href="#"><i class="fa fa-twitter"></i></a>
-  <a href="#"><i class="fa fa-flickr"></i></a>
-  <a href="#"><i class="fa fa-linkedin"></i></a>
-  <p class="w3-medium">
-    Powered by <a href="https://www.w3schools.com/w3css/default.asp" target="_blank">w3.css</a>
-  </p>
-</footer>
+ <jsp:include page="/common/footer.jsp" flush="false"/>
 </body>
 </html>

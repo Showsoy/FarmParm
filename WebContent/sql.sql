@@ -232,5 +232,20 @@ CREATE VIEW order_view AS SELECT order_item.order_id AS order_id, items.item_nam
 alter table users drop column email_ad;
 
 --20180806 주문테이블 열추가--
+USE `java2b`;
+alter table orders add receiver varchar(20);
 alter table orders add pay int;
 alter table orders add payment varchar(10);
+drop view user_view;
+create view user_view as select users.user_id as user_id, users.grade as grade, (select sum((select pay from orders where orders.user_id=users.user_id))) as userpay from users left join orders on users.user_id = orders.user_id group by user_id;
+
+alter table users modify grade varchar(10) default '일반회원';
+insert into users values('user1','1111','김김김','010-1111-1111','2012-12-12','남','12345','대구','달서구','aaa@aaa.com','일반회원','ㅇㅇ',0);
+insert into users values('user2','1111','김김김','010-1111-1111','2012-12-12','남','12345','대구','달서구','aaa@aaa.com','일반회원','ㅇㅇ',0);
+insert into users values('user3','1111','김김김','010-1111-1111','2012-12-12','남','12345','대구','달서구','aaa@aaa.com','일반회원','ㅇㅇ',0);
+insert into users values('user4','1111','김김김','010-1111-1111','2012-12-12','남','12345','대구','달서구','aaa@aaa.com','일반회원','ㅇㅇ',0);
+
+drop view order_view;
+CREATE VIEW order_view AS SELECT order_item.order_id AS order_id, items.item_code as item_code, items.item_name AS item_name, items.price AS price, order_item.amount as amount FROM order_item LEFT OUTER JOIN items ON order_item.item_code = items.item_code;
+
+alter table orders modify order_id int;
