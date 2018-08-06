@@ -157,7 +157,21 @@ input:hover, .mypage button:active, .mypage button:focus {
 	margin-left:40px;
 	
 }
-
+#bbutton {
+	font-family:"Nanum Gothic";
+	font-weight: 700;
+	text-transform: uppercase;
+	outline: 0;
+	background: black;
+	width: 100px;
+	border: 0;
+	padding: 10px;
+	color: #FFFFFF;
+	font-size: 14px;
+	-webkit-transition: all 0.3 ease;
+	transition: all 0.3 ease;
+	cursor: pointer;
+}
 
 
 
@@ -269,7 +283,7 @@ function getSearch(){
 			</tr>
 		</table>
 		<br><br><br>
-		<!-- <button type="button" onclick="location.href='/admin/adminPage.jsp'" style="width:150px;" id="wbutton">관리자페이지</button> -->
+		<button type="button" id="bbutton" onclick="location.href='adminPage.jsp'" style="width:150px;">관리자페이지</button>
 	</div>
 </div>
 

@@ -1,6 +1,11 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"
     pageEncoding="UTF-8"%>
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
+<%@ page import="java.util.*, java.text.*"  %>
+<%
+ java.text.SimpleDateFormat formatter = new java.text.SimpleDateFormat("yyyyMMdd");
+ String today = formatter.format(new java.util.Date());
+%>
 <!DOCTYPE html PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN" "http://www.w3.org/TR/html4/loose.dtd">
 <html>
 <head>
@@ -75,6 +80,25 @@ dd{
 	display:inline-block;
 	width:80px;
 	text-align:center;
+}
+#gbutton{
+	float:right;
+	margin-right:50px;
+	margin-top:20px;
+	font-family:"Nanum Gothic";
+	font-weight: 500;
+	text-transform: uppercase;
+}
+#td_right_s{
+	width:100px;
+}
+#commandCell{
+	margin-left:658px;
+}
+#qna_regist{
+	margin-left:47px;
+	font-family:"Nanum Gothic";
+	font-weight: 500;
 }
 </style>
 <script>
@@ -169,6 +193,66 @@ pageContext.setAttribute("uprice", uprice);
 	</p>
 </div>
 <br><br><br>
+<!-- 여기서부터 인클루드 -->
+<div class="review">
+<h3>&nbsp;&nbsp;상품후기</h3>
+	<hr color="#4CAF50" size="5">
+		<table cellspacing="0" cellpadding="0" id="detail_board">
+			<tr id="top_menu" height="20px">
+				<td id="td_check">번호</td>
+				<td colspan="2">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+				&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+				제목</td>
+				<td>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;작성자</td>
+				<td>작성일</td>
+			</tr>
+			<tr height="30px">
+				<td>1</td>
+				<td colspan="2">
+				맛있다</td>
+				<td>나래</td>
+				<td>2018-07-07</td>
+			</tr>
+		</table>
+			<br><br><br>
+			
+		<div id="qna_regist">
+		<form action="qnaRegist.im" method="post" enctype="multipart/form-data" name="itemnew" onsubmit="return chkForm(this)">
+			<table>
+				<tr>
+					<td id="td_left">
+						<label for="item_name">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;제목</label>
+					</td>
+					<td id="td_right_s">
+						<textarea name="review_subject" id="review_subject" cols="82" rows="1"></textarea>
+					</td>
+				</tr>
+				<tr>
+					<td id="td_left">
+						<label for="content">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;내용</label>
+					</td>	
+					<td colspan="3">
+						<textarea name="review_content" id="review_content" cols="82" rows="3"></textarea>
+					</td>
+				</tr>
+					<tr>
+					<td id="td_left">
+						<label for="img_path">&nbsp;&nbsp;&nbsp;파일 첨부</label>
+					</td>
+					<td id="td_right" colspan="3">
+						<input type="file" name="img_path" id="img_path"/>
+					</td>
+				</tr>			
+			</table>
+				<section id="commandCell">
+				<button type="submit">등록</button>
+				</section>
+			<br>
+		</form>
+		</div>
+	</div>
+	<br><br><br><br>
+<!-- 따로 인클루드 시키기 ======= -->
  <jsp:include page="review.jsp" flush="false"/>
 	<br><br>
 	<div class="qna">
@@ -177,42 +261,58 @@ pageContext.setAttribute("uprice", uprice);
 		<table cellspacing="0" cellpadding="0" id="detail_board">
 			<tr id="top_menu">
 				<td id="td_check">번호</td>
-				<td colspan="2">제목</td>
-				<td>작성자</td>
+				<td colspan="2">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+				&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+				제목</td>
+				<td>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;작성자</td>
 				<td>작성일</td>
 			</tr>
 			<tr height="30px">
 				<td>1</td>
-				<td colspan="2">
-				언제옹냐</td>
-				<td>나래</td>
-				<td>2018-07-07</td>
-			</tr>
-			<tr height="30px">
-				<td>1</td>
-				<td colspan="2">
-				환불</td>
-				<td>나래</td>
-				<td>2018-07-07</td>
-			</tr>
-			<tr height="30px">
-				<td>1</td>
-				<td colspan="2">
-				교환</td>
-				<td>나래</td>
-				<td>2018-07-07</td>
-			</tr>
-			<tr height="30px">
-				<td>1</td>
-				<td colspan="2">
-				궁금</td>
+				<td colspan="2">언제옹냐</td>
 				<td>나래</td>
 				<td>2018-07-07</td>
 			</tr>
 		</table>
+		<br><br><br>
+		
+		<div id="qna_regist">
+		<form action="qnaRegist.im?qdate=<%=today %>&item_code=${item.item_code }" method="post" enctype="multipart/form-data" name="itemnew" onsubmit="return chkForm(this)">
+			<table>
+				<tr>
+					<td id="td_left">
+						<label for="item_name">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;제목</label>
+					</td>
+					<td id="td_right_s">
+						<textarea name="qna_subject" id="qna_subject" cols="82" rows="1"></textarea>
+					</td>
+				</tr>
+				<tr>
+					<td id="td_left">
+						<label for="content">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;내용</label>
+					</td>	
+					<td colspan="3">
+						<textarea name="qna_content" id="qna_content" cols="82" rows="3"></textarea>
+					</td>
+				</tr>
+				<tr>
+					<td id="td_left">
+						<label for="img_path">&nbsp;&nbsp;&nbsp;파일 첨부</label>
+					</td>
+					<td id="td_right" colspan="3">
+						<input type="file" name="img_path" id="img_path"/>
+					</td>
+				</tr>
+			</table>
+				<section id="commandCell">
+				<button type="submit">등록</button>
+				</section>
+			<br>
+		</form>
+		</div>
 	</div>
-</div>
-<br><br><br><br>
- <jsp:include page="/common/footer.jsp" flush="false"/>
-</body>
-</html>
+	</div>
+	<br><br><br><br>
+	 <jsp:include page="/common/footer.jsp" flush="false"/>
+	</body>
+	</html>

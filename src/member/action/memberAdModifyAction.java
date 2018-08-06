@@ -53,7 +53,6 @@ public class MemberAdModifyAction implements Action{
 						uid
 						);
 	
-				
 				boolean isRegistSuccess = userService.modifyUsers(user);
 					
 				if(isRegistSuccess){

@@ -28,6 +28,7 @@ import item.action.CartListAction;
 import item.action.CartRemoveAction;
 import item.action.MainItemListAction;
 import item.action.UserItemListAction;
+import item.action.UserItemQnaAction;
 import item.action.UserItemViewAction;
 import vo.ActionForward;
 
@@ -191,6 +192,13 @@ protected void doProcess(HttpServletRequest request, HttpServletResponse respons
     		}
     	}else if(command.equals("/addCart.im")) {
     		action = new CartAddAction();
+    		try {
+    			forward = action.execute(request, response);
+    		}catch(Exception e) {
+    			e.printStackTrace();
+    		}
+    	}else if(command.equals("/qnaRegist.im")) {
+    		action = new UserItemQnaAction();
     		try {
     			forward = action.execute(request, response);
     		}catch(Exception e) {

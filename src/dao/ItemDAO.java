@@ -8,6 +8,7 @@ import java.util.ArrayList;
 import java.util.HashMap;
 
 import vo.ItemBean;
+import vo.ItemBoardBean;
 import vo.ItemStockBean;
 import vo.ItemViewBean;
 
@@ -591,4 +592,46 @@ public class ItemDAO {
 		}
 		return insertCount;
 	}
+	// 상품문의 등록
+	public int itemQna(ItemBoardBean qnaInsert, String id) {
+		PreparedStatement pstmt = null;
+		ResultSet rs = null;
+		int num = 0;
+		String sql = "";
+		int insertCount = 0;
+		
+		try {
+			pstmt = conn.prepareStatement("SELECT max(bnum) from qna_board");
+			rs = pstmt.executeQuery();
+			
+			if(rs.next())
+				num = rs.getInt(1)+1;
+			else
+				num = 1;
+				
+				sql = "insert into qna_board values(?,?,?,?,?,?,?,?,?,?)";
+				
+				pstmt = conn.prepareStatement(sql);
+				pstmt.setInt(1, num);
+				pstmt.setString(2, qnaInsert.getItem_code());
+				pstmt.setString(3, id);
+				pstmt.setString(4, qnaInsert.getContent());
+				pstmt.setString(5, qnaInsert.getSubject());
+				pstmt.setString(6, qnaInsert.getImg_path());
+				pstmt.setInt(7, num);
+				pstmt.setDate(8, qnaInsert.getQdate());
+				pstmt.setInt(9, 0);
+				pstmt.setInt(10, 0);
+				insertCount=pstmt.executeUpdate();
+	
+		}catch(Exception e) {
+			e.printStackTrace();
+		}finally {
+			close(pstmt);
+			close(rs);
+		}
+		
+		return insertCount;
+	}
+	
 }

@@ -10,6 +10,7 @@ import java.util.HashMap;
 
 import dao.ItemDAO;
 import vo.ItemBean;
+import vo.ItemBoardBean;
 import vo.ItemStockBean;
 import vo.ItemViewBean;
 
@@ -242,6 +243,29 @@ public class ItemService {
 		close(conn);
 		return itemList;
 	}
+	
+	//큐엔에이
+	public boolean itemQna(ItemBoardBean itemBoardBean, String id) throws Exception{
+		// TODO Auto-generated method stub
+		
+		boolean isWriteSuccess = false;
+		Connection con = getConnection();
+		ItemDAO itemDAO = ItemDAO.getInstance();
+		itemDAO.setConnection(con);
+		int insertCount = itemDAO.itemQna(itemBoardBean, id);
+		
+		if(insertCount > 0){
+			commit(con);
+			isWriteSuccess = true;
+		}
+		else{
+			rollback(con);
+		}
+		
+		close(con);
+		return isWriteSuccess;
+	}
+		
 	public ArrayList<ItemViewBean> bestItemList() {
 		ItemDAO itemDAO = ItemDAO.getInstance();
 		Connection conn = getConnection();
