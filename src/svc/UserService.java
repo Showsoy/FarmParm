@@ -12,6 +12,15 @@ import dao.UserDAO;
 
 public class UserService {
 	
+	public boolean userIdTest(String id) {
+		Connection con = getConnection();
+		UserDAO userDAO = UserDAO.getInstance();
+		userDAO.setConnection(con);
+		boolean result = userDAO.userIdTest(id);
+		
+		close(con);
+		return result;
+	}
 	// 로그인
 	public boolean login(UserBean users) {
 		Connection con = getConnection();
@@ -302,5 +311,32 @@ public class UserService {
 		close(conn);
 		return user;
 	}
-	
+	public int userDeductPoint(String id, int depoint) {
+		Connection conn = getConnection();
+		UserDAO userDAO = UserDAO.getInstance();
+		userDAO.setConnection(conn);
+		int updateCount = userDAO.userDeductPoint(id, depoint);
+		if(updateCount > 0){
+			commit(conn);
+		}
+		else{
+			rollback(conn);
+		}
+		close(conn);
+		return updateCount;
+	}
+	public int userPlusPoint(String id, int depoint) {
+		Connection conn = getConnection();
+		UserDAO userDAO = UserDAO.getInstance();
+		userDAO.setConnection(conn);
+		int updateCount = userDAO.userPlusPoint(id, depoint);
+		if(updateCount > 0){
+			commit(conn);
+		}
+		else{
+			rollback(conn);
+		}
+		close(conn);
+		return updateCount;
+	}
 }

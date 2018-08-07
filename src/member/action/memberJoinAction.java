@@ -33,7 +33,7 @@ public class MemberJoinAction  implements Action{
    		users.setAddress(request.getParameter("userAddr2"));
    		users.setAddress_second(request.getParameter("userAddr3"));
    		users.setEmail(email);
-   		users.setGrade("일반");
+   		users.setGrade("일반회원");
    		users.setUsalt(salt);
    		
    		UserService userService = new UserService();

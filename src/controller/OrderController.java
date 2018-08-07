@@ -10,6 +10,11 @@ import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
 import action.Action;
+import admin.action.OrderChangeStateAction;
+import admin.action.OrderListAction;
+import admin.action.OrderViewAction;
+import order.action.MyOrderListAction;
+import order.action.MyOrderViewAction;
 import order.action.OrderFormAction;
 import order.action.OrderProAction;
 import vo.ActionForward;
@@ -50,6 +55,41 @@ protected void doProcess(HttpServletRequest request, HttpServletResponse respons
     		}
     	}else if(command.equals("/order.od")) {
     		action = new OrderProAction();
+    		try {
+    			forward = action.execute(request, response);
+    		}catch(Exception e) {
+    			e.printStackTrace();
+    		}
+    	}else if(command.equals("/odList.od")) {
+    		action = new OrderListAction();
+    		try {
+    			forward = action.execute(request, response);
+    		}catch(Exception e) {
+    			e.printStackTrace();
+    		}
+    	}else if(command.equals("/odView.od")) {
+    		action = new OrderViewAction();
+    		try {
+    			forward = action.execute(request, response);
+    		}catch(Exception e) {
+    			e.printStackTrace();
+    		}
+    	}else if(command.equals("/odChgState.od")) {
+    		action = new OrderChangeStateAction();
+    		try {
+    			forward = action.execute(request, response);
+    		}catch(Exception e) {
+    			e.printStackTrace();
+    		}
+    	}else if(command.equals("/myodList.od")) {
+    		action = new MyOrderListAction();
+    		try {
+    			forward = action.execute(request, response);
+    		}catch(Exception e) {
+    			e.printStackTrace();
+    		}
+    	}else if(command.equals("/myodView.od")) {
+    		action = new MyOrderViewAction();
     		try {
     			forward = action.execute(request, response);
     		}catch(Exception e) {

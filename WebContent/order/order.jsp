@@ -153,7 +153,7 @@ td, tr{
 		<td>${order.price }원</td>
 		<td>${order.amount }개</td>
 		<td>${order.price*order.amount }</td>
-		<fmt:parseNumber var="point" value="${(order.price*order.amount) div 20 }" integerOnly="true"/>
+		<fmt:parseNumber var="point" value="${(order.price*order.amount) div 100 }" integerOnly="true"/>
 		<td>${point }점</td>
 		<input type="hidden" id="od_item_code" name="od_item_code" value="${order.item_code }">
 		<input type="hidden" id="od_item_name" name="od_item_name" value="${order.item_name }">
@@ -162,6 +162,7 @@ td, tr{
 	</tr>
 	</c:forEach>
 	<c:if test="${parcel eq 'exist' }">
+	<input type="hidden" id="parcel" name="parcel" value="exist"/>
 	<tr>
 		<td id="td_name">택배비</td>
 		<td>3000원</td>

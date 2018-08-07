@@ -66,7 +66,7 @@ public class OrderFormAction implements Action {
 				String code = request.getParameter("item_code");
 				int qty = Integer.parseInt(request.getParameter("qty"));
 				item = itemService.getItem(code);
-				orderList.add(new OrderViewBean(0, item.getItem_name(), item.getItem_code(),
+				orderList.add(new OrderViewBean(0, item.getItem_code(), item.getItem_name(),
 						(int)(item.getPrice()*(1.0-item.getSale()/100.0)),qty));
 				
 			}

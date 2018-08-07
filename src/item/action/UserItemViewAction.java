@@ -48,31 +48,6 @@ public class UserItemViewAction implements action.Action{
    		//현재 페이지에 보여줄 마지막 페이지 수.(10, 20, 30 등...)
    	    int endPage = startPage+10-1;
 		
-   	    
-		//재고 페이지
-//		int i_page = 1;
-//		int i_limit = 10;
-//		int i_limitPage = 10;
-//		
-//		if(request.getParameter("i_page")!=null) {
-//			i_page = Integer.parseInt(request.getParameter("i_page"));
-//		}
-//		
-//		int listCount = itemService.itemStockCount(item_code);
-//		int i_maxPage = (int)((double)listCount/i_limit+0.95); 
-//		int i_startPage = (((int)((double)i_page/i_limitPage+0.9))-1) *i_limitPage +1;
-//		int i_endPage = i_startPage+i_limitPage-1;
-//		
-//		if(i_endPage>i_maxPage) i_endPage = i_maxPage;
-//		System.out.print(i_maxPage+" ");System.out.print(i_startPage+" ");System.out.print(i_endPage+" ");
-//		PageInfo i_pageInfo = new PageInfo();
-//		i_pageInfo.setEndPage(i_endPage);
-//		i_pageInfo.setListCount(listCount);
-//		i_pageInfo.setMaxPage(i_maxPage);
-//		i_pageInfo.setPage(i_page);
-//		i_pageInfo.setStartPage(i_startPage);
-//		request.setAttribute("i_pageInfo", i_pageInfo);
-		
 		forward = new ActionForward();
 		
 		ItemBean item = itemService.getItem(item_code);

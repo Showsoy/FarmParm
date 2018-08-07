@@ -1,4 +1,4 @@
-package order.action;
+package admin.action;
 
 import java.io.PrintWriter;
 import java.util.ArrayList;
@@ -12,9 +12,7 @@ import svc.OrderService;
 import vo.ActionForward;
 import vo.OrderBean;
 import vo.OrderViewBean;
-
-public class MyOrderViewAction implements Action {
-
+public class OrderViewAction implements Action {
 	@Override
 	public ActionForward execute(HttpServletRequest request, HttpServletResponse response) throws Exception {
 		// TODO Auto-generated method stub
@@ -31,6 +29,13 @@ public class MyOrderViewAction implements Action {
 			out.println("alert('로그인이 필요합니다.');");
 			out.println("location.href='../member/memberLogin.us?turn=ok';");
 			out.println("</script>");
+		}else if(!id.equals("admin")) {
+			response.setContentType("text/html;charset=UTF-8");
+			PrintWriter out = response.getWriter();
+			out.println("<script>");
+			out.println("alert('권한이 없습니다.');");
+			out.println("location.href='../common/main.im';");
+			out.println("</script>");
 		}else {
 			int order_id = Integer.parseInt(request.getParameter("order_id"));
 			OrderService orderService = new OrderService();
@@ -41,9 +46,8 @@ public class MyOrderViewAction implements Action {
 			request.setAttribute("page", page);
 			request.setAttribute("order", order);
 			request.setAttribute("odtemList", odtemList);
-			forward= new ActionForward("./myOrderView.jsp",false);
+			forward= new ActionForward("./orderView.jsp",false);
 		}
 		return forward;
 	}
-
 }

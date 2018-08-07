@@ -217,6 +217,7 @@ public class BoardService {
 		boardDAO.setConnection(conn);
 		int bnum = boardDAO.searchBNum(bName);
 		
+		close(conn);
 		return bnum;
 	}
 	public int updateReadCount(int board_num) {

@@ -308,8 +308,6 @@ footer {
 }     
 #container .caption h1, .prod-list .caption p {
 	color: #fff;
-	font-size:1em;
-	text-align: center;
 }
 #goods_container{
 		display:flex;

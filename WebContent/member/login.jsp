@@ -11,6 +11,11 @@
 <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
 <title>:::로그인 페이지:::|팜팜농원</title>
 <style>
+#logo{
+	text-align:center;
+	margin:0 auto;
+	padding:0 0 0 60px;
+}
 </style>
 </head>
 <link rel="stylesheet" type="text/css" href="../style/style2.css">
@@ -34,7 +39,7 @@ function chkForm(f){
 	<div class="login-page">
 		<div class="form">
 			<form class="login-form" name="loginform" action="./memberLoginAction.us" method="post" onsubmit="return chkForm(this)">
-				<a href="../common/main.jsp"><img src="../images/farm_logo.png" width="150px"></a><br><br>
+				<a href="../common/main.jsp" id="logo"><img src="../images/farm_logo.png" width="150px"></a><br><br>
 				<c:if test="${turn eq 'ok' }">
 					<input type="hidden" id="turn" name="turn" value="ok">
 				</c:if>

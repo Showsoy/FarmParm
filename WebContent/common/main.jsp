@@ -52,8 +52,8 @@ function carousel() {
 				<div class="caption">
 					<h1>${best.item_name }</h1>
 					<p>
-						<br><a href="uitemView.im?item_code=${best.item_code }">상품보러가기</a><br>
-						<a href="addCart.ct?item_code=${best.item_code }">장바구니</a>
+						<br><a href="../item/uitemView.im?item_code=${best.item_code }"><img src="../images/zoom-in.png" style="width:24px;height:24px;border:0;"></a>
+						<a href="../item/addCart.ct?item_code=${best.item_code }"><img src="../images/shopping-cart.png" style="width:24px;height:24px;border:0;"></a>
 					</p>
 				</div> 
 			</li>
@@ -75,8 +75,8 @@ function carousel() {
 				<div class="caption">
 					<h1>${newList.item_name }</h1>
 					<p>
-						<br><a href="uitemView.im?item_code=${newList.item_code }">상품보러가기</a><br>
-						<a href="addCart.ct?item_code=${newList.item_code }">장바구니</a>
+						<br><a href="../item/uitemView.im?item_code=${newList.item_code }"><img src="../images/zoom-in.png" style="width:24px;height:24px;border:0;"></a>
+						<a href="../item/addCart.ct?item_code=${newList.item_code }"><img src="../images/shopping-cart.png" style="width:24px;height:24px;border:0;"></a>
 					</p>
 				</div> 
 			</li>

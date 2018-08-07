@@ -90,7 +90,7 @@ function selectEmail(sel) {
 		<label for="userID">아이디</label>
 		<input type="text" name="userID" id="userID" class="input100">
 		<button class="input100" name="check" id="check" type="button"
-		onclick="window.open('./dulpTest.us?openInit=true','','width=370, height=200')">중복검사</button>
+		onclick="window.open('./dulpTest.us?openInit=true','','width=500, height=300')">중복검사</button>
 		<br><br>
 	
 		<label for="userPass">비밀번호</label>
