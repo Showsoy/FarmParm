@@ -111,7 +111,16 @@ img{
 #orderby{
 	float:left;
 	text-align:right;
-	padding : 13px 0 0 400px;
+	padding : 13px 0 0 300px;
+}
+#orderby img{
+	width:11px;
+	heigh:11px;
+	padding:0px 0px 3px 0px;
+}
+#selcategory{
+	font-weight:700;
+	color:#43A047;
 }
 </style>
 <script>
@@ -155,12 +164,18 @@ img{
 		<button type="button" id="wbutton" style="width:70px;" onclick="goto_url('itemUnhide.im');">숨김취소</button>
 		</span>
 		<span id="orderby">
-			<a href="itemList.im">전체</a>
-			<a href="itemList.im?category=채소">채소</a>
-			<a href="itemList.im?category=과일">과일</a>
-			<a href="itemList.im?category=곡류">곡류</a>
-			<a href="itemList.im?category=차">차</a>
-			<a href="itemList.im?category=가공">가공</a>
+			<a href="itemList.im"><img src="../images/checked.png"/><c:choose><c:when test="${category eq 'all' }">
+			<span id="selcategory">전체</span></c:when><c:otherwise> 전체</c:otherwise></c:choose></a>
+			<a href="itemList.im?category=채소"><img src="../images/checked.png"/><c:choose><c:when test="${category eq '채소' }">
+			<span id="selcategory">채소</span></c:when><c:otherwise> 채소</c:otherwise></c:choose></a>
+			<a href="itemList.im?category=과일"><img src="../images/checked.png"/><c:choose><c:when test="${category eq '과일' }">
+			<span id="selcategory">과일</span></c:when><c:otherwise> 과일</c:otherwise></c:choose></a>
+			<a href="itemList.im?category=곡류"><img src="../images/checked.png"/><c:choose><c:when test="${category eq '곡류' }">
+			<span id="selcategory">곡류</span></c:when><c:otherwise> 곡류</c:otherwise></c:choose></a>
+			<a href="itemList.im?category=차"><img src="../images/checked.png"/><c:choose><c:when test="${category eq '차' }">
+			<span id="selcategory">차</span></c:when><c:otherwise> 차</c:otherwise></c:choose></a>
+			<a href="itemList.im?category=가공"><img src="../images/checked.png"/><c:choose><c:when test="${category eq '가공' }">
+			<span id="selcategory">가공</span></c:when><c:otherwise> 가공</c:otherwise></c:choose></a>
 		</span>
 	</div>
 		<table cellspacing="0" cellpadding="0">

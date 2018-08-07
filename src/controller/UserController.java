@@ -15,6 +15,7 @@ import member.action.MemberAdModifyFormAction;
 import member.action.MemberAdPwModifyAction;
 import member.action.MemberDeleteAction;
 import member.action.MemberIdFindAction;
+import member.action.MemberIdTestAction;
 import member.action.MemberJoinAction;
 import member.action.MemberListAction;
 import member.action.MemberLoginAction;
@@ -210,6 +211,13 @@ protected void doProcess(HttpServletRequest request, HttpServletResponse respons
 			}
     	}else if(command.equals("/memberSelectDelete.us")) {
     		action = new MemberSelectDeleteAction();
+			try{
+				forward=action.execute(request, response);
+			}catch(Exception e){
+				e.printStackTrace();
+			}
+    	}else if(command.equals("/member/idTest.us")) {
+    		action = new MemberIdTestAction();
 			try{
 				forward=action.execute(request, response);
 			}catch(Exception e){

@@ -249,3 +249,15 @@ drop view order_view;
 CREATE VIEW order_view AS SELECT order_item.order_id AS order_id, items.item_code as item_code, items.item_name AS item_name, items.price AS price, order_item.amount as amount FROM order_item LEFT OUTER JOIN items ON order_item.item_code = items.item_code;
 
 alter table orders modify order_id int;
+
+--20180807 주문테이블 배송을 위한 전화번호,메일 추가--
+USE `java2b`;
+alter table orders add column del_phone varchar(45);
+alter table orders modify column del_phone varchar(45) after dati;
+alter table orders add column del_mail varchar(50);
+alter table orders modify column del_mail varchar(50) after del_phone;
+USE `java2b`;
+drop view order_view;
+CREATE VIEW order_view as SELECT order_item.order_id AS order_id, items.item_code as item_code, items.item_name AS item_name, format(items.price*(100-items.sale)/100,0) AS price, order_item.amount as amount FROM order_item LEFT OUTER JOIN items ON order_item.item_code = items.item_code;
+drop view user_view;
+create view user_view as select users.user_id as user_id, users.grade as grade, (select sum(pay) from orders where orders.user_id = users.user_id) as userpay from users left join orders on users.user_id = orders.user_id group by user_id;

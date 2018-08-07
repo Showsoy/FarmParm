@@ -122,7 +122,7 @@ public class ItemDAO {
 		PreparedStatement pstmt = null;
 		ResultSet rs = null;
 		ArrayList<ItemViewBean> itemViewList = null;
-		String sql = "SELECT * FROM item_view ORDER BY vdate DESC LIMIT 0,8";
+		String sql = "SELECT * FROM item_view WHERE ihide=0 ORDER BY vdate DESC LIMIT 0,8";
 		
 		try {
 			pstmt = conn.prepareStatement(sql);
@@ -147,7 +147,7 @@ public class ItemDAO {
 		PreparedStatement pstmt = null;
 		ResultSet rs = null;
 		ArrayList<ItemViewBean> itemViewList = null;
-		String sql = "SELECT * FROM item_view ORDER BY purchase DESC LIMIT 0,8";
+		String sql = "SELECT * FROM item_view WHERE ihide=0 ORDER BY purchase DESC LIMIT 0,8";
 		
 		try {
 			pstmt = conn.prepareStatement(sql);

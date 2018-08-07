@@ -205,7 +205,7 @@ selPrice = "<%=(int)request.getAttribute("totalMoney")%>";
 			<tr id="tr_total">
 				<td colspan="6">
 					<div style="padding:5px 20px 5px 5px;">
-						전체 상품 가격 ${totalMoney } 원<br>
+						전체 상품 가격 ${totalMoney }원<br>
 						<span id="selArea">선택 상품 가격 <b>${totalMoney }</b>원</span><br>
 						<span id="parcel">
 							<c:if test="${totalMoney<30000 }">
@@ -222,7 +222,7 @@ selPrice = "<%=(int)request.getAttribute("totalMoney")%>";
 										${totalMoney+3000 }
 									</c:otherwise>
 								</c:choose>
-							</span></b> 원
+							</span></b>원
 						</h5>
 						<br>
 					</div>

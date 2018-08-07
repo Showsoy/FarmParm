@@ -19,6 +19,7 @@ import javax.mail.internet.InternetAddress;
 import javax.mail.internet.MimeMessage;
 
 import dao.OrderDAO;
+import dao.UserDAO;
 import order.action.SMTPAuthenticator;
 import vo.OrderBean;
 import vo.OrderItemBean;
@@ -31,17 +32,21 @@ public class OrderService {
 		orderDAO.setConnection(conn);
 		int order_id = orderDAO.selectOrderId();
 		
+		close(conn);
 		return order_id;
 	}
-	public boolean takeOrder(OrderBean order, ArrayList<OrderViewBean> orderList) {
+	public boolean takeOrder(OrderBean order, ArrayList<OrderViewBean> orderList, String id, int depoint, int plpoint) {
 		OrderDAO orderDAO = OrderDAO.getInstance();
 		Connection conn = getConnection();
 		orderDAO.setConnection(conn);
 		boolean isRegistSuccess = false;
 		int insertCount1 = orderDAO.takeOrder(order);
 		int insertCount2 = orderDAO.takeOrderItem(orderList);
+		UserService userService = new UserService();
+		int updateCount1 = userService.userDeductPoint(id, depoint);
+		int updateCount2 = userService.userPlusPoint(id, plpoint);
 		
-		if(insertCount1>0&&insertCount2>0) {
+		if(insertCount1>0&&insertCount2>0&&updateCount1>0&&updateCount2>0) {
 			commit(conn);
 			isRegistSuccess = true;
 		}else {
@@ -77,11 +82,56 @@ public class OrderService {
 		close(conn);
 		return order;
 	}
+	public int listCountOrder(){
+		OrderDAO orderDAO = OrderDAO.getInstance();
+		Connection conn = getConnection();
+		orderDAO.setConnection(conn);
+		int listCount = orderDAO.listCountOrder();
+		
+		close(conn);
+		return listCount;
+	}
+	public int listCountOrderState(String state){
+		OrderDAO orderDAO = OrderDAO.getInstance();
+		Connection conn = getConnection();
+		orderDAO.setConnection(conn);
+		int listCount = orderDAO.listCountOrderState(state);
+		
+		close(conn);
+		return listCount;
+	}
+	public int listCountUserOrder(String user_id){
+		OrderDAO orderDAO = OrderDAO.getInstance();
+		Connection conn = getConnection();
+		orderDAO.setConnection(conn);
+		int listCount = orderDAO.listCountUserOrder(user_id);
+		
+		close(conn);
+		return listCount;
+	}
 	public ArrayList<OrderBean> selectOrderList(int page) {
 		OrderDAO orderDAO = OrderDAO.getInstance();
 		Connection conn = getConnection();
 		orderDAO.setConnection(conn);
 		ArrayList<OrderBean> orderList = orderDAO.selectOrderList(page);
+		
+		close(conn);
+		return orderList;
+	}
+	public ArrayList<OrderBean> selectOrderStateList(int page, String state) {
+		OrderDAO orderDAO = OrderDAO.getInstance();
+		Connection conn = getConnection();
+		orderDAO.setConnection(conn);
+		ArrayList<OrderBean> orderList = orderDAO.selectOrderList(page, state);
+		
+		close(conn);
+		return orderList;
+	}
+	public ArrayList<OrderViewBean> orderItemList(int order_id) {
+		OrderDAO orderDAO = OrderDAO.getInstance();
+		Connection conn = getConnection();
+		orderDAO.setConnection(conn);
+		ArrayList<OrderViewBean> orderList = orderDAO.orderItemList(order_id);
 		
 		close(conn);
 		return orderList;
@@ -123,5 +173,18 @@ public class OrderService {
 			System.out.println("SMTP 서버가 잘못 설정되었거나 서비스에 문제가 있습니다.");
 			e.printStackTrace();
 		}
+	}
+	public int changeOrderState(int order_id, String state) {
+		OrderDAO orderDAO = OrderDAO.getInstance();
+		Connection conn = getConnection();
+		orderDAO.setConnection(conn);
+		int updateCount = orderDAO.changeOrderState(order_id, state);
+		if(updateCount>0) {
+			commit(conn);
+		}else {
+			rollback(conn);
+		}
+		close(conn);
+		return updateCount;
 	}
 }

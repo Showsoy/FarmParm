@@ -1,8 +1,9 @@
 package order.action;
 
 import java.io.PrintWriter;
-import java.sql.Date;
+import java.sql.Timestamp;
 import java.util.ArrayList;
+import java.util.Calendar;
 
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
@@ -10,12 +11,9 @@ import javax.servlet.http.HttpSession;
 
 import action.Action;
 import svc.OrderService;
-import svc.UserService;
 import vo.ActionForward;
 import vo.OrderBean;
-import vo.OrderItemBean;
 import vo.OrderViewBean;
-import vo.UserBean;
 
 public class OrderProAction implements Action {
 
@@ -43,23 +41,28 @@ public class OrderProAction implements Action {
 			String od_item_name[] = request.getParameterValues("od_item_name");
 			String od_price[] = request.getParameterValues("od_price");
 			String od_amount[] = request.getParameterValues("od_amount");
-			
+			int plpoint = 0;
 			int order_id = orderService.selectOrderId();
 			
 			for(int i=0;i<od_item_code.length;i++) {
 				orderList.add(new OrderViewBean(order_id, od_item_code[i], od_item_name[i],
 						Integer.parseInt(od_price[i]), Integer.parseInt(od_amount[i])));
+				plpoint += (int)(Integer.parseInt(od_price[i])*Integer.parseInt(od_amount[i])*0.01);
 			}
+			if(request.getParameter("parcel")!=null&&request.getParameter("parcel").equals("exist"))
+				orderList.add(new OrderViewBean(order_id, "N000", "택배비", 3000, 1));
 			
-			Date date = new Date(0, 0, 0);	
+			Calendar cal = Calendar.getInstance();
+			Timestamp date = new Timestamp(cal.getTime().getTime());
 			int totalPayment = Integer.parseInt(request.getParameter("totalMoney"))-Integer.parseInt(request.getParameter("depoint"));
-			OrderBean order = new OrderBean(order_id, id, date, 
+			int depoint = Integer.parseInt(request.getParameter("depoint"));
+			
+			OrderBean order = new OrderBean(order_id, id, date, request.getParameter("phone"), 
+					request.getParameter("email"),
 					request.getParameter("userAddr2")+request.getParameter("userAddr3"), 
-					request.getParameter("userAddr1"), Integer.parseInt(request.getParameter("depoint")),
-					"주문완료", totalPayment, 
+					request.getParameter("userAddr1"), depoint, "주문완료", totalPayment, 
 					request.getParameter("payment"), request.getParameter("receiver"));
-
-			boolean isRegistSuccess = orderService.takeOrder(order, orderList);
+			boolean isRegistSuccess = orderService.takeOrder(order, orderList, id, depoint, plpoint);
 			if(!isRegistSuccess) {
 					response.setContentType("text/html;charset=UTF-8");
 					PrintWriter out = response.getWriter();
@@ -68,8 +71,8 @@ public class OrderProAction implements Action {
 					out.println("history.back();");
 					out.println("</script>");
 			}else {
-				UserService userService = new UserService();
-				UserBean user = userService.selectUserInfo(id);
+				session.removeAttribute("cartList");
+				String email = request.getParameter("email");
 				String mail_content = "주문하신 상품목록<br>";
 				for(int i=0; i<orderList.size();i++) {
 					mail_content += orderList.get(i).getItem_name()+" "+orderList.get(i).getPrice()+
@@ -78,11 +81,13 @@ public class OrderProAction implements Action {
 				mail_content+="총 "+request.getParameter("totalMoney")+"원<br>";
 				mail_content+="사용하신 포인트 "+request.getParameter("depoint")+"원<br>";
 				mail_content+="총 결제금액 "+totalPayment+"원<br>";
+				mail_content+="적립 포인트 "+plpoint+"점<br>";
 				mail_content+="선택하신 결제방법 "+request.getParameter("payment")+"<br>";
-				orderService.sendOrderMail(user.getEmail(), mail_content);
+				orderService.sendOrderMail(email, mail_content);
 				forward= new ActionForward("./odComplete.jsp",false);//리스트로 들어감
 			}
 		}
+		//장바구니 지우기
 		return forward;
 	}
 

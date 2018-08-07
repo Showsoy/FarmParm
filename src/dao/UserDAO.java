@@ -52,6 +52,32 @@ public class UserDAO {
 		}
 		return user;
 	}
+	public boolean userIdTest(String id) {
+		boolean flag = true;
+		try{
+			pstmt = con.prepareStatement("SELECT user_id FROM users WHERE user_id = ?");
+			pstmt.setString(1, id);
+			rs = pstmt.executeQuery();
+
+			if(rs.next()){
+				flag = false;
+			}else{
+				flag = true;
+			}
+			
+		}catch(Exception e){
+			e.printStackTrace();
+		}finally{
+			try{
+				rs.close();
+				pstmt.close();
+				con.close();
+			}catch(Exception e){
+				e.printStackTrace();
+			}
+		}
+		return flag;
+	}
 	// 로그인
 	public String selectLoginId(UserBean users){
 		String loginId = null;
@@ -117,12 +143,10 @@ public class UserDAO {
 			pstmt.setString(8, users.getAddress());
 			pstmt.setString(9, users.getAddress_second());
 			pstmt.setString(10, users.getEmail());
-			pstmt.setString(11, users.getGrade()); // 회원등급 어디서 넘어오는지 아직 미지수.
+			pstmt.setString(11, users.getGrade());
 			pstmt.setString(12, users.getUsalt());
-			pstmt.setInt(13, 0);
+			pstmt.setInt(13, 1000);
 			insertCount=pstmt.executeUpdate();
-			
-			System.out.println(insertCount + " :등록되나?");
 			
 		}catch(Exception ex){
 			System.out.println(" 에러: " + ex);			
@@ -639,7 +663,41 @@ public class UserDAO {
 		return articleList;
 
 	}
-	
-	
+	public int userDeductPoint(String id, int depoint) {
+		int updateCount = 0;
+		PreparedStatement pstmt = null;
+		String sql = "UPDATE users SET point=point-? WHERE user_id='"+id+"'";
+		
+		try {
+			pstmt = con.prepareStatement(sql);
+			pstmt.setInt(1, depoint);
+			
+			updateCount = pstmt.executeUpdate();
+		}catch(Exception e) {
+			e.printStackTrace();
+		}finally {
+			if(pstmt!=null) close(pstmt);
+		}
+		
+		return updateCount;
+	}
+	public int userPlusPoint(String id, int point) {
+		int updateCount = 0;
+		PreparedStatement pstmt = null;
+		String sql = "UPDATE users SET point=point+? WHERE user_id='"+id+"'";
+		
+		try {
+			pstmt = con.prepareStatement(sql);
+			pstmt.setInt(1, point);
+			
+			updateCount = pstmt.executeUpdate();
+		}catch(Exception e) {
+			e.printStackTrace();
+		}finally {
+			if(pstmt!=null) close(pstmt);
+		}
+		
+		return updateCount;
+	}
 
 }

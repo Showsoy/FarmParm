@@ -1,8 +1,7 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"
     pageEncoding="UTF-8"%>
-<%@ page import="java.sql.*" %>
-<%@ page import="javax.sql.*" %>
-<%@ page import="javax.naming.*" %>
+<%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
+
 <%
 	request.setCharacterEncoding("UTF-8");
 	String openInit="false";
@@ -14,13 +13,6 @@
 	if(id == null){
 		id = "";
 	}
-	String result = "";
-
-	Connection conn = null;
-	PreparedStatement pstmt = null;
-	ResultSet rs = null;
-	
-
 %>    
 <!DOCTYPE html PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN" "http://www.w3.org/TR/html4/loose.dtd">
 <html>
@@ -62,6 +54,18 @@
 button:hover, .form button:active, .form button:focus {
 	background: #43A047;
 }
+#testform{
+	width:300px;
+	text-align:center;
+	margin:0 auto;
+}
+a img{
+	height:16px;
+}
+a, a:hover, a:active{
+	text-decoration:none;
+	color:black;
+}
 </style>
 </head>
 <script>
@@ -75,13 +79,23 @@ button:hover, .form button:active, .form button:focus {
 		opener.chkId = true;
 		window.close();
 	}
+	function chkForm(f){
+
+		if(f.id.value.trim()==""){
+			alert("아이디를 입력해주세요.");
+			f.id.focus();
+			return false;
+		}
+		document.joinform.submit();
+	}
 </script>
+
 <body onload='init()'>
 <%	
 
 %>
 <!-- action dulpTest.me -->
-<form name="id_check" action="dulpTest.jsp" method="post">
+<form name="id_check" action="idTest.us" method="post" onsubmit="return chkForm(this)">
 <table id="addRow">
 	<tr>
 		<td><h3>아이디 중복검사</h3></td>
@@ -96,41 +110,19 @@ button:hover, .form button:active, .form button:focus {
 	</tr>
 </table>
 </form>
-
-<%
-try{
-	Context init = new InitialContext();
-	DataSource ds = (DataSource)init.lookup("java:comp/env/jdbc/MySQLDB");
-	conn = ds.getConnection();
-	
-	//수정합시다
-	pstmt = conn.prepareStatement("SELECT user_id FROM users WHERE user_id = ?");
-	pstmt.setString(1, id);
-	rs = pstmt.executeQuery();
-	
-	boolean flag = true;
-	
-	if(rs.next()){
-		result = "이미 사용중인 아이디 입니다.";
-		flag = false;
-	}else if(flag && !id.equals("")){
-		result = "사용 가능한 아이디 입니다. <br> <a href='#' onclick=\"ok('"+id+"')\">사용하기</a>";
-	}else{
-		result = "중복체크를 해주세요.";
-	}
-	
-}catch(Exception e){
-	e.printStackTrace();
-}finally{
-	try{
-		rs.close();
-		pstmt.close();
-		conn.close();
-	}catch(Exception e){
-		e.printStackTrace();
-	}
-}
-%>
-<h4><%=result %></h4>
+<br>
+<div id="testform">
+<c:if test="${result!=null }">
+	<c:choose>
+		<c:when test="${result eq 'true' }">
+			사용 가능한 아이디입니다. <br>
+			<a href="#" onclick="ok('${id }')"><img src="../images/ok-cloud.png">사용하기</a>
+		</c:when>
+		<c:otherwise>
+			중복 아이디입니다.
+		</c:otherwise>
+	</c:choose>
+</c:if>
+</div>
 </body>
 </html>

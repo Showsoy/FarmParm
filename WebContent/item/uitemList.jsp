@@ -31,6 +31,11 @@ th, td {
 	font-size:12px;
 	padding:5px 5px 5px 720px;
 }
+#orderby img{
+	width:11px;
+	heigh:11px;
+	padding:0px 0px 3px 0px;
+}
 #or_price{
 	text-decoration:line-through;
 	font-size:12px;
@@ -43,10 +48,14 @@ th, td {
 	border:0;
 }
 #prod_image{
-		width:300px;
-		height:200px;
-		margin:5px 15px 0 15px;
-		border:1px solid #ccc;
+	width:300px;
+	height:200px;
+	margin:5px 15px 0 15px;
+	border:1px solid #ccc;
+}
+#selcategory{
+	font-weight:700;
+	color:#43A047;
 }
 </style>
 </head>
@@ -75,16 +84,28 @@ th, td {
 	<c:choose>
 		<c:when test="${pageInfo.listCount>0 }">
 		<span id="orderby">
-			<img src="images/checked.png"/>
-			<a href="uitemList.im?category=${category }&std=new">신상품순</a>
-			<img src="images/checked.png"/>
-			<a href="uitemList.im?category=${category }&std=high">가격높은순</a>
-			<img src="images/checked.png"/>
-			<a href="uitemList.im?category=${category }&std=low">가격낮은순</a>
-			<img src="images/checked.png"/>
-			<a href="uitemList.im?category=${category }&std=pc">판매량순</a>
-			<img src="images/checked.png"/>
-			<a href="uitemList.im?category=${category }&std=rc">인기순</a>
+
+			<img src="../images/checked.png"/>
+			<a href="uitemList.im?category=${category }&std=new">
+			<c:choose><c:when test="${std eq 'vdate' }"><span id="selcategory">신상품순</span></c:when>
+			<c:otherwise>신상품순</c:otherwise></c:choose></a>
+			<img src="../images/checked.png"/>
+			<a href="uitemList.im?category=${category }&std=high">
+			<c:choose><c:when test="${std eq 'price' }"><span id="selcategory">가격높은순</span></c:when>
+			<c:otherwise>가격높은순</c:otherwise></c:choose></a>
+			<img src="../images/checked.png"/>
+			<a href="uitemList.im?category=${category }&std=low">
+			<c:choose><c:when test="${std eq 'low' }"><span id="selcategory">가격낮은순</span></c:when>
+			<c:otherwise>가격낮은순</c:otherwise></c:choose></a>
+			<img src="../images/checked.png"/>
+			<a href="uitemList.im?category=${category }&std=pc">
+			<c:choose><c:when test="${std eq 'purchase' }"><span id="selcategory">판매량순</span></c:when>
+			<c:otherwise>판매량순</c:otherwise></c:choose></a>
+			<img src="../images/checked.png"/>
+			<a href="uitemList.im?category=${category }&std=rc">
+			<c:choose><c:when test="${std eq 'readcount' }"><span id="selcategory">인기순</span></c:when>
+			<c:otherwise>인기순</c:otherwise></c:choose></a>
+
 		</span>
 	<div id="goods_container">
 		<ul class="prod-list" align="center">

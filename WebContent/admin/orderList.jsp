@@ -99,8 +99,38 @@ img{
 	color:#5D5D5D;
 	font-size:14px;
 }
+#listmenu{
+	display:flex;
+	flex-wrap:wrap;
+	width:850px;
+	padding:0 0 5px 0;
+	margin:0 auto;
+}
+#seldel{
+	float:left;
+	padding:0 0 0 330px;
+}
+#orderby{
+	float:left;
+	text-align:right;
+	padding : 13px 0 0 0px;
+	font-size:13px;
+}
 </style>
 <script>
+	function checkAll(theForm){
+		if(theForm.icheck.length==undefined){
+			theForm.icheck.checked = theForm.allCheck.checked;
+		}else{
+			for(var i=0;i<theForm.icheck.length;i++){
+				theForm.icheck[i].checked = theForm.allCheck.checked;
+			}
+		}
+	}
+	function goto_url(act) {
+		document.odList.action = act;
+		document.odList.submit();
+	}
 </script>
 </head>
 <link rel="stylesheet" type="text/css" href="../style/style.css">
@@ -109,9 +139,29 @@ img{
 <body>
 <jsp:include page="/common/top_menu.jsp" flush="false"/>
 <div class="pageform">
-	<h3>&nbsp;&nbsp;주문조회</h3>
+	<h3>&nbsp;&nbsp;주문관리</h3>
 	<hr color="#4CAF50" size="5">
+	<form method="post" name="odList">
 	<div class="mypage">
+	<div id="listmenu">
+		<span id="orderby">
+			<a href="odList.od">전체</a>
+			<a href="odList.od?state=주문완료">주문완료</a>
+			<a href="odList.od?state=결제완료">결제완료</a>
+			<a href="odList.od?state=상품출고">상품출고</a>
+			<a href="odList.od?state=배송완료">배송완료</a>
+			<a href="odList.od?state=취소">취소</a>
+		</span>
+		<span id="seldel">
+		<select name="od_state" id="od_state">
+			<option value="결제완료">결제완료</option>
+			<option value="상품출고">상품출고</option>
+			<option value="배송완료">배송완료</option>
+			<option value="취소">취소</option>
+		</select>
+		<button type="button" id="wbutton" style="width:100px;" onclick="goto_url('odChgState.od');">주문상태변경</button>
+		</span>
+	</div>
 		<table cellspacing="0" cellpadding="0">
 			<c:choose>
 				<c:when test="${pageInfo.listCount>0 }">	
@@ -133,7 +183,7 @@ img{
 				<td>${orderList.user_id }</td>
 				<td>${orderList.pay }</td>
 				<td>${orderList.state }</td>
-				<td><button type="button" onclick="location.href='myodView.od?order_id=${orderList.order_id}&page=${pageInfo.page }'" id="gbutton">조회</button></td>
+				<td><button type="button" onclick="location.href='odView.od?order_id=${orderList.order_id}&page=${pageInfo.page }'" id="gbutton">조회</button></td>
 			</tr>
 			</c:forEach>
 			<tr>
@@ -142,7 +192,7 @@ img{
 						[이전]&nbsp;
 					</c:if>
 					<c:if test="${pageInfo.page>1 }">
-						<a href="myodList.od?page=${pageInfo.page-1}">[이전]</a>&nbsp;
+						<a href="odList.od?page=${pageInfo.page-1}">[이전]</a>&nbsp;
 					</c:if>
 					
 					<c:forEach var="a" begin="${pageInfo.startPage }" end="${pageInfo.endPage }" step="1">
@@ -151,7 +201,7 @@ img{
 								[${a }]
 							</c:when>
 							<c:otherwise>
-								<a href="myodList.od?page=${a }">[${a }]</a>&nbsp;
+								<a href="odList.od?page=${a }">[${a }]</a>&nbsp;
 							</c:otherwise>
 						</c:choose>
 					</c:forEach>
@@ -160,7 +210,7 @@ img{
 							[다음]
 						</c:when>
 						<c:otherwise>
-							<a href="myodList.od?page=${pageInfo.page+1 }">[다음]</a>
+							<a href="odList.od?page=${pageInfo.page+1 }">[다음]</a>
 						</c:otherwise>
 					</c:choose>
 				</td>
@@ -172,7 +222,9 @@ img{
 		</c:choose>
 		</table>
 	<br><br><br>
+	<button type="button" onclick="location.href='adminPage.jsp'" style="width:150px;">관리자페이지</button>
 	</div>
+	</form>
 </div>
  <jsp:include page="/common/footer.jsp" flush="false"/>
 </body>

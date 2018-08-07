@@ -76,6 +76,7 @@ public class UserItemListAction implements Action {
 		request.setAttribute("todayImageList", todayImageList);
 		
 		request.setAttribute("category", category);
+		request.setAttribute("std", standard);
 		request.setAttribute("pageInfo", pageInfo);
 		request.setAttribute("itemList", itemList);
 		forward= new ActionForward();
