@@ -127,7 +127,7 @@ dd{
 	}
 </script>
 </head>
-<link rel="stylesheet" type="text/css" href="../style/style.css">
+<link rel="stylesheet" type="text/css" href="style/style.css">
 <link rel="stylesheet" href="https://www.w3schools.com/w3css/3/w3.css">
 <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.6.3/css/font-awesome.min.css">
 <body>
@@ -139,7 +139,7 @@ dd{
 		<table>
 		<tr>
 			<c:forEach var="todayImage" items="${todayImageList }" varStatus="status" begin="0" end="5" step="1">
-				<td><img src="../images/${todayImage }" id="todayImage"/></td>
+				<td><img src="images/${todayImage }" id="todayImage"/></td>
 			</c:forEach>
 		</tr>
 		</table>
@@ -162,7 +162,7 @@ pageContext.setAttribute("uprice", uprice);
 	<form method="post" name="itemform">
 	<div id="idetail">
 		<div id="id_img">
-			<img src="../images/${item.img_path }" width="400px">
+			<img src="images/${item.img_path }" width="400px">
 		</div>
 		<div id="id_text">
 			<dl>
@@ -199,7 +199,7 @@ pageContext.setAttribute("uprice", uprice);
 <div class="goods_detail">
 	<h3>상품 소개</h3>
 	<h4>${item.item_name }</h4>
-	<img src="../images/${item.img_path }">
+	<img src="images/${item.img_path }">
 	<br><br>
 	<p>
 		${item.content }		
@@ -275,21 +275,26 @@ pageContext.setAttribute("uprice", uprice);
 			<tr id="top_menu">
 				<td id="td_check">번호</td>
 				<td colspan="2">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
-				&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
-				제목</td>
+				&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+				제목&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</td>
 				<td>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;작성자</td>
 				<td>작성일</td>
 			</tr>
+			
+			
 			<% 
 			for(int i=0;i<articleList.size();i++){
 			%>
 			<tr height="30px">
 				<td><%=articleList.get(i).getBoard_num()%></td>
-				<td colspan="2"><%=articleList.get(i).getSubject()%></td>
-				<td><%=articleList.get(i).getUser_id()%></td>
+				<td colspan="2">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<%=articleList.get(i).getSubject()%></td>
+				<td>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<%=articleList.get(i).getUser_id()%></td>
 				<td><%=articleList.get(i).getDate()%></td>
 			</tr>
 			<%} %>
+
+	
+
 		<tr>
 			<td colspan="6" id="td_info">
 			<br>
@@ -297,13 +302,13 @@ pageContext.setAttribute("uprice", uprice);
 		<%if(nowPage<=1){ %>
 		이전&nbsp;
 		<%}else{ %>
-		<a href="memberList.us?page=<%=nowPage-1 %>">이전</a>&nbsp;
+		<a href="uitemView.im?page=<%=nowPage-1 %>&item_code=${item.item_code }">이전</a>&nbsp;
 		<%} %>
 		<%for(int a=startPage;a<=endPage;a++){
 				if(a==nowPage){%>
 		<%=a %>
 		<%}else{ %>
-		<a href="memberList.us?page=<%=a%>"><%=a %>
+		<a href="uitemView.im?page=<%=a%>&item_code=${item.item_code }"><%=a %>
 		</a>&nbsp;
 		<%} %>
 		<%} %>
@@ -311,7 +316,7 @@ pageContext.setAttribute("uprice", uprice);
 		<%if(nowPage>=maxPage){ %>
 		&nbsp;다음
 		<%}else{ %>
-		<a href="memberList.us?page=<%=nowPage+1 %>">다음</a>
+		<a href="uitemView.im?item_code=${item.item_code }&page=<%=nowPage+1 %>">다음</a>
 		<%} %>
 		
 	</section>

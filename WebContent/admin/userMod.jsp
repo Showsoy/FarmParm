@@ -290,7 +290,7 @@ function selectEmail(sel) {
 <br>
 			<section id="commandCell">
 				<button type="submit">수정</button>
-				<button type="button" onclick="location.href='adminPage.jsp'">관리자 페이지</button>
+				<button type="button" onclick="location.href='/FarmParm/admin/adminPage.jsp'">관리자 페이지</button>
 			</section>
 <br><br>
 	

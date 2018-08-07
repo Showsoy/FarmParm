@@ -67,7 +67,7 @@ public class QnAWriteAction implements Action {
 			response.setContentType("text/html;charset=UTF-8");
 			PrintWriter out = response.getWriter();
 			out.println("<script>");
-			out.println("location.href='./detail.jsp';");
+			out.println("location.href='itemView.im';");
 			out.println("</script>");
 		}
 

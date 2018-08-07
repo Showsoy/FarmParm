@@ -527,7 +527,7 @@ public class BoardDAO {
 					String qna_list_sql="select * from qna_board order by user_id asc limit ?,5";
 					ArrayList<BoardBean> articleList = new ArrayList<BoardBean>();
 					BoardBean boardBean = null;
-					int startrow=(page-1)*5; //읽기 시작할 row 번호..	
+					int startrow=(page-1)*5; //읽기 시작할 row 번호..
 					
 					try{
 						pstmt = conn.prepareStatement(qna_list_sql);
@@ -535,6 +535,7 @@ public class BoardDAO {
 						rs = pstmt.executeQuery();
 
 						while(rs.next()){
+							
 							boardBean = new BoardBean(
 							rs.getInt("bnum"),
 							rs.getString("subject"),

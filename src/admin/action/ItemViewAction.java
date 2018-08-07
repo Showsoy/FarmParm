@@ -73,7 +73,8 @@ public class ItemViewAction implements action.Action{
 			String page = request.getParameter("page");
 			request.setAttribute("page", page);
 			request.setAttribute("i_page", i_page);
-			forward= new ActionForward("./itemView.jsp?page="+page,false);
+			forward= new ActionForward();
+			forward.setPath("./itemView.jsp?page="+page);
 		}
 		return forward;
 	}

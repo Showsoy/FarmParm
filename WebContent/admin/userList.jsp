@@ -250,7 +250,7 @@ function getSearch(){
 				<td><%=articleList.get(i).getGrade() %></td>
 				<td><%=articleList.get(i).getTot_price() %></td>
 				<td>
-					<button type="button" onclick="location.href='./memberModAdForm.us?uid=<%=articleList.get(i).getUser_id()%>'" id="gbutton">수정</button>
+					<button type="button" onclick="location.href='<%=request.getContextPath()%>/memberModAdForm.us?uid=<%=articleList.get(i).getUser_id()%>'" id="gbutton">수정</button>
 					<button type="button" onclick="location.href='memberDelete.us?uid=<%=articleList.get(i).getUser_id()%>'" id="gbutton">삭제</button>
 				</td>
 			</tr>
@@ -283,7 +283,7 @@ function getSearch(){
 			</tr>
 		</table>
 		<br><br><br>
-		<button type="button" id="bbutton" onclick="location.href='adminPage.jsp'" style="width:150px;">관리자페이지</button>
+		<button type="button" id="bbutton" onclick="location.href='/FarmParm/admin/adminPage.jsp'" style="width:150px;">관리자페이지</button>
 	</div>
 </div>
 

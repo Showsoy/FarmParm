@@ -22,7 +22,7 @@
 			<a href="<%=request.getContextPath()%>/memberLogout.us">로그아웃</a>&nbsp;
 		</c:otherwise>
 		</c:choose>  
-		    <a href="<%=request.getContextPath()%>/member/myPage.us">마이페이지</a>&nbsp;
+		    <a href="<%=request.getContextPath()%>/myPage.us">마이페이지</a>&nbsp;
 			<a href="<%=request.getContextPath()%>/order/myOrders.od">주문/배송</a>&nbsp;
 			<a href="<%=request.getContextPath()%>/common/csList.bo">고객센터</a>&nbsp;
 			<a href="<%=request.getContextPath()%>/item/cartList.ct">장바구니</a>&nbsp;

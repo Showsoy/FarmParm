@@ -24,7 +24,7 @@ public class MainItemListAction implements Action{
 		
 		request.setAttribute("bestList", bestList);
 		request.setAttribute("newList", newList);
-		forward= new ActionForward("../common/main.jsp",false);
+		forward= new ActionForward("common/main.jsp",false);
 		return forward;
 	}
 

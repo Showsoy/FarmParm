@@ -12,6 +12,6 @@
 </style>
 </head>
 <body>
-<a href="./common/main.im"><img src="images/index.png"/></a>
+<a href="main.im"><img src="images/index.png"/></a>
 </body>
 </html>

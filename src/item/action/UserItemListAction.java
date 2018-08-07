@@ -78,7 +78,8 @@ public class UserItemListAction implements Action {
 		request.setAttribute("category", category);
 		request.setAttribute("pageInfo", pageInfo);
 		request.setAttribute("itemList", itemList);
-		forward= new ActionForward("../item/uitemList.jsp",false);
+		forward= new ActionForward();
+		forward.setPath("item/uitemList.jsp");
 		return forward;
 	}
 

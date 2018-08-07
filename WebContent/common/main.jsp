@@ -10,7 +10,7 @@
 <style>
 </style>
 </head>
-<link rel="stylesheet" type="text/css" href="../style/style.css">
+<link rel="stylesheet" type="text/css" href="style/style.css">
 <link rel="stylesheet" href="https://www.w3schools.com/w3css/3/w3.css">
 <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.6.3/css/font-awesome.min.css">
 <script type="text/javascript" src="path/to/jQuery.js"></script>
@@ -18,8 +18,8 @@
 <body>
 <jsp:include page="/common/top_menu.jsp" flush="false"/>
 <section>
-  <img class="mySlides" src="../images/slide1.jpg" style="width:100%">
-  <img class="mySlides" src="../images/slide2.jpg" style="width:100%">
+  <img class="mySlides" src="images/slide1.jpg" style="width:100%">
+  <img class="mySlides" src="images/slide2.jpg" style="width:100%">
 </section>
 <script>
 // Automatic Slideshow - change image every 3 seconds
@@ -47,7 +47,7 @@ function carousel() {
 	<div id="container">
 		<ul class="prod-list" align="center">
 		<c:forEach var="best" items="${bestList }">
-			<li><img src="../images/${best.img_path }" alt="${best.item_name }">
+			<li><img src="images/${best.img_path }" alt="${best.item_name }">
 			<p>${best.item_name }</p>
 				<div class="caption">
 					<h1>${best.item_name }</h1>
@@ -70,7 +70,7 @@ function carousel() {
 <div id="container">
 		<ul class="prod-list" align="center">
 			<c:forEach var="newList" items="${newList }">
-			<li><img src="../images/${newList.img_path }" alt="${newList.item_name }">
+			<li><img src="images/${newList.img_path }" alt="${newList.item_name }">
 			<p>${newList.item_name }</p>
 				<div class="caption">
 					<h1>${newList.item_name }</h1>
@@ -89,17 +89,17 @@ function carousel() {
 <section class="w3-row-padding w3-center w3-light-grey">
   <article class="w3-third">
     <p>슬기농부</p>
-    <img src="../images/common.jpg" alt="Random Name">
+    <img src="images/common.jpg" alt="Random Name">
     <p>슰기슬기</p>
   </article>
   <article class="w3-third">
     <p>Paul</p>
-    <img src="../images/common1.jpg" alt="Random Name">
+    <img src="images/common1.jpg" alt="Random Name">
     <p>조이농부</p>
   </article>
   <article class="w3-third">
     <p>윤아농부</p>
-    <img src="../images/common2.jpg" alt="Random Name">
+    <img src="images/common2.jpg" alt="Random Name">
     <p>유나우나</p>
   </article>
 </section>

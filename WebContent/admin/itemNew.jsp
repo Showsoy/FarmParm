@@ -114,7 +114,7 @@ function selCategory(sel) {
 }
 </script>
 </head>
-<link rel="stylesheet" type="text/css" href="../style/style.css">
+<link rel="stylesheet" type="text/css" href="style/style.css">
 <link rel="stylesheet" href="https://www.w3schools.com/w3css/3/w3.css">
 <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.6.3/css/font-awesome.min.css">
 <body>
@@ -158,7 +158,7 @@ function selCategory(sel) {
 					</td>
 					<td id="codegen">
 						<input type="text" name="item_code" id="item_code" size="4"/>&nbsp;
-						<button type="button" name="check" id="check" onclick="window.open('./codeGen.jsp?openInit=true','','width=370, height=220')" id="gbutton">자동생성</button>
+						<button type="button" name="check" id="check" onclick="window.open('admin/codeGen.jsp?openInit=true','','width=370, height=220')" id="gbutton">자동생성</button>
 					</td>
 				</tr>
 				<tr>
@@ -195,7 +195,7 @@ function selCategory(sel) {
 			<br>
 			<section id="commandCell">
 				<button type="submit">등록</button>
-				<button type="button" onclick="location.href='adminPage.jsp'" style="width:120px;">관리자 페이지</button>
+				<button type="button" onclick="location.href='/FarmParm/admin/adminPage.jsp'" style="width:120px;">관리자 페이지</button>
 			</section>
 		</form>
 	</div>	

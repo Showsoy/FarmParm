@@ -80,7 +80,7 @@ public class ItemListAction implements Action {
 			pageInfo.setStartPage(startPage);
 			request.setAttribute("pageInfo", pageInfo);
 			request.setAttribute("itemList", itemList);
-			forward= new ActionForward("./itemList.jsp",false);
+			forward= new ActionForward("/admin/itemList.jsp",false);
 		}
 		return forward;
 	}

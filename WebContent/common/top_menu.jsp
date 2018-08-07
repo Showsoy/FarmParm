@@ -8,7 +8,7 @@
 </head>
 <body>
 <div class="header">
-   <a href="<%=request.getContextPath()%>/common/main.im"><img src="<%=request.getContextPath()%>/images/farm_logo.png" width="150px"></a>
+   <a href="<%=request.getContextPath()%>/main.im"><img src="<%=request.getContextPath()%>/images/farm_logo.png" width="150px"></a>
   <div>A website created by me.</div>
   <jsp:include page="/common/inner_menu.jsp" flush="false"/>
 </div>
@@ -21,15 +21,15 @@
 	      <a href="<%=request.getContextPath()%>/item/introduction.jsp">
 	      &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
 			  농원소개</a>
-	      <a href="<%=request.getContextPath()%>/item/uitemList.im?category=채소&std=new">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+	      <a href="<%=request.getContextPath()%>/uitemList.im?category=채소&std=new">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
 			채소</a>
-	      <a href="<%=request.getContextPath()%>/item/uitemList.im?category=과일&std=new">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+	      <a href="<%=request.getContextPath()%>/uitemList.im?category=과일&std=new">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
 	      	과일</a>
-	      <a href="<%=request.getContextPath()%>/item/uitemList.im?category=곡류&std=new">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+	      <a href="<%=request.getContextPath()%>/uitemList.im?category=곡류&std=new">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
 	      	쌀/잡곡</a>
-	      <a href="<%=request.getContextPath()%>/item/uitemList.im?category=차&std=new">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+	      <a href="<%=request.getContextPath()%>/uitemList.im?category=차&std=new">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
 	      	차</a>
-	      <a href="<%=request.getContextPath()%>/item/uitemList.im?category=가공&std=new">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+	      <a href="<%=request.getContextPath()%>/uitemList.im?category=가공&std=new">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
 	      	가공류</a>
 	    </div>
       <a href="<%=request.getContextPath()%>/common/location.jsp">오시는 길</a>
@@ -41,17 +41,17 @@
   <li class="dropdown">
     <a href="javascript:void(0)" class="dropbtn">&nbsp;&nbsp;팜팜소개&nbsp;&nbsp;</a>
     <div class="dropdown-content">
-      <a href="<%=request.getContextPath()%>/items/introduction.jsp">농원소개</a>
+      <a href="<%=request.getContextPath()%>/item/introduction.jsp">농원소개</a>
       <a href="<%=request.getContextPath()%>/common/location.jsp">오시는 길</a>
       <a href="<%=request.getContextPath()%>/common/noList.bo">안내사항</a>
     </div>
   </li>
-  <li><a href="<%=request.getContextPath()%>/item/uitemList.im?category=채소&std=new" class="dropbtn">&nbsp;&nbsp;&nbsp;&nbsp;채소&nbsp;&nbsp;&nbsp;&nbsp;</a></li>
-  <li><a href="<%=request.getContextPath()%>/item/uitemList.im?category=과일&std=new" class="dropbtn">&nbsp;&nbsp;&nbsp;&nbsp;과일&nbsp;&nbsp;&nbsp;&nbsp;</a></li>
-  <li><a href="<%=request.getContextPath()%>/item/uitemList.im?category=곡류&std=new" class="dropbtn">&nbsp;&nbsp;쌀/잡곡&nbsp;&nbsp;</a></li>
-  <li><a href="<%=request.getContextPath()%>/item/uitemList.im?category=차&std=new" class="dropbtn">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;차&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</a></li>
-  <li><a href="<%=request.getContextPath()%>/item/uitemList.im?category=가공&std=new" class="dropbtn">&nbsp;&nbsp;&nbsp;가공류&nbsp;&nbsp;&nbsp;</a></li>
-  <li><a href="<%=request.getContextPath()%>/item/uitemList.im?category=채소&std=new" id="market" target="_blank">&nbsp;&nbsp;팜팜마켓&nbsp;&nbsp;</a></li>
+  <li><a href="<%=request.getContextPath()%>/uitemList.im?category=채소&std=new" class="dropbtn">&nbsp;&nbsp;&nbsp;&nbsp;채소&nbsp;&nbsp;&nbsp;&nbsp;</a></li>
+  <li><a href="<%=request.getContextPath()%>/uitemList.im?category=과일&std=new" class="dropbtn">&nbsp;&nbsp;&nbsp;&nbsp;과일&nbsp;&nbsp;&nbsp;&nbsp;</a></li>
+  <li><a href="<%=request.getContextPath()%>/uitemList.im?category=곡류&std=new" class="dropbtn">&nbsp;&nbsp;쌀/잡곡&nbsp;&nbsp;</a></li>
+  <li><a href="<%=request.getContextPath()%>/uitemList.im?category=차&std=new" class="dropbtn">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;차&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</a></li>
+  <li><a href="<%=request.getContextPath()%>/uitemList.im?category=가공&std=new" class="dropbtn">&nbsp;&nbsp;&nbsp;가공류&nbsp;&nbsp;&nbsp;</a></li>
+  <li><a href="<%=request.getContextPath()%>/uitemList.im?category=채소&std=new" id="market" target="_blank">&nbsp;&nbsp;팜팜마켓&nbsp;&nbsp;</a></li>
 </ul>
 </div>
 </body>

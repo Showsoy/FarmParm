@@ -50,7 +50,7 @@ th, td {
 }
 </style>
 </head>
-<link rel="stylesheet" type="text/css" href="../style/style.css">
+<link rel="stylesheet" type="text/css" href="style/style.css">
 <link rel="stylesheet" href="https://www.w3schools.com/w3css/3/w3.css">
 <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.6.3/css/font-awesome.min.css">
 <body>
@@ -62,7 +62,7 @@ th, td {
 		<table>
 		<tr>
 			<c:forEach var="todayImage" items="${todayImageList }" varStatus="status" begin="0" end="5" step="1">
-				<td><img src="../images/${todayImage }" id="todayImage"/></td>
+				<td><img src="images/${todayImage }" id="todayImage"/></td>
 			</c:forEach>
 		</tr>
 		</table>
@@ -75,15 +75,15 @@ th, td {
 	<c:choose>
 		<c:when test="${pageInfo.listCount>0 }">
 		<span id="orderby">
-			<img src="../images/checked.png"/>
+			<img src="images/checked.png"/>
 			<a href="uitemList.im?category=${category }&std=new">신상품순</a>
-			<img src="../images/checked.png"/>
+			<img src="images/checked.png"/>
 			<a href="uitemList.im?category=${category }&std=high">가격높은순</a>
-			<img src="../images/checked.png"/>
+			<img src="images/checked.png"/>
 			<a href="uitemList.im?category=${category }&std=low">가격낮은순</a>
-			<img src="../images/checked.png"/>
+			<img src="images/checked.png"/>
 			<a href="uitemList.im?category=${category }&std=pc">판매량순</a>
-			<img src="../images/checked.png"/>
+			<img src="images/checked.png"/>
 			<a href="uitemList.im?category=${category }&std=rc">인기순</a>
 		</span>
 	<div id="goods_container">
@@ -99,8 +99,8 @@ th, td {
 		pageContext.setAttribute("uprice", uprice);
 		%>
 			<li>
-				<a href="uitemView.im?item_code=${itemList.item_code }">
-				<img id="prod_image" src="../images/${itemList.img_path }"/></a>
+				<a href="uitemView.im?item_code=${itemList.item_code }&page=1">
+				<img id="prod_image" src="images/${itemList.img_path }"/></a>
 				<div class="caption">
 				<a href="uitemView.im?item_code=${itemList.item_code }">
 					${itemList.item_name }</a><br>
@@ -110,11 +110,11 @@ th, td {
 					</c:when>
 					<c:otherwise>
 						<span id="or_price">${itemList.price }원</span><br>
-						<img src="../images/sale.png" style="width:24px;height:15px;border:none;padding:0;margin:0;">
+						<img src="images/sale.png" style="width:24px;height:15px;border:none;padding:0;margin:0;">
 						<span id="new_price" style="line-height:5px;margin:0 auto;font-size:14px;">${uprice }원(-${itemList.sale }%)</span><br>
 					</c:otherwise>
 				</c:choose>	
-					<a href="addCart.ct?item_code=${itemList.item_code }" style="color:black;paddin:0;font-size:13px;"><img src="../images/cart.png"/> 장바구니</a>
+					<a href="addCart.ct?item_code=${itemList.item_code }" style="color:black;paddin:0;font-size:13px;"><img src="images/cart.png"/> 장바구니</a>
 				</div>
 			</li>
 		</c:forEach>

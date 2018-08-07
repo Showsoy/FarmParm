@@ -571,7 +571,9 @@ public class UserDAO {
 	public ArrayList<UserViewBean> searchId(int page,int limit, String search_id){
 		PreparedStatement pstmt = null;
 		ResultSet rs = null;
-		String user_list_sql="select * from user_view where user_id=? order by user_id asc limit ?,5";
+		String user_list_sql="SELECT * FROM user_view WHERE user_id LIKE '%?%' order by user_id asc limit ?,5";
+		// SELECT * FROM user_view WHERE user_id LIKE '%?%' order by user_id asc limit ?,5
+		//select * from user_view where user_id=? order by user_id asc limit ?,5
 		ArrayList<UserViewBean> articleList = new ArrayList<UserViewBean>();
 		UserViewBean userList = null;
 		int startrow=(page-1)*5; //읽기 시작할 row 번호..	

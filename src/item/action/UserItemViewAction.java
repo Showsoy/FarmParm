@@ -13,7 +13,9 @@ import vo.ItemBean;
 import vo.BoardBean;
 import vo.PageInfo;
 
+
 public class UserItemViewAction implements action.Action{
+
 
 	@Override
 	public ActionForward execute(HttpServletRequest request, HttpServletResponse response) throws Exception {
@@ -24,23 +26,25 @@ public class UserItemViewAction implements action.Action{
 		HttpSession session = request.getSession();
 		String id = (String)session.getAttribute("user_id");
 
+		// ****상품문의 리스트****** 
 		String item_code = request.getParameter("item_code");
 		ItemService itemService = new ItemService();
 		BoardService boardService = new BoardService();
+		
 		
 		ArrayList<BoardBean> articleList = new ArrayList<BoardBean>();
 	  	int page=1;
 		int limit=5;
 		
-		// 여기가 이상함 페이지 부분 다시 볼 것
+		
 		if(request.getParameter("page")!=null){
 			page=Integer.parseInt(request.getParameter("page"));
 		}
-
+		
+		
 		int listCount = boardService.qnaListCount();
 		articleList = boardService.qna_list(page,limit);
 		
-		System.out.println(articleList + " : 이거 넘어왔나");
 		
 		int maxPage=(int)((double)listCount/limit+0.95); //0.95를 더해서 올림 처리.
    		//현재 페이지에 보여줄 시작 페이지 수(1, 11, 21 등...)
@@ -48,6 +52,7 @@ public class UserItemViewAction implements action.Action{
    		//현재 페이지에 보여줄 마지막 페이지 수.(10, 20, 30 등...)
    	    int endPage = startPage+10-1;
 		
+   	    // ****상품문의 리스트****** 
    	    
 		//재고 페이지
 //		int i_page = 1;
@@ -112,6 +117,8 @@ public class UserItemViewAction implements action.Action{
 			}
 		}
 		
+		// ****상품문의 리스트****** 
+		
 		if (endPage> maxPage) endPage= maxPage;
 		PageInfo pageInfo = new PageInfo();
    		pageInfo.setEndPage(endPage);
@@ -122,13 +129,15 @@ public class UserItemViewAction implements action.Action{
 		request.setAttribute("pageInfo", pageInfo);
 		request.setAttribute("articleList", articleList);
 		
+		// ****상품문의 리스트****** 
 		
 		request.setAttribute("todayImageList", todayImageList);
 		
 		request.setAttribute("item",item);
-		String page_2 = request.getParameter("page");
-		request.setAttribute("page", page_2);
-		forward= new ActionForward("../item/detail.jsp",false);
+		//String page_2 = request.getParameter("page");
+		request.setAttribute("page", page);
+		forward = new ActionForward();
+		forward.setPath("item/detail.jsp");
 		
 		return forward;
 		

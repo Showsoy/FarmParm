@@ -54,13 +54,15 @@ protected void doProcess(HttpServletRequest request, HttpServletResponse respons
     	String[] commands;
 		commands = command.split("/");
 		command = "/"+commands[commands.length-1];
+		
+		System.out.println(command + " :command");
     	
     	ActionForward forward = null;
     	Action action = null;
     	
     	if(command.equals("/itemRegistForm.im")) {
     		forward = new ActionForward();
-    		forward.setPath("./itemNew.jsp");
+    		forward.setPath("/admin/itemNew.jsp");
     	}else if(command.equals("/itemRegistPro.im")) {
     		action = new ItemNewAction();
     		try {

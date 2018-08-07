@@ -112,7 +112,7 @@ protected void doProcess(HttpServletRequest request, HttpServletResponse respons
 			}catch(Exception e){
 				e.printStackTrace();
 			}
-    	}else if(command.equals("/member/myPage.us")) {
+    	}else if(command.equals("/myPage.us")) {
     		action = new MemberMyPageAction();
 			try{
 				forward=action.execute(request, response);
@@ -137,14 +137,14 @@ protected void doProcess(HttpServletRequest request, HttpServletResponse respons
     		forward=new ActionForward();
 			//forward.setRedirect(true);
 			forward.setPath("./admin/adminPage.jsp");
-    	}else if(command.equals("/admin/memberList.us")) {
+    	}else if(command.equals("/memberList.us")) {
     		action = new MemberListAction();
 			try{
 				forward=action.execute(request, response);
 			}catch(Exception e){
 				e.printStackTrace();
 			}
-    	}else if(command.equals("/admin/memberModAdForm.us")) {
+    	}else if(command.equals("/memberModAdForm.us")) {
     		action = new MemberAdModifyFormAction();
 			try{
 				forward=action.execute(request, response);
@@ -200,7 +200,7 @@ protected void doProcess(HttpServletRequest request, HttpServletResponse respons
 			}catch(Exception e){
 				e.printStackTrace();
 			}
-    	}else if(command.equals("/admin/searchMemberList.us")) {
+    	}else if(command.equals("/searchMemberList.us")) {
     		System.out.println("dd");
     		action = new MemberSearchAction();
 			try{
@@ -208,7 +208,7 @@ protected void doProcess(HttpServletRequest request, HttpServletResponse respons
 			}catch(Exception e){
 				e.printStackTrace();
 			}
-    	}else if(command.equals("/admin/memberSelectDelete.us")) {
+    	}else if(command.equals("/memberSelectDelete.us")) {
     		action = new MemberSelectDeleteAction();
 			try{
 				forward=action.execute(request, response);

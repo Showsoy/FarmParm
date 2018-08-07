@@ -98,9 +98,9 @@ td, tr{
 	</tr>
 </table>
 <br><br>
-			<button onclick="location.href='pwCheckForm.us?id=${user.user_id}'">수정</button> 
+			<button onclick="location.href='./pwCheckForm.us?id=${user.user_id}'">수정</button> 
 	
-			<button onclick="location.href='<%=request.getContextPath()%>/common/main.jsp'">홈으로</button> 
+			<button onclick="location.href='main.im'">홈으로</button> 
 		
 	</div>
 </div>
