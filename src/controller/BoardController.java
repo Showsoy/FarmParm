@@ -20,6 +20,7 @@ import board.action.NoticeListAction;
 import board.action.NoticeRemoveAction;
 import board.action.NoticeViewAction;
 import board.action.NoticeWriteAction;
+import board.action.QnARemoveAction;
 import board.action.QnAWriteAction;
 import vo.ActionForward;
 
@@ -122,6 +123,13 @@ public class BoardController extends HttpServlet {
     		}
     	}else if(command.equals("/qnaRegist.bo")) {
     		action = new QnAWriteAction();
+    		try {
+    			forward = action.execute(request, response);
+    		}catch(Exception e) {
+    			e.printStackTrace();
+    		}
+    	}else if(command.equals("/qnaRemove.bo")) {
+    		action = new QnARemoveAction();
     		try {
     			forward = action.execute(request, response);
     		}catch(Exception e) {

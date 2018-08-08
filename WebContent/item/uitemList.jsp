@@ -85,23 +85,23 @@ th, td {
 		<c:when test="${pageInfo.listCount>0 }">
 		<span id="orderby">
 
-			<img src="../images/checked.png"/>
+			<img src="images/checked.png"/>
 			<a href="uitemList.im?category=${category }&std=new">
 			<c:choose><c:when test="${std eq 'vdate' }"><span id="selcategory">신상품순</span></c:when>
 			<c:otherwise>신상품순</c:otherwise></c:choose></a>
-			<img src="../images/checked.png"/>
+			<img src="images/checked.png"/>
 			<a href="uitemList.im?category=${category }&std=high">
 			<c:choose><c:when test="${std eq 'price' }"><span id="selcategory">가격높은순</span></c:when>
 			<c:otherwise>가격높은순</c:otherwise></c:choose></a>
-			<img src="../images/checked.png"/>
+			<img src="images/checked.png"/>
 			<a href="uitemList.im?category=${category }&std=low">
 			<c:choose><c:when test="${std eq 'low' }"><span id="selcategory">가격낮은순</span></c:when>
 			<c:otherwise>가격낮은순</c:otherwise></c:choose></a>
-			<img src="../images/checked.png"/>
+			<img src="images/checked.png"/>
 			<a href="uitemList.im?category=${category }&std=pc">
 			<c:choose><c:when test="${std eq 'purchase' }"><span id="selcategory">판매량순</span></c:when>
 			<c:otherwise>판매량순</c:otherwise></c:choose></a>
-			<img src="../images/checked.png"/>
+			<img src="images/checked.png"/>
 			<a href="uitemList.im?category=${category }&std=rc">
 			<c:choose><c:when test="${std eq 'readcount' }"><span id="selcategory">인기순</span></c:when>
 			<c:otherwise>인기순</c:otherwise></c:choose></a>

@@ -185,6 +185,23 @@ public class BoardService {
 		return listCount;
 		
 	}
+	// 문의글 삭제
+	public boolean deleteQnaArticle(String bnum) {
+		boolean deleteResult = false;
+		Connection con = getConnection();
+		BoardDAO boardDAO = BoardDAO.getInstance();
+		boardDAO.setConnection(con);
+		int deleteCount = boardDAO.deleteQnaArticle(bnum);
+		if(deleteCount > 0){
+			commit(con);
+			deleteResult = true;
+		}
+		else{
+			rollback(con);
+		}
+		close(con);
+		return deleteResult;
+	}
 	// 상품문의 글 리스트_2
 	public ArrayList<BoardBean> qna_list(int page, int limit) throws Exception{
 		Connection con = getConnection();

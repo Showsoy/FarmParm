@@ -147,17 +147,29 @@ function selectEmail(sel) {
 		<td id="td_left"><label for="userGrade">등급</label></td>
 		<td>
 		<select name="userGrade" id="userGrade">
-			<c:if test="${user.grade == '일반'}">
-				<option value="일반" selected>일반개인</option>
-				<option value="일반">일반사업</option>
-				<option value="우수">우수개인</option>
-				<option value="우수">우수사업</option>
+			<c:if test="${user.grade == '일반회원'}">
+				<option value="일반회원" selected>일반회원</option>
+				<option value="일반사업">일반사업</option>
+				<option value="우수회원">우수회원</option>
+				<option value="우수사업">우수사업</option>
 			</c:if>
-			<c:if test="${user.grade == '우수'}">
-				<option value="일반">일반개인</option>
-				<option value="일반">일반사업</option>
-				<option value="우수" selected>우수개인</option>
-				<option value="우수">우수사업</option>
+			<c:if test="${user.grade == '우수회원'}">
+				<option value="일반회원">일반회원</option>
+				<option value="일반사업">일반사업</option>
+				<option value="우수회원" selected>우수회원</option>
+				<option value="우수사업">우수사업</option>
+			</c:if>
+				<c:if test="${user.grade == '일반사업'}">
+				<option value="일반회원">일반회원</option>
+				<option value="일반사업" selected>일반사업</option>
+				<option value="우수회원">우수회원</option>
+				<option value="우수사업">우수사업</option>
+			</c:if>
+				<c:if test="${user.grade == '우수사업'}">
+				<option value="일반회원">일반회원</option>
+				<option value="일반사업">일반사업</option>
+				<option value="우수회원">우수회원</option>
+				<option value="우수사업" selected>우수사업</option>
 			</c:if>
 			
 		</select>

@@ -52,6 +52,8 @@ public class MemberAdModifyAction implements Action{
 						request.getParameter("userAddr3"),
 						uid
 						);
+			
+			
 	
 				boolean isRegistSuccess = userService.modifyUsers(user);
 					

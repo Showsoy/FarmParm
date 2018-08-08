@@ -457,6 +457,7 @@ public class BoardDAO {
 		}
 		return insertCount;
 	}
+	
 	public int writeArticle(String id, BoardBean board) {
 		PreparedStatement pstmt = null;
 		ResultSet rs = null;
@@ -491,8 +492,29 @@ public class BoardDAO {
 		}finally {
 			close(pstmt);
 		}
+
 		return insertCount;
 	}
+	// 문의글 삭제
+	public int deleteQnaArticle(String bnum){
+		PreparedStatement pstmt = null;
+		String sql="DELETE from qna_board WHERE bnum=?";
+		int deleteCount = 0;
+
+		try{
+			pstmt=conn.prepareStatement(sql);
+			pstmt.setString(1, bnum);
+			deleteCount = pstmt.executeUpdate();
+		}catch(Exception ex){
+			System.out.println("에러: " + ex);	
+		}finally{
+			close(pstmt);
+		}
+		
+		return deleteCount;
+	}
+	
+	
 	// 상품문의 글 리스트
 		public int qnaListCount() {
 
@@ -520,40 +542,42 @@ public class BoardDAO {
 		}
 	
 		// 상품문의 글 리스트_2
-				public ArrayList<BoardBean> qna_list(int page,int limit){
-					PreparedStatement pstmt = null;
-					ResultSet rs = null;
-					Connection conn = getConnection();
-					String qna_list_sql="select * from qna_board order by user_id asc limit ?,5";
-					ArrayList<BoardBean> articleList = new ArrayList<BoardBean>();
-					BoardBean boardBean = null;
-					int startrow=(page-1)*5; //읽기 시작할 row 번호..
-					
-					try{
-						pstmt = conn.prepareStatement(qna_list_sql);
-						pstmt.setInt(1, startrow);
-						rs = pstmt.executeQuery();
-
-						while(rs.next()){
-							
-							boardBean = new BoardBean(
-							rs.getInt("bnum"),
-							rs.getString("subject"),
-							rs.getString("user_id"),
-							rs.getDate("qdate"));
-							
-							articleList.add(boardBean);	
-						}
-
-					}catch(Exception ex){
-						System.out.println("에러 : " + ex);
-					}finally{
-						close(rs);
-						close(pstmt);
+			public ArrayList<BoardBean> qna_list(int page,int limit){
+				PreparedStatement pstmt = null;
+				ResultSet rs = null;
+				Connection conn = getConnection();
+				String qna_list_sql="select * from qna_board order by user_id asc limit ?,5";
+				ArrayList<BoardBean> articleList = new ArrayList<BoardBean>();
+				BoardBean boardBean = null;
+				int startrow=(page-1)*5; //읽기 시작할 row 번호..
+				
+				try{
+					pstmt = conn.prepareStatement(qna_list_sql);
+					pstmt.setInt(1, startrow);
+					rs = pstmt.executeQuery();
+	
+					while(rs.next()){
+						
+						boardBean = new BoardBean(
+						rs.getInt("bnum"),
+						rs.getString("subject"),
+						rs.getString("content"),
+						rs.getString("user_id"),
+						rs.getString("img_path"),
+						rs.getDate("qdate"));
+						
+						articleList.add(boardBean);	
 					}
-
-					return articleList;
+				}catch(Exception ex){
+					System.out.println("에러 : " + ex);
+				}finally{
+					close(rs);
+					close(pstmt);
 				}
+
+				return articleList;
+			}
+				
 
 		public int updateReadCount(int board_num) {
 		PreparedStatement pstmt = null;

@@ -63,10 +63,10 @@
 	<div id="admin_menu">
 	<br><br>
 		<button onclick="location.href='../memberList.us'">회원관리</button>
-		<button onclick="location.href='/itemSearch.jsp'">입출고등록</button><br>
-		<button onclick="location.href='/itemRegistForm.im'">상품등록</button>
+		<button onclick="location.href='itemSearch.jsp'">입출고등록</button><br>
+		<button onclick="location.href='itemRegistForm.im'">상품등록</button>
 		<button onclick="location.href='./itemList.im'">상품목록</button><br>
-		<button onclick="location.href='/odList.od'">주문목록</button>
+		<button onclick="location.href='./odList.od'">주문목록</button>
 		<button onclick="location.href='#'">상품발송</button>
 	</div>
 	</div>

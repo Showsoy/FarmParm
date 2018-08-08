@@ -24,6 +24,7 @@ public class QnAWriteAction implements Action {
 		HttpSession session = request.getSession();
 		String id = (String)session.getAttribute("id");
 		Util util = new Util();
+		request.setCharacterEncoding("UTF-8");
 		
 		ActionForward forward=null;
 		BoardBean boardBean = null;
@@ -43,9 +44,9 @@ public class QnAWriteAction implements Action {
 		String item_code = request.getParameter("item_code");
 		
 		boardBean = new BoardBean();
-		boardBean.setCode(multi.getParameter("item_code"));
-		boardBean.setContent(multi.getParameter("qna_content"));
+		boardBean.setCode(item_code);
 		boardBean.setSubject(multi.getParameter("qna_subject"));
+		boardBean.setContent(multi.getParameter("qna_content"));
 		boardBean.setImg_path(multi.getOriginalFileName((String)multi.getFileNames().nextElement()));
 		boardBean.setDate(date);
 		
@@ -53,7 +54,6 @@ public class QnAWriteAction implements Action {
 		BoardService boardService = new BoardService();
 		boolean isWriteSuccess = boardService.writeArticle(id, boardBean);
 		
-
 
 		if(!isWriteSuccess){
 			response.setContentType("text/html;charset=UTF-8");
@@ -64,11 +64,8 @@ public class QnAWriteAction implements Action {
 			out.println("</script>");
 		}
 		else{
-			response.setContentType("text/html;charset=UTF-8");
-			PrintWriter out = response.getWriter();
-			out.println("<script>");
-			out.println("location.href='itemView.im';");
-			out.println("</script>");
+			forward = new ActionForward();
+			forward.setPath("uitemView.im");
 		}
 
 		return forward;

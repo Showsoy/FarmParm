@@ -64,6 +64,7 @@ public class UserItemViewAction implements action.Action{
 		todayImageCookie.setMaxAge(60*60*24);
 		Cookie[] cookieArray = request.getCookies();
 		
+		
 		//이전 쿠키값 삭제
 		if(cookieArray!=null) {
 			for(int i=0;i<cookieArray.length;i++) {

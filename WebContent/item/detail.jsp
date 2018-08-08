@@ -111,6 +111,9 @@ dd{
 	font-family:"Nanum Gothic";
 	font-weight: 500;
 }
+#pageList{
+	text-align:center;
+}
 </style>
 <script>
 	function goto_url(act) {
@@ -125,6 +128,14 @@ dd{
 		}
 		document.itemform.submit();
 	}
+	
+	/* 일단해보자 */
+	
+	function layer_toggle(obj) {
+	if (obj.style.display == 'none') obj.style.display = 'block';
+	else if (obj.style.display == 'block') obj.style.display = 'none';
+	}
+	
 </script>
 </head>
 <link rel="stylesheet" type="text/css" href="style/style.css">
@@ -208,27 +219,10 @@ pageContext.setAttribute("uprice", uprice);
 <br><br><br>
 
 <div class="review">
-<h3>&nbsp;&nbsp;상품후기</h3>
-	<hr color="#4CAF50" size="5">
-		<table cellspacing="0" cellpadding="0" id="detail_board">
-			<tr id="top_menu" height="20px">
-				<td id="td_check">번호</td>
-				<td colspan="2">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
-				&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
-				제목</td>
-				<td>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;작성자</td>
-				<td>작성일</td>
-			</tr>
-			<tr height="30px">
-				<td>1</td>
-				<td colspan="2">
-				맛있다</td>
-				<td>나래</td>
-				<td>2018-07-07</td>
-			</tr>
-		</table>
+
 			<br><br><br>
-			
+			 <jsp:include page="review.jsp" flush="false"/>
+			 <br><br><br>
 		<div id="qna_regist">
 		<form action="qnaRegist.im" method="post" enctype="multipart/form-data" name="itemnew" onsubmit="return chkForm(this)">
 			<table>
@@ -265,8 +259,7 @@ pageContext.setAttribute("uprice", uprice);
 		</div>
 	</div>
 	<br><br><br><br>
-	
- <jsp:include page="review.jsp" flush="false"/>
+ 
 	<br><br>
 	<div class="qna">
 	<h3>&nbsp;&nbsp;상품문의</h3>
@@ -275,26 +268,54 @@ pageContext.setAttribute("uprice", uprice);
 			<tr id="top_menu">
 				<td id="td_check">번호</td>
 				<td colspan="2">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
-				&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
-				제목&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</td>
+				&nbsp;&nbsp;&nbsp;&nbsp;
+				제목&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</td>
 				<td>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;작성자</td>
 				<td>작성일</td>
 			</tr>
 			
-			
 			<% 
 			for(int i=0;i<articleList.size();i++){
 			%>
-			<tr height="30px">
-				<td><%=articleList.get(i).getBoard_num()%></td>
-				<td colspan="2">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<%=articleList.get(i).getSubject()%></td>
-				<td>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<%=articleList.get(i).getUser_id()%></td>
-				<td><%=articleList.get(i).getDate()%></td>
-			</tr>
-			<%} %>
-
 	
+			<tr height="30px">
+			<td><%=articleList.get(i).getBoard_num()%></td>
+			<td colspan="2" >&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+				<div id=아이디1<%=i %> style=display:block>
+				<a href=javascript:; onclick="layer_toggle(document.getElementById('아이디1<%=i %>')); layer_toggle(document.getElementById('아이디2<%=i %>'));return false;">
+				>  
+				<%=articleList.get(i).getSubject()%></a>
+				</div>
+				<div id=아이디2<%=i %> style=display:none >
+				<a href=javascript:; onclick="layer_toggle(document.getElementById('아이디1<%=i %>')); layer_toggle(document.getElementById('아이디2<%=i %>'));return false;">
+				> 
+				<%=articleList.get(i).getSubject()%></a><br><br>
+				-<br>
+				<%=articleList.get(i).getContent()%><br>
+				<%
+				if(articleList.get(i).getImg_path()!=null){
+				%>
+				<br>
+				<img src="images/<%=articleList.get(i).getImg_path()%>" width=120 height=150></img>
+				<%} %>
+				<br><br>
+				<%
+				if(articleList.get(i).getUser_id().equals("admin")){
+				%>
+				<button>답변</button> 
+				<button>수정</button> <!-- 삭제버튼 링크수정 -->
+				<button type="button" onclick="location.href='qnaRemove.bo?bnum=<%=articleList.get(i).getBoard_num()%>'">삭제</button>
+				<%} %>
+				</div>
+				<br>
+			</td>
+			<td>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<%=articleList.get(i).getUser_id()%></td>
+			<td><%=articleList.get(i).getDate()%></td>
+			</tr>
 
+			<%} %>
+			
+			
 		<tr>
 			<td colspan="6" id="td_info">
 			<br>
@@ -318,7 +339,6 @@ pageContext.setAttribute("uprice", uprice);
 		<%}else{ %>
 		<a href="uitemView.im?item_code=${item.item_code }&page=<%=nowPage+1 %>">다음</a>
 		<%} %>
-		
 	</section>
 			</td>
 			</tr>

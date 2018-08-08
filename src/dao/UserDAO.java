@@ -335,7 +335,7 @@ public class UserDAO {
 		String sql = "";
 		
 		try {
-			sql = "UPDATE users SET name=?,grade=?,phone=?,birth=?,gender=?,email=?,postcode=?,address=?,address_second=? where user_id=?";
+			sql = "UPDATE users SET name=?, grade=?, phone=?,birth=?,gender=?,email=?,postcode=?,address=?,address_second=? where user_id=?";
 								
 			pstmt = con.prepareStatement(sql);
 			pstmt.setString(1, user.getName());
@@ -595,7 +595,8 @@ public class UserDAO {
 	public ArrayList<UserViewBean> searchId(int page,int limit, String search_id){
 		PreparedStatement pstmt = null;
 		ResultSet rs = null;
-		String user_list_sql="SELECT * FROM user_view WHERE user_id LIKE '%?%' order by user_id asc limit ?,5";
+		String sid = search_id;
+		String user_list_sql="SELECT * FROM user_view WHERE user_id LIKE '%"+sid+"%' order by user_id asc limit 0,5";
 		// SELECT * FROM user_view WHERE user_id LIKE '%?%' order by user_id asc limit ?,5
 		//select * from user_view where user_id=? order by user_id asc limit ?,5
 		ArrayList<UserViewBean> articleList = new ArrayList<UserViewBean>();
@@ -604,8 +605,8 @@ public class UserDAO {
 
 		try{
 			pstmt = con.prepareStatement(user_list_sql);
-			pstmt.setString(1, search_id);
-			pstmt.setInt(2, startrow);
+//			pstmt.setString(1, search_id);
+//			pstmt.setInt(2, startrow);
 			rs = pstmt.executeQuery();
 
 			while(rs.next()){
@@ -633,15 +634,17 @@ public class UserDAO {
 	public ArrayList<UserViewBean> searchGrade(int page,int limit, String grade){
 		PreparedStatement pstmt = null;
 		ResultSet rs = null;
-		String user_list_sql="select * from user_view where grade=? order by user_id asc limit ?,5 ";
+		String gr = grade;
+		String user_list_sql="SELECT * FROM user_view WHERE grade LIKE '%"+gr+"%' order by user_id asc limit 0,5";
+		//SELECT * FROM user_view WHERE user_id LIKE '%"+gr+"%' order by grade asc limit 0,5
 		ArrayList<UserViewBean> articleList = new ArrayList<UserViewBean>();
 		UserViewBean userList = null;
 		int startrow=(page-1)*5; //읽기 시작할 row 번호..	
 
 		try{
 			pstmt = con.prepareStatement(user_list_sql);
-			pstmt.setString(1, grade);
-			pstmt.setInt(2, startrow);
+//			pstmt.setString(1, grade);
+//			pstmt.setInt(2, startrow);
 			rs = pstmt.executeQuery();
 
 			while(rs.next()){

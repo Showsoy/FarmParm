@@ -40,8 +40,8 @@ public class MemberLoginAction implements Action{
    			}
    			else {
 		   	    forward = new ActionForward();
-		   		forward.setRedirect(true);
-		   		forward.setPath("../common/main.im");
+		   		forward.setRedirect(true); 
+		   		forward.setPath("../main.im");
    			}
    		}
    		else{
@@ -49,7 +49,7 @@ public class MemberLoginAction implements Action{
 	   		PrintWriter out=response.getWriter();
 	   		out.println("<script>");
 	   		out.println("alert('로그인 실패');");
-	   		out.println("location.href='../member/login.jsp';");
+	   		out.println("location.href='login.jsp';");
 	   		out.println("</script>");
 	   		
    		}
