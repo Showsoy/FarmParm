@@ -22,6 +22,8 @@ import board.action.NoticeViewAction;
 import board.action.NoticeWriteAction;
 import board.action.QnARemoveAction;
 import board.action.QnAWriteAction;
+import board.action.ReviewWriteAction;
+import board.action.ReviewWriteFormAction;
 import vo.ActionForward;
 
 /**
@@ -128,8 +130,15 @@ public class BoardController extends HttpServlet {
     		}catch(Exception e) {
     			e.printStackTrace();
     		}
-    	}else if(command.equals("/qnaRemove.bo")) {
-    		action = new QnARemoveAction();
+    	}else if(command.equals("/reWrite.bo")) {
+    		action = new ReviewWriteAction();
+    		try {
+    			forward = action.execute(request, response);
+    		}catch(Exception e) {
+    			e.printStackTrace();
+    		}
+    	}else if(command.equals("/reForm.bo")) {
+    		action = new ReviewWriteFormAction();
     		try {
     			forward = action.execute(request, response);
     		}catch(Exception e) {

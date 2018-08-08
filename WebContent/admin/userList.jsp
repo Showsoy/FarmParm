@@ -1,19 +1,7 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"
     pageEncoding="UTF-8"%>
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
-<%@page import="vo.UserViewBean"%>
-<%@page import="vo.PageInfo"%>
-<%@ page import="java.util.*"%>
-<%@ page import="java.text.SimpleDateFormat"%>
-<%
-	ArrayList<UserViewBean> articleList=(ArrayList<UserViewBean>)request.getAttribute("articleList");
-    PageInfo pageInfo = (PageInfo)request.getAttribute("pageInfo");
-	int listCount=pageInfo.getListCount();
-	int nowPage=pageInfo.getPage();
-	int maxPage=pageInfo.getMaxPage();
-	int startPage=pageInfo.getStartPage();
-	int endPage=pageInfo.getEndPage();
-%>
+<%@ taglib prefix="fmt" uri="http://java.sun.com/jsp/jstl/fmt" %>
 <!DOCTYPE html PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN" "http://www.w3.org/TR/html4/loose.dtd">
 <html>
 <head>
@@ -139,7 +127,6 @@ input:hover, .mypage button:active, .mypage button:focus {
 	width: 70px;
 	border: 0;
 	padding: 5px;
-	margin-right: 530px;
 	border : 1px solid #ccc;
 	border-radius : 5px;
 	color: #191919;
@@ -172,8 +159,31 @@ input:hover, .mypage button:active, .mypage button:focus {
 	transition: all 0.3 ease;
 	cursor: pointer;
 }
-
-
+#listmenu{
+	display:flex;
+	flex-wrap:wrap;
+	width:850px;
+	padding:0 0 5px 0;
+	margin:0 auto;
+}
+#orderby{
+	float:left;
+	text-align:right;
+	padding : 10px 70px 0 90px;
+	font-size:13px;
+}
+#orderby img{
+	width:11px;
+	heigh:11px;
+	padding:0px 0px 5px 0px;
+}
+#selcategory{
+	font-weight:700;
+	color:#43A047;
+}
+#searchbar{
+	padding : 10px 0 0 0;
+}
 
 </style>
 <script>
@@ -186,12 +196,17 @@ function checkAll(theForm){
 		}
 	}
 }
-
-function getSearch(){
-	var searchList = document.getElementById("search_list").value;
-	var searchValue = document.getElementById("search").value;
-	
-	location.href="searchMemberList.us?searchList="+searchList+"&searchValue="+searchValue;
+function goto_url(act) {
+	if(act=='memberSelectDelete.us'){
+		var flag = confirm('한 번 삭제한 아이디는 복구할 수 없습니다.\n그래도 삭제하시겠습니까?');
+		if(flag){
+			document.listForm.action = act;
+			document.listForm.submit();
+		}
+	}else{
+		document.listForm.action = act;
+		document.listForm.submit();
+	}	
 }
 
 </script>
@@ -200,24 +215,36 @@ function getSearch(){
 <link rel="stylesheet" href="https://www.w3schools.com/w3css/3/w3.css">
 <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.6.3/css/font-awesome.min.css">
 <body>
-<form name="listForm" id="listForm" action="./memberSelectDelete.us">
 <jsp:include page="/common/top_menu.jsp" flush="false"/>
 
 <div class="pageform">
 	<h3>&nbsp;&nbsp;회원관리</h3>
 	<hr color="#4CAF50" size="5">
-	<div class="search">
-	<button type="submit" id="deletebt">선택삭제</button>
-		<label for="userPass" id="search_List">
-			<select name="search_list" id="search_list">
-			<option value="op_id">아이디</option>
-			<option value="op_grade">등급</option>
-			</select>
-		</label>
-		<input type="text" name="search" id="search"/>
-		<input type="button" name="searchbt" id="searchbt" onclick="getSearch()" value="검색"/>
-	</div>
 	<div class="mypage">
+	<form name="listForm" id="listForm">
+	<div id="listmenu">
+	<span>
+	<button type="button" id="deletebt" onclick="goto_url('memberSelectDelete.us')">선택삭제</button>
+	</span>
+	<span id="orderby">
+		<a href="memberList.us"><img src="./images/checked.png"/><c:choose><c:when test="${category eq 'all' }">
+		<span id="selcategory">전체</span></c:when><c:otherwise> 전체</c:otherwise></c:choose></a>
+		<a href="memberList.us?std=grade&grade=일반회원"><img src="./images/checked.png"/><c:choose><c:when test="${category eq '일반회원' }">
+		<span id="selcategory">일반회원</span></c:when><c:otherwise> 일반회원</c:otherwise></c:choose></a>
+		<a href="memberList.us?std=grade&grade=우수회원"><img src="./images/checked.png"/><c:choose><c:when test="${category eq '우수회원' }">
+		<span id="selcategory">우수회원</span></c:when><c:otherwise> 우수회원</c:otherwise></c:choose></a>
+		<a href="memberList.us?std=grade&grade=일반셀러"><img src="./images/checked.png"/><c:choose><c:when test="${category eq '일반셀러' }">
+		<span id="selcategory">일반셀러</span></c:when><c:otherwise> 일반셀러</c:otherwise></c:choose></a>
+		<a href="memberList.us?std=grade&grade=우수셀러"><img src="./images/checked.png"/><c:choose><c:when test="${category eq '우수셀러' }">
+		<span id="selcategory">우수셀러</span></c:when><c:otherwise> 우수셀러</c:otherwise></c:choose></a>
+		<a href="memberList.us?std=purchase"><img src="./images/checked.png"/><c:choose><c:when test="${category eq '구매금액' }">
+		<span id="selcategory">주문금액순</span></c:when><c:otherwise> 주문금액순</c:otherwise></c:choose></a>
+	</span>
+	<span id="searchbar">
+		<input type="text" name="search" id="search" placeholder="아이디"/>
+		<button type="button" name="searchbt" id="searchbt" onclick="goto_url('memberList.us')">검색</button>
+	</span>
+	</div>
 		<table cellspacing="0" cellpadding="0">
 			<tr id="top_menu">
 				<td id="td_check">
@@ -228,66 +255,59 @@ function getSearch(){
 				<td>주문금액</td>
 				<td>수정/삭제</td>
 			</tr>
-			<% 
-			for(int i=0;i<articleList.size();i++){
-			String grade = articleList.get(i).getGrade();
-			if(grade.equals("관리")){
-			%>
-	
+			<c:set var="num" value="${pageInfo.listCount-(pageInfo.page-1)*10 }"/>
+			<c:forEach var="userList" items="${userList }">
 			<tr>
-				<td>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;-</td>
-				<td><%=i+1%></td>
-				<td><%=articleList.get(i).getUser_id()%></td>
-				<td><%=articleList.get(i).getGrade()%></td>
-				<td><%=articleList.get(i).getTot_price()%></td>
-				<td>-</td>
+				<td><c:if test="${userList.grade != '관리자' }">
+						<input type="checkbox" id="ckb" name="ckb" value="${userList.user_id }"/>
+				</c:if></td>
+				<td>${num }</td><c:set var="num" value="${num-1 }"/>
+				<td>${userList.user_id }</td>
+				<td>${userList.grade }</td>
+				<td><fmt:formatNumber value="${userList.tot_price }" type="number"/>원</td>
+				<td><c:if test="${userList.grade != '관리자' }">
+					<button type="button" onclick="location.href='userView.us?user_id=${userList.user_id}'" id="gbutton">조회</button>
+				</c:if></td>
 			</tr>
-		<%}else{ %>
-			<tr>
-				<td><input type="checkbox" id="ckb" name="ckb" value="<%=articleList.get(i).getUser_id()%>"/></td>
-				<td><%=i+1%></td>
-				<td><%=articleList.get(i).getUser_id()%></td>
-				<td><%=articleList.get(i).getGrade() %></td>
-				<td><%=articleList.get(i).getTot_price() %></td>
-				<td>
-					<button type="button" onclick="location.href='<%=request.getContextPath()%>/memberModAdForm.us?uid=<%=articleList.get(i).getUser_id()%>'" id="gbutton">수정</button>
-					<button type="button" onclick="location.href='memberDelete.us?uid=<%=articleList.get(i).getUser_id()%>'" id="gbutton">삭제</button>
-				</td>
-			</tr>
-		<%} }%>
+			</c:forEach>
 			<tr>
 			<td colspan="6" id="td_info">
 	<section id="pageList">
-		<%if(nowPage<=1){ %>
-		이전&nbsp;
-		<%}else{ %>
-		<a href="memberList.us?page=<%=nowPage-1 %>">이전</a>&nbsp;
-		<%} %>
-		<%for(int a=startPage;a<=endPage;a++){
-				if(a==nowPage){%>
-		<%=a %>
-		<%}else{ %>
-		<a href="memberList.us?page=<%=a%>"><%=a %>
-		</a>&nbsp;
-		<%} %>
-		<%} %>
-
-		<%if(nowPage>=maxPage){ %>
-		&nbsp;다음
-		<%}else{ %>
-		<a href="memberList.us?page=<%=nowPage+1 %>">다음</a>
-		<%} %>
-		
+		<c:if test="${pageInfo.page<=1 }">
+			[이전]&nbsp;
+		</c:if>
+		<c:if test="${pageInfo.page>1 }">
+			<a href="memberList.us?page=${pageInfo.page-1}">[이전]</a>&nbsp;
+		</c:if>
+					
+		<c:forEach var="a" begin="${pageInfo.startPage }" end="${pageInfo.endPage }" step="1">
+			<c:choose>
+				<c:when test="${a==pageInfo.page }">
+					[${a }]
+				</c:when>
+				<c:otherwise>
+					<a href="memberList.us?page=${a }">[${a }]</a>&nbsp;
+				</c:otherwise>
+			</c:choose>
+		</c:forEach>
+			<c:choose>
+				<c:when test="${pageInfo.page>=pageInfo.maxPage }">
+					[다음]
+				</c:when>
+				<c:otherwise>
+					<a href="memberList.us?page=${pageInfo.page+1 }">[다음]</a>
+				</c:otherwise>
+			</c:choose>
 	</section>
 			</td>
 			</tr>
 		</table>
 		<br><br><br>
 		<button type="button" id="bbutton" onclick="location.href='/FarmParm/admin/adminPage.jsp'" style="width:150px;">관리자페이지</button>
+	</form>
 	</div>
 </div>
 
  <jsp:include page="/common/footer.jsp" flush="false"/>
-</form>
 </body>
 </html>

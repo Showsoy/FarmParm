@@ -1,7 +1,5 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"
     pageEncoding="UTF-8"%>
-<%@ page import="java.util.*" %>
-<%@ page import="java.text.SimpleDateFormat" %>
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
 <%@ taglib prefix="fmt" uri="http://java.sun.com/jsp/jstl/fmt" %>
 <!DOCTYPE html PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN" "http://www.w3.org/TR/html4/loose.dtd">
@@ -10,25 +8,29 @@
 <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
 <title>Insert title here</title>
 <style>
-table{
+.mypage table{
+	width:700px;
 	margin:0 auto;
+	text-align:left;
+	padding : 15px;
+	border-radius:10px;
 	border-collapse: collapse;
-    width: 80%;
-	background-color:white;
 }
-tr{
-	height:70px;
+.mypage tr{
+	padding-top: 12px;
+    padding-bottom: 12px;
 }
-td{
-    border-bottom: 1px solid #ddd;
+.mypage td{
+	padding:5px 5px 5px 10px;
 }
-td p{
-	text-height:100%;
-	float:left;
+.mypage table td label{
+	font-weight:700;
+	font-family:"Nanum Gothic";
+	color : #43A047;
+	font-size:14px;
 }
-img{
+td, tr{
 	border: 1px solid #ddd;
-	padding : 0 0 0 2px;
 }
 .mypage button {
 	font-family:"Nanum Gothic";
@@ -45,14 +47,22 @@ img{
 	transition: all 0.3 ease;
 	cursor: pointer;
 }
+.mypage button:hover, .mypage button:active, .mypage button:focus {
+	background: #191919;
+}
+#td_left{
+	background-color:#F6F6F6;
+	width:100px;
+}
 #wbutton{
 	font-family:"Nanum Gothic";
 	font-weight: 500;
+	width:50px;
 	text-transform: uppercase;
 	outline: 0;
 	background: #fff;
 	border: 0;
-	padding: 5px;
+	padding: 4px;
 	border : 1px solid #ccc;
 	border-radius : 5px;
 	color: #191919;
@@ -61,57 +71,81 @@ img{
 	transition: all 0.3 ease;
 	cursor: pointer;
 }
-#wbutton:active{
+#wbutton:active, #wbutton:hover{
 	background: #F6F6F6;
 }
-#gbutton {
-	font-family:"Nanum Gothic";
-	font-weight: 700;
-	text-transform: uppercase;
-	outline: 0;
-	background: #4CAF50;
-	width: 60px;
-	border: 0;
-	padding: 5px;
-	color: #FFFFFF;
-	font-size: 14px;
-	-webkit-transition: all 0.3 ease;
-	transition: all 0.3 ease;
-	cursor: pointer;
-}
-#gbutton:hover, #gbutton:active, #gbutton:focus {
-	background: #43A047;
-}
-#top_menu{
-	background-color:#333;
-	color:white;
-	height:40px;
-}
-#tr_total{
-	background-color:#F6F6F6;
-	height:180px;
-}
-#td_check{
-	width:50px;
-	text-align:center;
+#commandLine{
+	margin:0 auto;
+	width:750px;
+	padding:0 0 5px 590px;
+	text-aling:right;
 }
 #td_info{
+	text-align:center;
 	color:#5D5D5D;
 	font-size:14px;
 }
 </style>
 <script>
+	function deleteCheck(v){
+		var flag = confirm('한 번 삭제한 아이디는 복구할 수 없습니다.\n그래도 삭제하시겠습니까?');
+		if(flag){
+			location.href=("memberDelete.us?uid="+v);
+		}
+		
+	}
 </script>
 </head>
-<link rel="stylesheet" type="text/css" href="../style/style.css">
+<link rel="stylesheet" type="text/css" href="<%=request.getContextPath()%>/style/style.css">
 <link rel="stylesheet" href="https://www.w3schools.com/w3css/3/w3.css">
 <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.6.3/css/font-awesome.min.css">
 <body>
 <jsp:include page="/common/top_menu.jsp" flush="false"/>
 <div class="pageform">
-	<h3>&nbsp;&nbsp;주문조회</h3>
+	<h3>&nbsp;&nbsp;회원정보</h3>
 	<hr color="#4CAF50" size="5">
 	<div class="mypage">
+	<div id="grade"><b id="grade_deco">|</b>${user.grade }</div>
+	<div id="commandLine">
+		<button id="wbutton" onclick="location.href='./memberModAdForm.us?uid=${user.user_id}'">수정</button> 
+		<button id="wbutton" onclick="deleteCheck('${user.user_id}');">삭제</button> 
+	</div>
+	<table cellspacing="0" cellpadding="0">
+	<tr>
+		<td id="td_left"><label for="userID">아이디</label> </td>
+		<td>${user.user_id}</td>
+	</tr>
+	<tr>
+		<td id="td_left"><label for="userID">포인트</label> </td>
+		<td>${user.point}</td>
+	</tr>
+	<tr>
+		<td id="td_left"><label for="userID">이름</label></td>
+		<td>${user.name}</td>
+	</tr>
+	<tr>
+		<td id="td_left"><label for="userID">연락처</label></td>
+		<td>${user.phone}</td>
+	</tr>
+	<tr>
+		<td id="td_left"><label for="userID">생년월일</label></td>
+		<td>${user.birth}</td>
+	</tr>
+	<tr>
+		<td id="td_left"><label for="userID">성별</label></td>
+		<td>${user.gender}</td>
+	</tr>
+	<tr>
+		<td id="td_left"><label for="userID">이메일</label></td>
+		<td>${email1 }@${email2 }</td>
+	</tr>
+	<tr>
+		<td id="td_left"><label for="userID">주소</label></td>
+		<td rowspan="3">${user.postcode}<br>${user.address}<br>${user.address_second}</td>
+	</tr>
+</table>
+<br><br>
+	<div class="orderbox">
 		<table cellspacing="0" cellpadding="0">
 			<c:choose>
 				<c:when test="${pageInfo.listCount>0 }">	
@@ -129,7 +163,7 @@ img{
 				<td><fmt:formatDate pattern="yyyy-MM-dd HH:mm:ss" value="${orderList.dati }" /></td>
 				<td>${orderList.pay }원</td>
 				<td>${orderList.state }</td>
-				<td><button type="button" onclick="location.href='myodView.od?order_id=${orderList.order_id}&page=${pageInfo.page }'" id="gbutton">조회</button></td>
+				<td><button type="button" id="wbutton" onclick="location.href='./admin/odView.od?order_id=${orderList.order_id}&page=${pageInfo.page }'" id="gbutton">조회</button></td>
 			</tr>
 			</c:forEach>
 			<tr>
@@ -138,7 +172,7 @@ img{
 						[이전]&nbsp;
 					</c:if>
 					<c:if test="${pageInfo.page>1 }">
-						<a href="myodList.od?page=${pageInfo.page-1}">[이전]</a>&nbsp;
+						<a href="userView.us?user_id=${user.user_id }&page=${pageInfo.page-1}">[이전]</a>&nbsp;
 					</c:if>
 					
 					<c:forEach var="a" begin="${pageInfo.startPage }" end="${pageInfo.endPage }" step="1">
@@ -147,7 +181,7 @@ img{
 								[${a }]
 							</c:when>
 							<c:otherwise>
-								<a href="myodList.od?page=${a }">[${a }]</a>&nbsp;
+								<a href="userView.us?user_id=${user.user_id }&page=${a }">[${a }]</a>&nbsp;
 							</c:otherwise>
 						</c:choose>
 					</c:forEach>
@@ -156,7 +190,7 @@ img{
 							[다음]
 						</c:when>
 						<c:otherwise>
-							<a href="myodList.od?page=${pageInfo.page+1 }">[다음]</a>
+							<a href="userView.us?user_id=${user.user_id }&{pageInfo.page+1 }">[다음]</a>
 						</c:otherwise>
 					</c:choose>
 				</td>
@@ -168,6 +202,8 @@ img{
 		</c:choose>
 		</table>
 	<br><br><br>
+	</div>
+	<button type="button" id="bbutton" onclick="location.href='/FarmParm/admin/adminPage.jsp'" style="width:150px;">관리자페이지</button>
 	</div>
 </div>
  <jsp:include page="/common/footer.jsp" flush="false"/>

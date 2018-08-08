@@ -1,16 +1,19 @@
 package item.action;
 
 import java.util.ArrayList;
+import java.util.HashMap;
+import java.util.Map;
 
 import javax.servlet.http.Cookie;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import javax.servlet.http.HttpSession;
-import svc.ItemService;
+
 import svc.BoardService;
+import svc.ItemService;
 import vo.ActionForward;
-import vo.ItemBean;
 import vo.BoardBean;
+import vo.ItemBean;
 import vo.PageInfo;
 
 
@@ -78,7 +81,7 @@ public class UserItemViewAction implements action.Action{
 		response.addCookie(todayImageCookie);
 		
 		//Cookie load
-		ArrayList<String> todayImageList = new ArrayList<String>();
+		Map<String,String> todayImageMap = new HashMap<String,String>();
 		//길이가 8이면 7부터 -> 7 6 5 4 3, 2전까지 2는 길이 - 6
 		int count = 0;
 		if (cookieArray != null) {
@@ -86,11 +89,12 @@ public class UserItemViewAction implements action.Action{
 				if (count == 5)
 					break;
 				if (cookieArray[i].getName().startsWith("today")) {
-					todayImageList.add(cookieArray[i].getValue());
+					todayImageMap.put(cookieArray[i].getName().replaceAll("today", ""), cookieArray[i].getValue());
 					count++;
 				}
 			}
 		}
+		System.out.println(todayImageMap.size());
 		
 		// ****상품문의 리스트****** 
 		
@@ -106,7 +110,7 @@ public class UserItemViewAction implements action.Action{
 		
 		// ****상품문의 리스트****** 
 		
-		request.setAttribute("todayImageList", todayImageList);
+		request.setAttribute("todayImageMap", todayImageMap);
 		
 		request.setAttribute("item",item);
 		//String page_2 = request.getParameter("page");

@@ -86,7 +86,7 @@ a, a:hover, a:active{
 			f.id.focus();
 			return false;
 		}
-		document.joinform.submit();
+		document.id_check.submit();
 	}
 </script>
 

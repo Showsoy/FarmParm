@@ -136,11 +136,20 @@ public class OrderService {
 		close(conn);
 		return orderList;
 	}
-	public ArrayList<OrderBean> userOrderList(String user_id, int page) {
+	public ArrayList<OrderViewBean> userItemList(String user_id) {
 		OrderDAO orderDAO = OrderDAO.getInstance();
 		Connection conn = getConnection();
 		orderDAO.setConnection(conn);
-		ArrayList<OrderBean> orderList = orderDAO.userOrderList(user_id, page);
+		ArrayList<OrderViewBean> orderList = orderDAO.userItemList(user_id);
+		
+		close(conn);
+		return orderList;
+	}
+	public ArrayList<OrderBean> userOrderList(String user_id, int page, int limit) {
+		OrderDAO orderDAO = OrderDAO.getInstance();
+		Connection conn = getConnection();
+		orderDAO.setConnection(conn);
+		ArrayList<OrderBean> orderList = orderDAO.userOrderList(user_id, page, limit);
 		
 		close(conn);
 		return orderList;

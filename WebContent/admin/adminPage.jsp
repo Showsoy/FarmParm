@@ -26,7 +26,7 @@
 	text-align:center;
 	background-color:#f6f6f6;
 	width:400px;
-	height:200px;
+	height:230px;
 	border:1px solid #ccc;
 	border-radius:5px;
 }
@@ -63,8 +63,10 @@
 	<div id="admin_menu">
 	<br><br>
 		<button onclick="location.href='../memberList.us'">회원관리</button>
-		<button onclick="location.href='itemSearch.jsp'">입출고등록</button><br>
-		<button onclick="location.href='itemRegistForm.im'">상품등록</button>
+
+		<button onclick="location.href='./itemSearch.jsp'">입출고등록</button><br>
+		<button onclick="location.href='./itemRegistForm.im'">상품등록</button>
+
 		<button onclick="location.href='./itemList.im'">상품목록</button><br>
 		<button onclick="location.href='./odList.od'">주문목록</button>
 		<button onclick="location.href='#'">상품발송</button>

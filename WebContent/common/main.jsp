@@ -1,6 +1,7 @@
 ﻿<%@ page language="java" contentType="text/html; charset=UTF-8"
     pageEncoding="UTF-8"%>
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
+<%@ taglib prefix="fmt" uri="http://java.sun.com/jsp/jstl/fmt" %>
 <!DOCTYPE html PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN" "http://www.w3.org/TR/html4/loose.dtd">
 <html>
 <head>
@@ -50,10 +51,12 @@ function carousel() {
 			<li><img src="images/${best.img_path }" alt="${best.item_name }">
 			<p>${best.item_name }</p>
 				<div class="caption">
-					<h1>${best.item_name }</h1>
-					<p>
-						<br><a href="uitemView.im?item_code=${best.item_code }"><img src="images/zoom-in.png" style="width:24px;height:24px;border:0;"></a>
-						<a href="addCart.ct?item_code=${best.item_code }"><img src="images/shopping-cart.png" style="width:24px;height:24px;border:0;"></a>
+					<h4><fmt:formatNumber value="${best.price }" type="currency"/></h4>
+					<p>&nbsp;&nbsp;&nbsp;
+						<a href="./item/uitemView.im?item_code=${best.item_code }"><img src="./images/zoom-in.png" style="width:24px;height:24px;border:0;"></a>
+						&nbsp;&nbsp;
+						<a href="./item/addCart.ct?item_code=${best.item_code }"><img src="./images/shopping-cart.png" style="width:24px;height:24px;border:0;"></a>
+
 					</p>
 				</div> 
 			</li>
@@ -73,10 +76,13 @@ function carousel() {
 			<li><img src="images/${newList.img_path }" alt="${newList.item_name }">
 			<p>${newList.item_name }</p>
 				<div class="caption">
-					<h1>${newList.item_name }</h1>
-					<p>
-						<br><a href="uitemView.im?item_code=${newList.item_code }"><img src="images/zoom-in.png" style="width:24px;height:24px;border:0;"></a>
-						<a href="addCart.ct?item_code=${newList.item_code }"><img src="images/shopping-cart.png" style="width:24px;height:24px;border:0;"></a>
+
+					<h4><fmt:formatNumber value="${newList.price }" type="currency"/></h4>
+					<p>&nbsp;&nbsp;&nbsp;
+						<a href="./item/uitemView.im?item_code=${newList.item_code }"><img src="./images/zoom-in.png" style="width:24px;height:24px;border:0;"></a>
+						&nbsp;&nbsp;
+						<a href="./item/addCart.ct?item_code=${newList.item_code }"><img src="./images/shopping-cart.png" style="width:24px;height:24px;border:0;"></a>
+
 					</p>
 				</div> 
 			</li>

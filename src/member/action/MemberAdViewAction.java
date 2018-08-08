@@ -1,4 +1,4 @@
-package admin.action;
+package member.action;
 
 import java.io.PrintWriter;
 import java.util.ArrayList;
@@ -9,11 +9,14 @@ import javax.servlet.http.HttpSession;
 
 import action.Action;
 import svc.OrderService;
+import svc.UserService;
 import vo.ActionForward;
 import vo.OrderBean;
+import vo.OrderViewBean;
 import vo.PageInfo;
+import vo.UserBean;
 
-public class OrderListAction implements Action {
+public class MemberAdViewAction implements Action {
 
 	@Override
 	public ActionForward execute(HttpServletRequest request, HttpServletResponse response) throws Exception {
@@ -36,30 +39,22 @@ public class OrderListAction implements Action {
 			PrintWriter out = response.getWriter();
 			out.println("<script>");
 			out.println("alert('권한이 없습니다.');");
-			out.println("location.href='../common/main.im';");
+			out.println("location.href='../main.im';");
 			out.println("</script>");
 		}else {
+			UserService userService = new UserService();
+			OrderService orderService = new OrderService();
+			String user_id = request.getParameter("user_id");
 			ArrayList<OrderBean> orderList = new ArrayList<OrderBean>();
 			int page = 1;
-			int limit = 10;
+			int limit = 5;
 			int limitPage = 10;
-			int listCount = 10;
+			int listCount = 0;
 			
+			listCount = orderService.listCountUserOrder(user_id);
 			if(request.getParameter("page")!=null) {
 				page = Integer.parseInt(request.getParameter("page"));
 			}
-			String state = request.getParameter("state");
-			
-			OrderService orderService = new OrderService();
-			if(state==null){
-				state="all";
-				listCount = orderService.listCountOrder();
-				orderList = orderService.selectOrderList(page);
-			}else {
-				listCount = orderService.listCountOrderState(state);
-				orderList = orderService.selectOrderStateList(page, state);
-			}
-			
 			int maxPage = (int)((double)listCount/limit+0.95); 
 			int startPage = (((int)((double)page/limitPage+0.9))-1) *limitPage +1;
 			int endPage = startPage+limitPage-1;
@@ -71,10 +66,21 @@ public class OrderListAction implements Action {
 			pageInfo.setMaxPage(maxPage);
 			pageInfo.setPage(page);
 			pageInfo.setStartPage(startPage);
-			request.setAttribute("state", state);
+			
+			UserBean user = userService.selectUserInfo(user_id);
+			orderList = orderService.userOrderList(user_id, page, limit);
+			
+			String email = user.getEmail();
+			String emails[] = new String[2];
+			emails = email.split("@");
+			
+			request.setAttribute("email1", emails[0]);
+			request.setAttribute("email2", emails[1]);
+			request.setAttribute("page", page);
 			request.setAttribute("pageInfo", pageInfo);
+			request.setAttribute("user", user);
 			request.setAttribute("orderList", orderList);
-			forward= new ActionForward("./orderList.jsp",false);
+			forward= new ActionForward("/admin/userView.jsp",false);
 		}
 		return forward;
 	}

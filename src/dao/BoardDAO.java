@@ -404,8 +404,8 @@ public class BoardDAO {
 		}catch(Exception e) {
 			e.printStackTrace();
 		}finally {
-			close(rs);
-			close(pstmt);
+			if(rs!=null) close(rs);
+			if(pstmt!=null)close(pstmt);
 		}
 		return bnum;
 	}
@@ -457,8 +457,54 @@ public class BoardDAO {
 		}
 		return insertCount;
 	}
-	
-	public int writeArticle(String id, BoardBean board) {
+	public boolean testReviewBoard(String item_code, String id) {
+		boolean result = true;
+		String sql = "SELECT * FROM review_board WHERE item_code = '"+item_code+"' AND user_id = '"+id+"'";
+		PreparedStatement pstmt = null;
+		ResultSet rs = null;
+		
+		try {
+			pstmt = conn.prepareStatement(sql);
+			rs = pstmt.executeQuery();
+			if(rs.next()) result=false;
+			
+		}catch(Exception e){
+			e.printStackTrace();
+		}finally {
+			if(rs!=null) close(rs);
+			if(pstmt!=null) close(pstmt);
+		}
+		
+		return result;
+	}
+	public int writeArticle(String bName, BoardBean board) {
+		PreparedStatement pstmt = null;
+		String sql = "INSERT INTO "+bName+" VALUES(?,?,?,?,?,?,?,now(),?,?)";
+		int insertCount = 0;
+		
+		try {
+			pstmt = conn.prepareStatement(sql);
+			pstmt.setInt(1, board.getBoard_num());
+			pstmt.setString(2, board.getCode());
+			pstmt.setString(3, board.getUser_id());
+			pstmt.setString(4, board.getContent().replaceAll("<", "&lt;").replaceAll(">", "&gt;").replaceAll("\r\n", "<br>"));
+			pstmt.setString(5, board.getSubject().replaceAll("<", "&lt;").replaceAll(">", "&gt;").replaceAll("\r\n", "<br>"));
+			pstmt.setString(6, board.getImg_path());
+			pstmt.setInt(7, 0);
+			pstmt.setInt(8, board.getRgroup());
+			pstmt.setInt(9, board.getRstep());
+			
+			insertCount = pstmt.executeUpdate();
+			
+		}catch(Exception e) {
+			e.printStackTrace();
+		}finally {
+			close(pstmt);
+		}
+		return insertCount;
+	}
+	public int writeArticle1(String id, BoardBean board) {
+
 		PreparedStatement pstmt = null;
 		ResultSet rs = null;
 		int num = 0;
@@ -490,6 +536,7 @@ public class BoardDAO {
 		}catch(Exception e) {
 			e.printStackTrace();
 		}finally {
+			close(rs);
 			close(pstmt);
 		}
 
@@ -599,7 +646,6 @@ public class BoardDAO {
 	public int replyCsBoard(BoardBean board) {
 		
 		PreparedStatement pstmt = null;
-		ResultSet rs = null;
 		String sql = "";
 		int insertCount = 0;
 		int rgroup = board.getRgroup();

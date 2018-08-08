@@ -211,12 +211,38 @@ public class BoardService {
 		close(con);
 		return userList;
 	}
-	public boolean writeArticle(String id, BoardBean board) {
+	public boolean testReviewBoard(String item_code, String id) {
+		BoardDAO boardDAO = BoardDAO.getInstance();
+		Connection conn = getConnection();
+		boardDAO.setConnection(conn);
+		boolean result = boardDAO.testReviewBoard(item_code, id);
+		
+		close(conn);
+		return result;
+	}
+	public boolean writeArticle(String bName, BoardBean board) {
 		BoardDAO boardDAO = BoardDAO.getInstance();
 		Connection conn = getConnection();
 		boardDAO.setConnection(conn);
 		boolean isWriteSuccess = false;
-		int insertCount = boardDAO.writeArticle(id, board);
+		int insertCount = boardDAO.writeArticle(bName, board);
+		
+		if(insertCount>0) {
+			commit(conn);
+			isWriteSuccess = true;
+		}else {
+			rollback(conn);
+		}
+		
+		close(conn);
+		return isWriteSuccess;
+	}
+	public boolean writeArticle1(String id, BoardBean board) {
+		BoardDAO boardDAO = BoardDAO.getInstance();
+		Connection conn = getConnection();
+		boardDAO.setConnection(conn);
+		boolean isWriteSuccess = false;
+		int insertCount = boardDAO.writeArticle1(id, board);
 		
 		if(insertCount>0) {
 			commit(conn);

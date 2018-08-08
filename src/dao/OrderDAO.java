@@ -238,16 +238,42 @@ public class OrderDAO {
 		
 		return orderList;
 	}
-	public ArrayList<OrderBean> userOrderList(String user_id, int page){
-		ArrayList<OrderBean> orderList = null;
-		String sql = "SELECT * FROM orders WHERE user_id = '"+user_id+"' ORDER BY dati DESC LIMIT ?,10";
+	public ArrayList<OrderViewBean> userItemList(String user_id){
+		ArrayList<OrderViewBean> orderList = null;
+		String sql = "SELECT * FROM order_view WHERE user_id = '"+user_id+"' GROUP BY order_id";
 		PreparedStatement pstmt = null;
 		ResultSet rs = null;
-		int startrow = (page-1)*10;
+		
+		try {
+			pstmt = conn.prepareStatement(sql);
+			rs = pstmt.executeQuery();
+			if(rs.next()) {
+				orderList = new ArrayList<OrderViewBean>();
+				do {
+					orderList.add(new OrderViewBean(rs.getInt("order_id"),rs.getString("item_code"),
+							rs.getString("item_name"),rs.getInt("price"),rs.getInt("amount")));
+				}while(rs.next());
+			}
+		}catch(Exception e) {
+			e.printStackTrace();
+		}finally {
+			if(rs!=null) close(rs);
+			if(pstmt!=null) close(pstmt);
+		}
+		
+		return orderList;
+	}
+	public ArrayList<OrderBean> userOrderList(String user_id, int page, int limit){
+		ArrayList<OrderBean> orderList = null;
+		String sql = "SELECT * FROM orders WHERE user_id = '"+user_id+"' ORDER BY dati DESC LIMIT ?,?";
+		PreparedStatement pstmt = null;
+		ResultSet rs = null;
+		int startrow = (page-1)*limit;
 		
 		try {
 			pstmt = conn.prepareStatement(sql);
 			pstmt.setInt(1, startrow);
+			pstmt.setInt(2, limit);
 			rs = pstmt.executeQuery();
 			if(rs.next()) {
 				orderList = new ArrayList<OrderBean>();
@@ -308,5 +334,27 @@ public class OrderDAO {
 		}
 		
 		return updateCount;
+	}
+	public boolean isBoughtUser(String item_code, String id) {
+		boolean result = false;
+		String sql = "SELECT a.order_id AS order_id, a.user_id AS user_id, b.item_code AS item_code from orders AS a, order_item AS b WHERE a.order_id=b.order_id AND b.item_code=? AND user_id=?";
+		PreparedStatement pstmt = null;
+		ResultSet rs = null;
+		
+		try {
+			pstmt = conn.prepareStatement(sql);
+			pstmt.setString(1, item_code);
+			pstmt.setString(2, id);
+			rs = pstmt.executeQuery();
+			if(rs.next()) result=true;
+			
+		}catch(Exception e) {
+			e.printStackTrace();
+		}finally {
+			if(rs!=null) close(rs);
+			if(pstmt!=null) close(pstmt);
+		}
+		
+		return result;
 	}
 }

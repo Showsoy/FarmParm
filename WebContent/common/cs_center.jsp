@@ -74,6 +74,9 @@ a:hover{
 	width:80%;
 	background-color:#F6F6F6;
 }
+img{
+	padding:0 0 3px 0;
+}
 </style>
 </head>
 <link rel="stylesheet" type="text/css" href="../style/style.css">
@@ -107,7 +110,12 @@ a:hover{
 						<td>${num }</td>
 						<c:set var="num" value="${num-1 }"/>
 						<td colspan="2">
-						<p><a href="csView.bo?bnum=${board.board_num }&page=${pageInfo.page}">${board.subject }</a></p></td>
+							<p><c:if test="${board.code eq 'HIDE' }">
+								<img src="../images/lock.png"></c:if>
+							<a href="csView.bo?bnum=${board.board_num }&page=${pageInfo.page}">
+							${board.subject }
+							</a></p>
+						</td>
 						<td>${board.user_id }</td>
 						<td>${board.date }</td>
 						<td>

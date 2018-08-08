@@ -27,7 +27,7 @@
     padding-bottom: 12px;
 }
 .mypage td{
-	padding:5px 5px 5px 10px;
+	padding:5px;
 }
 .mypage table td label{
 	font-weight:700;
@@ -61,6 +61,7 @@ td, tr{
 	font-weight: 700;
 	text-transform: uppercase;
 	outline: 0;
+	width:50px;
 	background: #4CAF50;
 	border: 0;
 	padding: 3px;
@@ -123,6 +124,27 @@ td, tr{
 	color : #43A047;
 	font-size:15px;
 }
+#statebox{
+	width:700px;
+	height:130px;
+	margin:0 auto;
+	text-align:left;
+	padding:20px;
+	background-color:#F6F6F6;
+}
+#statebox img{
+	opacity:0.6;
+	padding:5px;
+}
+#state{
+	font-size:20px;
+	padding:0 0px 0 0;
+}
+#message{
+	height:64px;
+	text-height:64px;
+	padding:0px 0px 0 300px;
+}
 </style>
 <script>
 
@@ -137,6 +159,26 @@ td, tr{
 	<h3>&nbsp;&nbsp;주문조회</h3>
 	<hr color="#4CAF50" size="5">
 	<div class="mypage">
+	<div id="statebox">
+		<span id="state">${order.state }</span><br>
+		<c:choose>
+			<c:when test="${order.state eq '주문완료' }">
+				<img src="../images/invoice.png"><span id="message">고객님의 주문을 접수했습니다.</span>
+			</c:when>
+			<c:when test="${order.state eq '결제완료' }">
+				<img src="../images/credit-card.png"><span id="message">고객님의 주문 결제가 완료되었습니다.</span>
+			</c:when>
+			<c:when test="${order.state eq '상품출고' }">
+				<img src="../images/sealed-parcel.png"><span id="message">고객님의 주문 배송을 시작했습니다.</span>
+			</c:when>
+			<c:when test="${order.state eq '배송완료' }">
+				<img src="../images/shipped.png"><span id="message">고객님의 주문 배송을 완료했습니다.</span>
+			</c:when>
+			<c:otherwise>
+				<img src="../images/cancel.png"><span id="message">주문이 취소되었습니다.</span>
+			</c:otherwise>
+		</c:choose>
+	</div><br><br>
 	<form action="odChgState.od" name="orderview" method="post">
 	<div id="order_info">
 		<div id="grade"><b id="grade_deco">|</b>결제상품</div>
@@ -144,18 +186,25 @@ td, tr{
 	<tr id="order_top_menu">
 		<td id="td_name">상품명</td>
 		<td>단가</td>
-		<td>수량</td>
+		<td style="width:70px;">수량</td>
 		<td>총 가격</td>
-		<td>적립</td>
+		<td style="width:70px;">적립</td>
+		<td style="width:120px;">기타</td>
 	</tr>
 	<c:forEach var="odtemList" items="${odtemList }" varStatus="status">
 	<tr>
 		<td id="td_name">${odtemList.item_name }</td>
 		<td>${odtemList.price }원</td>
 		<td>${odtemList.amount }개</td>
-		<td>${odtemList.price*odtemList.amount }</td>
+		<td>${odtemList.price*odtemList.amount }원</td>
 		<fmt:parseNumber var="point" value="${(odtemList.price*odtemList.amount) div 100 }" integerOnly="true"/>
 		<td>${point }점</td>
+		<td>
+			<c:if test="${order.state eq '배송완료' || order.state eq '상품출고'}">
+				<button type="button" id="gbutton" onclick="window.open('../item/reForm.bo?item_code=${odtemList.item_code}','','width=500, height=400')">리뷰</button>
+			</c:if>
+				<button type="button" id="gbutton" onclick="location.href='../common/csWrite.jsp'">문의</button>
+		</td>
 	</tr>
 	</c:forEach>
 	</table>
@@ -187,7 +236,7 @@ td, tr{
 <br>
 <div id="grade"><b id="grade_deco">|</b>결제</div>
 <div id="paymentform">
-		<label for="payment">결제방법</label> | ${order.payment }
+		<label for="payment">결제방법</label> | ${order.payment }&nbsp;&nbsp;&nbsp;
 		<label for="state">주문상태</label> | ${order.state }
 		<hr color="#4CAF50">
 		<p class="right"><font size="3em">총 &nbsp;${order.pay+order.depoint }원</font><br> 

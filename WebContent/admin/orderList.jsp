@@ -108,13 +108,22 @@ img{
 }
 #seldel{
 	float:left;
-	padding:0 0 0 330px;
+	padding:0 0 0 280px;
 }
 #orderby{
 	float:left;
 	text-align:right;
 	padding : 13px 0 0 0px;
 	font-size:13px;
+}
+#orderby img{
+	width:11px;
+	heigh:11px;
+	padding:0px 0px 5px 0px;
+}
+#selcategory{
+	font-weight:700;
+	color:#43A047;
 }
 </style>
 <script>
@@ -145,12 +154,18 @@ img{
 	<div class="mypage">
 	<div id="listmenu">
 		<span id="orderby">
-			<a href="odList.od">전체</a>
-			<a href="odList.od?state=주문완료">주문완료</a>
-			<a href="odList.od?state=결제완료">결제완료</a>
-			<a href="odList.od?state=상품출고">상품출고</a>
-			<a href="odList.od?state=배송완료">배송완료</a>
-			<a href="odList.od?state=취소">취소</a>
+			<a href="odList.od"><img src="../images/checked.png"/><c:choose><c:when test="${state eq 'all' }">
+			<span id="selcategory">전체</span></c:when><c:otherwise> 전체</c:otherwise></c:choose></a>
+			<a href="odList.od?state=주문완료"><img src="../images/checked.png"/><c:choose><c:when test="${state eq '주문완료' }">
+			<span id="selcategory">주문완료</span></c:when><c:otherwise> 주문완료</c:otherwise></c:choose></a>
+			<a href="odList.od?state=결제완료"><img src="../images/checked.png"/><c:choose><c:when test="${state eq '결제완료' }">
+			<span id="selcategory">결제완료</span></c:when><c:otherwise> 결제완료</c:otherwise></c:choose></a>
+			<a href="odList.od?state=상품출고"><img src="../images/checked.png"/><c:choose><c:when test="${state eq '상품출고' }">
+			<span id="selcategory">상품출고</span></c:when><c:otherwise> 상품출고</c:otherwise></c:choose></a>
+			<a href="odList.od?state=배송완료"><img src="../images/checked.png"/><c:choose><c:when test="${state eq '배송완료' }">
+			<span id="selcategory">배송완료</span></c:when><c:otherwise> 배송완료</c:otherwise></c:choose></a>
+			<a href="odList.od?state=취소"><img src="../images/checked.png"/><c:choose><c:when test="${state eq '취소' }">
+			<span id="selcategory">취소</span></c:when><c:otherwise> 취소</c:otherwise></c:choose></a>
 		</span>
 		<span id="seldel">
 		<select name="od_state" id="od_state">

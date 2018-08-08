@@ -3,6 +3,7 @@
 <%@ page import="java.util.*" %>
 <%@ page import="java.text.SimpleDateFormat" %>
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
+<%@ taglib prefix="fmt" uri="http://java.sun.com/jsp/jstl/fmt" %>
 <!DOCTYPE html PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN" "http://www.w3.org/TR/html4/loose.dtd">
 <html>
 <head>
@@ -65,13 +66,13 @@ th, td {
 <body>
 <jsp:include page="/common/top_menu.jsp" flush="false"/>
 
-<c:if test="${todayImageList!=null }">
+<c:if test="${todayImageMap!=null }">
 <div class="recent_view">
 		<h4>&nbsp;&nbsp;최근 본 상품</h4>
 		<table>
 		<tr>
-			<c:forEach var="todayImage" items="${todayImageList }" varStatus="status" begin="0" end="5" step="1">
-				<td><img src="images/${todayImage }" id="todayImage"/></td>
+			<c:forEach var="todayImage" items="${todayImageMap }" varStatus="status" begin="0" end="5" step="1">
+				<td><a href="uitemView.im?item_code=${todayImage.key }"><img src="images/${todayImage.value }" id="todayImage"/></a></td>
 			</c:forEach>
 		</tr>
 		</table>
@@ -124,15 +125,16 @@ th, td {
 				<img id="prod_image" src="images/${itemList.img_path }"/></a>
 				<div class="caption">
 				<a href="uitemView.im?item_code=${itemList.item_code }">
-					${itemList.item_name }</a><br>
+					<b>${itemList.item_name }</b></a><br>
 				<c:choose>
 					<c:when test="${itemList.sale==0 }">
-						${itemList.price }원<br>
+						<fmt:formatNumber value="${itemList.price }" type="number"/>원<br>
 					</c:when>
 					<c:otherwise>
-						<span id="or_price">${itemList.price }원</span><br>
+						<span id="or_price"><fmt:formatNumber value="${itemList.price }" type="number"/>원</span><br>
 						<img src="images/sale.png" style="width:24px;height:15px;border:none;padding:0;margin:0;">
-						<span id="new_price" style="line-height:5px;margin:0 auto;font-size:14px;">${uprice }원(-${itemList.sale }%)</span><br>
+						<span id="new_price" style="line-height:5px;margin:0 auto;font-size:14px;">
+						<fmt:formatNumber value="${uprice }" type="number"/>원(-${itemList.sale }%)</span><br>
 					</c:otherwise>
 				</c:choose>	
 					<a href="addCart.ct?item_code=${itemList.item_code }" style="color:black;paddin:0;font-size:13px;"><img src="images/cart.png"/> 장바구니</a>

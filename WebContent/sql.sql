@@ -261,3 +261,8 @@ drop view order_view;
 CREATE VIEW order_view as SELECT order_item.order_id AS order_id, items.item_code as item_code, items.item_name AS item_name, format(items.price*(100-items.sale)/100,0) AS price, order_item.amount as amount FROM order_item LEFT OUTER JOIN items ON order_item.item_code = items.item_code;
 drop view user_view;
 create view user_view as select users.user_id as user_id, users.grade as grade, (select sum(pay) from orders where orders.user_id = users.user_id) as userpay from users left join orders on users.user_id = orders.user_id group by user_id;
+
+--20180808 주문 뷰 형식 바꿈--
+USE `java2b`;
+drop view order_view;
+create view order_view as SELECT order_item.order_id AS order_id, items.item_code as item_code, items.item_name AS item_name, round(items.price*(100-items.sale)/100) AS price, order_item.amount as amount FROM order_item LEFT OUTER JOIN items ON order_item.item_code = items.item_code;

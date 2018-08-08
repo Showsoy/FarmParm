@@ -96,25 +96,24 @@ public class UserService {
 	}
 	
 	// 회원관리_1_3(검색 내용 불러오기, grade값 사용)
-		public int getSearchList_2(String grade) throws Exception{
-			// TODO Auto-generated method stub
-			
-			int listCount = 0;
-			Connection con = getConnection();
-			UserDAO userDAO = UserDAO.getInstance();
-			userDAO.setConnection(con);
-			listCount = userDAO.getSearchList_2(grade);
-			close(con);
-			return listCount;
-			
-		}
-	
-	// 회원관리_2
-	public ArrayList<UserViewBean> userList(int page, int limit) throws Exception{
+	public int gradeListCount(String grade) throws Exception {
+		// TODO Auto-generated method stub
+
+		int listCount = 0;
 		Connection con = getConnection();
 		UserDAO userDAO = UserDAO.getInstance();
 		userDAO.setConnection(con);
-		ArrayList<UserViewBean> userList = userDAO.users(page,limit);
+		listCount = userDAO.gradeListCount(grade);
+		close(con);
+		return listCount;
+
+	}
+	// 회원관리_2
+	public ArrayList<UserViewBean> userList(int page) throws Exception{
+		Connection con = getConnection();
+		UserDAO userDAO = UserDAO.getInstance();
+		userDAO.setConnection(con);
+		ArrayList<UserViewBean> userList = userDAO.users(page);
 		close(con);
 		return userList;
 	}
@@ -142,7 +141,7 @@ public class UserService {
 	}
 	
 	// 회원정보 수정 (관리자 수정)
-	public boolean modifyUsers(UserViewBean user) {
+	public boolean modifyUsers(UserBean user) {
 		UserDAO userDAO = UserDAO.getInstance();
 		Connection con = getConnection();
 		userDAO.setConnection(con);		
@@ -282,26 +281,33 @@ public class UserService {
 	}
 	
 	// 회원관리에서 아이디로 검색하기
-	public ArrayList<UserViewBean> searchId(int page, int limit, String search_id) throws Exception{
+	public ArrayList<UserViewBean> searchId(int page, String search_id) throws Exception{
 		Connection con = getConnection();
 		UserDAO userDAO = UserDAO.getInstance();
 		userDAO.setConnection(con);
-		ArrayList<UserViewBean> userList = userDAO.searchId(page, limit, search_id);
+		ArrayList<UserViewBean> userList = userDAO.searchId(page, search_id);
 		
 		close(con);
 		return userList;
 	}
 	
 	// 회원관리에서 등급으로 검색하기
-	public ArrayList<UserViewBean> searchGrade(int page, int limit, String grade) throws Exception{
+	public ArrayList<UserViewBean> getGradeList(int page, String grade) throws Exception{
 		Connection con = getConnection();
 		UserDAO userDAO = UserDAO.getInstance();
 		userDAO.setConnection(con);
-		ArrayList<UserViewBean> userList = userDAO.searchGrade(page,limit,grade);
+		ArrayList<UserViewBean> userList = userDAO.getGradeList(page, grade);
 		close(con);
 		return userList;
 	}
-	
+	public ArrayList<UserViewBean> getPurchList(int page) throws Exception{
+		Connection con = getConnection();
+		UserDAO userDAO = UserDAO.getInstance();
+		userDAO.setConnection(con);
+		ArrayList<UserViewBean> userList = userDAO.getPurchList(page);
+		close(con);
+		return userList;
+	}
 	public UserBean selectUserInfo(String id) {
 		Connection conn = getConnection();
 		UserDAO userDAO = UserDAO.getInstance();
