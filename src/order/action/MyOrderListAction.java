@@ -44,8 +44,7 @@ public class MyOrderListAction implements Action {
 			
 			OrderService orderService = new OrderService();
 			listCount = orderService.listCountUserOrder(id);
-			orderList = orderService.userOrderList(id, page);
-			System.out.println(orderList.get(0).getDati());
+			orderList = orderService.userOrderList(id, page, limit);
 			
 			int maxPage = (int)((double)listCount/limit+0.95); 
 			int startPage = (((int)((double)page/limitPage+0.9))-1) *limitPage +1;

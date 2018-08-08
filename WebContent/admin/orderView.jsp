@@ -208,7 +208,7 @@ function goto_url(act) {
 	<font size="4em"><b>총 결제금액 <b id="grade_deco"><span id="allprice">${order.pay }</span></b>원</b></font></p>
 		</div>
 <br><br>
-		<button type="button" onclick="location.href='odList.od?page=${page}'">목록</button>
+		<button type="button" onclick="history.back()">뒤로가기</button>
 		<button type="button" onclick="location.href='adminPage.jsp'" style="width:150px;">관리자페이지</button> 
 </form>	
 	</div>

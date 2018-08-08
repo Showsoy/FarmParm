@@ -306,8 +306,11 @@ footer {
 	-webkit-transform: translateY(-200px);
 	transform: translateY(-200px);
 }     
-#container .caption h1, .prod-list .caption p {
+#container .caption h3, .prod-list .caption p {
 	color: #fff;
+}
+#container .caption p{
+	text-align:center;
 }
 #goods_container{
 		display:flex;

@@ -1,6 +1,8 @@
 package item.action;
 
 import java.util.ArrayList;
+import java.util.HashMap;
+import java.util.Map;
 
 import javax.servlet.http.Cookie;
 import javax.servlet.http.HttpServletRequest;
@@ -61,19 +63,21 @@ public class UserItemListAction implements Action {
 		pageInfo.setStartPage(startPage);
 		
 		//Cookie load
-		ArrayList<String> todayImageList = new ArrayList<String>();
 		Cookie[] cookieArray = request.getCookies();
+		Map<String,String> todayImageMap = new HashMap<String,String>();
+		//길이가 8이면 7부터 -> 7 6 5 4 3, 2전까지 2는 길이 - 6
 		int count = 0;
 		if (cookieArray != null) {
-			for (int i = cookieArray.length-1; i >= 0; i--) {
-				if(count==5) break;
+			for (int i = cookieArray.length - 1; i >= 0; i--) {
+				if (count == 5)
+					break;
 				if (cookieArray[i].getName().startsWith("today")) {
-					todayImageList.add(cookieArray[i].getValue());
+					todayImageMap.put(cookieArray[i].getName().replaceAll("today", ""), cookieArray[i].getValue());
 					count++;
 				}
 			}
 		}
-		request.setAttribute("todayImageList", todayImageList);
+		request.setAttribute("todayImageMap", todayImageMap);
 		
 		request.setAttribute("category", category);
 		request.setAttribute("std", standard);

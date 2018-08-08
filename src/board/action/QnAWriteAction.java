@@ -51,7 +51,7 @@ public class QnAWriteAction implements Action {
 		
 		
 		BoardService boardService = new BoardService();
-		boolean isWriteSuccess = boardService.writeArticle(id, boardBean);
+		boolean isWriteSuccess = boardService.writeArticle1(id, boardBean);
 		
 
 

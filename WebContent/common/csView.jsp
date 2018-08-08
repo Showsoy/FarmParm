@@ -96,7 +96,7 @@
 	transition: all 0.3 ease;
 	cursor: pointer;
 }
-#wbutton:active{
+#wbutton:active, #wbutton:hover{
 	background: #F6F6F6;
 }
 </style>

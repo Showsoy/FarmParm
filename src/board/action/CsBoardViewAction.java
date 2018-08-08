@@ -28,19 +28,19 @@ public class CsBoardViewAction implements Action {
 		BoardBean rboard = boardService.selectReply("cs_board", board.getRgroup());
 		
 		if (board.getCode().equals("HIDE")) {
-			if (id == null || !board.getUser_id().equals(id)) {
+			if (id!=null&&(board.getUser_id().equals(id)||id.equals("admin"))) {
+				request.setAttribute("board", board);
+				request.setAttribute("rboard", rboard);
+				String page = request.getParameter("page");
+				request.setAttribute("page", page);
+				forward = new ActionForward("./csView.jsp", false);
+			}else {
 				response.setContentType("text/html;charset=UTF-8");
 				PrintWriter out = response.getWriter();
 				out.println("<script>");
 				out.println("alert('숨김글입니다.');");
 				out.println("history.back();");
 				out.println("</script>");
-			}else {
-				request.setAttribute("board", board);
-				request.setAttribute("rboard", rboard);
-				String page = request.getParameter("page");
-				request.setAttribute("page", page);
-				forward = new ActionForward("./csView.jsp", false);
 			}
 		} else {
 			request.setAttribute("board", board);

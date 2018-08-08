@@ -13,6 +13,7 @@ import action.Action;
 import member.action.MemberAdModifyAction;
 import member.action.MemberAdModifyFormAction;
 import member.action.MemberAdPwModifyAction;
+import member.action.MemberAdViewAction;
 import member.action.MemberDeleteAction;
 import member.action.MemberIdFindAction;
 import member.action.MemberIdTestAction;
@@ -27,7 +28,6 @@ import member.action.MemberMyPageAction;
 import member.action.MemberPwCheckAction;
 import member.action.MemberPwFindAction;
 import member.action.MemberPwModifyAction;
-import member.action.MemberSearchAction;
 import member.action.MemberSelectDeleteAction;
 import vo.ActionForward;
 
@@ -201,16 +201,25 @@ protected void doProcess(HttpServletRequest request, HttpServletResponse respons
 			}catch(Exception e){
 				e.printStackTrace();
 			}
-    	}else if(command.equals("/searchMemberList.us")) {
-    		System.out.println("dd");
-    		action = new MemberSearchAction();
+    	}
+//    	else if(command.equals("/searchMemberList.us")) {
+//    		System.out.println("dd");
+//    		action = new MemberSearchAction();
+//			try{
+//				forward=action.execute(request, response);
+//			}catch(Exception e){
+//				e.printStackTrace();
+//			}
+//    	}
+    	else if(command.equals("/memberSelectDelete.us")) {
+    		action = new MemberSelectDeleteAction();
 			try{
 				forward=action.execute(request, response);
 			}catch(Exception e){
 				e.printStackTrace();
 			}
-    	}else if(command.equals("/memberSelectDelete.us")) {
-    		action = new MemberSelectDeleteAction();
+    	}else if(command.equals("/userView.us")) {
+    		action = new MemberAdViewAction();
 			try{
 				forward=action.execute(request, response);
 			}catch(Exception e){

@@ -4,6 +4,7 @@
 <%@ page import="java.util.*, java.text.*"  %>
 <%@page import="vo.BoardBean"%>
 <%@page import="vo.PageInfo"%>
+<%@ taglib prefix="fmt" uri="http://java.sun.com/jsp/jstl/fmt" %>
 <%
  java.text.SimpleDateFormat formatter = new java.text.SimpleDateFormat("yyyyMMdd");
  String today = formatter.format(new java.util.Date());
@@ -133,13 +134,13 @@ dd{
 <body>
 <jsp:include page="/common/top_menu.jsp" flush="false"/>
 
-<c:if test="${todayImageList!=null }">
+<c:if test="${todayImageMap!=null }">
 <div class="recent_view">
 		<h4>&nbsp;&nbsp;최근 본 상품</h4>
 		<table>
 		<tr>
-			<c:forEach var="todayImage" items="${todayImageList }" varStatus="status" begin="0" end="5" step="1">
-				<td><img src="images/${todayImage }" id="todayImage"/></td>
+			<c:forEach var="todayImage" items="${todayImageMap }" varStatus="status" begin="0" end="5" step="1">
+				<td><a href="uitemView.im?item_code=${todayImage.key }"><img src="images/${todayImage.value }" id="todayImage"/></a></td>
 			</c:forEach>
 		</tr>
 		</table>
@@ -171,12 +172,12 @@ pageContext.setAttribute("uprice", uprice);
 			</dl>
 			<dl>
 				<dt>가격</dt>
-				<dd>${item.price }원</dd>
+				<dd><fmt:formatNumber value="${item.price }" type="number"/>원</dd>
 			</dl>
 			<c:if test="${item.sale>0 }">
 				<dl>
 					<dt>할인가</dt>
-					<dd><b id="saled">${uprice }</b>원</dd>
+					<dd><b id="saled"><fmt:formatNumber value="${uprice }" type="number"/></b>원</dd>
 				</dl>
 			</c:if>
 			<dl>

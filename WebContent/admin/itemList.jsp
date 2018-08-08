@@ -111,12 +111,13 @@ img{
 #orderby{
 	float:left;
 	text-align:right;
-	padding : 13px 0 0 300px;
+	padding : 13px 0 0 350px;
+	font-size:13px;
 }
 #orderby img{
 	width:11px;
 	heigh:11px;
-	padding:0px 0px 3px 0px;
+	padding:0px 0px 5px 0px;
 }
 #selcategory{
 	font-weight:700;
