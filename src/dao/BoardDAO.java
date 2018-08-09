@@ -706,7 +706,7 @@ public class BoardDAO {
 			
 			rstep += 1;
 			sql = "INSERT INTO "+bName+" VALUES(?,?,'관리자',?,?,null,0,now(),?,?)";
-			System.out.println(board.getContent() + " : 글내용, 디에이오");
+
 			pstmt = conn.prepareStatement(sql);
 			pstmt.setInt(1, num);
 			pstmt.setString(2, board.getCode());

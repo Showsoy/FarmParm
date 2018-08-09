@@ -135,7 +135,6 @@ dd{
 
 		<form action="qnaReply.bo?page=${re_page }&item_code=${re_item_code}&re_bnum=${re_bnum}" method="post" enctype="multipart/form-data" name="itemnew" onsubmit="return chkForm(this)">
 			<table>
-			
 				<tr>
 					<td id="td_left">
 						<label for="item_name">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;제목</label>

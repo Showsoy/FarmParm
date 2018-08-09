@@ -303,7 +303,6 @@ public class BoardService {
 		boolean isReplySuccess = false;
 		int insertCount = boardDAO.replyArticle(bName, board);
 		
-		System.out.println(insertCount + " :안되나요, 서비스에서");
 		
 		if(insertCount>0) {
 			commit(conn);
