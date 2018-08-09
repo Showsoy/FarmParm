@@ -85,7 +85,6 @@ th, td {
 	<c:choose>
 		<c:when test="${pageInfo.listCount>0 }">
 		<span id="orderby">
-
 			<img src="./images/checked.png"/>
 			<a href="uitemList.im?category=${category }&std=new">
 			<c:choose><c:when test="${std eq 'vdate' }"><span id="selcategory">신상품순</span></c:when>

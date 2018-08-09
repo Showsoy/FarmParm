@@ -334,7 +334,7 @@ public class UserDAO {
 		String sql = "";
 		
 		try {
-			sql = "UPDATE users SET name=?,grade=?,phone=?,birth=?,gender=?,email=?,postcode=?,address=?,address_second=? where user_id=?";
+			sql = "UPDATE users SET name=?, grade=?, phone=?,birth=?,gender=?,email=?,postcode=?,address=?,address_second=? where user_id=?";
 								
 			pstmt = con.prepareStatement(sql);
 			pstmt.setString(1, user.getName());
@@ -595,6 +595,7 @@ public class UserDAO {
 		PreparedStatement pstmt = null;
 		ResultSet rs = null;
 		String user_list_sql="SELECT * FROM user_view WHERE user_id LIKE '%"+search_id+"%' order by user_id asc limit ?,10";
+
 		ArrayList<UserViewBean> articleList = new ArrayList<UserViewBean>();
 		UserViewBean userList = null;
 		int startrow=(page-1)*10;
@@ -602,6 +603,7 @@ public class UserDAO {
 		try{
 			pstmt = con.prepareStatement(user_list_sql);
 			pstmt.setInt(1, startrow);
+
 			rs = pstmt.executeQuery();
 
 			while(rs.next()){
@@ -629,15 +631,16 @@ public class UserDAO {
 	public ArrayList<UserViewBean> getGradeList(int page, String grade){
 		PreparedStatement pstmt = null;
 		ResultSet rs = null;
+		
 		String user_list_sql="select * from user_view where grade=? order by user_id asc limit ?,10 ";
 		ArrayList<UserViewBean> userList = new ArrayList<UserViewBean>();
 		UserViewBean user = null;
-		int startrow=(page-1)*10; //읽기 시작할 row 번호..	
+		int startrow=(page-1)*10; //읽기 시작할 row 번호..
 
 		try{
 			pstmt = con.prepareStatement(user_list_sql);
-			pstmt.setString(1, grade);
-			pstmt.setInt(2, startrow);
+//			pstmt.setString(1, grade);
+//			pstmt.setInt(2, startrow);
 			rs = pstmt.executeQuery();
 
 			while(rs.next()){

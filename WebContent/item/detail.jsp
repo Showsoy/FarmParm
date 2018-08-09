@@ -21,6 +21,8 @@
 <!DOCTYPE html PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN" "http://www.w3.org/TR/html4/loose.dtd">
 <html>
 <head>
+<c:set var="page_test" value="<%=nowPage%>"/>
+
 <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
 <title>Insert title here</title>
 <style>
@@ -112,6 +114,9 @@ dd{
 	font-family:"Nanum Gothic";
 	font-weight: 500;
 }
+#pageList{
+	text-align:center;
+}
 </style>
 <script>
 	function goto_url(act) {
@@ -126,6 +131,12 @@ dd{
 		}
 		document.itemform.submit();
 	}
+	
+	function layer_toggle(obj) {
+	if (obj.style.display == 'none') obj.style.display = 'block';
+	else if (obj.style.display == 'block') obj.style.display = 'none';
+	}
+	
 </script>
 </head>
 <link rel="stylesheet" type="text/css" href="style/style.css">
@@ -209,6 +220,7 @@ pageContext.setAttribute("uprice", uprice);
 <br><br><br>
 
 <div class="review">
+<<<<<<< HEAD
 <h3>&nbsp;&nbsp;상품후기</h3>
 	<hr color="#4CAF50" size="5">
 		<button type="button" onclick="window.open('../item/reForm.bo?item_code=${item.item_code}','','width=500, height=400')">후기쓰기</button>
@@ -230,7 +242,8 @@ pageContext.setAttribute("uprice", uprice);
 			</tr>
 		</table>
 			<br><br><br>
-			
+			 <jsp:include page="review.jsp" flush="false"/>
+			 <br><br><br>
 		<div id="qna_regist">
 		<form action="qnaRegist.im" method="post" enctype="multipart/form-data" name="itemnew" onsubmit="return chkForm(this)">
 			<table>
@@ -267,8 +280,7 @@ pageContext.setAttribute("uprice", uprice);
 		</div>
 	</div>
 	<br><br><br><br>
-	
- <jsp:include page="review.jsp" flush="false"/>
+ 
 	<br><br>
 	<div class="qna">
 	<h3>&nbsp;&nbsp;상품문의</h3>
@@ -277,26 +289,60 @@ pageContext.setAttribute("uprice", uprice);
 			<tr id="top_menu">
 				<td id="td_check">번호</td>
 				<td colspan="2">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
-				&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
-				제목&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</td>
+				&nbsp;&nbsp;&nbsp;&nbsp;
+				제목&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</td>
 				<td>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;작성자</td>
 				<td>작성일</td>
 			</tr>
 			
-			
 			<% 
 			for(int i=0;i<articleList.size();i++){
 			%>
+			
 			<tr height="30px">
-				<td><%=articleList.get(i).getBoard_num()%></td>
-				<td colspan="2">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<%=articleList.get(i).getSubject()%></td>
-				<td>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<%=articleList.get(i).getUser_id()%></td>
-				<td><%=articleList.get(i).getDate()%></td>
+			
+			<c:set var="bnum_re" value="<%=articleList.get(i).getBoard_num()%>"/>
+			<td><%=articleList.get(i).getBoard_num()%></td>
+			<td colspan="2" >&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+				<div id=아이디1<%=i %> style=display:block>
+				<a href=javascript:; onclick="layer_toggle(document.getElementById('아이디1<%=i %>')); layer_toggle(document.getElementById('아이디2<%=i %>'));return false;">
+				>  
+				<%=articleList.get(i).getSubject()%></a>
+				</div>
+				<div id=아이디2<%=i %> style=display:none >
+				<a href=javascript:; onclick="layer_toggle(document.getElementById('아이디1<%=i %>')); layer_toggle(document.getElementById('아이디2<%=i %>'));return false;">
+				> 
+				<%=articleList.get(i).getSubject()%></a><br><br>
+				-<br>
+				<%=articleList.get(i).getContent()%><br>
+				<%
+				if(articleList.get(i).getImg_path()!=null){
+				%>
+				<br>
+				<img src="images/<%=articleList.get(i).getImg_path()%>" width=120 height=150></img>
+				<%} %>
+				<br><br>
+				<%
+				if(articleList.get(i).getUser_id().equals("admin")){
+				%>
+			<c:if test="${id=='admin'}">
+			<button onclick="window.open('qnaReplyForm.bo?item_code=${item.item_code}&page=<%=nowPage%>&re_bnum=<%=articleList.get(i).getBoard_num()%>', '답변달기', 'width=570, height=210, left=150, top=50');">답변</button>
+			<button type="button" onclick="location.href='qnaRemove.bo?bnum=<%=articleList.get(i).getBoard_num()%>&item_code=${item.item_code}&page=<%=nowPage%>'">삭제</button>
+			</c:if>
+			<c:if test="${id==articleList.get(i).getUser_id()&&id!='admin'&&id!=null}">
+			<button type="button" onclick="location.href='qnaRemove.bo?bnum=<%=articleList.get(i).getBoard_num()%>&item_code=${item.item_code}&page=<%=nowPage%>'">삭제</button>
+			</c:if>
+				<%} %>
+				</div>
+				<br>
+			</td>
+			<td>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<%=articleList.get(i).getUser_id()%></td>
+			<td><%=articleList.get(i).getDate()%></td>
 			</tr>
+
 			<%} %>
-
-	
-
+			
+			
 		<tr>
 			<td colspan="6" id="td_info">
 			<br>
@@ -320,7 +366,6 @@ pageContext.setAttribute("uprice", uprice);
 		<%}else{ %>
 		<a href="uitemView.im?item_code=${item.item_code }&page=<%=nowPage+1 %>">다음</a>
 		<%} %>
-		
 	</section>
 			</td>
 			</tr>

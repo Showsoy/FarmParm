@@ -587,6 +587,7 @@ public class BoardDAO {
 		return insertCount;
 	}
 	public int writeArticle1(String id, BoardBean board) {
+
 		PreparedStatement pstmt = null;
 		ResultSet rs = null;
 		int num = 0;
@@ -610,7 +611,7 @@ public class BoardDAO {
 			pstmt.setString(5, board.getSubject().replaceAll("<", "&lt;").replaceAll(">", "&gt;").replaceAll("\r\n", "<br>"));
 			pstmt.setString(6, board.getImg_path());
 			pstmt.setInt(7, 0);
-			pstmt.setInt(8, 0);
+			pstmt.setInt(8, num);
 			pstmt.setInt(9, 0);
 			
 			insertCount = pstmt.executeUpdate();
@@ -621,11 +622,31 @@ public class BoardDAO {
 			close(rs);
 			close(pstmt);
 		}
+
 		return insertCount;
 	}
+	// 문의글 삭제
+	public int deleteQnaArticle(String bnum){
+		PreparedStatement pstmt = null;
+		String sql="DELETE from qna_board WHERE bnum=?";
+		int deleteCount = 0;
 
-	// 상품문의 글 리스트
-	public int qnaListCount() {
+		try{
+			pstmt=conn.prepareStatement(sql);
+			pstmt.setString(1, bnum);
+			deleteCount = pstmt.executeUpdate();
+		}catch(Exception ex){
+			System.out.println("에러: " + ex);	
+		}finally{
+			close(pstmt);
+		}
+		
+		return deleteCount;
+	}
+	
+	
+	// 상품문의 글 리스트 개수
+		public int qnaListCount() {
 
 		int listCount = 0;
 		PreparedStatement pstmt = null;
@@ -647,7 +668,6 @@ public class BoardDAO {
 		}
 
 		return listCount;
-
 	}
 
 	// 상품문의 글 리스트_2
@@ -681,6 +701,7 @@ public class BoardDAO {
 
 		return articleList;
 	}
+				
 
 		public int updateReadCount(int board_num) {
 		PreparedStatement pstmt = null;
@@ -740,6 +761,7 @@ public class BoardDAO {
 		ResultSet rs = null;
 		String sql = "";
 		int insertCount = 0;
+		int num = 0;
 		int rgroup = board.getRgroup();
 		int rstep = board.getRstep();
 		
@@ -754,17 +776,24 @@ public class BoardDAO {
 				commit(conn);
 			}
 			
-			rstep += 1;
-			sql = "INSERT INTO "+bName+" VALUES(null,?,'관리자',?,?,null,0,now(),?,?)";
+			pstmt = conn.prepareStatement("SELECT max(bnum) from qna_board");
+			rs = pstmt.executeQuery();
 			
+			if(rs.next())
+				num = rs.getInt(1)+1;
+			
+			rstep += 1;
+			sql = "INSERT INTO "+bName+" VALUES(?,?,'관리자',?,?,null,0,now(),?,?)";
+			System.out.println(board.getContent() + " : 글내용, 디에이오");
 			pstmt = conn.prepareStatement(sql);
-			pstmt.setInt(1, board.getBoard_num());
+			pstmt.setInt(1, num);
 			pstmt.setString(2, board.getCode());
 			pstmt.setString(3, board.getContent());
 			pstmt.setString(4, board.getSubject());
 			pstmt.setInt(5, rgroup);
 			pstmt.setInt(6, rstep);
 			insertCount = pstmt.executeUpdate();
+			
 		}catch(Exception e) {
 			e.printStackTrace();
 		}finally {
@@ -773,6 +802,7 @@ public class BoardDAO {
 		}
 		return insertCount;
 	}
+	
 	public int modifyNotice(BoardBean board) {
 		PreparedStatement pstmt = null;
 		int updateCount = 0;

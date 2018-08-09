@@ -250,7 +250,7 @@ img{
 		</c:choose>
 		</table>
 	<br><br><br>
-	<button type="button" onclick="location.href='admin/adminPage.jsp'" style="width:150px;">관리자페이지</button>
+	<button type="button" onclick="location.href='adminPage.jsp'" style="width:150px;">관리자페이지</button>
 	</div>
 	</form>
 </div>

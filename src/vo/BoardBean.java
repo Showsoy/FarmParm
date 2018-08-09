@@ -14,13 +14,14 @@ public class BoardBean {
 	private int readcount;
 	private int rgroup;
 	private int rstep;
-
-	// bnum -> board_num / qdate -> date
-	public BoardBean(int board_num, String subject, String user_id, Date date) {
+	
+	public BoardBean(int board_num, String subject, String content, String user_id, String img_path, Date date) {
 		// TODO Auto-generated constructor stub
 		this.board_num = board_num;
 		this.subject = subject;
+		this.content = content;
 		this.user_id = user_id;
+		this.img_path = img_path;
 		this.date = date;
 	}
 	

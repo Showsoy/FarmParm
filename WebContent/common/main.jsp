@@ -56,6 +56,7 @@ function carousel() {
 						<a href="./item/uitemView.im?item_code=${best.item_code }"><img src="./images/zoom-in.png" style="width:24px;height:24px;border:0;"></a>
 						&nbsp;&nbsp;
 						<a href="./item/addCart.ct?item_code=${best.item_code }"><img src="./images/shopping-cart.png" style="width:24px;height:24px;border:0;"></a>
+
 					</p>
 				</div> 
 			</li>
@@ -75,11 +76,13 @@ function carousel() {
 			<li><img src="images/${newList.img_path }" alt="${newList.item_name }">
 			<p>${newList.item_name }</p>
 				<div class="caption">
+
 					<h4><fmt:formatNumber value="${newList.price }" type="currency"/></h4>
 					<p>&nbsp;&nbsp;&nbsp;
 						<a href="./item/uitemView.im?item_code=${newList.item_code }"><img src="./images/zoom-in.png" style="width:24px;height:24px;border:0;"></a>
 						&nbsp;&nbsp;
 						<a href="./item/addCart.ct?item_code=${newList.item_code }"><img src="./images/shopping-cart.png" style="width:24px;height:24px;border:0;"></a>
+
 					</p>
 				</div> 
 			</li>

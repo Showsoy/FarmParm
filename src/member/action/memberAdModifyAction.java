@@ -38,6 +38,7 @@ public class MemberAdModifyAction implements Action {
 			String uid = request.getParameter("uid");
 			Util util = new Util();
 			Date birth = util.transformDate(request.getParameter("userBirth"));
+
 			String email = (request.getParameter("userEmailId") + "@" + request.getParameter("userEmailAd"));
 
 			UserBean user = new UserBean(id, "", request.getParameter("userName"), request.getParameter("userPhone"),
@@ -64,6 +65,7 @@ public class MemberAdModifyAction implements Action {
 				 */
 			} else {
 				try {
+
 					response.setContentType("text/html;charset=UTF-8");
 					PrintWriter out = response.getWriter();
 					out.println("<script>");
