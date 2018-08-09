@@ -528,7 +528,7 @@ public class BoardDAO {
 			pstmt.setString(5, board.getSubject().replaceAll("<", "&lt;").replaceAll(">", "&gt;").replaceAll("\r\n", "<br>"));
 			pstmt.setString(6, board.getImg_path());
 			pstmt.setInt(7, 0);
-			pstmt.setInt(8, 0);
+			pstmt.setInt(8, num);
 			pstmt.setInt(9, 0);
 			
 			insertCount = pstmt.executeUpdate();
@@ -562,7 +562,7 @@ public class BoardDAO {
 	}
 	
 	
-	// 상품문의 글 리스트
+	// 상품문의 글 리스트 개수
 		public int qnaListCount() {
 
 			int listCount= 0;
@@ -588,12 +588,11 @@ public class BoardDAO {
 
 		}
 	
-		// 상품문의 글 리스트_2
+		// 상품문의 글 리스트 불러오기
 			public ArrayList<BoardBean> qna_list(int page,int limit){
 				PreparedStatement pstmt = null;
 				ResultSet rs = null;
-				Connection conn = getConnection();
-				String qna_list_sql="select * from qna_board order by user_id asc limit ?,5";
+				String qna_list_sql="select * from qna_board order by rgroup desc, rstep asc limit ?,5";
 				ArrayList<BoardBean> articleList = new ArrayList<BoardBean>();
 				BoardBean boardBean = null;
 				int startrow=(page-1)*5; //읽기 시작할 row 번호..
@@ -684,6 +683,7 @@ public class BoardDAO {
 		ResultSet rs = null;
 		String sql = "";
 		int insertCount = 0;
+		int num = 0;
 		int rgroup = board.getRgroup();
 		int rstep = board.getRstep();
 		
@@ -698,17 +698,24 @@ public class BoardDAO {
 				commit(conn);
 			}
 			
-			rstep += 1;
-			sql = "INSERT INTO "+bName+" VALUES(null,?,'관리자',?,?,null,0,now(),?,?)";
+			pstmt = conn.prepareStatement("SELECT max(bnum) from qna_board");
+			rs = pstmt.executeQuery();
 			
+			if(rs.next())
+				num = rs.getInt(1)+1;
+			
+			rstep += 1;
+			sql = "INSERT INTO "+bName+" VALUES(?,?,'관리자',?,?,null,0,now(),?,?)";
+			System.out.println(board.getContent() + " : 글내용, 디에이오");
 			pstmt = conn.prepareStatement(sql);
-			pstmt.setInt(1, board.getBoard_num());
+			pstmt.setInt(1, num);
 			pstmt.setString(2, board.getCode());
 			pstmt.setString(3, board.getContent());
 			pstmt.setString(4, board.getSubject());
 			pstmt.setInt(5, rgroup);
 			pstmt.setInt(6, rstep);
 			insertCount = pstmt.executeUpdate();
+			
 		}catch(Exception e) {
 			e.printStackTrace();
 		}finally {
@@ -717,6 +724,7 @@ public class BoardDAO {
 		}
 		return insertCount;
 	}
+	
 	public int modifyNotice(BoardBean board) {
 		PreparedStatement pstmt = null;
 		int updateCount = 0;

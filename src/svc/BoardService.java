@@ -172,7 +172,7 @@ public class BoardService {
 		close(conn);
 		return isWriteSuccess;
 	}
-	// 상품문의 글 리스트
+	// 상품문의 글 리스트 개수
 	public int qnaListCount() throws Exception{
 		// TODO Auto-generated method stub
 		
@@ -180,8 +180,10 @@ public class BoardService {
 		Connection con = getConnection();
 		BoardDAO boardDAO = BoardDAO.getInstance();
 		boardDAO.setConnection(con);
+		
 		listCount = boardDAO.qnaListCount();
 		close(con);
+		
 		return listCount;
 		
 	}
@@ -301,6 +303,8 @@ public class BoardService {
 		boolean isReplySuccess = false;
 		int insertCount = boardDAO.replyArticle(bName, board);
 		
+		System.out.println(insertCount + " :안되나요, 서비스에서");
+		
 		if(insertCount>0) {
 			commit(conn);
 			isReplySuccess = true;
@@ -311,6 +315,7 @@ public class BoardService {
 		close(conn);
 		return isReplySuccess;
 	}
+	
 	public boolean modifyNotice(BoardBean board) {
 		BoardDAO boardDAO = BoardDAO.getInstance();
 		Connection conn = getConnection();

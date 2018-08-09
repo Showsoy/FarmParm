@@ -594,12 +594,6 @@ public class UserDAO {
 	public ArrayList<UserViewBean> searchId(int page, String search_id){
 		PreparedStatement pstmt = null;
 		ResultSet rs = null;
-/*<<<<<<< HEAD
-		String sid = search_id;
-		String user_list_sql="SELECT * FROM user_view WHERE user_id LIKE '%"+sid+"%' order by user_id asc limit 0,5";
-		// SELECT * FROM user_view WHERE user_id LIKE '%?%' order by user_id asc limit ?,5
-		//select * from user_view where user_id=? order by user_id asc limit ?,5
-=======*/
 		String user_list_sql="SELECT * FROM user_view WHERE user_id LIKE '%"+search_id+"%' order by user_id asc limit ?,10";
 
 		ArrayList<UserViewBean> articleList = new ArrayList<UserViewBean>();
@@ -637,19 +631,11 @@ public class UserDAO {
 	public ArrayList<UserViewBean> getGradeList(int page, String grade){
 		PreparedStatement pstmt = null;
 		ResultSet rs = null;
-/*<<<<<<< HEAD
-		String gr = grade;
-		String user_list_sql="SELECT * FROM user_view WHERE grade LIKE '%"+gr+"%' order by user_id asc limit 0,5";
-		//SELECT * FROM user_view WHERE user_id LIKE '%"+gr+"%' order by grade asc limit 0,5
-		ArrayList<UserViewBean> articleList = new ArrayList<UserViewBean>();
-		UserViewBean userList = null;
-		int startrow=(page-1)*5; //읽기 시작할 row 번호..	
-=======*/
+		
 		String user_list_sql="select * from user_view where grade=? order by user_id asc limit ?,10 ";
 		ArrayList<UserViewBean> userList = new ArrayList<UserViewBean>();
 		UserViewBean user = null;
-		int startrow=(page-1)*10; //읽기 시작할 row 번호..	
-
+		int startrow=(page-1)*10; //읽기 시작할 row 번호..
 
 		try{
 			pstmt = con.prepareStatement(user_list_sql);

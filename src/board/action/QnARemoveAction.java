@@ -39,12 +39,12 @@ public class QnARemoveAction implements Action {
 			out.println("</script>");
 		}else {
 			
-			String test_bnum = request.getParameter("bnum");
-			
-			System.out.println(test_bnum + " : 안넘어오나욤");
+			String bnum = request.getParameter("bnum");
+			String item_code = request.getParameter("item_code");
+			String page = request.getParameter("page");
 			
 			BoardService boardService = new BoardService();
-			boolean deleteResult = boardService.deleteQnaArticle(test_bnum);
+			boolean deleteResult = boardService.deleteQnaArticle(bnum);
 
 			if (deleteResult) {
 				forward = new ActionForward();

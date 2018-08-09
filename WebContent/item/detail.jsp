@@ -21,6 +21,8 @@
 <!DOCTYPE html PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN" "http://www.w3.org/TR/html4/loose.dtd">
 <html>
 <head>
+<c:set var="page_test" value="<%=nowPage%>"/>
+
 <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
 <title>Insert title here</title>
 <style>
@@ -129,8 +131,6 @@ dd{
 		}
 		document.itemform.submit();
 	}
-	
-	/* 일단해보자 */
 	
 	function layer_toggle(obj) {
 	if (obj.style.display == 'none') obj.style.display = 'block';
@@ -278,8 +278,10 @@ pageContext.setAttribute("uprice", uprice);
 			<% 
 			for(int i=0;i<articleList.size();i++){
 			%>
-	
+			
 			<tr height="30px">
+			
+			<c:set var="bnum_re" value="<%=articleList.get(i).getBoard_num()%>"/>
 			<td><%=articleList.get(i).getBoard_num()%></td>
 			<td colspan="2" >&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
 				<div id=아이디1<%=i %> style=display:block>
@@ -303,9 +305,13 @@ pageContext.setAttribute("uprice", uprice);
 				<%
 				if(articleList.get(i).getUser_id().equals("admin")){
 				%>
-				<button>답변</button> 
-				<button>수정</button> <!-- 삭제버튼 링크수정 -->
-				<button type="button" onclick="location.href='qnaRemove.bo?bnum=<%=articleList.get(i).getBoard_num()%>'">삭제</button>
+			<c:if test="${id=='admin'}">
+			<button onclick="window.open('qnaReplyForm.bo?item_code=${item.item_code}&page=<%=nowPage%>&re_bnum=<%=articleList.get(i).getBoard_num()%>', '답변달기', 'width=570, height=210, left=150, top=50');">답변</button>
+			<button type="button" onclick="location.href='qnaRemove.bo?bnum=<%=articleList.get(i).getBoard_num()%>&item_code=${item.item_code}&page=<%=nowPage%>'">삭제</button>
+			</c:if>
+			<c:if test="${id==articleList.get(i).getUser_id()&&id!='admin'&&id!=null}">
+			<button type="button" onclick="location.href='qnaRemove.bo?bnum=<%=articleList.get(i).getBoard_num()%>&item_code=${item.item_code}&page=<%=nowPage%>'">삭제</button>
+			</c:if>
 				<%} %>
 				</div>
 				<br>

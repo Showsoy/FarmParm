@@ -35,28 +35,25 @@ public class UserItemViewAction implements action.Action{
 		BoardService boardService = new BoardService();
 		
 		
-		ArrayList<BoardBean> articleList = new ArrayList<BoardBean>();
-	  	int page=1;
-		int limit=5;
-		
-		
+		ArrayList<BoardBean> q_articleList = new ArrayList<BoardBean>();
+	  	int q_page=1;
+		int q_limit=5;
+
 		if(request.getParameter("page")!=null){
-			page=Integer.parseInt(request.getParameter("page"));
+			q_page=Integer.parseInt(request.getParameter("page"));
 		}
-		
-		
+
 		int listCount = boardService.qnaListCount();
-		articleList = boardService.qna_list(page,limit);
+		q_articleList = boardService.qna_list(q_page,q_limit);
 		
-		
-		int maxPage=(int)((double)listCount/limit+0.95); //0.95를 더해서 올림 처리.
+		int maxPage=(int)((double)listCount/q_limit+0.95); //0.95를 더해서 올림 처리.
    		//현재 페이지에 보여줄 시작 페이지 수(1, 11, 21 등...)
-   		int startPage = (((int) ((double)page / 10 + 0.9)) - 1) * 10 + 1;
+   		int startPage = (((int) ((double)q_page / 10 + 0.9)) - 1) * 10 + 1;
    		//현재 페이지에 보여줄 마지막 페이지 수.(10, 20, 30 등...)
    	    int endPage = startPage+10-1;
    	    
 		forward = new ActionForward();
-		
+	
 		ItemBean item = itemService.getItem(item_code);
 		if(id!=null&&!id.equals("admin")) {
 			int updateCount = itemService.updateReadCount(item_code);
@@ -99,14 +96,14 @@ public class UserItemViewAction implements action.Action{
 		// ****상품문의 리스트****** 
 		
 		if (endPage> maxPage) endPage= maxPage;
-		PageInfo pageInfo = new PageInfo();
-   		pageInfo.setEndPage(endPage);
-   		pageInfo.setListCount(listCount);
-		pageInfo.setMaxPage(maxPage);
-		pageInfo.setPage(page);
-		pageInfo.setStartPage(startPage);
-		request.setAttribute("pageInfo", pageInfo);
-		request.setAttribute("articleList", articleList);
+		PageInfo q_pageInfo = new PageInfo();
+		q_pageInfo.setEndPage(endPage);
+		q_pageInfo.setListCount(listCount);
+		q_pageInfo.setMaxPage(maxPage);
+		q_pageInfo.setPage(q_page);
+		q_pageInfo.setStartPage(startPage);
+		request.setAttribute("pageInfo", q_pageInfo);
+		request.setAttribute("articleList", q_articleList);
 		
 		// ****상품문의 리스트****** 
 		
@@ -114,7 +111,7 @@ public class UserItemViewAction implements action.Action{
 		
 		request.setAttribute("item",item);
 		//String page_2 = request.getParameter("page");
-		request.setAttribute("page", page);
+		request.setAttribute("page", q_page);
 		forward = new ActionForward();
 		forward.setPath("item/detail.jsp");
 		
