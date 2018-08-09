@@ -674,7 +674,7 @@ public class BoardDAO {
 	public ArrayList<BoardBean> qna_list(int page, int limit) {
 		PreparedStatement pstmt = null;
 		ResultSet rs = null;
-		String qna_list_sql = "select * from qna_board order by user_id asc limit ?,5";
+		String qna_list_sql = "select * from qna_board order by rgroup desc, rstep asc limit ?,5";
 		ArrayList<BoardBean> articleList = new ArrayList<BoardBean>();
 		BoardBean boardBean = null;
 		int startrow = (page - 1) * 5; // 읽기 시작할 row 번호..
@@ -686,12 +686,11 @@ public class BoardDAO {
 
 			while (rs.next()) {
 
-				boardBean = new BoardBean(rs.getInt("bnum"), rs.getString("subject"), rs.getString("user_id"),
-						rs.getDate("qdate"));
+				boardBean = new BoardBean(rs.getInt("bnum"), rs.getString("subject"), rs.getString("content"),
+						rs.getString("user_id"), rs.getString("img_path"), rs.getDate("qdate"));
 
 				articleList.add(boardBean);
 			}
-
 		} catch (Exception ex) {
 			System.out.println("에러 : " + ex);
 		} finally {
