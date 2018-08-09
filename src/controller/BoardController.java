@@ -20,6 +20,8 @@ import board.action.NoticeListAction;
 import board.action.NoticeRemoveAction;
 import board.action.NoticeViewAction;
 import board.action.NoticeWriteAction;
+import board.action.QnAReplyAction;
+import board.action.QnAReplyFormAction;
 import board.action.QnAWriteAction;
 import board.action.QnAWriteAction1;
 import board.action.QnAWriteFormAction;
@@ -159,7 +161,22 @@ public class BoardController extends HttpServlet {
     		}catch(Exception e) {
     			e.printStackTrace();
     		}
+    	}else if(command.equals("/qnaReplyForm.bo")) {
+    		action = new QnAReplyFormAction();
+    		try {
+    			forward = action.execute(request, response);
+    		}catch(Exception e) {
+    			e.printStackTrace();
+    		}
+    	}else if(command.equals("/qnaReply.bo")) {
+    		action = new QnAReplyAction();
+    		try {
+    			forward = action.execute(request, response);
+    		}catch(Exception e) {
+    			e.printStackTrace();
+    		}
     	}
+    	
     	if(forward!=null) {
     		if(forward.isRedirect()) {
     			response.sendRedirect(forward.getPath());

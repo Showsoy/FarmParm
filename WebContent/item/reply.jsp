@@ -133,7 +133,7 @@ dd{
 <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.6.3/css/font-awesome.min.css">
 <body>
 
-		<form action="qnaReply.bo?page=${re_page }&item_code=${re_item_code}&re_bnum=${re_bnum}" method="post" enctype="multipart/form-data" name="itemnew" onsubmit="return chkForm(this)">
+		<form action="qnaReply.bo?page=${re_page }&item_code=${re_item_code}&re_rgroup=${re_rgroup}" method="post" enctype="multipart/form-data" name="itemnew" onsubmit="return chkForm(this)">
 			<table>
 				<tr>
 					<td id="td_left">

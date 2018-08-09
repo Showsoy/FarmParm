@@ -16,11 +16,11 @@ public class QnAReplyFormAction implements Action {
 		ActionForward forward = new ActionForward();
    		String nowPage = request.getParameter("page");
    		String item_code = request.getParameter("item_code");
-   		String re_bnum = request.getParameter("re_bnum");
+   		String re_bnum = request.getParameter("re_rgroup");
    		
    		request.setAttribute("re_item_code", item_code);
    		request.setAttribute("re_page", nowPage);
-   		request.setAttribute("re_bnum", re_bnum);
+   		request.setAttribute("re_rgroup", re_bnum);
    		forward.setPath("item/reply.jsp");
    		return forward;
 		

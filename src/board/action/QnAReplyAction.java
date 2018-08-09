@@ -24,7 +24,7 @@ public class QnAReplyAction implements Action {
 	 	request.setCharacterEncoding("UTF-8");
 	    String nowPage = request.getParameter("page");
 	    String item_code = request.getParameter("item_code");
-	    String bnum = request.getParameter("re_bnum");
+	    String bnum = request.getParameter("re_rgroup");
 	    
 		String realFolder="";
 		String saveFolder="/images";

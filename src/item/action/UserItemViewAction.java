@@ -105,8 +105,8 @@ public class UserItemViewAction implements action.Action{
 		
 		request.setAttribute("todayImageMap", todayImageMap);
 		request.setAttribute("item",item);
-		request.setAttribute("q_page", q_page);
-		//String page_2 = request.getParameter("page");
+		String page_2 = request.getParameter("page");
+		request.setAttribute("page", page_2);
 		forward = new ActionForward();
 		forward.setPath("item/detail.jsp");
 		

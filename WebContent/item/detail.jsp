@@ -7,7 +7,7 @@
 <%@ taglib prefix="fmt" uri="http://java.sun.com/jsp/jstl/fmt" %>
 <%
  java.text.SimpleDateFormat formatter = new java.text.SimpleDateFormat("yyyyMMdd");
- String today = formatter.format(new java.util.Date());
+ //String today = formatter.format(new java.util.Date());
 %>
 <%
 	ArrayList<BoardBean> articleList = (ArrayList<BoardBean>)request.getAttribute("articleList");
@@ -220,7 +220,7 @@ pageContext.setAttribute("uprice", uprice);
 <br><br><br>
 
 <div class="review">
-<<<<<<< HEAD
+
 <h3>&nbsp;&nbsp;상품후기</h3>
 	<hr color="#4CAF50" size="5">
 		<button type="button" onclick="window.open('../item/reForm.bo?item_code=${item.item_code}','','width=500, height=400')">후기쓰기</button>
@@ -300,9 +300,8 @@ pageContext.setAttribute("uprice", uprice);
 			%>
 			
 			<tr height="30px">
-			
-			<c:set var="bnum_re" value="<%=articleList.get(i).getBoard_num()%>"/>
-			<td><%=articleList.get(i).getBoard_num()%></td>
+
+			<td><%=articleList.get(i).getRgroup()%></td>
 			<td colspan="2" >&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
 				<div id=아이디1<%=i %> style=display:block>
 				<a href=javascript:; onclick="layer_toggle(document.getElementById('아이디1<%=i %>')); layer_toggle(document.getElementById('아이디2<%=i %>'));return false;">
@@ -326,11 +325,11 @@ pageContext.setAttribute("uprice", uprice);
 				if(articleList.get(i).getUser_id().equals("admin")){
 				%>
 			<c:if test="${id=='admin'}">
-			<button onclick="window.open('qnaReplyForm.bo?item_code=${item.item_code}&page=<%=nowPage%>&re_bnum=<%=articleList.get(i).getBoard_num()%>', '답변달기', 'width=570, height=210, left=150, top=50');">답변</button>
-			<button type="button" onclick="location.href='qnaRemove.bo?bnum=<%=articleList.get(i).getBoard_num()%>&item_code=${item.item_code}&page=<%=nowPage%>'">삭제</button>
+			<button onclick="window.open('qnaReplyForm.bo?item_code=${item.item_code}&page=<%=nowPage%>&re_rgroup=<%=articleList.get(i).getRgroup()%>', '답변달기', 'width=570, height=210, left=150, top=50');">답변</button>
+			<button type="button" onclick="location.href='qnaRemove.bo?bnum=<%=articleList.get(i).getRgroup()%>&item_code=${item.item_code}&page=<%=nowPage%>'">삭제</button>
 			</c:if>
 			<c:if test="${id==articleList.get(i).getUser_id()&&id!='admin'&&id!=null}">
-			<button type="button" onclick="location.href='qnaRemove.bo?bnum=<%=articleList.get(i).getBoard_num()%>&item_code=${item.item_code}&page=<%=nowPage%>'">삭제</button>
+			<button type="button" onclick="location.href='qnaRemove.bo?bnum=<%=articleList.get(i).getRgroup()%>&item_code=${item.item_code}&page=<%=nowPage%>'">삭제</button>
 			</c:if>
 				<%} %>
 				</div>
@@ -372,8 +371,8 @@ pageContext.setAttribute("uprice", uprice);
 		</table>
 		<br><br><br>
 		
-		<div id="qna_regist">
-		<form action="qnaRegist.bo?qdate=<%=today %>&item_code=${item.item_code }" method="post" enctype="multipart/form-data" name="itemnew" onsubmit="return chkForm(this)">
+		<div id="qna_regist"> <%-- qdate=<%=today %>& 뺐음--%>
+		<form action="qnaRegist.bo?item_code=${item.item_code }" method="post" enctype="multipart/form-data" name="itemnew" onsubmit="return chkForm(this)">
 			<table>
 				<tr>
 					<td id="td_left">
