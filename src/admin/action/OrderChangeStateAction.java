@@ -25,14 +25,14 @@ public class OrderChangeStateAction implements Action {
 			PrintWriter out = response.getWriter();
 			out.println("<script>");
 			out.println("alert('로그인이 필요합니다.');");
-			out.println("location.href='../member/memberLogin.us?turn=ok';");
+			out.println("location.href='./member/memberLogin.us?turn=ok';");
 			out.println("</script>");
 		}else if(!id.equals("admin")) {
 			response.setContentType("text/html;charset=UTF-8");
 			PrintWriter out = response.getWriter();
 			out.println("<script>");
 			out.println("alert('권한이 없습니다.');");
-			out.println("location.href='../common/main.im';");
+			out.println("location.href='../main.im';");
 			out.println("</script>");
 		}else {
 			OrderService orderService = new OrderService();
@@ -41,7 +41,6 @@ public class OrderChangeStateAction implements Action {
 			int updateCount=0;
 			order_id = request.getParameter("order_id");
 			String state = request.getParameter("od_state");
-			System.out.println(state);
 			if(order_id==null) {
 				ids = request.getParameterValues("icheck");
 				for(int i=0;i<ids.length;i++) {
@@ -50,7 +49,6 @@ public class OrderChangeStateAction implements Action {
 			}else {
 				updateCount = orderService.changeOrderState(Integer.parseInt(order_id), state);
 			}
-			System.out.println(updateCount+"D");
 			if(updateCount==0) {
 				response.setContentType("text/html;charset=UTF-8");
 				PrintWriter out = response.getWriter();

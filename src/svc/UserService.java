@@ -331,11 +331,11 @@ public class UserService {
 		close(conn);
 		return updateCount;
 	}
-	public int userPlusPoint(String id, int depoint) {
+	public int userPlusPoint(String id, int point) {
 		Connection conn = getConnection();
 		UserDAO userDAO = UserDAO.getInstance();
 		userDAO.setConnection(conn);
-		int updateCount = userDAO.userPlusPoint(id, depoint);
+		int updateCount = userDAO.userPlusPoint(id, point);
 		if(updateCount > 0){
 			commit(conn);
 		}

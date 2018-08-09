@@ -144,10 +144,41 @@ function goto_url(act) {
 	<form name="orderview" method="post">
 		<span id="seldel">
 		<select name="od_state" id="od_state">
-			<option value="결제완료">결제완료</option>
-			<option value="상품출고">상품출고</option>
-			<option value="배송완료">배송완료</option>
-			<option value="취소">취소</option>
+			<c:if test="${order.state eq '주문완료'}">
+				<option value="주문완료" selected>주문완료</option>
+				<option value="결제완료">결제완료</option>
+				<option value="상품출고">상품출고</option>
+				<option value="배송완료">배송완료</option>
+				<option value="취소">취소</option>
+			</c:if>
+			<c:if test="${order.state eq '결제완료'}">
+				<option value="주문완료">주문완료</option>
+				<option value="결제완료" selected>결제완료</option>
+				<option value="상품출고">상품출고</option>
+				<option value="배송완료">배송완료</option>
+				<option value="취소">취소</option>
+			</c:if>
+				<c:if test="${order.state eq '상품출고'}">
+				<option value="주문완료">주문완료</option>	
+				<option value="결제완료">결제완료</option>
+				<option value="상품출고" selected>상품출고</option>
+				<option value="배송완료">배송완료</option>
+				<option value="취소">취소</option>
+			</c:if>
+				<c:if test="${order.state eq '배송완료'}">
+				<option value="주문완료">주문완료</option>
+				<option value="결제완료">결제완료</option>
+				<option value="상품출고">상품출고</option>
+				<option value="배송완료" selected>배송완료</option>
+				<option value="취소">취소</option>
+			</c:if>
+				<c:if test="${order.state eq '취소'}">
+				<option value="주문완료">주문완료</option>
+				<option value="결제완료">결제완료</option>
+				<option value="상품출고">상품출고</option>
+				<option value="배송완료">배송완료</option>
+				<option value="취소" selected>취소</option>
+			</c:if>
 		</select>
 		<button type="button" id="wbutton" style="width:100px;" onclick="goto_url('odChgState.od?order_id=${order.order_id}&page=${page }');">주문상태변경</button>
 		</span><br>

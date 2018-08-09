@@ -211,6 +211,7 @@ pageContext.setAttribute("uprice", uprice);
 <div class="review">
 <h3>&nbsp;&nbsp;상품후기</h3>
 	<hr color="#4CAF50" size="5">
+		<button type="button" onclick="window.open('../item/reForm.bo?item_code=${item.item_code}','','width=500, height=400')">후기쓰기</button>
 		<table cellspacing="0" cellpadding="0" id="detail_board">
 			<tr id="top_menu" height="20px">
 				<td id="td_check">번호</td>

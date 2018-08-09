@@ -21,6 +21,8 @@ import board.action.NoticeRemoveAction;
 import board.action.NoticeViewAction;
 import board.action.NoticeWriteAction;
 import board.action.QnAWriteAction;
+import board.action.QnAWriteAction1;
+import board.action.QnAWriteFormAction;
 import board.action.ReviewWriteAction;
 import board.action.ReviewWriteFormAction;
 import vo.ActionForward;
@@ -138,6 +140,20 @@ public class BoardController extends HttpServlet {
     		}
     	}else if(command.equals("/reForm.bo")) {
     		action = new ReviewWriteFormAction();
+    		try {
+    			forward = action.execute(request, response);
+    		}catch(Exception e) {
+    			e.printStackTrace();
+    		}
+    	}else if(command.equals("/qnaForm.bo")) {
+    		action = new QnAWriteFormAction();
+    		try {
+    			forward = action.execute(request, response);
+    		}catch(Exception e) {
+    			e.printStackTrace();
+    		}
+    	}else if(command.equals("/qnaWrite.bo")) {
+    		action = new QnAWriteAction1();
     		try {
     			forward = action.execute(request, response);
     		}catch(Exception e) {

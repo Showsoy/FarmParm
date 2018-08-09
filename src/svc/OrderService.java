@@ -196,4 +196,22 @@ public class OrderService {
 		close(conn);
 		return updateCount;
 	}
+	public boolean isBoughtUser(String item_code, String id, int order_id) {
+		OrderDAO orderDAO = OrderDAO.getInstance();
+		Connection conn = getConnection();
+		orderDAO.setConnection(conn);
+		boolean result = orderDAO.isBoughtUser(item_code, id, order_id);
+		
+		close(conn);
+		return result;
+	}
+	public ArrayList<Integer> orderIdList(String item_code, String id) {
+		OrderDAO orderDAO = OrderDAO.getInstance();
+		Connection conn = getConnection();
+		orderDAO.setConnection(conn);
+		ArrayList<Integer> result = orderDAO.orderIdList(item_code, id);
+		
+		close(conn);
+		return result;
+	}
 }

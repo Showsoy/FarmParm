@@ -16,7 +16,7 @@ public class MemberLogoutAction implements Action{
 	 	String id =(String)session.getAttribute("id");
 		session.removeAttribute("id");
 		forward.setRedirect(true);
-   		forward.setPath("./common/main.im");
+   		forward.setPath("./main.im");
    		return forward;
  }
 

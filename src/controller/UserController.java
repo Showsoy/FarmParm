@@ -64,7 +64,7 @@ protected void doProcess(HttpServletRequest request, HttpServletResponse respons
 		}else if(command.equals("/member/memberLogin.us")){
 			forward=new ActionForward();
 			forward.setRedirect(false);
-			forward.setPath("login.jsp");
+			forward.setPath("./login.jsp");
 			if(request.getParameter("turn")!=null) request.setAttribute("turn", request.getParameter("turn"));
     	}else if(command.equals("/member/memberLoginAction.us")){
 			action = new MemberLoginAction();

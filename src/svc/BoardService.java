@@ -93,11 +93,20 @@ public class BoardService {
 		close(conn);
 		return articleList;
 	}
-	public ArrayList<BoardBean> selectArticleList(String bName, int page) {
+	public ArrayList<BoardBean> selectReviewList(int page) {
 		BoardDAO boardDAO = BoardDAO.getInstance();
 		Connection conn = getConnection();
 		boardDAO.setConnection(conn);
-		ArrayList<BoardBean> articleList = boardDAO.selectArticleList(bName, page);
+		ArrayList<BoardBean> articleList = boardDAO.selectReviewList(page);
+		
+		close(conn);
+		return articleList;
+	}
+	public ArrayList<BoardBean> selectQnAList(int page) {
+		BoardDAO boardDAO = BoardDAO.getInstance();
+		Connection conn = getConnection();
+		boardDAO.setConnection(conn);
+		ArrayList<BoardBean> articleList = boardDAO.selectQnAList(page);
 		
 		close(conn);
 		return articleList;
@@ -194,21 +203,56 @@ public class BoardService {
 		close(con);
 		return userList;
 	}
-	public boolean testReviewBoard(String item_code, String id) {
+	public boolean testReviewBoard(String item_code, String id, int order_id) {
 		BoardDAO boardDAO = BoardDAO.getInstance();
 		Connection conn = getConnection();
 		boardDAO.setConnection(conn);
-		boolean result = boardDAO.testReviewBoard(item_code, id);
+		boolean result = boardDAO.testReviewBoard(item_code, id, order_id);
 		
 		close(conn);
 		return result;
 	}
-	public boolean writeArticle(String bName, BoardBean board) {
+	public int testReviewBoard(String item_code, String id) {
+		BoardDAO boardDAO = BoardDAO.getInstance();
+		Connection conn = getConnection();
+		boardDAO.setConnection(conn);
+		int result = 0;
+		OrderService orderService = new OrderService();
+		ArrayList<Integer> od_result = orderService.orderIdList(item_code, id);
+		if(od_result==null) result = -1;//구매내역없음
+		else {
+			result = boardDAO.findOrderId(od_result, item_code, id);
+			//0이면 더 이상 쓸 수 있는 주문 없음, 1 이상이면 주문 아이디.
+		}
+		
+		close(conn);
+		return result;
+	}
+	public boolean writeReview(BoardBean board) {
 		BoardDAO boardDAO = BoardDAO.getInstance();
 		Connection conn = getConnection();
 		boardDAO.setConnection(conn);
 		boolean isWriteSuccess = false;
-		int insertCount = boardDAO.writeArticle(bName, board);
+		int insertCount = boardDAO.writeReview(board);
+		UserService userService = new UserService();
+		int updateCount = userService.userPlusPoint(board.getUser_id(), 500);
+		
+		if(insertCount>0&&updateCount>0) {
+			commit(conn);
+			isWriteSuccess = true;
+		}else {
+			rollback(conn);
+		}
+		
+		close(conn);
+		return isWriteSuccess;
+	}
+	public boolean writeQnA(BoardBean board) {
+		BoardDAO boardDAO = BoardDAO.getInstance();
+		Connection conn = getConnection();
+		boardDAO.setConnection(conn);
+		boolean isWriteSuccess = false;
+		int insertCount = boardDAO.writeQnA(board);
 		
 		if(insertCount>0) {
 			commit(conn);

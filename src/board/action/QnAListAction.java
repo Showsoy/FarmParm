@@ -32,7 +32,7 @@ public class QnAListAction implements Action {
 		BoardService boardService = new BoardService();
 		
 		listCount = boardService.selectListCount("qna_board");
-		boardList = boardService.selectArticleList("qna_board", page);
+		boardList = boardService.selectQnAList(page);
 		
 		int maxPage = (int)((double)listCount/limit+0.95);
 		int startPage = (((int)((double)page/limitPage+0.9))-1) *limitPage +1;

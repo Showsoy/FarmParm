@@ -186,9 +186,8 @@ th{
 				<td style="width:100px;">갯수</td>
 				<td style="width:100px;">재고</td>
 			</tr>
-			<%
-				if(itemStockList!=null&&listCount>0){
-			%>
+			<c:choose>
+			<c:when test="${itemStockList!=null && i_pageInfo.listCount>0 }">
 			<c:forEach var="stock" items="${itemStockList }">
 			<tr>
 				<td>${stock.item_code }</td>
@@ -199,7 +198,7 @@ th{
 			</tr>
 			</c:forEach>
 			<tr>
-				<td colspan="6" id="state_info"><!-- 페이지 수 넣을 것임 -->
+				<td colspan="6" id="state_info">
 					<c:if test="${i_pageInfo.page<=1 }">
 						[이전]&nbsp;
 					</c:if>
@@ -227,10 +226,11 @@ th{
 					</c:choose>
 				</td>
 			</tr>
-			<%}else{
-			%>
+			</c:when>
+			<c:otherwise>
 				<tr><td colspan="5">등록된 데이터가 없습니다.</td></tr>
-			<%} %>
+			</c:otherwise>
+			</c:choose>
 		</table>
 </div>
 <br><br><br><br>

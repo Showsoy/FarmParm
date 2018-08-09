@@ -15,14 +15,14 @@
 <div class="right">
 	<c:choose>
 		<c:when test="${id == null}">
-			<a href="<%=request.getContextPath()%>/member/memberLogin.us">로그인</a>&nbsp;
-			<a href="<%=request.getContextPath()%>/member/joinForm.jsp">회원가입</a>&nbsp;
+			<a href="<%=request.getContextPath()%>/memberLogin.us">로그인</a>&nbsp;
+			<a href="<%=request.getContextPath()%>/joinForm.jsp">회원가입</a>&nbsp;
 		</c:when>
 		<c:otherwise>
 			<a href="<%=request.getContextPath()%>/memberLogout.us">로그아웃</a>&nbsp;
 		</c:otherwise>
 		</c:choose>  
-		    <a href="<%=request.getContextPath()%>/member/myPage.us">마이페이지</a>&nbsp;
+		    <a href="<%=request.getContextPath()%>/myPage.us">마이페이지</a>&nbsp;
 			<a href="<%=request.getContextPath()%>/order/myodList.od">주문/배송</a>&nbsp;
 
 			<a href="<%=request.getContextPath()%>/common/csList.bo">고객센터</a>&nbsp;

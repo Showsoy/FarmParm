@@ -727,5 +727,4 @@ public class UserDAO {
 		
 		return updateCount;
 	}
-
 }

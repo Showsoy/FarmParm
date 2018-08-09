@@ -8,8 +8,8 @@
 <title>Insert title here</title>
 </head>
 <body>
-<div class="review">
-<h3>&nbsp;&nbsp;상품후기</h3>
+<div class="qna">
+<h3>&nbsp;&nbsp;상품문의</h3>
 	<hr color="#4CAF50" size="5">
 		<table cellspacing="0" cellpadding="0" id="detail_board">
 			<tr id="top_menu" height="20px">
@@ -19,47 +19,47 @@
 				<td>작성일</td>
 			</tr>
 			<c:choose>
-				<c:when test="${reviewList!=null&&pageInfo.listCount>0 }">	
-				<c:forEach var="review" items="${reviewList }">
+				<c:when test="${qnaList!=null&&pageInfo.listCount>0 }">	
+				<c:forEach var="qna" items="${qnaList }">
 					<tr height="30px">
-						<td>${review.rgroup }</td>
-						<td colspan="2">${review.subject }</td>
-						<td>${review.user_id }</td>
-						<td>${review.rdate }</td>
+						<td>${qna.rgroup }</td>
+						<td colspan="2">${qna.subject }</td>
+						<td>${qna.user_id }</td>
+						<td>${qna.rdate }</td>
 					</tr>
 				</c:forEach>
 			</c:when>
 				<c:otherwise>
 					<td colspan="5">
-						조회 가능한 상품후기가 없습니다.
+						조회 가능한 상품문의가 없습니다.
 					</td>
 				</c:otherwise>
 			</c:choose>
 			<tr>
-				<td colspan="5" id="review_page">
-					<c:if test="${r_pageInfo.page<=1 }">
+				<td colspan="5" id="qna_page">
+					<c:if test="${q_pageInfo.page<=1 }">
 						[이전]&nbsp;
 					</c:if>
-					<c:if test="${r_pageInfo.page>1 }">
-						<a href="uitemView.im?item_code=${item.item_code }&page=${page }&r_page=${r_pageInfo.page-1}&q_page=${q_page }">[이전]</a>&nbsp;
+					<c:if test="${q_pageInfo.page>1 }">
+						<a href="uitemView.im?item_code=${item.item_code }&page=${page }&r_page=${r_page}&q_page=${q_page }">[이전]</a>&nbsp;
 					</c:if>
 					
-					<c:forEach var="a" begin="${r_pageInfo.startPage }" end="${r_pageInfo.endPage }" step="1">
+					<c:forEach var="a" begin="${q_pageInfo.startPage }" end="${q_pageInfo.endPage }" step="1">
 						<c:choose>
-							<c:when test="${a==r_pageInfo.page }">
+							<c:when test="${a==q_pageInfo.page }">
 								[${a }]
 							</c:when>
 							<c:otherwise>
-								<a href="uitemView.im?item_code=${item.item_code }&page=${page }&r_page=${a }&q_page=${q_page }">[${a }]</a>&nbsp;
+								<a href="uitemView.im?item_code=${item.item_code }&page=${page }&r_page=${r_page }&q_page=${a }">[${a }]</a>&nbsp;
 							</c:otherwise>
 						</c:choose>
 					</c:forEach>
 					<c:choose>
-						<c:when test="${r_pageInfo.page>=r_pageInfo.maxPage }">
+						<c:when test="${q_pageInfo.page>=q_pageInfo.maxPage }">
 							[다음]
 						</c:when>
 						<c:otherwise>
-							<a href="uitemView.im?item_code=${item.item_code }&page=${page }&r_page=${r_pageInfo.page+1 }&q_page=${q_page }">[다음]</a>
+							<a href="uitemView.im?item_code=${item.item_code }&page=${page }&r_page=${r_page }&q_page=${q_pageInfo.page+1 }">[다음]</a>
 						</c:otherwise>
 					</c:choose>
 				</td>

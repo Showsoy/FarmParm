@@ -1,20 +1,13 @@
 package board.action;
 
-import java.io.PrintWriter;
-import java.sql.Date;
-
-import javax.servlet.ServletContext;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import javax.servlet.http.HttpSession;
 
-import com.oreilly.servlet.MultipartRequest;
-import com.oreilly.servlet.multipart.DefaultFileRenamePolicy;
-
 import action.Action;
 import svc.BoardService;
+import svc.OrderService;
 import vo.ActionForward;
-import vo.BoardBean;
 
 public class ReviewWriteFormAction implements Action {
 
@@ -32,14 +25,32 @@ public class ReviewWriteFormAction implements Action {
 		}else {
 			String item_code = request.getParameter("item_code");
 			BoardService boardService = new BoardService();
-			boolean result = boardService.testReviewBoard(item_code, id);
-			if(!result) {
+			OrderService orderService = new OrderService();
+			int result = 0;
+			if(request.getParameter("order_id")!=null) {
+				int order_id = Integer.parseInt(request.getParameter("order_id"));
+				boolean test = orderService.isBoughtUser(item_code, id, order_id);
+				if(test) {
+					boolean flag = boardService.testReviewBoard(item_code, id, order_id);
+					if(flag) result = order_id;
+					else result = 0;
+				}
+				else {
+					result=-1;
+				}
+				
+			}
+			else result = boardService.testReviewBoard(item_code, id);
+			System.out.println(result);
+			if(result==-1) {
+				request.setAttribute("act", "no");
+			}else if(result==0) {
 				request.setAttribute("act", "dupl");
-				forward= new ActionForward("./reviewform.jsp",false);
 			}else {
 				request.setAttribute("item_code", item_code);
-				forward= new ActionForward("./reviewform.jsp",false);
+				request.setAttribute("order_id", result);
 			}
+			forward= new ActionForward("./reviewform.jsp",false);
 		}
 		return forward;
 	}

@@ -16,7 +16,7 @@ import svc.BoardService;
 import vo.ActionForward;
 import vo.BoardBean;
 
-public class ReviewWriteAction implements Action {
+public class QnAWriteAction1 implements Action {
 
 	@Override
 	public ActionForward execute(HttpServletRequest request, HttpServletResponse response) throws Exception {
@@ -28,12 +28,12 @@ public class ReviewWriteAction implements Action {
 		String id = (String)session.getAttribute("id");
 		if(id==null) {
 			request.setAttribute("act", "login");
-			forward= new ActionForward("./reviewform.jsp",false);
+			forward= new ActionForward("./qnaform.jsp",false);
 		}else {
 			BoardService boardService = new BoardService();
 		
 			Date date = new Date(0, 0, 0);	
-			int bnum = boardService.searchBNum("review_board");
+			int bnum = boardService.searchBNum("qna_board");
 			
 			String realFolder = "";
 			String saveFolder = "/images";
@@ -50,8 +50,8 @@ public class ReviewWriteAction implements Action {
 					id,
 					multi.getParameter("content"),
 					multi.getParameter("subject"),
-					image,0,date,Integer.parseInt(multi.getParameter("order_id")),bnum,1);
-			boolean isWriteSuccess = boardService.writeReview(board);
+					image,0,date,0,bnum,1);
+			boolean isWriteSuccess = boardService.writeQnA(board);
 			if(!isWriteSuccess) {
 				response.setContentType("text/html;charset=UTF-8");
 				PrintWriter out = response.getWriter();
@@ -61,7 +61,7 @@ public class ReviewWriteAction implements Action {
 				out.println("</script>");
 			}else {
 				request.setAttribute("act", "ok");
-				forward= new ActionForward("./reviewform.jsp",false);//리스트로 들어감
+				forward= new ActionForward("./qnaform.jsp",false);//리스트로 들어감
 			}
 		}
 		return forward;
