@@ -77,7 +77,7 @@ th{
 	<h3>&nbsp;&nbsp;입고등록</h3>
 	<hr color="#4CAF50" size="5">
 	<div class="mypage">
-	<form action="../itemSearch.im" method="post">
+	<form action="./itemSearch.im" method="post">
 		<input type="text" id="keyword" name="keyword" size="20" placeholder="분류 이름 원산지로 검색가능"/>&nbsp;<button type="submit" id="wbutton">검색</button>
 	</form>
 	<br><br><br>
@@ -99,7 +99,7 @@ th{
 		<td>${isearch.item_name }</td>
 		<td>${isearch.origin }</td>
 		<td>${isearch.price }</td>
-		<th><button type="button" id="gbutton" onclick="location.href='../itemEnterForm.im?item_code=${isearch.item_code}'">선택</button></th>
+		<th><button type="button" id="gbutton" onclick="location.href='./itemEnterForm.im?item_code=${isearch.item_code}'">선택</button></th>
 	</tr>
 	</c:forEach>
 	</table>
