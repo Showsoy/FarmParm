@@ -149,29 +149,28 @@ function selectEmail(sel) {
 		<select name="userGrade" id="userGrade">
 			<c:if test="${user.grade == '일반회원'}">
 				<option value="일반회원" selected>일반회원</option>
-				<option value="일반사업">일반사업</option>
+				<option value="일반셀러">일반셀러</option>
 				<option value="우수회원">우수회원</option>
-				<option value="우수사업">우수사업</option>
+				<option value="우수셀러">우수셀러</option>
+			</c:if>
+			<c:if test="${user.grade == '일반셀러'}">
+				<option value="일반회원">일반회원</option>
+				<option value="일반셀러" selected>일반셀러</option>
+				<option value="우수회원">우수회원</option>
+				<option value="우수셀러">우수셀러</option>
 			</c:if>
 			<c:if test="${user.grade == '우수회원'}">
 				<option value="일반회원">일반회원</option>
-				<option value="일반사업">일반사업</option>
+				<option value="일반셀러">일반셀러</option>
 				<option value="우수회원" selected>우수회원</option>
-				<option value="우수사업">우수사업</option>
+				<option value="우수셀러">우수셀러</option>
 			</c:if>
-				<c:if test="${user.grade == '일반사업'}">
+			<c:if test="${user.grade == '우수셀러'}">
 				<option value="일반회원">일반회원</option>
-				<option value="일반사업" selected>일반사업</option>
+				<option value="일반셀러">일반셀러</option>
 				<option value="우수회원">우수회원</option>
-				<option value="우수사업">우수사업</option>
+				<option value="우수셀러" selected>우수셀러</option>
 			</c:if>
-				<c:if test="${user.grade == '우수사업'}">
-				<option value="일반회원">일반회원</option>
-				<option value="일반사업">일반사업</option>
-				<option value="우수회원">우수회원</option>
-				<option value="우수사업" selected>우수사업</option>
-			</c:if>
-			
 		</select>
 		</td>
 	</tr>
@@ -251,8 +250,8 @@ function selectEmail(sel) {
 		<td rowspan="3">
 		<input type="text" name="userAddr1" id="userAddr1"size="7" value="${user.postcode}" />
 		<button type="button" onclick="sample6_execDaumPostcode()" id="gbutton">주소검색</button> <br>
-		<input type="text" name="userAddr2" id="userAddr2" placeholder="주소" size="30" value="${user.address}"/><br>
-		<input type="text" name="userAddr3" id="userAddr3" placeholder="상세주소" size="30" value="${user.address_second}"/>
+		<input type="text" name="userAddr2" id="userAddr2" placeholder="주소" size="40" value="${user.address}"/><br>
+		<input type="text" name="userAddr3" id="userAddr3" placeholder="상세주소" size="40" value="${user.address_second}"/>
 		<script src="http://dmaps.daum.net/map_js_init/postcode.v2.js"></script>
 		<script>
 		    function sample6_execDaumPostcode() {
@@ -302,12 +301,8 @@ function selectEmail(sel) {
 <br>
 			<section id="commandCell">
 				<button type="submit">수정</button>
-				<button type="button" onclick="location.href='/FarmParm/admin/adminPage.jsp'">관리자 페이지</button>
+				<button type="button" onclick="location.href='userView.us?user_id=${user.user_id}'">뒤로가기</button>
 			</section>
-<br><br>
-	
-			<button type="button" onclick="location.href='memberDelete.us?uid=${user.user_id}'">삭제</button>
-			<button type="button" onclick="location.href='/FarmParm/memberList.us'">목록</button> 
 		</form>
 	</div>
 </div>

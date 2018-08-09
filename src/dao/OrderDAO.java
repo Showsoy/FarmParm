@@ -335,9 +335,9 @@ public class OrderDAO {
 		
 		return updateCount;
 	}
-	public boolean isBoughtUser(String item_code, String id) {
+	public boolean isBoughtUser(String item_code, String id, int order_id) {
 		boolean result = false;
-		String sql = "SELECT a.order_id AS order_id, a.user_id AS user_id, b.item_code AS item_code from orders AS a, order_item AS b WHERE a.order_id=b.order_id AND b.item_code=? AND user_id=?";
+		String sql = "SELECT a.order_id AS order_id, a.user_id AS user_id, b.item_code AS item_code from orders AS a, order_item AS b WHERE a.order_id=b.order_id AND b.item_code=? AND user_id=? AND a.order_id=?";
 		PreparedStatement pstmt = null;
 		ResultSet rs = null;
 		
@@ -345,8 +345,9 @@ public class OrderDAO {
 			pstmt = conn.prepareStatement(sql);
 			pstmt.setString(1, item_code);
 			pstmt.setString(2, id);
+			pstmt.setInt(3, order_id);
 			rs = pstmt.executeQuery();
-			if(rs.next()) result=true;
+			if(rs.next()) result = true;
 			
 		}catch(Exception e) {
 			e.printStackTrace();
@@ -356,5 +357,29 @@ public class OrderDAO {
 		}
 		
 		return result;
+	}
+	public ArrayList<Integer> orderIdList(String item_code, String id) {
+		ArrayList<Integer> orderids = new ArrayList<Integer>();
+		String sql = "SELECT a.order_id AS order_id, a.user_id AS user_id, b.item_code AS item_code from orders AS a, order_item AS b WHERE a.order_id=b.order_id AND b.item_code=? AND user_id=? ORDER BY order_id ASC";
+		PreparedStatement pstmt = null;
+		ResultSet rs = null;
+		
+		try {
+			pstmt = conn.prepareStatement(sql);
+			pstmt.setString(1, item_code);
+			pstmt.setString(2, id);
+			rs = pstmt.executeQuery();
+			if(rs.next()) {
+				do orderids.add(rs.getInt("order_id")); while(rs.next());
+			}
+			
+		}catch(Exception e) {
+			e.printStackTrace();
+		}finally {
+			if(rs!=null) close(rs);
+			if(pstmt!=null) close(pstmt);
+		}
+		
+		return orderids;
 	}
 }

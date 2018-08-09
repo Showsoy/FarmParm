@@ -18,7 +18,6 @@ public class MemberLoginAction implements Action{
 		UserBean users = new UserBean();
 		String id = request.getParameter("userID");
 		String turn = request.getParameter("turn");
-
 		UserService userService = new UserService();
 
 		String salt = userService.salt(id);
@@ -40,7 +39,7 @@ public class MemberLoginAction implements Action{
    			}
    			else {
 		   	    forward = new ActionForward();
-		   		forward.setRedirect(true); 
+		   		forward.setRedirect(true);
 		   		forward.setPath("../main.im");
    			}
    		}

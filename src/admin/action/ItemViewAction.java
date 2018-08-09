@@ -28,14 +28,14 @@ public class ItemViewAction implements action.Action{
 			PrintWriter out = response.getWriter();
 			out.println("<script>");
 			out.println("alert('로그인이 필요합니다.');");
-			out.println("location.href='../member/memberLogin.us?turn=ok';");
+			out.println("location.href='./member/memberLogin.us?turn=ok';");
 			out.println("</script>");
 		}else if(!id.equals("admin")) {
 			response.setContentType("text/html;charset=UTF-8");
 			PrintWriter out = response.getWriter();
 			out.println("<script>");
 			out.println("alert('권한이 없습니다.');");
-			out.println("location.href='../common/main.im';");
+			out.println("location.href='../main.im';");
 			out.println("</script>");
 		}else {
 			String item_code = request.getParameter("item_code");

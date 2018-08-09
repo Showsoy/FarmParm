@@ -29,24 +29,22 @@ public class UserItemViewAction implements action.Action{
 		HttpSession session = request.getSession();
 		String id = (String)session.getAttribute("user_id");
 
-		// ****상품문의 리스트****** 
 		String item_code = request.getParameter("item_code");
 		ItemService itemService = new ItemService();
-		BoardService boardService = new BoardService();
-		
+		BoardService boardService = new BoardService();	
 		
 		ArrayList<BoardBean> q_articleList = new ArrayList<BoardBean>();
 	  	int q_page=1;
-		int q_limit=5;
+		int limit=5;
 
-		if(request.getParameter("page")!=null){
-			q_page=Integer.parseInt(request.getParameter("page"));
+		if(request.getParameter("q_page")!=null){
+			q_page=Integer.parseInt(request.getParameter("q_page"));
 		}
 
 		int listCount = boardService.qnaListCount();
-		q_articleList = boardService.qna_list(q_page,q_limit);
+		q_articleList = boardService.qna_list(q_page,limit);
 		
-		int maxPage=(int)((double)listCount/q_limit+0.95); //0.95를 더해서 올림 처리.
+		int maxPage=(int)((double)listCount/limit+0.95); //0.95를 더해서 올림 처리.
    		//현재 페이지에 보여줄 시작 페이지 수(1, 11, 21 등...)
    		int startPage = (((int) ((double)q_page / 10 + 0.9)) - 1) * 10 + 1;
    		//현재 페이지에 보여줄 마지막 페이지 수.(10, 20, 30 등...)
@@ -54,11 +52,11 @@ public class UserItemViewAction implements action.Action{
    	    
 		forward = new ActionForward();
 	
+
 		ItemBean item = itemService.getItem(item_code);
 		if(id!=null&&!id.equals("admin")) {
-			int updateCount = itemService.updateReadCount(item_code);
+			itemService.updateReadCount(item_code);
 		}
-
 		//Cookie add
 		Cookie todayImageCookie = new Cookie("today"+item_code, item.getImg_path());
 		todayImageCookie.setMaxAge(60*60*24);
@@ -76,7 +74,6 @@ public class UserItemViewAction implements action.Action{
 			}
 		}
 		response.addCookie(todayImageCookie);
-		
 		//Cookie load
 		Map<String,String> todayImageMap = new HashMap<String,String>();
 		//길이가 8이면 7부터 -> 7 6 5 4 3, 2전까지 2는 길이 - 6
@@ -91,7 +88,6 @@ public class UserItemViewAction implements action.Action{
 				}
 			}
 		}
-		System.out.println(todayImageMap.size());
 		
 		// ****상품문의 리스트****** 
 		
@@ -108,10 +104,9 @@ public class UserItemViewAction implements action.Action{
 		// ****상품문의 리스트****** 
 		
 		request.setAttribute("todayImageMap", todayImageMap);
-		
 		request.setAttribute("item",item);
+		request.setAttribute("q_page", q_page);
 		//String page_2 = request.getParameter("page");
-		request.setAttribute("page", q_page);
 		forward = new ActionForward();
 		forward.setPath("item/detail.jsp");
 		

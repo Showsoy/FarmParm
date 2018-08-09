@@ -254,10 +254,39 @@ public class BoardDAO {
 		
 		return articleList;
 	}
-	public ArrayList<BoardBean> selectArticleList(String bName, int page){
+	public ArrayList<BoardBean> selectReviewList(int page){
 		PreparedStatement pstmt = null;
 		ResultSet rs = null;
-		String sql = "SELECT * FROM "+bName+" WHERE rstep=1 ORDER BY rgroup DESC, rstep ASC LIMIT ?,5";
+		String sql = "SELECT * FROM review WHERE rstep=1 ORDER BY rgroup DESC, rstep ASC LIMIT ?,5";
+		ArrayList<BoardBean> articleList = new ArrayList<BoardBean>();
+		BoardBean board = null;
+		int startrow = (page-1)*5;
+		
+		try {
+			pstmt = conn.prepareStatement(sql);
+			pstmt.setInt(1, startrow);
+			rs = pstmt.executeQuery();
+			
+			while(rs.next()) {
+				board = new BoardBean(rs.getInt("bnum"), rs.getString("item_code"), rs.getString("user_id"), 
+						rs.getString("content"), rs.getString("subject"), rs.getString("img_path"), 
+						rs.getInt("has_re"), rs.getDate("rdate"), rs.getInt("order_id"), rs.getInt("rgroup"), rs.getInt("rstep"));
+				articleList.add(board);
+				
+			}
+		}catch(Exception e) {
+			e.printStackTrace();
+		}finally {
+			close(rs);
+			close(pstmt);
+		}
+		
+		return articleList;
+	}
+	public ArrayList<BoardBean> selectQnAList(int page){
+		PreparedStatement pstmt = null;
+		ResultSet rs = null;
+		String sql = "SELECT * FROM qna_board WHERE rstep=1 ORDER BY rgroup DESC, rstep ASC LIMIT ?,5";
 		ArrayList<BoardBean> articleList = new ArrayList<BoardBean>();
 		BoardBean board = null;
 		int startrow = (page-1)*10;
@@ -283,7 +312,6 @@ public class BoardDAO {
 		
 		return articleList;
 	}
-	
 	public BoardBean selectNotice(int board_num) {
 		PreparedStatement pstmt = null;
 		ResultSet rs = null;
@@ -457,16 +485,17 @@ public class BoardDAO {
 		}
 		return insertCount;
 	}
-	public boolean testReviewBoard(String item_code, String id) {
+	public boolean testReviewBoard(String item_code, String id, int order_id) {
 		boolean result = true;
-		String sql = "SELECT * FROM review_board WHERE item_code = '"+item_code+"' AND user_id = '"+id+"'";
+		String sql = "SELECT order_id FROM review_board WHERE item_code = '"+item_code+"' AND user_id = '"+id+"' AND order_id = ?";
 		PreparedStatement pstmt = null;
 		ResultSet rs = null;
 		
 		try {
 			pstmt = conn.prepareStatement(sql);
+			pstmt.setInt(1, order_id);
 			rs = pstmt.executeQuery();
-			if(rs.next()) result=false;
+			if(rs.next()) result = false;
 			
 		}catch(Exception e){
 			e.printStackTrace();
@@ -477,9 +506,63 @@ public class BoardDAO {
 		
 		return result;
 	}
-	public int writeArticle(String bName, BoardBean board) {
+	public int findOrderId(ArrayList<Integer> list, String item_code, String id) {
+		int result = 0;
+		String sql = "SELECT order_id FROM review_board WHERE item_code = '"+item_code+"' AND user_id = '"+id+"' AND order_id = ?";
 		PreparedStatement pstmt = null;
-		String sql = "INSERT INTO "+bName+" VALUES(?,?,?,?,?,?,?,now(),?,?)";
+		ResultSet rs = null;
+		
+		try {
+			pstmt = conn.prepareStatement(sql);
+			for(int i=0;i<list.size();i++) {
+				pstmt.setInt(1, list.get(i));
+				rs = pstmt.executeQuery();
+				if(rs.next()) {
+					result=0;continue;
+				}else {
+					result=list.get(i);break;
+				}
+			}
+			
+		}catch(Exception e){
+			e.printStackTrace();
+		}finally {
+			if(rs!=null) close(rs);
+			if(pstmt!=null) close(pstmt);
+		}
+		
+		return result;
+	}
+	public int writeReview(BoardBean board) {
+		PreparedStatement pstmt = null;
+		String sql = "INSERT INTO review_board VALUES(?,?,?,?,?,?,?,now(),?,?,?)";
+		int insertCount = 0;
+		
+		try {
+			pstmt = conn.prepareStatement(sql);
+			pstmt.setInt(1, board.getBoard_num());
+			pstmt.setString(2, board.getCode());
+			pstmt.setString(3, board.getUser_id());
+			pstmt.setString(4, board.getContent().replaceAll("<", "&lt;").replaceAll(">", "&gt;").replaceAll("\r\n", "<br>"));
+			pstmt.setString(5, board.getSubject().replaceAll("<", "&lt;").replaceAll(">", "&gt;").replaceAll("\r\n", "<br>"));
+			pstmt.setString(6, board.getImg_path());
+			pstmt.setInt(7, 0);
+			pstmt.setInt(8, board.getRgroup());
+			pstmt.setInt(9, board.getRstep());
+			pstmt.setInt(10, board.getReadcount());
+			
+			insertCount = pstmt.executeUpdate();
+			
+		}catch(Exception e) {
+			e.printStackTrace();
+		}finally {
+			close(pstmt);
+		}
+		return insertCount;
+	}
+	public int writeQnA(BoardBean board) {
+		PreparedStatement pstmt = null;
+		String sql = "INSERT INTO qna_board VALUES(?,?,?,?,?,?,?,now(),?,?)";
 		int insertCount = 0;
 		
 		try {
@@ -565,64 +648,58 @@ public class BoardDAO {
 	// 상품문의 글 리스트 개수
 		public int qnaListCount() {
 
-			int listCount= 0;
-			PreparedStatement pstmt = null;
-			ResultSet rs = null;
+		int listCount = 0;
+		PreparedStatement pstmt = null;
+		ResultSet rs = null;
 
-			try{
+		try {
 
-				pstmt=conn.prepareStatement("select count(*) from qna_board");
-				rs = pstmt.executeQuery();
+			pstmt = conn.prepareStatement("select count(*) from qna_board");
+			rs = pstmt.executeQuery();
 
-				if(rs.next()){
-					listCount=rs.getInt(1);
-				}
-			}catch(Exception ex){
-				System.out.println("에러: " + ex);			
-			}finally{
-				close(rs);
-				close(pstmt);
+			if (rs.next()) {
+				listCount = rs.getInt(1);
 			}
-
-			return listCount;
-
+		} catch (Exception ex) {
+			System.out.println("에러: " + ex);
+		} finally {
+			close(rs);
+			close(pstmt);
 		}
-	
-		// 상품문의 글 리스트 불러오기
-			public ArrayList<BoardBean> qna_list(int page,int limit){
-				PreparedStatement pstmt = null;
-				ResultSet rs = null;
-				String qna_list_sql="select * from qna_board order by rgroup desc, rstep asc limit ?,5";
-				ArrayList<BoardBean> articleList = new ArrayList<BoardBean>();
-				BoardBean boardBean = null;
-				int startrow=(page-1)*5; //읽기 시작할 row 번호..
-				
-				try{
-					pstmt = conn.prepareStatement(qna_list_sql);
-					pstmt.setInt(1, startrow);
-					rs = pstmt.executeQuery();
-	
-					while(rs.next()){
-						
-						boardBean = new BoardBean(
-						rs.getInt("bnum"),
-						rs.getString("subject"),
-						rs.getString("content"),
-						rs.getString("user_id"),
-						rs.getString("img_path"),
-						rs.getDate("qdate"));
-						
-						articleList.add(boardBean);	
-					}
-				}catch(Exception ex){
-					System.out.println("에러 : " + ex);
-				}finally{
-					close(rs);
-					close(pstmt);
-				}
 
-				return articleList;
+		return listCount;
+	}
+
+	// 상품문의 글 리스트_2
+	public ArrayList<BoardBean> qna_list(int page, int limit) {
+		PreparedStatement pstmt = null;
+		ResultSet rs = null;
+		String qna_list_sql = "select * from qna_board order by rgroup desc, rstep asc limit ?,5";
+		ArrayList<BoardBean> articleList = new ArrayList<BoardBean>();
+		BoardBean boardBean = null;
+		int startrow = (page - 1) * 5; // 읽기 시작할 row 번호..
+
+		try {
+			pstmt = conn.prepareStatement(qna_list_sql);
+			pstmt.setInt(1, startrow);
+			rs = pstmt.executeQuery();
+
+			while (rs.next()) {
+
+				boardBean = new BoardBean(rs.getInt("bnum"), rs.getString("subject"), rs.getString("content"),
+						rs.getString("user_id"), rs.getString("img_path"), rs.getDate("qdate"));
+
+				articleList.add(boardBean);
 			}
+		} catch (Exception ex) {
+			System.out.println("에러 : " + ex);
+		} finally {
+			close(rs);
+			close(pstmt);
+		}
+
+		return articleList;
+	}
 				
 
 		public int updateReadCount(int board_num) {

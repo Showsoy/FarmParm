@@ -220,7 +220,27 @@ pageContext.setAttribute("uprice", uprice);
 <br><br><br>
 
 <div class="review">
-
+<<<<<<< HEAD
+<h3>&nbsp;&nbsp;상품후기</h3>
+	<hr color="#4CAF50" size="5">
+		<button type="button" onclick="window.open('../item/reForm.bo?item_code=${item.item_code}','','width=500, height=400')">후기쓰기</button>
+		<table cellspacing="0" cellpadding="0" id="detail_board">
+			<tr id="top_menu" height="20px">
+				<td id="td_check">번호</td>
+				<td colspan="2">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+				&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+				제목</td>
+				<td>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;작성자</td>
+				<td>작성일</td>
+			</tr>
+			<tr height="30px">
+				<td>1</td>
+				<td colspan="2">
+				맛있다</td>
+				<td>나래</td>
+				<td>2018-07-07</td>
+			</tr>
+		</table>
 			<br><br><br>
 			 <jsp:include page="review.jsp" flush="false"/>
 			 <br><br><br>

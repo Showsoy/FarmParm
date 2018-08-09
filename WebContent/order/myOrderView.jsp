@@ -200,10 +200,15 @@ td, tr{
 		<fmt:parseNumber var="point" value="${(odtemList.price*odtemList.amount) div 100 }" integerOnly="true"/>
 		<td>${point }점</td>
 		<td>
+		<c:choose>
+		<c:when test="${odtemList.item_code eq 'Z000' }"></c:when>
+		<c:otherwise>
 			<c:if test="${order.state eq '배송완료' || order.state eq '상품출고'}">
-				<button type="button" id="gbutton" onclick="window.open('../item/reForm.bo?item_code=${odtemList.item_code}','','width=500, height=400')">리뷰</button>
+				<button type="button" id="gbutton" onclick="window.open('../item/reForm.bo?order_id=${order.order_id }&item_code=${odtemList.item_code}','','width=500, height=400')">리뷰</button>
 			</c:if>
-				<button type="button" id="gbutton" onclick="location.href='../common/csWrite.jsp'">문의</button>
+				<button type="button" id="gbutton" onclick="window.open('../item/qnaForm.bo?order_id=${order.order_id }&item_code=${odtemList.item_code}','','width=500, height=400')">문의</button>
+		</c:otherwise>
+		</c:choose>
 		</td>
 	</tr>
 	</c:forEach>
