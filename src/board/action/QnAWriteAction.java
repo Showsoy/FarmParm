@@ -39,8 +39,8 @@ public class QnAWriteAction implements Action {
 				"UTF-8",
 				new DefaultFileRenamePolicy());
 		
-		String indate = request.getParameter("qdate");
-		Date date = util.transformDate(indate);
+		//String indate = request.getParameter("qdate");
+		//Date date = util.transformDate(indate);
 		String item_code = request.getParameter("item_code");
 		
 		boardBean = new BoardBean();
@@ -48,7 +48,6 @@ public class QnAWriteAction implements Action {
 		boardBean.setSubject(multi.getParameter("qna_subject"));
 		boardBean.setContent(multi.getParameter("qna_content"));
 		boardBean.setImg_path(multi.getOriginalFileName((String)multi.getFileNames().nextElement()));
-		boardBean.setDate(date);
 		
 		
 		BoardService boardService = new BoardService();

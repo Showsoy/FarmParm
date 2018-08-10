@@ -771,35 +771,40 @@ public class BoardDAO {
 	}
 
 	// 상품문의 글 리스트_2
-	public ArrayList<BoardBean> qna_list(int page, int limit) {
-		PreparedStatement pstmt = null;
-		ResultSet rs = null;
-		String qna_list_sql = "select * from qna_board order by rgroup desc, rstep asc limit ?,5";
-		ArrayList<BoardBean> articleList = new ArrayList<BoardBean>();
-		BoardBean boardBean = null;
-		int startrow = (page - 1) * 5; // 읽기 시작할 row 번호..
+		public ArrayList<BoardBean> qna_list(int page,int limit){
+			PreparedStatement pstmt = null;
+			ResultSet rs = null;
+			String qna_list_sql="select * from qna_board order by rgroup desc, rstep asc limit ?,5";
+			ArrayList<BoardBean> articleList = new ArrayList<BoardBean>();
+			BoardBean boardBean = null;
+			int startrow=(page-1)*5; //읽기 시작할 row 번호..
+			
+			try{
+				pstmt = conn.prepareStatement(qna_list_sql);
+				pstmt.setInt(1, startrow);
+				rs = pstmt.executeQuery();
 
-		try {
-			pstmt = conn.prepareStatement(qna_list_sql);
-			pstmt.setInt(1, startrow);
-			rs = pstmt.executeQuery();
-
-			while (rs.next()) {
-
-				boardBean = new BoardBean(rs.getInt("bnum"), rs.getString("subject"), rs.getString("content"),
-						rs.getString("user_id"), rs.getString("img_path"), rs.getDate("qdate"));
-
-				articleList.add(boardBean);
+				while(rs.next()){
+					
+					boardBean = new BoardBean(
+					rs.getInt("rgroup"),
+					rs.getString("subject"),
+					rs.getString("content"),
+					rs.getString("user_id"),
+					rs.getString("img_path"),
+					rs.getDate("qdate"));
+					
+					articleList.add(boardBean);	
+				}
+			}catch(Exception ex){
+				System.out.println("에러 : " + ex);
+			}finally{
+				close(rs);
+				close(pstmt);
 			}
-		} catch (Exception ex) {
-			System.out.println("에러 : " + ex);
-		} finally {
-			close(rs);
-			close(pstmt);
-		}
 
-		return articleList;
-	}
+			return articleList;
+		}
 				
 
 		public int updateReadCount(int board_num) {
@@ -883,7 +888,7 @@ public class BoardDAO {
 			
 			rstep += 1;
 			sql = "INSERT INTO "+bName+" VALUES(?,?,'관리자',?,?,null,0,now(),?,?)";
-			System.out.println(board.getContent() + " : 글내용, 디에이오");
+
 			pstmt = conn.prepareStatement(sql);
 			pstmt.setInt(1, num);
 			pstmt.setString(2, board.getCode());

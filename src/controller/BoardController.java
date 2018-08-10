@@ -23,6 +23,8 @@ import board.action.NoticeWriteAction;
 import board.action.QnARemoveAction1;
 import board.action.QnAReplyAction1;
 import board.action.QnAReplyFormAction1;
+import board.action.QnAReplyAction;
+import board.action.QnAReplyFormAction;
 import board.action.QnAWriteAction;
 import board.action.QnAWriteAction1;
 import board.action.QnAWriteFormAction;
@@ -174,6 +176,13 @@ public class BoardController extends HttpServlet {
     		}
     	}else if(command.equals("/rereForm.bo")) {
     		action = new ReviewReplyFormAction();
+    		try {
+    			forward = action.execute(request, response);
+    		}catch(Exception e) {
+    			e.printStackTrace();
+    		}
+    	}else if(command.equals("/qnaReplyForm.bo")) {
+    		action = new QnAReplyFormAction();
     		try {
     			forward = action.execute(request, response);
     		}catch(Exception e) {
