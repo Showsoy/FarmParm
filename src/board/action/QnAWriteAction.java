@@ -23,7 +23,6 @@ public class QnAWriteAction implements Action {
 		// TODO Auto-generated method stub
 		HttpSession session = request.getSession();
 		String id = (String)session.getAttribute("id");
-		Util util = new Util();
 		request.setCharacterEncoding("UTF-8");
 		
 		ActionForward forward=null;
@@ -39,8 +38,6 @@ public class QnAWriteAction implements Action {
 				"UTF-8",
 				new DefaultFileRenamePolicy());
 		
-		//String indate = request.getParameter("qdate");
-		//Date date = util.transformDate(indate);
 		String item_code = request.getParameter("item_code");
 		
 		boardBean = new BoardBean();
@@ -53,20 +50,28 @@ public class QnAWriteAction implements Action {
 		BoardService boardService = new BoardService();
 		boolean isWriteSuccess = boardService.writeArticle1(id, boardBean);
 		
-
-		if(!isWriteSuccess){
+		if(id==null) {
 			response.setContentType("text/html;charset=UTF-8");
 			PrintWriter out = response.getWriter();
 			out.println("<script>");
-			out.println("alert('등록실패')");
+			out.println("alert('로그인이 필요합니다')");
 			out.println("history.back();");
 			out.println("</script>");
-		}
-		else{
-			forward = new ActionForward();
-			forward.setPath("uitemView.im");
-		}
+		}else {
+			if(!isWriteSuccess){
+				response.setContentType("text/html;charset=UTF-8");
+				PrintWriter out = response.getWriter();
+				out.println("<script>");
+				out.println("alert('등록실패')");
+				out.println("history.back();");
+				out.println("</script>");
+			}
+			else{
+				forward = new ActionForward();
+				forward.setPath("uitemView.im");
+			}
 
+		}
 		return forward;
 	}
 

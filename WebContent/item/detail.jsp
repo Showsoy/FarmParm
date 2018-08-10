@@ -280,7 +280,14 @@ pageContext.setAttribute("uprice", uprice);
 		</div>
 	</div>
 	<br><br><br><br>
- 
+
+	<c:set var="listCount" value="<%=listCount%>"/>
+	<c:set var="nowPage" value="<%=nowPage%>"/>
+	<c:set var="maxPage" value="<%=maxPage%>"/>
+	<c:set var="startPage" value="<%=startPage%>"/>
+	<c:set var="endPage" value="<%=endPage%>"/>	
+	<c:set var="articleList" value="<%=articleList%>"/>
+
 	<br><br>
 	<div class="qna">
 	<h3>&nbsp;&nbsp;상품문의</h3>
@@ -294,25 +301,87 @@ pageContext.setAttribute("uprice", uprice);
 				<td>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;작성자</td>
 				<td>작성일</td>
 			</tr>
+
+
+			<%-- jstl.. 오류남..
 			
+			<c:forEach items="<%=articleList%>" var="i" begin="0" end="5" varStatus="status">
+			<tr height="30px">
+
+			<td>${i.rgroup}</td>
+			<td colspan="2" >&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+				<div id=아이디1${i} style=display:block>
+				<a href=javascript:; onclick="layer_toggle(document.getElementById('아이디1${i}')); layer_toggle(document.getElementById('아이디2${i }'));return false;">
+				${i.subject}</a>
+				</div>
+				<div id=아이디2${i} style=display:none >
+				<a href=javascript:; onclick="layer_toggle(document.getElementById('아이디1${i}')); layer_toggle(document.getElementById('아이디2${i }'));return false;">
+				${i.subject}</a><br><br>
+				-<br>
+				${i.content}<br>
+				
+				<c:if test="${i.img_path != null}">
+				<br>
+				<img src="images/${i.img_path}" width=120 height=150></img>
+				</c:if>
+				
+				<br><br>
+				
+			<c:if test="${i.user_id eq 'admin'}">
+				<c:if test="${id=='admin'}">
+				<button onclick="window.open('qnaReplyForm.bo?item_code=${item.item_code}&page=<%=nowPage%>&re_rgroup=${i.rgroup}', '답변달기', 'width=570, height=210, left=150, top=50');">답변</button>
+				<button type="button" onclick="location.href='qnaRemove.bo?bnum=${i.rgroup}&item_code=${item.item_code}&page=<%=nowPage%>'">삭제</button>
+				</c:if>
+				<c:if test="${id==articleList.get(i).getUser_id()&&id!='admin'&&id!=null}">
+				<button type="button" onclick="location.href='qnaRemove.bo?bnum=${i.rgroup}&item_code=${item.item_code}&page=<%=nowPage%>'">삭제</button>
+				</c:if>
+			</c:if>
+				</div>
+				<br>
+			</td>
+			<td>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;${i.user_id}</td>
+			<td>${i.date}</td>
+			</tr>
+			</c:forEach>	
+		<tr>
+			<td colspan="6" id="td_info">
+			<br>
+			
+ --%>
+ 
 			<% 
 			for(int i=0;i<articleList.size();i++){
 			%>
+			<c:set var="user_id" value="<%=articleList.get(i).getUser_id()%>"/>
+			<c:set var="rstep" value="<%=articleList.get(i).getRstep()%>"/>
+			<c:set var="rgroup" value="<%=articleList.get(i).getRgroup()%>"/>
+			<c:set var="has_re" value="<%=articleList.get(i).getHas_re()%>"/>
+			
 			
 			<tr height="30px">
-
 			<td><%=articleList.get(i).getRgroup()%></td>
 			<td colspan="2" >&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
 				<div id=아이디1<%=i %> style=display:block>
 				<a href=javascript:; onclick="layer_toggle(document.getElementById('아이디1<%=i %>')); layer_toggle(document.getElementById('아이디2<%=i %>'));return false;">
-				>  
+					<c:if test="${rstep == '2'}">
+					&nbsp;&nbsp;ㄴ
+					</c:if>
 				<%=articleList.get(i).getSubject()%></a>
+					<c:if test="${has_re != 0}">
+					[1]
+					</c:if>
 				</div>
 				<div id=아이디2<%=i %> style=display:none >
 				<a href=javascript:; onclick="layer_toggle(document.getElementById('아이디1<%=i %>')); layer_toggle(document.getElementById('아이디2<%=i %>'));return false;">
-				> 
-				<%=articleList.get(i).getSubject()%></a><br><br>
-				-<br>
+					<c:if test="${rstep == '2'}">
+					&nbsp;&nbsp;ㄴ
+					</c:if> 
+				<%=articleList.get(i).getSubject()%></a>
+					<c:if test="${has_re != 0}">
+					[1]
+					</c:if>
+				<br><br>
+				<br>
 				<%=articleList.get(i).getContent()%><br>
 				<%
 				if(articleList.get(i).getImg_path()!=null){
@@ -321,56 +390,63 @@ pageContext.setAttribute("uprice", uprice);
 				<img src="images/<%=articleList.get(i).getImg_path()%>" width=120 height=150></img>
 				<%} %>
 				<br><br>
-				<%
-				if(articleList.get(i).getUser_id().equals("admin")){
-				%>
-			<c:if test="${id=='admin'}">
+				
+
+
+			<c:if test="${rstep!=2&&id=='admin'}">
 			<button onclick="window.open('qnaReplyForm.bo?item_code=${item.item_code}&page=<%=nowPage%>&re_rgroup=<%=articleList.get(i).getRgroup()%>', '답변달기', 'width=570, height=210, left=150, top=50');">답변</button>
-			<button type="button" onclick="location.href='qnaRemove.bo?bnum=<%=articleList.get(i).getRgroup()%>&item_code=${item.item_code}&page=<%=nowPage%>'">삭제</button>
+			<button type="button" onclick="location.href='qnaRemove.bo?bnum=<%=articleList.get(i).getBoard_num()%>&item_code=${item.item_code}&page=<%=nowPage%>&rgroup=<%=articleList.get(i).getRgroup()%>&rstep=<%=articleList.get(i).getRstep()%>'">삭제</button>
 			</c:if>
-			<c:if test="${id==articleList.get(i).getUser_id()&&id!='admin'&&id!=null}">
-			<button type="button" onclick="location.href='qnaRemove.bo?bnum=<%=articleList.get(i).getRgroup()%>&item_code=${item.item_code}&page=<%=nowPage%>'">삭제</button>
+			<c:if test="${id==user_id&&id!='admin'&&id!=null}">
+			<button type="button" onclick="location.href='qnaRemove.bo?bnum=<%=articleList.get(i).getBoard_num()%>&item_code=${item.item_code}&page=<%=nowPage%>&rgroup=<%=articleList.get(i).getRgroup()%>&rstep=<%=articleList.get(i).getRstep()%>'">삭제</button>
 			</c:if>
-				<%} %>
-				</div>
-				<br>
+			<c:if test="${rstep==2&&id=='admin'}">
+			<button type="button" onclick="location.href='qnaRemove.bo?bnum=<%=articleList.get(i).getBoard_num()%>&item_code=${item.item_code}&page=<%=nowPage%>&rgroup=<%=articleList.get(i).getRgroup()%>&rstep=<%=articleList.get(i).getRstep()%>'">삭제</button>
+			</c:if>
+
+		</div><br>
 			</td>
 			<td>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<%=articleList.get(i).getUser_id()%></td>
 			<td><%=articleList.get(i).getDate()%></td>
 			</tr>
-
 			<%} %>
 			
-			
 		<tr>
-			<td colspan="6" id="td_info">
-			<br>
+		<td colspan="6" id="td_info">
 	<section id="pageList">
-		<%if(nowPage<=1){ %>
+	<c:choose>
+		<c:when test="${nowPage <= '1'}">
 		이전&nbsp;
-		<%}else{ %>
-		<a href="uitemView.im?page=<%=nowPage-1 %>&item_code=${item.item_code }">이전</a>&nbsp;
-		<%} %>
-		<%for(int a=startPage;a<=endPage;a++){
-				if(a==nowPage){%>
-		<%=a %>
-		<%}else{ %>
-		<a href="uitemView.im?page=<%=a%>&item_code=${item.item_code }"><%=a %>
+		</c:when>
+		<c:otherwise>
+		<a href="uitemView.im?page=${nowPage-1}&item_code=${item.item_code }">이전</a>&nbsp;
+		</c:otherwise>
+	</c:choose>
+		<c:forEach var="a" begin="${startPage}" end="${endPage}" varStatus="status">
+	<c:choose>
+		<c:when test="${a == nowPage}">
+		${a}
+		</c:when>
+		<c:otherwise>
+		<a href="uitemView.im?page=${a }&item_code=${item.item_code }">${a }
 		</a>&nbsp;
-		<%} %>
-		<%} %>
-
-		<%if(nowPage>=maxPage){ %>
+		</c:otherwise>
+	</c:choose>
+		</c:forEach>
+	<c:choose>
+		<c:when test="${nowPage>=maxPage}">
 		&nbsp;다음
-		<%}else{ %>
-		<a href="uitemView.im?item_code=${item.item_code }&page=<%=nowPage+1 %>">다음</a>
-		<%} %>
+		</c:when>
+		<c:otherwise>
+		<a href="uitemView.im?item_code=${item.item_code }&page=${nowPage+1}">다음</a>
+		</c:otherwise>
+	</c:choose>
 	</section>
 			</td>
 			</tr>
 		</table>
 		<br><br><br>
-		
+	
 		<div id="qna_regist"> <%-- qdate=<%=today %>& 뺐음--%>
 		<form action="qnaRegist.bo?item_code=${item.item_code }" method="post" enctype="multipart/form-data" name="itemnew" onsubmit="return chkForm(this)">
 			<table>

@@ -42,17 +42,13 @@ public class QnAReplyAction implements Action {
 	 	article.setSubject(multi.getParameter("qna_subject"));
 	 	article.setContent(multi.getParameter("qna_content"));
 	 	article.setCode(item_code);
+	 	article.setImg_path(multi.getFilesystemName("img_path"));
 	 	article.setRgroup(Integer.parseInt(bnum));
-	 	article.setRstep(1);	   		
-	 	
-	 	System.out.println(request.getParameter("qna_content")+"/내용  "+
-	 		request.getParameter("qna_subject")+"/제목 "	);
+	 	article.setRstep(1);
 	 	
 	 	BoardService boardService = new BoardService();
 	 	
 	 	boolean isReplySuccess = boardService.replyArticle("qna_board", article);
-	 	
-	 	System.out.println(isReplySuccess + " :안되나요");
 	 	
    		if(isReplySuccess){
    			forward = new ActionForward();

@@ -196,13 +196,13 @@ public class BoardService {
 		return listCount;
 		
 	}
-	// 문의글 삭제
-	public boolean deleteQnaArticle(String bnum) {
+	// qna 답변삭제
+	public boolean deleteQnaReplyArticle(String bnum) {
 		boolean deleteResult = false;
 		Connection con = getConnection();
 		BoardDAO boardDAO = BoardDAO.getInstance();
 		boardDAO.setConnection(con);
-		int deleteCount = boardDAO.deleteQnaArticle(bnum);
+		int deleteCount = boardDAO.deleteQnaReplyArticle(bnum);
 		if(deleteCount > 0){
 			commit(con);
 			deleteResult = true;
@@ -213,7 +213,42 @@ public class BoardService {
 		close(con);
 		return deleteResult;
 	}
-	// 상품문의 글 리스트_2
+	// qna 답변삭제 후 원글 has_re 0으로 되돌리기
+	public int resetQnaReplyArticle(String rgroup) {
+		BoardDAO boardDAO = BoardDAO.getInstance();
+		Connection conn = getConnection();
+		boardDAO.setConnection(conn);
+		int updateCount = boardDAO.resetQnaReplyArticle(rgroup);
+		
+		if(updateCount>0) {
+			commit(conn);
+		}else {
+			rollback(conn);
+		}
+		close(conn);
+		return updateCount;
+	}
+	
+	// qna 원글삭제
+		public boolean deleteQnaArticle(String rgroup) {
+			boolean deleteResult = false;
+			Connection con = getConnection();
+			BoardDAO boardDAO = BoardDAO.getInstance();
+			boardDAO.setConnection(con);
+			int deleteCount = boardDAO.deleteQnaArticle(rgroup);
+			if(deleteCount > 0){
+				commit(con);
+				deleteResult = true;
+			}
+			else{
+				rollback(con);
+			}
+			close(con);
+			return deleteResult;
+		}
+	
+	
+	// 상품문의 글 리스트 불러오기
 	public ArrayList<BoardBean> qna_list(int page, int limit) throws Exception{
 		Connection con = getConnection();
 		BoardDAO boardDAO = BoardDAO.getInstance();

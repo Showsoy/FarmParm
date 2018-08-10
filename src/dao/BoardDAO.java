@@ -625,8 +625,8 @@ public class BoardDAO {
 
 		return insertCount;
 	}
-	// 문의글 삭제
-	public int deleteQnaArticle(String bnum){
+	// qna 답변삭제
+	public int deleteQnaReplyArticle(String bnum){
 		PreparedStatement pstmt = null;
 		String sql="DELETE from qna_board WHERE bnum=?";
 		int deleteCount = 0;
@@ -643,8 +643,45 @@ public class BoardDAO {
 		
 		return deleteCount;
 	}
+	// qna 답변삭제 후 원글 has_re 0으로 되돌리기
+	public int resetQnaReplyArticle(String rgroup) {
+		PreparedStatement pstmt = null;
+		int updateCount = 0;
+		String sql = "update qna_board set has_re=0 where rgroup=?";
+		
+		try {
+			pstmt = conn.prepareStatement(sql);
+			pstmt.setString(1, rgroup);
+			updateCount = pstmt.executeUpdate();
+		}catch(Exception e) {
+			e.printStackTrace();
+		}finally {
+			close(pstmt);
+		}
+		
+		return updateCount;
+	}
 	
+	// qna 원글삭제
+	public int deleteQnaArticle(String rgroup){
+		PreparedStatement pstmt = null;
+		String sql="DELETE from qna_board WHERE rgroup=?";
+		int deleteCount = 0;
+
+		try{
+			pstmt=conn.prepareStatement(sql);
+			pstmt.setString(1, rgroup);
+			deleteCount = pstmt.executeUpdate();
+		}catch(Exception ex){
+			System.out.println("에러: " + ex);	
+		}finally{
+			close(pstmt);
+		}
+		
+		return deleteCount;
+	}
 	
+
 	// 상품문의 글 리스트 개수
 		public int qnaListCount() {
 
@@ -670,7 +707,7 @@ public class BoardDAO {
 		return listCount;
 	}
 
-	// 상품문의 글 리스트_2
+	// 상품문의 글 리스트 불러오기
 		public ArrayList<BoardBean> qna_list(int page,int limit){
 			PreparedStatement pstmt = null;
 			ResultSet rs = null;
@@ -687,11 +724,14 @@ public class BoardDAO {
 				while(rs.next()){
 					
 					boardBean = new BoardBean(
+					rs.getInt("bnum"),
 					rs.getInt("rgroup"),
+					rs.getInt("rstep"),
 					rs.getString("subject"),
 					rs.getString("content"),
 					rs.getString("user_id"),
 					rs.getString("img_path"),
+					rs.getInt("has_re"),
 					rs.getDate("qdate"));
 					
 					articleList.add(boardBean);	
@@ -787,15 +827,16 @@ public class BoardDAO {
 				num = rs.getInt(1)+1;
 			
 			rstep += 1;
-			sql = "INSERT INTO "+bName+" VALUES(?,?,'관리자',?,?,null,0,now(),?,?)";
-
+			sql = "INSERT INTO "+bName+" VALUES(?,?,'관리자',?,?,?,0,now(),?,?)";
+			
 			pstmt = conn.prepareStatement(sql);
 			pstmt.setInt(1, num);
 			pstmt.setString(2, board.getCode());
 			pstmt.setString(3, board.getContent());
 			pstmt.setString(4, board.getSubject());
-			pstmt.setInt(5, rgroup);
-			pstmt.setInt(6, rstep);
+			pstmt.setString(5, board.getImg_path());
+			pstmt.setInt(6, rgroup);
+			pstmt.setInt(7, rstep);
 			insertCount = pstmt.executeUpdate();
 			
 		}catch(Exception e) {

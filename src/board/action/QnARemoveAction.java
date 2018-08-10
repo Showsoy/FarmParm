@@ -21,8 +21,6 @@ public class QnARemoveAction implements Action {
 		String id = (String)session.getAttribute("id");
 		request.setCharacterEncoding("UTF-8");
 		
-		//페이지랑 아이템코드 값 가져와서 보내줘야 됨 *********************
-		
 		if(id==null) {
 			response.setContentType("text/html;charset=UTF-8");
 			PrintWriter out = response.getWriter();
@@ -30,34 +28,55 @@ public class QnARemoveAction implements Action {
 			out.println("alert('로그인이 필요합니다.');");
 			out.println("history.back();");
 			out.println("</script>");
-		}else if(!id.equals("admin")) {
-			response.setContentType("text/html;charset=UTF-8");
-			PrintWriter out = response.getWriter();
-			out.println("<script>");
-			out.println("alert('권한이 없습니다.');");
-			out.println("history.back();");
-			out.println("</script>");
 		}else {
 			
 			String bnum = request.getParameter("bnum");
 			String item_code = request.getParameter("item_code");
 			String page = request.getParameter("page");
+			String rgroup = request.getParameter("rgroup");
+			String rstep = request.getParameter("rstep");
 			
 			BoardService boardService = new BoardService();
-			boolean deleteResult = boardService.deleteQnaArticle(bnum);
-
-			if (deleteResult) {
-				forward = new ActionForward();
-				forward.setPath("uitemView.im");
-				// 여기서 같이 넘겨야 됨 ************
-			} else {
-				response.setContentType("text/html;charset=UTF-8");
-				PrintWriter out = response.getWriter();
-				out.println("<script>");
-				out.println("alert('삭제실패');");
-				out.println("history.back();");
-				out.println("</script>");
+			
+			if(rstep.equals("2")){
+				//qna 답변삭제
+				boolean deleteResult = boardService.deleteQnaReplyArticle(bnum);
+				int resetHas_re = boardService.resetQnaReplyArticle(rgroup);
+				
+				if (deleteResult==true&&resetHas_re>0) {
+					forward = new ActionForward();
+					//forward.setRedirect(true);
+					forward.setPath("uitemView.im");
+					//response.sendRedirect("uitemView.im");
+				}else{
+					response.setContentType("text/html;charset=UTF-8");
+					PrintWriter out = response.getWriter();
+					out.println("<script>");
+					out.println("alert('삭제실패');");
+					out.println("history.back();");
+					out.println("</script>");
+				}
+			
+			}else {
+				//qna 원글삭제
+				boolean deleteResult = boardService.deleteQnaArticle(rgroup);
+				if(deleteResult) {
+					forward = new ActionForward();
+					//forward.setRedirect(true);
+					forward.setPath("uitemView.im");
+					//response.sendRedirect("uitemView.im");
+				}else {
+					response.setContentType("text/html;charset=UTF-8");
+					PrintWriter out = response.getWriter();
+					out.println("<script>");
+					out.println("alert('삭제실패');");
+					out.println("history.back();");
+					out.println("</script>");
+				}
+			
 			}
+			
+
 		}
 		return forward;
 	}

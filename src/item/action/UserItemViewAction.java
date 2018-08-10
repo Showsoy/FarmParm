@@ -54,6 +54,7 @@ public class UserItemViewAction implements action.Action{
 	
 
 		ItemBean item = itemService.getItem(item_code);
+		
 		if(id!=null&&!id.equals("admin")) {
 			itemService.updateReadCount(item_code);
 		}
@@ -108,7 +109,7 @@ public class UserItemViewAction implements action.Action{
 		String page_2 = request.getParameter("page");
 		request.setAttribute("page", page_2);
 		forward = new ActionForward();
-		forward.setPath("item/detail.jsp");
+		forward.setPath("./item/detail.jsp");
 		
 		return forward;
 		
