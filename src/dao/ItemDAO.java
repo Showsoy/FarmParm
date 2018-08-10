@@ -1,6 +1,5 @@
 package dao;
 import static db.JdbcUtil.close;
-import static db.JdbcUtil.getConnection;
 
 import java.sql.Connection;
 import java.sql.PreparedStatement;
@@ -9,9 +8,9 @@ import java.util.ArrayList;
 import java.util.HashMap;
 
 import vo.ItemBean;
-import vo.ItemBoardBean;
 import vo.ItemStockBean;
 import vo.ItemViewBean;
+import vo.OrderViewBean;
 
 public class ItemDAO {
 	Connection conn;
@@ -118,14 +117,15 @@ public class ItemDAO {
 		}
 		return itemViewList;
 	}
-	public ArrayList<ItemViewBean> newItemList(){
+	public ArrayList<ItemViewBean> newItemList(int limit){
 		PreparedStatement pstmt = null;
 		ResultSet rs = null;
 		ArrayList<ItemViewBean> itemViewList = null;
-		String sql = "SELECT * FROM item_view WHERE ihide=0 ORDER BY vdate DESC LIMIT 0,8";
+		String sql = "SELECT * FROM item_view WHERE ihide=0 ORDER BY vdate DESC LIMIT 0,?";
 		
 		try {
 			pstmt = conn.prepareStatement(sql);
+			pstmt.setInt(1, limit);
 			rs = pstmt.executeQuery();
 			if(rs.next()) {
 				itemViewList = new ArrayList<ItemViewBean>();
@@ -143,14 +143,15 @@ public class ItemDAO {
 		}
 		return itemViewList;
 	}
-	public ArrayList<ItemViewBean> bestItemList(){
+	public ArrayList<ItemViewBean> bestItemList(int limit){
 		PreparedStatement pstmt = null;
 		ResultSet rs = null;
 		ArrayList<ItemViewBean> itemViewList = null;
-		String sql = "SELECT * FROM item_view WHERE ihide=0 ORDER BY purchase DESC LIMIT 0,8";
+		String sql = "SELECT * FROM item_view WHERE ihide=0 ORDER BY purchase DESC LIMIT 0,?";
 		
 		try {
 			pstmt = conn.prepareStatement(sql);
+			pstmt.setInt(1, limit);
 			rs = pstmt.executeQuery();
 			if(rs.next()) {
 				itemViewList = new ArrayList<ItemViewBean>();
@@ -572,6 +573,29 @@ public class ItemDAO {
 		
 		return imap;
 	}
+	public int findItemStock(String item_code) {
+		PreparedStatement pstmt = null;
+		ResultSet rs = null;
+		String sql = "SELECT stock FROM item_stock WHERE inumber = (SELECT MAX(inumber) FROM item_stock a WHERE a.item_code = ? GROUP BY item_code) AND item_code = ?";
+		int stock = 0;
+		try {
+			pstmt = conn.prepareStatement(sql);
+			pstmt.setString(1, item_code);
+			pstmt.setString(2, item_code);
+			rs = pstmt.executeQuery();
+			
+			if(rs.next()) {
+				stock = rs.getInt("stock");
+			}
+		}catch(Exception e) {
+			e.printStackTrace();
+		}finally {
+			close(pstmt);
+			close(rs);
+		}
+		
+		return stock;
+	}
 	public int itemStockInOut(ItemStockBean itemStock, HashMap<String, Integer> imap) {
 		PreparedStatement pstmt = null;
 		int insertCount = 0;
@@ -593,5 +617,27 @@ public class ItemDAO {
 		}
 		return insertCount;
 	}
-	
+	public int takeOrderItem(ArrayList<OrderViewBean> orderList) {
+		PreparedStatement pstmt = null;
+		int insertCount = 0;
+		String sql = "INSERT INTO item_stock VALUES(?,?,now(),?,?,?)";
+		
+		try {
+			for(int i=0;i<orderList.size();i++) {
+				HashMap<String, Integer> imap = findRecentStock(orderList.get(i).getItem_code());
+				pstmt = conn.prepareStatement(sql);
+				pstmt.setString(1, orderList.get(i).getItem_code());
+				pstmt.setString(2, "주문");
+				pstmt.setInt(3, orderList.get(i).getAmount());
+				pstmt.setInt(4, imap.get("stock")-orderList.get(i).getAmount());
+				pstmt.setInt(5, imap.get("inumber")+1);
+				insertCount = pstmt.executeUpdate();
+			}
+		}catch(Exception e) {
+			e.printStackTrace();
+		}finally {
+			close(pstmt);
+		}
+		return insertCount;
+	}
 }

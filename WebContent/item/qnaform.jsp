@@ -125,6 +125,7 @@ function fclose(f){
 	</c:when>
 	<c:when test="${act != null && act eq 'login' }">
 		<script>
+			alert('로그인이 필요합니다.');
 			opener.location.reload();
 			window.close();
 		</script>

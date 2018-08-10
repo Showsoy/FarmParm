@@ -115,12 +115,12 @@ function fclose(f){
 </head>
 <link rel="stylesheet" type="text/css" href="../style/style.css">
 <body>
-<div id="grade"><b id="grade_deco">|</b> 상품후기</div>
-<form action="reWrite.bo" name="reviewform" method="post" enctype="multipart/form-data" onsubmit="return chkForm(this)">
+<div id="grade"><b id="grade_deco">|</b> 문의답글</div>
+<form action="qnaReply.bo" name="reviewform" method="post" onsubmit="return chkForm(this)">
 <c:choose>
 	<c:when test="${act != null && act eq 'ok' }">
 		<img src="../images/celebration.png">
-		<h5>500포인트 적립</h5><p>후기가 정상적으로 등록되었습니다.</p>
+		<p>답글이 정상적으로 등록되었습니다.</p>
 		<button type="button" onclick="fclose(this)" id="wbutton">닫기</button>
 	</c:when>
 	<c:when test="${act != null && act eq 'login' }">
@@ -130,17 +130,17 @@ function fclose(f){
 			window.close();
 		</script>
 	</c:when>
-	<c:when test="${act != null && act eq 'dupl' }">
-		<p>주문 당 한 건의 후기만 가능합니다.</p>
-		<button type="button" id="wbutton" onclick="fclose(this)">닫기</button>
+	<c:when test="${act != null && act eq 'user' }">
+		<p>권한이 없습니다.</p>
+		<button type="button" onclick="fclose(this)" id="wbutton">닫기</button>=
 	</c:when>
-	<c:when test="${act != null && act eq 'no' }">
-		<p>확인 가능한 주문내역이 없습니다.</p>
-		<button type="button" id="wbutton" onclick="fclose(this)">닫기</button>
+	<c:when test="${act != null && act eq 'dupl' }">
+		<p>이미 작성하셨습니다.</p>
+		<button type="button" onclick="fclose(this)" id="wbutton">닫기</button>=
 	</c:when>
 	<c:otherwise>
 <input type="hidden" name="item_code" id="item_code" value="${item_code }">
-<input type="hidden" name="order_id" id="order_id" value="${order_id }">
+<input type="hidden" name="rgroup" id="rgroup" value="${rgroup }">
 <table>
 	<tr>
 		<td id="td_left">
@@ -156,14 +156,6 @@ function fclose(f){
 		</td>
 		<td>
 			<textarea name="content" id="content" cols="40" rows="10" onkeyup="fc_chk_byte(this);" onkeypress="fc_chk2();" placeholder="200자까지 입력하실 수 있습니다."></textarea>
-		</td>
-	</tr>
-	<tr>
-		<td id="td_left">
-			<label for="image">사진</label>
-		</td>
-		<td>
-			<input type="file" name="image" id="image">
 		</td>
 	</tr>
 </table>

@@ -21,8 +21,6 @@
 <!DOCTYPE html PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN" "http://www.w3.org/TR/html4/loose.dtd">
 <html>
 <head>
-<c:set var="page_test" value="<%=nowPage%>"/>
-
 <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
 <title>Insert title here</title>
 <style>
@@ -103,6 +101,28 @@ dd{
 	font-weight: 500;
 	text-transform: uppercase;
 }
+#wbutton{
+	float:right;
+	margin-right:50px;
+	margin-top:20px;
+	font-family:"Nanum Gothic";
+	font-weight: 500;
+	text-transform: uppercase;
+	outline: 0;
+	background: #fff;
+	border: 0;
+	padding: 5px;
+	border : 1px solid #ccc;
+	border-radius : 5px;
+	color: #191919;
+	font-size: 14px;
+	-webkit-transition: all 0.3 ease;
+	transition: all 0.3 ease;
+	cursor: pointer;
+}
+#wbutton:active{
+	background: #F6F6F6;
+}
 #td_right_s{
 	width:100px;
 }
@@ -117,15 +137,23 @@ dd{
 #pageList{
 	text-align:center;
 }
+#leftalign{
+	text-align:left;
+}
 </style>
 <script>
 	function goto_url(act) {
 		document.itemform.action = act;
 		var qty = document.getElementById("qty").value;
+		var stock = document.getElementById("stock").value;
 		var reg_qty = /^[1-9]{1}$|^[1-4]{1}[0-9]{1}$|^50$/;
-		
 		if (!reg_qty.test(qty)) {
 			alert("1~50의 숫자만 가능합니다.");
+			document.qty.focus();
+			return false;
+		}
+		if (parseInt(qty)>parseInt(stock)) {
+			alert("주문 가능 개수 초과");
 			document.qty.focus();
 			return false;
 		}
@@ -136,7 +164,31 @@ dd{
 	if (obj.style.display == 'none') obj.style.display = 'block';
 	else if (obj.style.display == 'block') obj.style.display = 'none';
 	}
-	
+	function doImgPop(img){ 
+		 img1= new Image(); 
+		 img1.src=(img); 
+		 imgControll(img); 
+		} 
+		  
+		function imgControll(img){ 
+		 if((img1.width!=0)&&(img1.height!=0)){ 
+		    viewImage(img); 
+		  } 
+		  else{ 
+		     controller="imgControll('"+img+"')"; 
+		     intervalID=setTimeout(controller,20); 
+		  } 
+		}
+		function viewImage(img){ 
+		 W=img1.width; 
+		 H=img1.height; 
+		 O="width="+W+",height="+H+",scrollbars=yes"; 
+		 imgWin=window.open("","",O); 
+		 imgWin.document.write("<html><head><title>::::: 이미지상세보기 :::::</title></head>");
+		 imgWin.document.write("<body topmargin=0 leftmargin=0>");
+		 imgWin.document.write("<img src="+img+" onclick='self.close()' style='cursor:pointer;' title ='클릭하시면 창이 닫힙니다.'>");
+		 imgWin.document.close();
+	}
 </script>
 </head>
 <link rel="stylesheet" type="text/css" href="style/style.css">
@@ -173,6 +225,7 @@ pageContext.setAttribute("uprice", uprice);
 	<div class="mypage">
 	<form method="post" name="itemform">
 	<div id="idetail">
+	<input type="hidden" name="stock" id="stock" value=${stock }>
 		<div id="id_img">
 			<img src="images/${item.img_path }" width="400px">
 		</div>
@@ -198,11 +251,31 @@ pageContext.setAttribute("uprice", uprice);
 			<hr color="#4CAF50" size="5">
 			<dl>
 				<dt>수량</dt>
-				<dd><input type="text" id="qty" name="qty" size="1" value="1"/></dd>
+				<c:choose>
+				<c:when test="${stock<=0 }">
+					<dd><font style="color:red;">매진</font></dd>
+				</c:when>
+				<c:otherwise>
+					<dd><input type="text" id="qty" name="qty" size="1" value="1"/></dd>
+				</c:otherwise>
+				</c:choose>
 			</dl>
+			<c:if test="${stock<6 }">
+			<dl>
+				<dd><font style="color:red;">${stock }개 남음!</font></dd>
+			</dl>
+			</c:if>
 			<hr color="#4CAF50" size="5">
-			<button type="button" onclick="goto_url('addCart.ct?item_code=${item.item_code}');">장바구니</button>
-			<button type="button" onclick="goto_url('odForm.od?type=one&item_code=${item.item_code}');">바로구매</button>
+			<c:choose>
+				<c:when test="${stock<=0 }">
+					<button type="button" onclick="#">장바구니</button>
+					<button type="button" onclick="#">바로구매</button>
+				</c:when>
+				<c:otherwise>
+					<button type="button" onclick="goto_url('./item/addCart.ct?item_code=${item.item_code}');">장바구니</button>
+					<button type="button" onclick="goto_url('./order/odForm.od?type=one&item_code=${item.item_code}');">바로구매</button>
+				</c:otherwise>
+			</c:choose>
 		</div>
 	</div>
 	</form>
@@ -218,6 +291,12 @@ pageContext.setAttribute("uprice", uprice);
 	</p>
 </div>
 <br><br><br>
+	<br><br><br>
+	<jsp:include page="review.jsp" flush="false"/>
+	<br><br><br>
+	<jsp:include page="qna.jsp" flush="false"/>
+	<br><br>
+	<br><br><br>
 
 <div class="review">
 
@@ -287,7 +366,6 @@ pageContext.setAttribute("uprice", uprice);
 	<c:set var="startPage" value="<%=startPage%>"/>
 	<c:set var="endPage" value="<%=endPage%>"/>	
 	<c:set var="articleList" value="<%=articleList%>"/>
-
 	<br><br>
 	<div class="qna">
 	<h3>&nbsp;&nbsp;상품문의</h3>

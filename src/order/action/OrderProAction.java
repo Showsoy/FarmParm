@@ -50,7 +50,7 @@ public class OrderProAction implements Action {
 				plpoint += (int)(Integer.parseInt(od_price[i])*Integer.parseInt(od_amount[i])*0.01);
 			}
 			if(request.getParameter("parcel")!=null&&request.getParameter("parcel").equals("exist"))
-				orderList.add(new OrderViewBean(order_id, "N000", "택배비", 3000, 1));
+				orderList.add(new OrderViewBean(order_id, "Z000", "택배비", 3000, 1));
 			
 			Calendar cal = Calendar.getInstance();
 			Timestamp date = new Timestamp(cal.getTime().getTime());

@@ -28,7 +28,7 @@ import item.action.CartListAction;
 import item.action.CartRemoveAction;
 import item.action.MainItemListAction;
 import item.action.UserItemListAction;
-import item.action.UserItemViewAction;
+import item.action.UserItemViewAction1;
 import vo.ActionForward;
 
 /**
@@ -157,7 +157,7 @@ protected void doProcess(HttpServletRequest request, HttpServletResponse respons
     			e.printStackTrace();
     		}
     	}else if(command.equals("/uitemView.im")) {
-    		action = new UserItemViewAction();
+    		action = new UserItemViewAction1();
     		try {
     			forward = action.execute(request, response);
     		}catch(Exception e) {

@@ -27,7 +27,7 @@ import item.action.CartChangeQtyAction;
 import item.action.CartListAction;
 import item.action.CartRemoveAction;
 import item.action.UserItemListAction;
-import item.action.UserItemViewAction;
+import item.action.UserItemViewAction1;
 import vo.ActionForward;
 
 /**

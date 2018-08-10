@@ -1,15 +1,17 @@
 package board.action;
 
+import java.util.ArrayList;
+
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import javax.servlet.http.HttpSession;
 
 import action.Action;
 import svc.BoardService;
-import svc.OrderService;
 import vo.ActionForward;
+import vo.BoardBean;
 
-public class ReviewReplyFormAction implements Action {
+public class QnAReplyFormAction1 implements Action {
 
 	@Override
 	public ActionForward execute(HttpServletRequest request, HttpServletResponse response) throws Exception {
@@ -27,14 +29,14 @@ public class ReviewReplyFormAction implements Action {
 			String item_code = request.getParameter("item_code");
 			int bnum = Integer.parseInt(request.getParameter("bnum"));
 			BoardService boardService = new BoardService();
-			boolean has_re = boardService.hasReply("review_board", item_code, bnum);
+			boolean has_re = boardService.hasReply("qna_board", item_code, bnum);
 			if(has_re) request.setAttribute("act", "dupl");
 			else {
 				request.setAttribute("item_code", item_code);
 				request.setAttribute("rgroup", bnum);
 			}
 		}
-		forward= new ActionForward("./rereform.jsp",false);	
+		forward= new ActionForward("./qnareform.jsp",false);	
 		return forward;
 	}
 

@@ -93,6 +93,29 @@ public class BoardDAO {
 		
 		return listCount;
 	}
+	public int selectListCount(String bName, String item_code) {
+		int listCount = 0;
+		PreparedStatement pstmt = null;
+		ResultSet rs = null;
+		String sql = "SELECT COUNT(*) FROM "+bName+" WHERE rstep=1 AND item_code=?";
+		
+		try {
+			pstmt = conn.prepareStatement(sql);
+			pstmt.setString(1, item_code);
+			rs = pstmt.executeQuery();
+			
+			if(rs.next()) {
+				listCount = rs.getInt(1);
+			}
+		}catch(Exception e) {
+			e.printStackTrace();
+		}finally {
+			close(rs);
+			close(pstmt);
+		}
+		
+		return listCount;
+	}
 	public int searchListCount(String keyword) {
 		int listCount = 0;
 		PreparedStatement pstmt = null;
@@ -254,60 +277,116 @@ public class BoardDAO {
 		
 		return articleList;
 	}
-	public ArrayList<BoardBean> selectReviewList(int page){
-		PreparedStatement pstmt = null;
-		ResultSet rs = null;
-		String sql = "SELECT * FROM review WHERE rstep=1 ORDER BY rgroup DESC, rstep ASC LIMIT ?,5";
+	public ArrayList<BoardBean> selectReviewList(int page, String item_code){
+		PreparedStatement pstmt1 = null;
+		ResultSet rs1 = null;
+		PreparedStatement pstmt2 = null;
+		ResultSet rs2 = null;
+		PreparedStatement pstmt3 = null;
+		ResultSet rs3 = null;
+		//10 8 7 7 5 /4 / 2 1  
+		String sql1 = "SELECT sum(has_re) FROM review_board WHERE item_code = ? AND rstep=1 ORDER BY rgroup DESC, rstep ASC LIMIT ?,5";
+		String sql2 = "SELECT * FROM review_board WHERE item_code = ? ORDER BY rgroup DESC, rstep ASC LIMIT ?,?";
 		ArrayList<BoardBean> articleList = new ArrayList<BoardBean>();
 		BoardBean board = null;
 		int startrow = (page-1)*5;
+		int before = (page-2)*5;
+		int limit = 5;
 		
 		try {
-			pstmt = conn.prepareStatement(sql);
-			pstmt.setInt(1, startrow);
-			rs = pstmt.executeQuery();
+			if(page>1) {
+				pstmt1 = conn.prepareStatement(sql1);
+				pstmt1.setString(1, item_code);
+				pstmt1.setInt(2, before);
+				rs1 = pstmt1.executeQuery();
+				
+				if(rs1.next()) startrow += rs1.getInt(1);
+			}
+			pstmt2 = conn.prepareStatement(sql1);
+			pstmt2.setString(1, item_code);
+			pstmt2.setInt(2, startrow);
+			rs2 = pstmt2.executeQuery();
+			if(rs2.next()) limit += rs2.getInt(1);
 			
-			while(rs.next()) {
-				board = new BoardBean(rs.getInt("bnum"), rs.getString("item_code"), rs.getString("user_id"), 
-						rs.getString("content"), rs.getString("subject"), rs.getString("img_path"), 
-						rs.getInt("has_re"), rs.getDate("rdate"), rs.getInt("order_id"), rs.getInt("rgroup"), rs.getInt("rstep"));
+			pstmt3 = conn.prepareStatement(sql2);
+			pstmt3.setString(1, item_code);
+			pstmt3.setInt(2, startrow);
+			pstmt3.setInt(3, limit);
+			rs3 = pstmt3.executeQuery();
+			
+			while(rs3.next()) {
+				board = new BoardBean(rs3.getInt("bnum"), rs3.getString("item_code"), rs3.getString("user_id"), 
+						rs3.getString("content"), rs3.getString("subject"), rs3.getString("img_path"), 
+						rs3.getInt("has_re"), rs3.getDate("rdate"), rs3.getInt("order_id"), rs3.getInt("rgroup"), rs3.getInt("rstep"));
 				articleList.add(board);
 				
 			}
 		}catch(Exception e) {
 			e.printStackTrace();
 		}finally {
-			close(rs);
-			close(pstmt);
+			if(rs1!=null) close(rs1);
+			if(rs2!=null) close(rs2);
+			if(rs3!=null) close(rs3);
+			if(pstmt1!=null) close(pstmt1);
+			if(pstmt2!=null) close(pstmt2);
+			if(pstmt3!=null) close(pstmt3);
 		}
 		
 		return articleList;
 	}
-	public ArrayList<BoardBean> selectQnAList(int page){
-		PreparedStatement pstmt = null;
-		ResultSet rs = null;
-		String sql = "SELECT * FROM qna_board WHERE rstep=1 ORDER BY rgroup DESC, rstep ASC LIMIT ?,5";
+	public ArrayList<BoardBean> selectQnAList(int page, String item_code){
+		PreparedStatement pstmt1 = null;
+		ResultSet rs1 = null;
+		PreparedStatement pstmt2 = null;
+		ResultSet rs2 = null;
+		PreparedStatement pstmt3 = null;
+		ResultSet rs3 = null;
+		//10 8 7 7 5 /4 / 2 1  
+		String sql1 = "SELECT sum(has_re) FROM qna_board WHERE item_code = ? AND rstep=1 ORDER BY rgroup DESC, rstep ASC LIMIT ?,5";
+		String sql2 = "SELECT * FROM qna_board WHERE item_code = ? ORDER BY rgroup DESC, rstep ASC LIMIT ?,?";
 		ArrayList<BoardBean> articleList = new ArrayList<BoardBean>();
 		BoardBean board = null;
-		int startrow = (page-1)*10;
+		int startrow = (page-1)*5;
+		int before = (page-2)*5;
+		int limit = 5;
 		
 		try {
-			pstmt = conn.prepareStatement(sql);
-			pstmt.setInt(1, startrow);
-			rs = pstmt.executeQuery();
+			if(page>1) {
+				pstmt1 = conn.prepareStatement(sql1);
+				pstmt1.setString(1, item_code);
+				pstmt1.setInt(2, before);
+				rs1 = pstmt1.executeQuery();
+				
+				if(rs1.next()) startrow += rs1.getInt(1);
+			}
+			pstmt2 = conn.prepareStatement(sql1);
+			pstmt2.setString(1, item_code);
+			pstmt2.setInt(2, startrow);
+			rs2 = pstmt2.executeQuery();
+			if(rs2.next()) limit += rs2.getInt(1);
 			
-			while(rs.next()) {
-				board = new BoardBean(rs.getInt(1), rs.getString(2), rs.getString(3), 
-						rs.getString(4), rs.getString(5), rs.getString(6), 
-						rs.getInt(7), rs.getDate(8), 0, rs.getInt(9), rs.getInt(10));
+			pstmt3 = conn.prepareStatement(sql2);
+			pstmt3.setString(1, item_code);
+			pstmt3.setInt(2, startrow);
+			pstmt3.setInt(3, limit);
+			rs3 = pstmt3.executeQuery();
+			
+			while(rs3.next()) {
+				board = new BoardBean(rs3.getInt(1), rs3.getString(2), rs3.getString(3), 
+						rs3.getString(4), rs3.getString(5), rs3.getString(6), 
+						rs3.getInt(7), rs3.getDate(8), 0, rs3.getInt(9), rs3.getInt(10));
 				articleList.add(board);
 				
 			}
 		}catch(Exception e) {
 			e.printStackTrace();
 		}finally {
-			close(rs);
-			close(pstmt);
+			if(rs1!=null) close(rs1);
+			if(rs2!=null) close(rs2);
+			if(rs3!=null) close(rs3);
+			if(pstmt1!=null) close(pstmt1);
+			if(pstmt2!=null) close(pstmt2);
+			if(pstmt3!=null) close(pstmt3);
 		}
 		
 		return articleList;
@@ -425,6 +504,27 @@ public class BoardDAO {
 		
 		try {
 			pstmt = conn.prepareStatement(sql);
+			rs = pstmt.executeQuery();
+			
+			if(rs.next()) bnum = rs.getInt(1)+1;
+			else bnum = 1;
+		}catch(Exception e) {
+			e.printStackTrace();
+		}finally {
+			if(rs!=null) close(rs);
+			if(pstmt!=null)close(pstmt);
+		}
+		return bnum;
+	}
+	public int searchBNum(String bName, String item_code) {
+		PreparedStatement pstmt = null;
+		ResultSet rs = null;
+		String sql = "SELECT MAX(bnum) FROM "+bName+" WHERE item_code = ?";
+		int bnum = 1;
+		
+		try {
+			pstmt = conn.prepareStatement(sql);
+			pstmt.setString(1, item_code);
 			rs = pstmt.executeQuery();
 			
 			if(rs.next()) bnum = rs.getInt(1)+1;
@@ -847,7 +947,81 @@ public class BoardDAO {
 		}
 		return insertCount;
 	}
-	
+	public int replyReview(BoardBean board) {
+		
+		PreparedStatement pstmt = null;
+		ResultSet rs = null;
+		String sql = "";
+		int insertCount = 0;
+		int rgroup = board.getRgroup();
+		
+		try {
+			sql = "UPDATE review_board SET has_re = has_re+1 WHERE item_code = ? AND rgroup = ?";
+			
+			pstmt = conn.prepareStatement(sql);
+			pstmt.setString(1, board.getCode());
+			pstmt.setInt(2, rgroup);
+			int updateCount = pstmt.executeUpdate();
+			
+			if(updateCount>0) {
+				commit(conn);
+			}
+			
+			sql = "INSERT INTO review_board VALUES(?,?,'관리자',?,?,null,0,now(),?,?,?)";
+			pstmt = conn.prepareStatement(sql);
+			pstmt.setInt(1, board.getBoard_num());
+			pstmt.setString(2, board.getCode());
+			pstmt.setString(3, board.getContent());
+			pstmt.setString(4, board.getSubject());
+			pstmt.setInt(5, rgroup);
+			pstmt.setInt(6, board.getRstep());
+			pstmt.setInt(7, board.getReadcount());
+			insertCount = pstmt.executeUpdate();
+			
+		}catch(Exception e) {
+			e.printStackTrace();
+		}finally {
+			close(pstmt);
+		}
+		return insertCount;
+	}
+	public int replyQnA(BoardBean board) {
+		
+		PreparedStatement pstmt = null;
+		ResultSet rs = null;
+		String sql = "";
+		int insertCount = 0;
+		int rgroup = board.getRgroup();
+		
+		try {
+			sql = "UPDATE qna_board SET has_re = has_re+1 WHERE item_code = ? AND rgroup = ?";
+			
+			pstmt = conn.prepareStatement(sql);
+			pstmt.setString(1, board.getCode());
+			pstmt.setInt(2, rgroup);
+			int updateCount = pstmt.executeUpdate();
+			
+			if(updateCount>0) {
+				commit(conn);
+			}
+			
+			sql = "INSERT INTO qna_board VALUES(?,?,'관리자',?,?,null,0,now(),?,?)";
+			pstmt = conn.prepareStatement(sql);
+			pstmt.setInt(1, board.getBoard_num());
+			pstmt.setString(2, board.getCode());
+			pstmt.setString(3, board.getContent());
+			pstmt.setString(4, board.getSubject());
+			pstmt.setInt(5, rgroup);
+			pstmt.setInt(6, board.getRstep());
+			insertCount = pstmt.executeUpdate();
+			
+		}catch(Exception e) {
+			e.printStackTrace();
+		}finally {
+			close(pstmt);
+		}
+		return insertCount;
+	}
 	public int modifyNotice(BoardBean board) {
 		PreparedStatement pstmt = null;
 		int updateCount = 0;
@@ -886,10 +1060,10 @@ public class BoardDAO {
 		
 		return deleteCount;
 	}
-	public int removeArticle(String bName, int board_num) {
+	public int removeCsBoard(int board_num) {
 		PreparedStatement pstmt = null;
 		int deleteCount = 0;
-		String sql = "DELETE FROM "+bName+" WHERE rgroup=?";
+		String sql = "DELETE FROM cs_board WHERE rgroup=?";
 		
 		try {
 			pstmt = conn.prepareStatement(sql);
@@ -903,5 +1077,45 @@ public class BoardDAO {
 		}
 		
 		return deleteCount;
+	}
+	public int removeArticle(String bName, int board_num, String item_code) {
+		PreparedStatement pstmt = null;
+		int deleteCount = 0;
+		String sql = "DELETE FROM "+bName+" WHERE rgroup=? AND item_code=?";
+		
+		try {
+			pstmt = conn.prepareStatement(sql);
+			pstmt.setInt(1, board_num);
+			pstmt.setString(2, item_code);
+			
+			deleteCount = pstmt.executeUpdate();
+		}catch(Exception e) {
+			e.printStackTrace();
+		}finally {
+			close(pstmt);
+		}
+		
+		return deleteCount;
+	}
+	public boolean hasReply(String bName, String item_code, int board_num) {
+		PreparedStatement pstmt = null;
+		ResultSet rs = null;
+		boolean result = false;
+		String sql = "SELECT has_re FROM "+bName+" WHERE item_code=? AND bnum=?";
+		
+		try {
+			pstmt = conn.prepareStatement(sql);
+			pstmt.setString(1, item_code);
+			pstmt.setInt(2, board_num);
+			rs = pstmt.executeQuery();
+			if(rs.next()) if(rs.getInt(1)>0) result = true;
+		}catch(Exception e) {
+			e.printStackTrace();
+		}finally {
+			if(rs!=null) close(rs);
+			if(pstmt!=null) close(pstmt);
+		}
+		
+		return result;
 	}
 }

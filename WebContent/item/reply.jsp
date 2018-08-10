@@ -129,7 +129,6 @@ dd{
 		opener.location.reload();
 		window.close();
 	}
-	
 </script>
 </head>
 <link rel="stylesheet" type="text/css" href="style/style.css">

@@ -19,8 +19,8 @@ public class MainItemListAction implements Action{
 		ActionForward forward = null;
 		
 		ItemService itemService = new ItemService();
-		ArrayList<ItemViewBean> bestList = itemService.bestItemList();
-		ArrayList<ItemViewBean> newList = itemService.newItemList();
+		ArrayList<ItemViewBean> bestList = itemService.bestItemList(4);
+		ArrayList<ItemViewBean> newList = itemService.newItemList(4);
 		
 		request.setAttribute("bestList", bestList);
 		request.setAttribute("newList", newList);

@@ -1,17 +1,61 @@
 package board.action;
 
+import java.io.PrintWriter;
+import java.sql.Date;
+
+import javax.servlet.ServletContext;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
+import javax.servlet.http.HttpSession;
+
+import com.oreilly.servlet.MultipartRequest;
+import com.oreilly.servlet.multipart.DefaultFileRenamePolicy;
 
 import action.Action;
+import svc.BoardService;
 import vo.ActionForward;
+import vo.BoardBean;
 
 public class ReviewReplyAction implements Action {
 
 	@Override
 	public ActionForward execute(HttpServletRequest request, HttpServletResponse response) throws Exception {
 		// TODO Auto-generated method stub
-		return null;
+		request.setCharacterEncoding("UTF-8");
+		ActionForward forward = null;
+		
+		HttpSession session = request.getSession();
+		String id = (String)session.getAttribute("id");
+		if(id==null) {
+			request.setAttribute("act", "login");
+			forward= new ActionForward("./rereform.jsp",false);
+		}else {
+			BoardService boardService = new BoardService();
+		
+			Date date = new Date(0, 0, 0);	
+			
+			int bnum = boardService.searchBNum("review_board", request.getParameter("item_code"));
+			BoardBean board = new BoardBean(
+					bnum,
+					request.getParameter("item_code"),
+					"관리자",
+					request.getParameter("content"),
+					request.getParameter("subject"),
+					"",0,date,0,Integer.parseInt(request.getParameter("rgroup")),2);
+			boolean isWriteSuccess = boardService.replyReview(board);
+			if(!isWriteSuccess) {
+				response.setContentType("text/html;charset=UTF-8");
+				PrintWriter out = response.getWriter();
+				out.println("<script>");
+				out.println("alert('등록실패');");
+				out.println("history.back();");
+				out.println("</script>");
+			}else {
+				request.setAttribute("act", "ok");
+				forward= new ActionForward("./rereform.jsp",false);//리스트로 들어감
+			}
+		}
+		return forward;
 	}
 
 }

@@ -69,7 +69,7 @@ public class OrderFormAction implements Action {
 				orderList.add(new OrderViewBean(0, item.getItem_code(), item.getItem_name(),
 						(int)(item.getPrice()*(1.0-item.getSale()/100.0)),qty));
 				
-			}
+				}
 			int totalMoney = 0;
 			for(int i=0;i<orderList.size();i++) {
 				totalMoney += orderList.get(i).getPrice()*orderList.get(i).getAmount();

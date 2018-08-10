@@ -120,10 +120,10 @@ th, td {
 		pageContext.setAttribute("uprice", uprice);
 		%>
 			<li>
-				<a href="uitemView.im?item_code=${itemList.item_code }&page=${page}">
+				<a href="uitemView.im?item_code=${itemList.item_code }&page=${pageInfo.page}">
 				<img id="prod_image" src="images/${itemList.img_path }"/></a>
 				<div class="caption">
-				<a href="uitemView.im?item_code=${itemList.item_code }&page=${page}">
+				<a href="uitemView.im?item_code=${itemList.item_code }&page=${pageInfo.page}">
 					<b>${itemList.item_name }</b></a><br>
 				<c:choose>
 					<c:when test="${itemList.sale==0 }">
@@ -136,7 +136,14 @@ th, td {
 						<fmt:formatNumber value="${uprice }" type="number"/>원(-${itemList.sale }%)</span><br>
 					</c:otherwise>
 				</c:choose>	
-					<a href="addCart.ct?item_code=${itemList.item_code }" style="color:black;paddin:0;font-size:13px;"><img src="images/cart.png"/> 장바구니</a>
+				<c:choose>
+				<c:when test="${itemList.stock<=0 }">
+					<font style="font-size:14px;color:red;">매진</font>
+				</c:when>
+				<c:otherwise>
+					<a href="./item/addCart.ct?item_code=${itemList.item_code }" style="color:black;paddin:0;font-size:13px;"><img src="images/cart.png"/> 장바구니</a>
+				</c:otherwise>
+				</c:choose>
 				</div>
 			</li>
 		</c:forEach>
