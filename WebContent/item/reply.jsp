@@ -5,10 +5,7 @@
 <%@page import="vo.BoardBean"%>
 <%@page import="vo.PageInfo"%>
 <%@ taglib prefix="fmt" uri="http://java.sun.com/jsp/jstl/fmt" %>
-<%
- java.text.SimpleDateFormat formatter = new java.text.SimpleDateFormat("yyyyMMdd");
- String today = formatter.format(new java.util.Date());
-%>
+
 <!DOCTYPE html PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN" "http://www.w3.org/TR/html4/loose.dtd">
 <html>
 <head>
@@ -122,8 +119,15 @@ dd{
 	}
 	
 	function layer_toggle(obj) {
-		if (obj.style.display == 'none') obj.style.display = 'block';
-		else if (obj.style.display == 'block') obj.style.display = 'none';
+	if (obj.style.display == 'none') obj.style.display = 'block';
+	else if (obj.style.display == 'block') obj.style.display = 'none';
+	
+
+	}
+
+	function fclose(f){
+		opener.location.reload();
+		window.close();
 	}
 </script>
 </head>

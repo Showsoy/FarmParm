@@ -50,11 +50,10 @@ public class UserItemViewAction1 implements action.Action{
 			r_page=Integer.parseInt(request.getParameter("r_page"));
 		}
 		
-		int qlistCount = boardService.selectListCount("qna_board", item_code);//됨
+		int qlistCount = boardService.selectListCount("qna_board", item_code);
 		int rlistCount = boardService.selectListCount("review_board", item_code);
-		qnaList = boardService.selectQnAList(q_page, item_code);//안됨
+		qnaList = boardService.selectQnAList(q_page, item_code);
 		reviewList = boardService.selectReviewList(r_page, item_code);
-		System.out.println(qlistCount+","+rlistCount+","+qnaList.size()+","+reviewList.size());
 		
 		int q_maxPage=(int)((double)qlistCount/limit+0.95);
    		int q_startPage = (((int) ((double)q_page / 10 + 0.9)) - 1) * 10 + 1;
@@ -125,7 +124,7 @@ public class UserItemViewAction1 implements action.Action{
 		request.setAttribute("q_page", q_page);
 		request.setAttribute("r_page", r_page);
 		forward = new ActionForward();
-		forward.setPath("item/detail.jsp");
+		forward.setPath("./item/detail.jsp");
 		
 		return forward;
 		
