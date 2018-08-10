@@ -8,10 +8,10 @@ import javax.servlet.http.HttpSession;
 
 import action.Action;
 import svc.BoardService;
-import svc.ItemService;
 import vo.ActionForward;
+import vo.Util;
 
-public class CsBoardRemoveAction implements Action {
+public class QnARemoveAction1 implements Action {
 
 	@Override
 	public ActionForward execute(HttpServletRequest request, HttpServletResponse response) throws Exception {
@@ -28,11 +28,17 @@ public class CsBoardRemoveAction implements Action {
 			out.println("location.href='./member/memberLogin.us?turn=ok';");
 			out.println("</script>");
 		} else {
+			String item_code = request.getParameter("item_code");
+			int page = Integer.parseInt(request.getParameter("page"));
+			int r_page = Integer.parseInt(request.getParameter("r_page"));
+			int q_page = Integer.parseInt(request.getParameter("q_page"));
 			BoardService boardService = new BoardService();
 			String nums[];
+			String codes[];
 			int board_num;
 			int deleteCount = 0;
-	
+			
+			//여러개 삭제 미구현
 			if (request.getParameter("bnum") == null) {
 				if (!id.equals("admin")) {
 					response.setContentType("text/html;charset=UTF-8");
@@ -43,13 +49,14 @@ public class CsBoardRemoveAction implements Action {
 					out.println("</script>");
 				} else {
 				nums = request.getParameterValues("icheck");
+				codes = request.getParameterValues("codes");
 				for (int i = 0; i < nums.length; i++) {
-					deleteCount = boardService.removeCsBoard(Integer.parseInt(nums[i]));
+					deleteCount = boardService.removeArticle("qna_board", Integer.parseInt(nums[i]), codes[i]);
 				}
 			}
 			} else {
 				board_num = Integer.parseInt(request.getParameter("bnum"));
-				String writer = boardService.selectWriter("cs_board", board_num);
+				String writer = boardService.selectWriter("qna_board", board_num);
 				if (!id.equals("admin") || !id.equals(writer)) {
 					response.setContentType("text/html;charset=UTF-8");
 					PrintWriter out = response.getWriter();
@@ -58,7 +65,7 @@ public class CsBoardRemoveAction implements Action {
 					out.println("history.back();");
 					out.println("</script>");
 				} else {
-					deleteCount = boardService.removeCsBoard(board_num);
+					deleteCount = boardService.removeArticle("qna_board", board_num, item_code);
 				}
 			}
 	
@@ -70,7 +77,7 @@ public class CsBoardRemoveAction implements Action {
 				out.println("history.back();");
 				out.println("</script>");
 			} else {
-				forward = new ActionForward("./csList.bo", true);
+				forward = new ActionForward("./uitemView.im?item_code="+item_code+"&page="+page+"&r_page="+r_page+"&q_page="+q_page, true);
 			}
 		}
 		return forward;

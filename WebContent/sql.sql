@@ -266,6 +266,11 @@ create view user_view as select users.user_id as user_id, users.grade as grade, 
 USE `java2b`;
 drop view order_view;
 create view order_view as SELECT order_item.order_id AS order_id, items.item_code as item_code, items.item_name AS item_name, round(items.price*(100-items.sale)/100) AS price, order_item.amount as amount FROM order_item LEFT OUTER JOIN items ON order_item.item_code = items.item_code;
-
-USE `java2b`;
 alter table review_board add column order_id int;
+
+---20180810 기본키 제거---
+USE `java2b`;
+alter table review_board drop primary key;
+alter table qna_board drop primary key;
+alter table review_board modify content varchar(400);
+alter table qna_board modify content varchar(400);

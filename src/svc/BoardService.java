@@ -9,6 +9,7 @@ import java.sql.Connection;
 import java.util.ArrayList;
 
 import dao.BoardDAO;
+import dao.UserDAO;
 import vo.BoardBean;
 
 public class BoardService {
@@ -35,6 +36,15 @@ public class BoardService {
 		Connection conn = getConnection();
 		boardDAO.setConnection(conn);
 		int listCount = boardDAO.selectListCount(bName);
+		
+		close(conn);
+		return listCount;
+	}
+	public int selectListCount(String bName, String item_code) {
+		BoardDAO boardDAO = BoardDAO.getInstance();
+		Connection conn = getConnection();
+		boardDAO.setConnection(conn);
+		int listCount = boardDAO.selectListCount(bName, item_code);
 		
 		close(conn);
 		return listCount;
@@ -93,20 +103,20 @@ public class BoardService {
 		close(conn);
 		return articleList;
 	}
-	public ArrayList<BoardBean> selectReviewList(int page) {
+	public ArrayList<BoardBean> selectReviewList(int page, String item_code) {
 		BoardDAO boardDAO = BoardDAO.getInstance();
 		Connection conn = getConnection();
 		boardDAO.setConnection(conn);
-		ArrayList<BoardBean> articleList = boardDAO.selectReviewList(page);
+		ArrayList<BoardBean> articleList = boardDAO.selectReviewList(page, item_code);
 		
 		close(conn);
 		return articleList;
 	}
-	public ArrayList<BoardBean> selectQnAList(int page) {
+	public ArrayList<BoardBean> selectQnAList(int page, String item_code) {
 		BoardDAO boardDAO = BoardDAO.getInstance();
 		Connection conn = getConnection();
 		boardDAO.setConnection(conn);
-		ArrayList<BoardBean> articleList = boardDAO.selectQnAList(page);
+		ArrayList<BoardBean> articleList = boardDAO.selectQnAList(page, item_code);
 		
 		close(conn);
 		return articleList;
@@ -253,8 +263,9 @@ public class BoardService {
 		boardDAO.setConnection(conn);
 		boolean isWriteSuccess = false;
 		int insertCount = boardDAO.writeReview(board);
-		UserService userService = new UserService();
-		int updateCount = userService.userPlusPoint(board.getUser_id(), 500);
+		UserDAO userDAO = UserDAO.getInstance();
+		userDAO.setConnection(conn);
+		int updateCount = userDAO.userPlusPoint(board.getUser_id(), 500);
 		
 		if(insertCount>0&&updateCount>0) {
 			commit(conn);
@@ -309,6 +320,15 @@ public class BoardService {
 		close(conn);
 		return bnum;
 	}
+	public int searchBNum(String bName, String item_code) {
+		BoardDAO boardDAO = BoardDAO.getInstance();
+		Connection conn = getConnection();
+		boardDAO.setConnection(conn);
+		int bnum = boardDAO.searchBNum(bName, item_code);
+		
+		close(conn);
+		return bnum;
+	}
 	public int updateReadCount(int board_num) {
 		BoardDAO boardDAO = BoardDAO.getInstance();
 		Connection conn = getConnection();
@@ -359,7 +379,40 @@ public class BoardService {
 		close(conn);
 		return isReplySuccess;
 	}
-	
+	public boolean replyReview(BoardBean board) {
+		BoardDAO boardDAO = BoardDAO.getInstance();
+		Connection conn = getConnection();
+		boardDAO.setConnection(conn);
+		boolean isReplySuccess = false;
+		int insertCount = boardDAO.replyReview(board);
+		
+		if(insertCount>0) {
+			commit(conn);
+			isReplySuccess = true;
+		}else {
+			rollback(conn);
+		}
+		
+		close(conn);
+		return isReplySuccess;
+	}
+	public boolean replyQnA(BoardBean board) {
+		BoardDAO boardDAO = BoardDAO.getInstance();
+		Connection conn = getConnection();
+		boardDAO.setConnection(conn);
+		boolean isReplySuccess = false;
+		int insertCount = boardDAO.replyQnA(board);
+		
+		if(insertCount>0) {
+			commit(conn);
+			isReplySuccess = true;
+		}else {
+			rollback(conn);
+		}
+		
+		close(conn);
+		return isReplySuccess;
+	}
 	public boolean modifyNotice(BoardBean board) {
 		BoardDAO boardDAO = BoardDAO.getInstance();
 		Connection conn = getConnection();
@@ -390,11 +443,11 @@ public class BoardService {
 		close(conn);
 		return deleteCount;
 	}
-	public int removeArticle(String bName, int board_num) {
+	public int removeCsBoard(int board_num) {
 		BoardDAO boardDAO = BoardDAO.getInstance();
 		Connection conn = getConnection();
 		boardDAO.setConnection(conn);
-		int deleteCount = boardDAO.removeArticle(bName, board_num);
+		int deleteCount = boardDAO.removeCsBoard(board_num);
 		if(deleteCount>0) {
 			commit(conn);
 		}else {
@@ -403,5 +456,28 @@ public class BoardService {
 		
 		close(conn);
 		return deleteCount;
+	}
+	public int removeArticle(String bName, int board_num, String item_code) {
+		BoardDAO boardDAO = BoardDAO.getInstance();
+		Connection conn = getConnection();
+		boardDAO.setConnection(conn);
+		int deleteCount = boardDAO.removeArticle(bName, board_num, item_code);
+		if(deleteCount>0) {
+			commit(conn);
+		}else {
+			rollback(conn);
+		}
+		
+		close(conn);
+		return deleteCount;
+	}
+	public boolean hasReply(String bName, String item_code, int board_num) {
+		BoardDAO boardDAO = BoardDAO.getInstance();
+		Connection conn = getConnection();
+		boardDAO.setConnection(conn);
+		boolean result = boardDAO.hasReply(bName, item_code, board_num);
+		
+		close(conn);
+		return result;
 	}
 }

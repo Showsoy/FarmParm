@@ -43,7 +43,7 @@ public class NoticeRemoveAction implements Action {
 			if(request.getParameter("bnum")==null) {
 				nums = request.getParameterValues("icheck");
 				for(int i=0;i<nums.length;i++) {
-					deleteCount = boardService.removeArticle("notice", Integer.parseInt(nums[i]));
+					deleteCount = boardService.removeNotice(Integer.parseInt(nums[i]));
 				}
 			}else {
 				board_num = Integer.parseInt(request.getParameter("bnum"));

@@ -1,10 +1,13 @@
 package item.action;
 
+import java.io.PrintWriter;
+
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
 import action.Action;
 import svc.CartService;
+import svc.ItemService;
 import vo.ActionForward;
 
 public class CartChangeQtyAction implements Action {
@@ -12,11 +15,23 @@ public class CartChangeQtyAction implements Action {
 	@Override
 	public ActionForward execute(HttpServletRequest request, HttpServletResponse response) throws Exception {
 		// TODO Auto-generated method stub
+		ActionForward forward = null;
 		String item_code = request.getParameter("item_code");
 		int qty = Integer.parseInt(request.getParameter(item_code+"_qty"));
-		CartService cartService = new CartService();
-		cartService.changeCartQty(request, item_code, qty);
-		ActionForward forward = new ActionForward("./cartList.ct",true);
+		ItemService itemService = new ItemService();
+		int stock = itemService.findItemStock(item_code);
+		if(stock<qty) {
+			response.setContentType("text/html;charset=UTF-8");
+			PrintWriter out = response.getWriter();
+			out.println("<script>");
+			out.println("alert('주문 가능 개수 초과');");
+			out.println("history.back();");
+			out.println("</script>");
+		}else {
+			CartService cartService = new CartService();
+			cartService.changeCartQty(request, item_code, qty);
+			forward = new ActionForward("./cartList.ct",true);
+		}
 		return forward;
 	}
 

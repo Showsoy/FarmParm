@@ -10,9 +10,9 @@ import java.util.HashMap;
 
 import dao.ItemDAO;
 import vo.ItemBean;
-import vo.ItemBoardBean;
 import vo.ItemStockBean;
 import vo.ItemViewBean;
+import vo.OrderViewBean;
 
 public class ItemService {
 	public boolean registItem(ItemBean item) {
@@ -154,6 +154,15 @@ public class ItemService {
 		close(conn);
 		return imap;
 	}
+	public int findItemStock(String item_code){
+		ItemDAO itemDAO = ItemDAO.getInstance();
+		Connection conn = getConnection();
+		itemDAO.setConnection(conn);
+		int stock = itemDAO.findItemStock(item_code);
+		
+		close(conn);
+		return stock;
+	}
 	public int itemStockInOut(ItemStockBean itemStock, HashMap<String, Integer> imap) {
 		ItemDAO itemDAO = ItemDAO.getInstance();
 		Connection conn = getConnection();
@@ -243,22 +252,37 @@ public class ItemService {
 		close(conn);
 		return itemList;
 	}
-	public ArrayList<ItemViewBean> bestItemList() {
+	public ArrayList<ItemViewBean> bestItemList(int limit) {
 		ItemDAO itemDAO = ItemDAO.getInstance();
 		Connection conn = getConnection();
 		itemDAO.setConnection(conn);
-		ArrayList<ItemViewBean> itemList = itemDAO.bestItemList();
+		ArrayList<ItemViewBean> itemList = itemDAO.bestItemList(limit);
 		
 		close(conn);
 		return itemList;
 	}
-	public ArrayList<ItemViewBean> newItemList() {
+	public ArrayList<ItemViewBean> newItemList(int limit) {
 		ItemDAO itemDAO = ItemDAO.getInstance();
 		Connection conn = getConnection();
 		itemDAO.setConnection(conn);
-		ArrayList<ItemViewBean> itemList = itemDAO.newItemList();
+		ArrayList<ItemViewBean> itemList = itemDAO.newItemList(limit);
 		
 		close(conn);
 		return itemList;
+	}
+	public int takeOrderItem(ArrayList<OrderViewBean> orderList) {
+		ItemDAO itemDAO = ItemDAO.getInstance();
+		Connection conn = getConnection();
+		itemDAO.setConnection(conn);
+		int insertCount = itemDAO.takeOrderItem(orderList);
+
+		if(insertCount>0) {
+			commit(conn);
+		}else {
+			rollback(conn);
+		}
+		
+		close(conn);
+		return insertCount;
 	}
 }

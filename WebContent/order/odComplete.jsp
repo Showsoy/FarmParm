@@ -29,7 +29,7 @@ td img{
 	<hr color="#4CAF50" size="5">
 	<div class="mypage">
 		주문해주셔서 감사합니다.
-		<a href="main.im">홈으로 가기</a>
+		<a href="../main.im">홈으로 가기</a>
 	</div>
 	
 </div>

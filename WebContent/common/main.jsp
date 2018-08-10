@@ -53,7 +53,7 @@ function carousel() {
 				<div class="caption">
 					<h4><fmt:formatNumber value="${best.price }" type="currency"/></h4>
 					<p>&nbsp;&nbsp;&nbsp;
-						<a href="./item/uitemView.im?item_code=${best.item_code }"><img src="./images/zoom-in.png" style="width:24px;height:24px;border:0;"></a>
+						<a href="./uitemView.im?item_code=${best.item_code }"><img src="./images/zoom-in.png" style="width:24px;height:24px;border:0;"></a>
 						&nbsp;&nbsp;
 						<a href="./item/addCart.ct?item_code=${best.item_code }"><img src="./images/shopping-cart.png" style="width:24px;height:24px;border:0;"></a>
 
@@ -79,7 +79,7 @@ function carousel() {
 
 					<h4><fmt:formatNumber value="${newList.price }" type="currency"/></h4>
 					<p>&nbsp;&nbsp;&nbsp;
-						<a href="./item/uitemView.im?item_code=${newList.item_code }"><img src="./images/zoom-in.png" style="width:24px;height:24px;border:0;"></a>
+						<a href="./uitemView.im?item_code=${newList.item_code }"><img src="./images/zoom-in.png" style="width:24px;height:24px;border:0;"></a>
 						&nbsp;&nbsp;
 						<a href="./item/addCart.ct?item_code=${newList.item_code }"><img src="./images/shopping-cart.png" style="width:24px;height:24px;border:0;"></a>
 

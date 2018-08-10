@@ -17,7 +17,7 @@ import vo.ItemBean;
 import vo.PageInfo;
 
 
-public class UserItemViewAction implements action.Action{
+public class UserItemViewAction1 implements action.Action{
 
 
 	@Override
@@ -31,29 +31,56 @@ public class UserItemViewAction implements action.Action{
 
 		String item_code = request.getParameter("item_code");
 		ItemService itemService = new ItemService();
-		BoardService boardService = new BoardService();	
-		
-		ArrayList<BoardBean> q_articleList = new ArrayList<BoardBean>();
-	  	int q_page=1;
-		int limit=5;
+		BoardService boardService = new BoardService();
 
+		ArrayList<BoardBean> qnaList = new ArrayList<BoardBean>();
+		ArrayList<BoardBean> reviewList = new ArrayList<BoardBean>();
+	  	int page=1;
+		int q_page=1;
+	  	int r_page=1;
+		int limit=5;
+		
+		if(request.getParameter("page")!=null){
+			page=Integer.parseInt(request.getParameter("page"));
+		}
 		if(request.getParameter("q_page")!=null){
 			q_page=Integer.parseInt(request.getParameter("q_page"));
 		}
-
-		int listCount = boardService.qnaListCount();
-		q_articleList = boardService.qna_list(q_page,limit);
+		if(request.getParameter("r_page")!=null){
+			r_page=Integer.parseInt(request.getParameter("r_page"));
+		}
 		
-		int maxPage=(int)((double)listCount/limit+0.95); //0.95를 더해서 올림 처리.
-   		//현재 페이지에 보여줄 시작 페이지 수(1, 11, 21 등...)
-   		int startPage = (((int) ((double)q_page / 10 + 0.9)) - 1) * 10 + 1;
-   		//현재 페이지에 보여줄 마지막 페이지 수.(10, 20, 30 등...)
-   	    int endPage = startPage+10-1;
-   	    
-		forward = new ActionForward();
-	
+		int qlistCount = boardService.selectListCount("qna_board", item_code);//됨
+		int rlistCount = boardService.selectListCount("review_board", item_code);
+		qnaList = boardService.selectQnAList(q_page, item_code);//안됨
+		reviewList = boardService.selectReviewList(r_page, item_code);
+		System.out.println(qlistCount+","+rlistCount+","+qnaList.size()+","+reviewList.size());
+		
+		int q_maxPage=(int)((double)qlistCount/limit+0.95);
+   		int q_startPage = (((int) ((double)q_page / 10 + 0.9)) - 1) * 10 + 1;
+   	    int q_endPage = q_startPage+10-1;
+		if (q_endPage> q_maxPage) q_endPage = q_maxPage;
+		PageInfo q_pageInfo = new PageInfo();
+		q_pageInfo.setEndPage(q_endPage);
+		q_pageInfo.setListCount(qlistCount);
+		q_pageInfo.setMaxPage(q_maxPage);
+		q_pageInfo.setPage(q_page);
+		q_pageInfo.setStartPage(q_startPage);
+		
+		int r_maxPage=(int)((double)rlistCount/limit+0.95);
+   		int r_startPage = (((int) ((double)r_page / 10 + 0.9)) - 1) * 10 + 1;
+   	    int r_endPage = r_startPage+10-1;
+		if (r_endPage> r_maxPage) r_endPage = r_maxPage;
+		PageInfo r_pageInfo = new PageInfo();
+		r_pageInfo.setEndPage(r_endPage);
+		r_pageInfo.setListCount(rlistCount);
+		r_pageInfo.setMaxPage(r_maxPage);
+		r_pageInfo.setPage(r_page);
+		r_pageInfo.setStartPage(r_startPage);
 
+		forward = new ActionForward();
 		ItemBean item = itemService.getItem(item_code);
+		int stock = itemService.findItemStock(item_code);
 		if(id!=null&&!id.equals("admin")) {
 			itemService.updateReadCount(item_code);
 		}
@@ -61,7 +88,6 @@ public class UserItemViewAction implements action.Action{
 		Cookie todayImageCookie = new Cookie("today"+item_code, item.getImg_path());
 		todayImageCookie.setMaxAge(60*60*24);
 		Cookie[] cookieArray = request.getCookies();
-		
 		
 		//이전 쿠키값 삭제
 		if(cookieArray!=null) {
@@ -88,25 +114,16 @@ public class UserItemViewAction implements action.Action{
 				}
 			}
 		}
-		
-		// ****상품문의 리스트****** 
-		
-		if (endPage> maxPage) endPage= maxPage;
-		PageInfo q_pageInfo = new PageInfo();
-		q_pageInfo.setEndPage(endPage);
-		q_pageInfo.setListCount(listCount);
-		q_pageInfo.setMaxPage(maxPage);
-		q_pageInfo.setPage(q_page);
-		q_pageInfo.setStartPage(startPage);
-		request.setAttribute("pageInfo", q_pageInfo);
-		request.setAttribute("articleList", q_articleList);
-		
-		// ****상품문의 리스트****** 
-		
+		request.setAttribute("q_pageInfo", q_pageInfo);
+		request.setAttribute("r_pageInfo", r_pageInfo);
+		request.setAttribute("qnaList", qnaList);
+		request.setAttribute("reviewList", reviewList);
 		request.setAttribute("todayImageMap", todayImageMap);
 		request.setAttribute("item",item);
+		request.setAttribute("stock",stock);
+		request.setAttribute("page", page);
 		request.setAttribute("q_page", q_page);
-		//String page_2 = request.getParameter("page");
+		request.setAttribute("r_page", r_page);
 		forward = new ActionForward();
 		forward.setPath("item/detail.jsp");
 		

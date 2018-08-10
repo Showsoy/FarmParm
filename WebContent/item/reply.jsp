@@ -122,10 +122,9 @@ dd{
 	}
 	
 	function layer_toggle(obj) {
-	if (obj.style.display == 'none') obj.style.display = 'block';
-	else if (obj.style.display == 'block') obj.style.display = 'none';
+		if (obj.style.display == 'none') obj.style.display = 'block';
+		else if (obj.style.display == 'block') obj.style.display = 'none';
 	}
-	
 </script>
 </head>
 <link rel="stylesheet" type="text/css" href="style/style.css">

@@ -5,7 +5,6 @@ import static db.JdbcUtil.commit;
 import static db.JdbcUtil.getConnection;
 import static db.JdbcUtil.rollback;
 
-import java.io.PrintWriter;
 import java.sql.Connection;
 import java.util.ArrayList;
 import java.util.Properties;
@@ -18,11 +17,11 @@ import javax.mail.Transport;
 import javax.mail.internet.InternetAddress;
 import javax.mail.internet.MimeMessage;
 
+import dao.ItemDAO;
 import dao.OrderDAO;
 import dao.UserDAO;
 import order.action.SMTPAuthenticator;
 import vo.OrderBean;
-import vo.OrderItemBean;
 import vo.OrderViewBean;
 
 public class OrderService {
@@ -42,11 +41,16 @@ public class OrderService {
 		boolean isRegistSuccess = false;
 		int insertCount1 = orderDAO.takeOrder(order);
 		int insertCount2 = orderDAO.takeOrderItem(orderList);
-		UserService userService = new UserService();
-		int updateCount1 = userService.userDeductPoint(id, depoint);
-		int updateCount2 = userService.userPlusPoint(id, plpoint);
+		UserDAO userDAO = UserDAO.getInstance();
+		userDAO.setConnection(conn);
+		int updateCount1 = userDAO.userDeductPoint(id, depoint);
+		int updateCount2 = userDAO.userPlusPoint(id, plpoint);
+		ItemDAO itemDAO = ItemDAO.getInstance();
+		itemDAO.setConnection(conn);
+		int insertCount3 = itemDAO.takeOrderItem(orderList);
 		
-		if(insertCount1>0&&insertCount2>0&&updateCount1>0&&updateCount2>0) {
+		
+		if(insertCount1>0&&insertCount2>0&&insertCount3>0&&updateCount1>0&&updateCount2>0) {
 			commit(conn);
 			isRegistSuccess = true;
 		}else {

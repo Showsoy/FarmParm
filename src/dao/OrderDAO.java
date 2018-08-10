@@ -186,7 +186,7 @@ public class OrderDAO {
 	}
 	public ArrayList<OrderBean> selectOrderList(int page, String state){
 		ArrayList<OrderBean> orderList = null;
-		String sql = "SELECT * FROM orders WHERE state = '"+state+"' ORDER BY dati DESC LIMIT ?,10";
+		String sql = "SELECT * FROM orders WHERE state = '"+state+"' ORDER BY order_id DESC LIMIT ?,10";
 		PreparedStatement pstmt = null;
 		ResultSet rs = null;
 		int startrow = (page-1)*10;
@@ -265,7 +265,7 @@ public class OrderDAO {
 	}
 	public ArrayList<OrderBean> userOrderList(String user_id, int page, int limit){
 		ArrayList<OrderBean> orderList = null;
-		String sql = "SELECT * FROM orders WHERE user_id = '"+user_id+"' ORDER BY dati DESC LIMIT ?,?";
+		String sql = "SELECT * FROM orders WHERE user_id = '"+user_id+"' ORDER BY order_id DESC LIMIT ?,?";
 		PreparedStatement pstmt = null;
 		ResultSet rs = null;
 		int startrow = (page-1)*limit;
