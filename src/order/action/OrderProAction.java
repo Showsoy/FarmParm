@@ -1,6 +1,7 @@
 package order.action;
 
 import java.io.PrintWriter;
+import java.sql.Date;
 import java.sql.Timestamp;
 import java.util.ArrayList;
 import java.util.Calendar;
@@ -43,17 +44,16 @@ public class OrderProAction implements Action {
 			String od_amount[] = request.getParameterValues("od_amount");
 			int plpoint = 0;
 			int order_id = orderService.selectOrderId();
-			
+			Calendar cal = Calendar.getInstance();
+			Timestamp date = new Timestamp(cal.getTime().getTime());
 			for(int i=0;i<od_item_code.length;i++) {
 				orderList.add(new OrderViewBean(order_id, od_item_code[i], od_item_name[i],
-						Integer.parseInt(od_price[i]), Integer.parseInt(od_amount[i])));
+						Integer.parseInt(od_price[i]), Integer.parseInt(od_amount[i]), date));
 				plpoint += (int)(Integer.parseInt(od_price[i])*Integer.parseInt(od_amount[i])*0.01);
 			}
 			if(request.getParameter("parcel")!=null&&request.getParameter("parcel").equals("exist"))
-				orderList.add(new OrderViewBean(order_id, "Z000", "택배비", 3000, 1));
+				orderList.add(new OrderViewBean(order_id, "Z000", "택배비", 3000, 1, date));
 			
-			Calendar cal = Calendar.getInstance();
-			Timestamp date = new Timestamp(cal.getTime().getTime());
 			int totalPayment = Integer.parseInt(request.getParameter("totalMoney"))-Integer.parseInt(request.getParameter("depoint"));
 			int depoint = Integer.parseInt(request.getParameter("depoint"));
 			

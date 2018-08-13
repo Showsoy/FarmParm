@@ -70,7 +70,7 @@ public class ItemNewAction implements action.Action{
 					multi.getParameter("item_code"),
 					"등록",
 					date,
-					0,0,1);
+					0,Integer.parseInt(multi.getParameter("stock")),1);
 			boolean isRegistSuccess = itemService.registItem(item);
 			
 			if(!isRegistSuccess) {

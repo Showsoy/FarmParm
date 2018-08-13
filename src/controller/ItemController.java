@@ -22,11 +22,13 @@ import admin.action.ItemNewAction;
 import admin.action.ItemSearchAction;
 import admin.action.ItemUnhideAction;
 import admin.action.ItemViewAction;
+import item.action.BestItemListAction;
 import item.action.CartAddAction;
 import item.action.CartChangeQtyAction;
 import item.action.CartListAction;
 import item.action.CartRemoveAction;
 import item.action.MainItemListAction;
+import item.action.NewItemListAction;
 import item.action.UserItemListAction;
 import item.action.UserItemViewAction1;
 import vo.ActionForward;
@@ -165,6 +167,20 @@ protected void doProcess(HttpServletRequest request, HttpServletResponse respons
     		}
     	}else if(command.equals("/main.im")) {
     		action = new MainItemListAction();
+    		try {
+    			forward = action.execute(request, response);
+    		}catch(Exception e) {
+    			e.printStackTrace();
+    		}
+    	}else if(command.equals("/bestlist.im")) {
+    		action = new BestItemListAction();
+    		try {
+    			forward = action.execute(request, response);
+    		}catch(Exception e) {
+    			e.printStackTrace();
+    		}
+    	}else if(command.equals("/newlist.im")) {
+    		action = new NewItemListAction();
     		try {
     			forward = action.execute(request, response);
     		}catch(Exception e) {

@@ -119,6 +119,7 @@ function selCategory(sel) {
 <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.6.3/css/font-awesome.min.css">
 <body>
 <jsp:include page="/common/top_menu.jsp" flush="false"/>
+<jsp:include page="/common/adminbar.jsp" flush="false"/>
 <div class="pageform">
 	<h3>&nbsp;&nbsp;상품등록</h3>
 	<hr color="#4CAF50" size="5">
@@ -129,13 +130,13 @@ function selCategory(sel) {
 					<td id="td_left">
 						<label for="item_name">이름</label>
 					</td>
-					<td id="td_right">
+					<td id="td_right" colspan="2">
 						<input type="text" name="item_name" id="item_name" size="20"/>
 					</td>
 					<td id="td_left">
 						<label for="category">분류</label>
 					</td>
-					<td id="td_right">
+					<td id="td_right" colspan="2">
 						<select name="category" id="category" onchange="selCategory(this)">
 							<option value="" selected>선택</option>
 							<option value="채소">채소</option>
@@ -150,15 +151,15 @@ function selCategory(sel) {
 					<td id="td_left">
 						<label for="price">가격</label>
 					</td>
-					<td id="td_right">
+					<td id="td_right" colspan="2">
 						<input type="text" name="price" id="price" size="10"/>원
 					</td>
 					<td id="td_left">
 						<label for="item_code">코드</label>
 					</td>
-					<td id="codegen">
+					<td id="codegen" colspan="2">
 						<input type="text" name="item_code" id="item_code" size="4"/>&nbsp;
-						<button type="button" name="check" id="check" onclick="window.open('admin/codeGen.jsp?openInit=true','','width=370, height=220')" id="gbutton">자동생성</button>
+						<button type="button" name="check" id="check" onclick="window.open('./codeGen.jsp?openInit=true','','width=370, height=220')" id="gbutton">자동생성</button>
 					</td>
 				</tr>
 				<tr>
@@ -166,20 +167,26 @@ function selCategory(sel) {
 						<label for="origin">원산지</label>
 					</td>
 					<td id="td_right">
-						<input type="text" name="origin" id="origin" />
+						<input type="text" name="origin" id="origin" size="5"/>
+					</td>
+					<td id="td_left">
+						<label for="sale">수량</label>
+					</td>
+					<td id="td_right">
+						<input type="text" name="stock" id="stock" value="0" size="5"/>
 					</td>
 					<td id="td_left">
 						<label for="sale">할인율</label>
 					</td>
 					<td id="td_right">
-						<input type="text" name="sale" id="sale" value="0" size="10"/>%
+						<input type="text" name="sale" id="sale" value="0" size="5"/>%
 					</td>
 				</tr>
 				<tr>
 					<td id="td_left">
 						<label for="content">내용</label>
 					</td>	
-					<td colspan="3">
+					<td colspan="5">
 						<textarea name="content" id="content" cols="60" rows="15"></textarea>
 					</td>
 				</tr>
@@ -187,7 +194,7 @@ function selCategory(sel) {
 					<td id="td_left">
 						<label for="img_path">파일 첨부</label>
 					</td>
-					<td id="td_right" colspan="3">
+					<td id="td_right" colspan="5">
 						<input type="file" name="img_path" id="img_path"/>
 					</td>
 				</tr>

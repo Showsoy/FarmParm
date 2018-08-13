@@ -9,6 +9,27 @@
 <title>Insert title here</title>
 <meta name="viewport" content="width=device-width, initial-scale=1">
 <style>
+#mainicon1{
+	width:170px;height:170px;
+	cursor:pointer;
+	background-image:url(./images/mainicon1.png);
+	background-size:96%;
+	border:0;
+	margin-left:200px;
+}
+#mainicon2{
+	width:170px;height:170px;
+	cursor:pointer;
+	background-image:url(./images/mainicon2.png);
+	background-size:96%;
+	border:0;
+	margin-left:200px;
+}
+#mainicon1:hover, #mainicon2:hover{
+	background-image:url(./images/mainicon3.png);
+	background-size:96%;
+	border:0;
+}
 </style>
 </head>
 <link rel="stylesheet" type="text/css" href="style/style.css">
@@ -40,9 +61,9 @@ function carousel() {
 </script>
 <br><br>
 <!-- 베스트 상품 리스트 -->
-<section class="w3-container w3-center" style="max-width:500px">
-  <h2 class="w3-wide">BEST</h2>
-  <p class="w3-opacity"><i>가장 사랑받은 제품들</i></p>
+<section class="w3-container w3-center" style="max-width:500px;">
+	<h2 class="w3-wide">BEST</h2>
+  	<p class="w3-opacity"><i>가장 사랑받은 제품들</i></p>
 </section>
 
 	<div id="container">
@@ -66,9 +87,9 @@ function carousel() {
 
 
 	<!-- 신메뉴 리스트 -->
-<section class="w3-container w3-center" style="max-width:500px">
-  <h2 class="w3-wide">NEW</h2>
-  <p class="w3-opacity"><i>야심찬 새 상품</i></p>
+<section class="w3-container w3-center" style="max-width:500px;">
+ 	<h2 class="w3-wide">NEW</h2>
+  	<p class="w3-opacity"><i>야심찬 새 상품</i></p>
 </section>
 <div id="container">
 		<ul class="prod-list" align="center">
@@ -99,9 +120,9 @@ function carousel() {
     <p>슰기슬기</p>
   </article>
   <article class="w3-third">
-    <p>Paul</p>
-    <img src="images/common1.jpg" alt="Random Name">
     <p>조이농부</p>
+    <img src="images/common1.jpg" alt="Random Name">
+    <p>조이조이</p>
   </article>
   <article class="w3-third">
     <p>윤아농부</p>

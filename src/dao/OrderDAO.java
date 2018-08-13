@@ -226,7 +226,7 @@ public class OrderDAO {
 				orderList = new ArrayList<OrderViewBean>();
 				do {
 					orderList.add(new OrderViewBean(rs.getInt("order_id"),rs.getString("item_code"),
-							rs.getString("item_name"),rs.getInt("price"),rs.getInt("amount")));
+							rs.getString("item_name"),rs.getInt("price"),rs.getInt("amount"), rs.getTimestamp("dati")));
 				}while(rs.next());
 			}
 		}catch(Exception e) {
@@ -251,7 +251,7 @@ public class OrderDAO {
 				orderList = new ArrayList<OrderViewBean>();
 				do {
 					orderList.add(new OrderViewBean(rs.getInt("order_id"),rs.getString("item_code"),
-							rs.getString("item_name"),rs.getInt("price"),rs.getInt("amount")));
+							rs.getString("item_name"),rs.getInt("price"),rs.getInt("amount"), rs.getTimestamp("dati")));
 				}while(rs.next());
 			}
 		}catch(Exception e) {
@@ -381,5 +381,63 @@ public class OrderDAO {
 		}
 		
 		return orderids;
+	}
+	public ArrayList<OrderViewBean> itemOrderList1(String item_code, String period, int page){
+		ArrayList<OrderViewBean> orderList = null;
+		String sql = "SELECT * FROM order_view WHERE item_code = ? AND dati >= date_add(now(), interval "+period+") ORDER BY dati DESC LIMIT ?,10";
+		PreparedStatement pstmt = null;
+		ResultSet rs = null;
+		int startrow = (page-1)*10;
+		
+		try {
+			pstmt = conn.prepareStatement(sql);
+			pstmt.setString(1, item_code);
+			pstmt.setInt(2, startrow);
+			rs = pstmt.executeQuery();
+			if(rs.next()) {
+				orderList = new ArrayList<OrderViewBean>();
+				do {
+					orderList.add(new OrderViewBean(rs.getInt("order_id"),rs.getString("item_code"),
+							rs.getString("item_name"),rs.getInt("price"),
+							rs.getInt("amount"),rs.getTimestamp("dati")));
+				}while(rs.next());
+			}
+		}catch(Exception e) {
+			e.printStackTrace();
+		}finally {
+			if(rs!=null) close(rs);
+			if(pstmt!=null) close(pstmt);
+		}
+		
+		return orderList;
+	}
+	public ArrayList<OrderViewBean> itemOrderList2(String item_code, String period, int page){
+		ArrayList<OrderViewBean> orderList = null;
+		String sql = "SELECT * FROM order_view WHERE item_code = ? AND dati BETWEEN date_add(str_to_date('2018.01.01','%Y.%m.%d'), interval +1 month) AND str_to_date('2018.01.01','%Y.%m.%d') ORDER BY dati DESC LIMIT ?,10";
+		PreparedStatement pstmt = null;
+		ResultSet rs = null;
+		int startrow = (page-1)*10;
+		
+		try {
+			pstmt = conn.prepareStatement(sql);
+			pstmt.setString(1, item_code);
+			pstmt.setInt(2, startrow);
+			rs = pstmt.executeQuery();
+			if(rs.next()) {
+				orderList = new ArrayList<OrderViewBean>();
+				do {
+					orderList.add(new OrderViewBean(rs.getInt("order_id"),rs.getString("item_code"),
+							rs.getString("item_name"),rs.getInt("price"),
+							rs.getInt("amount"),rs.getTimestamp("dati")));
+				}while(rs.next());
+			}
+		}catch(Exception e) {
+			e.printStackTrace();
+		}finally {
+			if(rs!=null) close(rs);
+			if(pstmt!=null) close(pstmt);
+		}
+		
+		return orderList;
 	}
 }

@@ -101,6 +101,7 @@ function selCategory(sel) {
 <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.6.3/css/font-awesome.min.css">
 <body>
 <jsp:include page="/common/top_menu.jsp" flush="false"/>
+<jsp:include page="/common/adminbar.jsp" flush="false"/>
 <div class="pageform">
 	<h3>&nbsp;&nbsp;상품수정</h3>
 	<hr color="#4CAF50" size="5">

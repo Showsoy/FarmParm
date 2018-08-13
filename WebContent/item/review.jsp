@@ -33,6 +33,9 @@
 		position:absolute;
 		right:0;
 	}
+	#orderidspan{
+		color:#FFBB00;
+	}
 </style>
 <script>
 var count1 = 0;
@@ -69,12 +72,13 @@ var count1 = 0;
 			</tr>
 			<c:choose>
 				<c:when test="${reviewList!=null&&r_pageInfo.listCount>0 }">	
+				<c:set var="num" value="${r_pageInfo.listCount-(r_pageInfo.page-1)*10 }"/>
 				<c:forEach var="review" items="${reviewList }">
 					<c:if test="${review.rstep==1 }">
 					<tr height="30px">
-						<td>${review.rgroup }</td>
+						<td>${num }</td><c:set var="num" value="${num-1 }"/>
 						<td id="leftalign" colspan="2" onclick="show_content1(${review.rgroup})" style="cursor:pointer;">${review.subject }<c:if test="${review.has_re==1 }"> [1]</c:if></td>
-						<td>${review.user_id }</td>
+						<td>${review.user_id }***</td>
 						<td>${review.date }</td>
 					</tr>
 					</c:if>
@@ -91,11 +95,13 @@ var count1 = 0;
 								</div>
 								</div>
 								<div id="parent_cont" style="width:470px;padding:10px;text-align:left">
+									<span id="orderidspan">주문번호 : ${review.readcount }</span><br>
 									${review.content }
 								</div>
 							</c:when>
 							<c:otherwise>
 								<div id="parent_cont" style="width:600px;padding:10px 10px 10px 50px;text-align:left">
+									<span id="orderidspan">주문번호 : ${review.readcount }</span><br>
 									${review.content }
 								</div>
 							</c:otherwise>

@@ -42,19 +42,12 @@ public class UserItemListAction implements Action {
 		ItemService itemService = new ItemService();
 		listCount = itemService.itemListCountIn(category);
 		itemList = itemService.userItemList(page, category, standard);
-		//총 리스트 수
 		
-		//리스트를 받아옴
-		//총 페이지 수
 		int maxPage = (int)((double)listCount/limit+0.95); 
-		//올림 처리
-		//현재 페이지를 보여줄 시작 페이지 수
 		int startPage = (((int)((double)page/limitPage+0.9))-1) *limitPage +1;
-		//현재 페이지에 보여줄 마지막 페이지 수
 		int endPage = startPage+limitPage-1;
-		
 		if(endPage>maxPage) endPage = maxPage;
-		//System.out.println(itemList);
+		
 		PageInfo pageInfo = new PageInfo();
 		pageInfo.setEndPage(endPage);
 		pageInfo.setListCount(listCount);

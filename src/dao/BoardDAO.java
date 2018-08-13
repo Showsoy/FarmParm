@@ -222,7 +222,7 @@ public class BoardDAO {
 	public ArrayList<BoardBean> selectCsBoardList(int page){
 		PreparedStatement pstmt = null;
 		ResultSet rs = null;
-		String sql = "SELECT * FROM cs_board WHERE rstep=1 ORDER BY rgroup DESC, rstep ASC LIMIT ?,10";
+		String sql = "SELECT bnum, hide, substring(user_id,1,3) as user_id, content, subject, img_path, has_re, cdate, rgroup, rstep FROM cs_board WHERE rstep=1 ORDER BY rgroup DESC, rstep ASC LIMIT ?,10";
 		ArrayList<BoardBean> articleList = new ArrayList<BoardBean>();
 		BoardBean board = null;
 		int startrow = (page-1)*10;
@@ -251,7 +251,7 @@ public class BoardDAO {
 	public ArrayList<BoardBean> searchCsBoardList(String keyword, int page){
 		PreparedStatement pstmt = null;
 		ResultSet rs = null;
-		String sql = "SELECT * FROM cs_board WHERE rstep=1 AND content LIKE '%"+keyword+"%' OR subject LIKE '%"+keyword+"%' ORDER BY rgroup DESC, rstep ASC LIMIT ?,10";
+		String sql = "SELECT bnum, hide, substring(user_id,1,3) as user_id, content, subject, img_path, has_re, cdate, rgroup, rstep FROM cs_board WHERE rstep=1 AND content LIKE '%"+keyword+"%' OR subject LIKE '%"+keyword+"%' ORDER BY rgroup DESC, rstep ASC LIMIT ?,10";
 		ArrayList<BoardBean> articleList = new ArrayList<BoardBean>();
 		BoardBean board = null;
 		int startrow = (page-1)*10;
@@ -285,8 +285,8 @@ public class BoardDAO {
 		PreparedStatement pstmt3 = null;
 		ResultSet rs3 = null;
 		//10 8 7 7 5 /4 / 2 1  
-		String sql1 = "SELECT sum(has_re) FROM review_board WHERE item_code = ? AND rstep=1 ORDER BY rgroup DESC, rstep ASC LIMIT ?,5";
-		String sql2 = "SELECT * FROM review_board WHERE item_code = ? ORDER BY rgroup DESC, rstep ASC LIMIT ?,?";
+		String sql1 = "SELECT has_re FROM review_board WHERE item_code = ? AND rstep=1 ORDER BY rgroup DESC, rstep ASC LIMIT ?,5";
+		String sql2 = "SELECT bnum, item_code, substring(user_id,1,3) as user_id, content, subject, img_path, has_re, rdate, order_id, rgroup, rstep FROM review_board WHERE item_code = ? ORDER BY rgroup DESC, rstep ASC LIMIT ?,?";
 		ArrayList<BoardBean> articleList = new ArrayList<BoardBean>();
 		BoardBean board = null;
 		int startrow = (page-1)*5;
@@ -300,13 +300,13 @@ public class BoardDAO {
 				pstmt1.setInt(2, before);
 				rs1 = pstmt1.executeQuery();
 				
-				if(rs1.next()) startrow += rs1.getInt(1);
+				while(rs1.next()) startrow += rs1.getInt(1);
 			}
 			pstmt2 = conn.prepareStatement(sql1);
 			pstmt2.setString(1, item_code);
 			pstmt2.setInt(2, startrow);
 			rs2 = pstmt2.executeQuery();
-			if(rs2.next()) limit += rs2.getInt(1);
+			while(rs2.next()) limit += rs2.getInt(1);
 			
 			pstmt3 = conn.prepareStatement(sql2);
 			pstmt3.setString(1, item_code);
@@ -334,7 +334,7 @@ public class BoardDAO {
 		
 		return articleList;
 	}
-	public ArrayList<BoardBean> selectQnAList(int page, String item_code){
+	public ArrayList<BoardBean> selectQnAList(int page, String item_code, String user_id){
 		PreparedStatement pstmt1 = null;
 		ResultSet rs1 = null;
 		PreparedStatement pstmt2 = null;
@@ -342,7 +342,7 @@ public class BoardDAO {
 		PreparedStatement pstmt3 = null;
 		ResultSet rs3 = null;
 		//10 8 7 7 5 /4 / 2 1  
-		String sql1 = "SELECT sum(has_re) FROM qna_board WHERE item_code = ? AND rstep=1 ORDER BY rgroup DESC, rstep ASC LIMIT ?,5";
+		String sql1 = "SELECT has_re FROM qna_board WHERE item_code = ? AND rstep=1 ORDER BY rgroup DESC, rstep ASC LIMIT ?,5";
 		String sql2 = "SELECT * FROM qna_board WHERE item_code = ? ORDER BY rgroup DESC, rstep ASC LIMIT ?,?";
 		ArrayList<BoardBean> articleList = new ArrayList<BoardBean>();
 		BoardBean board = null;
@@ -357,13 +357,13 @@ public class BoardDAO {
 				pstmt1.setInt(2, before);
 				rs1 = pstmt1.executeQuery();
 				
-				if(rs1.next()) startrow += rs1.getInt(1);
+				while(rs1.next()) startrow += rs1.getInt(1);
 			}
 			pstmt2 = conn.prepareStatement(sql1);
 			pstmt2.setString(1, item_code);
 			pstmt2.setInt(2, startrow);
 			rs2 = pstmt2.executeQuery();
-			if(rs2.next()) limit += rs2.getInt(1);
+			while(rs2.next()) limit += rs2.getInt(1);
 			
 			pstmt3 = conn.prepareStatement(sql2);
 			pstmt3.setString(1, item_code);
@@ -372,9 +372,15 @@ public class BoardDAO {
 			rs3 = pstmt3.executeQuery();
 			
 			while(rs3.next()) {
-				board = new BoardBean(rs3.getInt(1), rs3.getString(2), rs3.getString(3), 
-						rs3.getString(4), rs3.getString(5), rs3.getString(6), 
-						rs3.getInt(7), rs3.getDate(8), 0, rs3.getInt(9), rs3.getInt(10));
+				if(rs3.getInt("rstep")==1&&rs3.getInt(11)>0&&(user_id==null||!user_id.equals(rs3.getString("user_id")))) {
+					board = new BoardBean(rs3.getInt(1), rs3.getString(2), rs3.getString(3).substring(0, 3), 
+							"숨김 글입니다.", rs3.getString(5), rs3.getString(6), 
+							rs3.getInt(7), rs3.getDate(8), 1, rs3.getInt(9), rs3.getInt(10));
+				}else {
+					board = new BoardBean(rs3.getInt(1), rs3.getString(2), rs3.getString(3).substring(0, 3), 
+							rs3.getString(4), rs3.getString(5), rs3.getString(6), 
+							rs3.getInt(7), rs3.getDate(8),0, rs3.getInt(9), rs3.getInt(10));
+				}
 				articleList.add(board);
 				
 			}
@@ -545,8 +551,8 @@ public class BoardDAO {
 		try {
 			pstmt = conn.prepareStatement(sql);
 			pstmt.setInt(1, board.getBoard_num());
-			pstmt.setString(2, board.getContent());
-			pstmt.setString(3, board.getSubject());
+			pstmt.setString(2, board.getContent().replaceAll("<", "&lt;").replaceAll(">", "&gt;").replaceAll("\r\n", "<br>"));
+			pstmt.setString(3, board.getSubject().replaceAll("<", "&lt;").replaceAll(">", "&gt;").replaceAll("\r\n", "<br>"));
 			pstmt.setString(4, board.getImg_path());
 			pstmt.setInt(5, board.getReadcount());
 			
@@ -662,7 +668,7 @@ public class BoardDAO {
 	}
 	public int writeQnA(BoardBean board) {
 		PreparedStatement pstmt = null;
-		String sql = "INSERT INTO qna_board VALUES(?,?,?,?,?,?,?,now(),?,?)";
+		String sql = "INSERT INTO qna_board VALUES(?,?,?,?,?,?,?,now(),?,?,?)";
 		int insertCount = 0;
 		
 		try {
@@ -676,6 +682,7 @@ public class BoardDAO {
 			pstmt.setInt(7, 0);
 			pstmt.setInt(8, board.getRgroup());
 			pstmt.setInt(9, board.getRstep());
+			pstmt.setInt(10, board.getReadcount());
 			
 			insertCount = pstmt.executeUpdate();
 			
@@ -866,7 +873,8 @@ public class BoardDAO {
 	}
 	public int replyCsBoard(BoardBean board) {
 		
-		PreparedStatement pstmt = null;
+		PreparedStatement pstmt1 = null;
+		PreparedStatement pstmt2 = null;
 		String sql = "";
 		int insertCount = 0;
 		int rgroup = board.getRgroup();
@@ -874,9 +882,9 @@ public class BoardDAO {
 		try {
 			sql = "UPDATE cs_board SET has_re = has_re+1 WHERE rgroup = ?";
 			
-			pstmt = conn.prepareStatement(sql);
-			pstmt.setInt(1, rgroup);
-			int updateCount = pstmt.executeUpdate();
+			pstmt1 = conn.prepareStatement(sql);
+			pstmt1.setInt(1, rgroup);
+			int updateCount = pstmt1.executeUpdate();
 			
 			if(updateCount>0) {
 				commit(conn);
@@ -884,18 +892,19 @@ public class BoardDAO {
 			
 			sql = "INSERT INTO cs_board VALUES(?,'admin',?,?,null,0,now(),?,?,?)";
 			
-			pstmt = conn.prepareStatement(sql);
-			pstmt.setInt(1, board.getBoard_num());
-			pstmt.setString(2, board.getContent());
-			pstmt.setString(3, board.getSubject());
-			pstmt.setInt(4, rgroup);
-			pstmt.setInt(5, 2);
-			pstmt.setString(6, board.getCode());
-			insertCount = pstmt.executeUpdate();
+			pstmt2 = conn.prepareStatement(sql);
+			pstmt2.setInt(1, board.getBoard_num());
+			pstmt2.setString(2, board.getContent().replaceAll("<", "&lt;").replaceAll(">", "&gt;").replaceAll("\r\n", "<br>"));
+			pstmt2.setString(3, board.getSubject().replaceAll("<", "&lt;").replaceAll(">", "&gt;").replaceAll("\r\n", "<br>"));
+			pstmt2.setInt(4, rgroup);
+			pstmt2.setInt(5, 2);
+			pstmt2.setString(6, board.getCode());
+			insertCount = pstmt2.executeUpdate();
 		}catch(Exception e) {
 			System.out.println("boardReply에러 : "+e);
 		}finally {
-			close(pstmt);
+			if(pstmt1!=null) close(pstmt1);
+			if(pstmt2!=null) close(pstmt2);
 		}
 		return insertCount;
 	}
@@ -949,8 +958,8 @@ public class BoardDAO {
 	}
 	public int replyReview(BoardBean board) {
 		
-		PreparedStatement pstmt = null;
-		ResultSet rs = null;
+		PreparedStatement pstmt1 = null;
+		PreparedStatement pstmt2 = null;
 		String sql = "";
 		int insertCount = 0;
 		int rgroup = board.getRgroup();
@@ -958,80 +967,94 @@ public class BoardDAO {
 		try {
 			sql = "UPDATE review_board SET has_re = has_re+1 WHERE item_code = ? AND rgroup = ?";
 			
-			pstmt = conn.prepareStatement(sql);
-			pstmt.setString(1, board.getCode());
-			pstmt.setInt(2, rgroup);
-			int updateCount = pstmt.executeUpdate();
+			pstmt1 = conn.prepareStatement(sql);
+			pstmt1.setString(1, board.getCode());
+			pstmt1.setInt(2, rgroup);
+			int updateCount = pstmt1.executeUpdate();
 			
 			if(updateCount>0) {
 				commit(conn);
 			}
 			
 			sql = "INSERT INTO review_board VALUES(?,?,'관리자',?,?,null,0,now(),?,?,?)";
-			pstmt = conn.prepareStatement(sql);
-			pstmt.setInt(1, board.getBoard_num());
-			pstmt.setString(2, board.getCode());
-			pstmt.setString(3, board.getContent());
-			pstmt.setString(4, board.getSubject());
-			pstmt.setInt(5, rgroup);
-			pstmt.setInt(6, board.getRstep());
-			pstmt.setInt(7, board.getReadcount());
-			insertCount = pstmt.executeUpdate();
+			pstmt2 = conn.prepareStatement(sql);
+			pstmt2.setInt(1, board.getBoard_num());
+			pstmt2.setString(2, board.getCode());
+			pstmt2.setString(3, board.getContent());
+			pstmt2.setString(4, board.getSubject());
+			pstmt2.setInt(5, rgroup);
+			pstmt2.setInt(6, board.getRstep());
+			pstmt2.setInt(7, board.getReadcount());
+			insertCount = pstmt2.executeUpdate();
 			
 		}catch(Exception e) {
 			e.printStackTrace();
 		}finally {
-			close(pstmt);
+			if(pstmt1!=null) close(pstmt1);
+			if(pstmt2!=null) close(pstmt2);
 		}
 		return insertCount;
 	}
 	public int replyQnA(BoardBean board) {
 		
-		PreparedStatement pstmt = null;
+		PreparedStatement pstmt1 = null;
+		PreparedStatement pstmt2 = null;
+		PreparedStatement pstmt3 = null;
 		ResultSet rs = null;
 		String sql = "";
 		int insertCount = 0;
 		int rgroup = board.getRgroup();
+		int qhide = 0;
 		
 		try {
 			sql = "UPDATE qna_board SET has_re = has_re+1 WHERE item_code = ? AND rgroup = ?";
 			
-			pstmt = conn.prepareStatement(sql);
-			pstmt.setString(1, board.getCode());
-			pstmt.setInt(2, rgroup);
-			int updateCount = pstmt.executeUpdate();
+			pstmt1 = conn.prepareStatement(sql);
+			pstmt1.setString(1, board.getCode());
+			pstmt1.setInt(2, rgroup);
+			int updateCount = pstmt1.executeUpdate();
 			
 			if(updateCount>0) {
 				commit(conn);
 			}
+			sql = "SELECT qhide FROM qna_board WHERE item_code = ? AND rgroup = ?";
+			pstmt2 = conn.prepareStatement(sql);
+			pstmt2.setString(1, board.getCode());
+			pstmt2.setInt(2, rgroup);
+			rs = pstmt2.executeQuery();
+			if(rs.next()) qhide = rs.getInt(1);
 			
-			sql = "INSERT INTO qna_board VALUES(?,?,'관리자',?,?,null,0,now(),?,?)";
-			pstmt = conn.prepareStatement(sql);
-			pstmt.setInt(1, board.getBoard_num());
-			pstmt.setString(2, board.getCode());
-			pstmt.setString(3, board.getContent());
-			pstmt.setString(4, board.getSubject());
-			pstmt.setInt(5, rgroup);
-			pstmt.setInt(6, board.getRstep());
-			insertCount = pstmt.executeUpdate();
+			sql = "INSERT INTO qna_board VALUES(?,?,'관리자',?,?,null,0,now(),?,?,?)";
+			pstmt3 = conn.prepareStatement(sql);
+			pstmt3.setInt(1, board.getBoard_num());
+			pstmt3.setString(2, board.getCode());
+			pstmt3.setString(3, board.getContent());
+			pstmt3.setString(4, board.getSubject());
+			pstmt3.setInt(5, rgroup);
+			pstmt3.setInt(6, board.getRstep());
+			pstmt3.setInt(7, qhide);
+			insertCount = pstmt3.executeUpdate();
 			
 		}catch(Exception e) {
 			e.printStackTrace();
 		}finally {
-			close(pstmt);
+			if(pstmt1!=null) close(pstmt1);
+			if(pstmt2!=null) close(pstmt2);
+			if(pstmt3!=null) close(pstmt3);
 		}
 		return insertCount;
 	}
 	public int modifyNotice(BoardBean board) {
 		PreparedStatement pstmt = null;
 		int updateCount = 0;
-		String sql = "UPDATE notice SET content=?, subject=? WHERE bnum = ?";
+		String sql = "UPDATE notice SET content=?, subject=?, img_path=? WHERE bnum = ?";
 		
 		try {
 			pstmt = conn.prepareStatement(sql);
 			pstmt.setString(1, board.getContent().replaceAll("<", "&lt;").replaceAll(">", "&gt;").replaceAll("\r\n", "<br>"));
 			pstmt.setString(2, board.getSubject().replaceAll("<", "&lt;").replaceAll(">", "&gt;").replaceAll("\r\n", "<br>"));
-			pstmt.setInt(3, board.getBoard_num());
+			pstmt.setString(3, board.getImg_path());
+			pstmt.setInt(4, board.getBoard_num());
 			
 			updateCount = pstmt.executeUpdate();
 		}catch(Exception e) {

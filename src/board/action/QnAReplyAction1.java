@@ -34,7 +34,7 @@ public class QnAReplyAction1 implements Action {
 			BoardBean board = new BoardBean(
 					bnum,
 					request.getParameter("item_code"),
-					"관리자",
+					"admin",
 					request.getParameter("content"),
 					request.getParameter("subject"),
 					"",0,date,0,Integer.parseInt(request.getParameter("rgroup")),2);
