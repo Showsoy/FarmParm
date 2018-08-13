@@ -38,19 +38,21 @@ public class QnAWriteAction1 implements Action {
 			String saveFolder = "/images";
 			String encType = "UTF-8";
 			int fileSize = 5*1024*1024;
+			int qhide = 0;
 			
 			ServletContext context = request.getServletContext();
 			realFolder = context.getRealPath(saveFolder);
 			MultipartRequest multi = new MultipartRequest(request, realFolder, fileSize, encType, new DefaultFileRenamePolicy());
 			int bnum = boardService.searchBNum("qna_board", multi.getParameter("item_code"));
 			String image = multi.getFilesystemName("image");
+			if(multi.getParameter("hide")!=null) qhide = 1;
 			BoardBean board = new BoardBean(
 					bnum,
 					multi.getParameter("item_code"),
 					id,
 					multi.getParameter("content"),
 					multi.getParameter("subject"),
-					image,0,date,0,bnum,1);
+					image,0,date,qhide,bnum,1);
 			boolean isWriteSuccess = boardService.writeQnA(board);
 			if(!isWriteSuccess) {
 				response.setContentType("text/html;charset=UTF-8");

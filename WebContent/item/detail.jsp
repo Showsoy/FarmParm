@@ -270,7 +270,7 @@ pageContext.setAttribute("uprice", uprice);
 	<img src="images/${item.img_path }">
 	<br><br>
 	<p>
-		${item.content }		
+		${item.content }
 	</p>
 </div>
 <br><br><br>
@@ -278,9 +278,7 @@ pageContext.setAttribute("uprice", uprice);
 	<jsp:include page="review.jsp" flush="false"/>
 	<br><br><br>
 	<jsp:include page="qna.jsp" flush="false"/>
-	<br><br>
 	<br><br><br>
-	</div>
 	</div>
 	<br><br><br><br>
 	 <jsp:include page="/common/footer.jsp" flush="false"/>

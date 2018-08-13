@@ -1,19 +1,23 @@
 package vo;
 
+import java.util.Date;
+
 public class OrderViewBean {
 	private int order_id;
 	private String item_code;
 	private String item_name;
 	private int price;
 	private int amount;
+	private Date dati;
 	
-	public OrderViewBean(int order_id, String item_code, String item_name, int price, int amount) {
+	public OrderViewBean(int order_id, String item_code, String item_name, int price, int amount, Date dati) {
 		super();
 		this.order_id = order_id;
 		this.item_code = item_code;
 		this.item_name = item_name;
 		this.price = price;
 		this.amount = amount;
+		this.dati = dati;
 	}
 	public int getOrder_id() {
 		return order_id;
@@ -45,6 +49,10 @@ public class OrderViewBean {
 	public void setAmount(int amount) {
 		this.amount = amount;
 	}
-	
-	
+	public Date getDati() {
+		return dati;
+	}
+	public void setDati(Date dati) {
+		this.dati = dati;
+	}
 }

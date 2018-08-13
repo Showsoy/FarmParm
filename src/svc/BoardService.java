@@ -112,11 +112,11 @@ public class BoardService {
 		close(conn);
 		return articleList;
 	}
-	public ArrayList<BoardBean> selectQnAList(int page, String item_code) {
+	public ArrayList<BoardBean> selectQnAList(int page, String item_code, String user_id) {
 		BoardDAO boardDAO = BoardDAO.getInstance();
 		Connection conn = getConnection();
 		boardDAO.setConnection(conn);
-		ArrayList<BoardBean> articleList = boardDAO.selectQnAList(page, item_code);
+		ArrayList<BoardBean> articleList = boardDAO.selectQnAList(page, item_code, user_id);
 		
 		close(conn);
 		return articleList;

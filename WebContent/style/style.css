@@ -306,7 +306,7 @@ footer {
 	-webkit-transform: translateY(-200px);
 	transform: translateY(-200px);
 }     
-#container .caption h3, .prod-list .caption p {
+#container .caption h4, .prod-list .caption p {
 	color: #fff;
 }
 #container .caption p{
@@ -327,7 +327,11 @@ footer {
 		float:left;
 		overflow: hidden;
 }
-
+#goods_container .caption{
+	width:200px;
+	height:100px;
+	margin:0 auto;
+}
 #goods_container .caption h1, .prod-list .caption p {
 	color: black;
 	padding:0px 20px 0 0;

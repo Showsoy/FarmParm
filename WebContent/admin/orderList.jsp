@@ -147,6 +147,7 @@ img{
 <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.6.3/css/font-awesome.min.css">
 <body>
 <jsp:include page="/common/top_menu.jsp" flush="false"/>
+<jsp:include page="/common/adminbar.jsp" flush="false"/>
 <div class="pageform">
 	<h3>&nbsp;&nbsp;주문관리</h3>
 	<hr color="#4CAF50" size="5">
@@ -196,7 +197,7 @@ img{
 				<td>${orderList.order_id }</td>
 				<td><fmt:formatDate pattern="yyyy-MM-dd HH:mm:ss" value="${orderList.dati }" /></td>
 				<td>${orderList.user_id }</td>
-				<td>${orderList.pay }</td>
+				<td>${orderList.pay }원</td>
 				<td>${orderList.state }</td>
 				<td><button type="button" onclick="location.href='odView.od?order_id=${orderList.order_id}&page=${pageInfo.page }'" id="gbutton">조회</button></td>
 			</tr>

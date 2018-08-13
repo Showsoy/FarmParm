@@ -27,7 +27,7 @@ public class UserItemViewAction1 implements action.Action{
 		ActionForward forward = null;
 		
 		HttpSession session = request.getSession();
-		String id = (String)session.getAttribute("user_id");
+		String id = (String)session.getAttribute("id");
 
 		String item_code = request.getParameter("item_code");
 		ItemService itemService = new ItemService();
@@ -52,7 +52,8 @@ public class UserItemViewAction1 implements action.Action{
 		
 		int qlistCount = boardService.selectListCount("qna_board", item_code);
 		int rlistCount = boardService.selectListCount("review_board", item_code);
-		qnaList = boardService.selectQnAList(q_page, item_code);
+		qnaList = boardService.selectQnAList(q_page, item_code, id);
+		System.out.println(id+"in action");
 		reviewList = boardService.selectReviewList(r_page, item_code);
 		
 		int q_maxPage=(int)((double)qlistCount/limit+0.95);

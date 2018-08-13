@@ -37,12 +37,12 @@
 <script>
 var count2 = 0;
 	
-	function show_content2(v){
+	function show_content2(v, r){
 		var name = "qna_content"+v;
 		var name2 = "qnare_content"+v;
 		if(document.getElementById(name).style.display=="none"){
 			document.getElementById(name).style.display = "table-row";
-			if(document.getElementById(name2)!=null) document.getElementById(name2).style.display = "table-row";
+			if(document.getElementById(name2)!=null&&r==0) document.getElementById(name2).style.display = "table-row";
 			count2++;
 			return;
 		}else if(document.getElementById(name).style.display=="table-row"){
@@ -68,13 +68,15 @@ var count2 = 0;
 				<td width="100px">작성일</td>
 			</tr>
 			<c:choose>
-				<c:when test="${qnaList!=null&&q_pageInfo.listCount>0 }">	
+				<c:when test="${qnaList!=null&&q_pageInfo.listCount>0 }">
+				<c:set var="num" value="${q_pageInfo.listCount-(q_pageInfo.page-1)*5 }"/>	
 				<c:forEach var="qna" items="${qnaList }">
 					<c:if test="${qna.rstep==1 }">
 					<tr height="30px">
-						<td>${qna.rgroup }</td>
-						<td id="leftalign" colspan="2" onclick="show_content2(${qna.rgroup})" style="cursor:pointer;">${qna.subject }<c:if test="${qna.has_re==1 }"> [1]</c:if></td>
-						<td>${qna.user_id }</td>
+						<td>${num }</td><c:set var="num" value="${num-1 }"/>
+						<td id="leftalign" colspan="2" onclick="show_content2(${qna.rgroup},${qna.readcount })" style="cursor:pointer;">${qna.subject }<c:if test="${qna.readcount > 0 }">
+								<img src="./images/lock.png" style="width:8px;height:10px;padding:0 0 3px 0;"></c:if><c:if test="${qna.has_re==1 }"> [1]</c:if></td>
+						<td>${qna.user_id }***</td>
 						<td>${qna.date }</td>
 					</tr>
 					</c:if>
@@ -83,7 +85,7 @@ var count2 = 0;
 						<div id="parent">
 						<c:if test="${qna.rstep==1 }">
 						<c:choose>
-							<c:when test="${qna.img_path != null }">
+							<c:when test="${qna.img_path != null && qna.readcount==0}">
 							<div id="parent_img">
 								<img src="./images/${qna.img_path }" style="width:80px;height:100px;">
 								<div id="zoom">
@@ -112,7 +114,7 @@ var count2 = 0;
 						</div>
 						</td>
 						</tr>
-						<c:if test="${qna.rstep==2 }">
+						<c:if test="${qna.rstep==2}">
 						<tr id="qnare_content${qna.rgroup }" style="display:none;">
 							<td colspan="5" id="child_content">
 								<div style="width:600px;padding:10px 10px 10px 50px;text-align:left">

@@ -116,7 +116,7 @@ img{
 							${board.subject }
 							</a></p>
 						</td>
-						<td>${board.user_id }</td>
+						<td>${board.user_id }***</td>
 						<td>${board.date }</td>
 						<td>
 							<c:if test="${board.has_re == 1 }">

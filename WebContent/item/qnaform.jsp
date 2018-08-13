@@ -59,6 +59,9 @@ td, tr{
 #wbutton:active, #wbutton:hover{
 	background: #F6F6F6;
 }
+#hide_check{
+	font-size:13px;
+}
 </style>
 <script>
 function fc_chk_byte(memo) { 
@@ -105,7 +108,7 @@ function chkForm(f){
 		f.subject.focus();
 		return false;
 	}
-	document.reviewform.submit();
+	document.qnaform.submit();
 }
 function fclose(f){
 	opener.location.reload();
@@ -138,14 +141,17 @@ function fclose(f){
 			<label for="subject">제목</label>
 		</td>
 		<td>
-			<input type="text" id="subject" name="subject" size="39">
+			<input type="text" id="subject" name="subject" size="25">
+		</td>
+		<td id="hide_check">
+			<input type="radio" id="hide" name="hide" value="가나다">&nbsp;숨김
 		</td>
 	</tr>
 	<tr>
 		<td id="td_left">
 			<label for="content">내용</label>
 		</td>
-		<td>
+		<td colspan="2">
 			<textarea name="content" id="content" cols="40" rows="10" onkeyup="fc_chk_byte(this);" onkeypress="fc_chk2();" placeholder="200자까지 입력하실 수 있습니다."></textarea>
 		</td>
 	</tr>
@@ -153,7 +159,7 @@ function fclose(f){
 		<td id="td_left">
 			<label for="image">사진</label>
 		</td>
-		<td>
+		<td colspan="2">
 			<input type="file" name="image" id="image">
 		</td>
 	</tr>
