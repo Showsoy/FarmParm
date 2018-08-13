@@ -39,7 +39,7 @@ var count2 = 0;
 	
 	function show_content2(v){
 		var name = "qna_content"+v;
-		var name2 = "qnare_content"+v
+		var name2 = "qnare_content"+v;
 		if(document.getElementById(name).style.display=="none"){
 			document.getElementById(name).style.display = "table-row";
 			if(document.getElementById(name2)!=null) document.getElementById(name2).style.display = "table-row";
@@ -63,7 +63,7 @@ var count2 = 0;
 		<table cellspacing="0" cellpadding="0" id="detail_board">
 			<tr id="top_menu" height="20px">
 				<td id="td_check">번호</td>
-				<td colspan="2" width="200px" id="leftalign">제목</td>
+				<td colspan="2" width="200px" >제목</td>
 				<td width="100px">작성자</td>
 				<td width="100px">작성일</td>
 			</tr>
@@ -105,7 +105,7 @@ var count2 = 0;
 								<a onclick="window.open('./item/qnareForm.bo?item_code=${qna.code}&bnum=${qna.board_num}','','width=500, height=400')" style="cursor:pointer;">답글</a>
 							</c:if>
 							<c:if test="${id eq qna.user_id || id eq 'admin' }">
-								<a href="./qnaRemove.bo?item_code=${qna.code}&bnum=${qna.board_num}&page=${page }&r_page=${r_page}&q_page=${q_page }">삭제</a>
+								<a href="./qnaRemove.bo?item_code=${qna.code}&bnum=${qna.board_num}&page=${page }&r_page=${r_page}&q_page=${q_page }#qnaboard">삭제</a>
 							</c:if>
 							</div>
 						</c:if>

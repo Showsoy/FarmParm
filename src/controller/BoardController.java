@@ -23,10 +23,8 @@ import board.action.NoticeWriteAction;
 import board.action.QnARemoveAction1;
 import board.action.QnAReplyAction1;
 import board.action.QnAReplyFormAction1;
-import board.action.QnARemoveAction;
 import board.action.QnAReplyAction;
 import board.action.QnAReplyFormAction;
-import board.action.QnAWriteAction;
 import board.action.QnAWriteAction1;
 import board.action.QnAWriteFormAction;
 import board.action.ReviewRemoveAction;
@@ -134,14 +132,7 @@ public class BoardController extends HttpServlet {
     			e.printStackTrace();
     		}
     	}else if(command.equals("/qnaRegist.bo")) {
-    		action = new QnAWriteAction();
-    		try {
-    			forward = action.execute(request, response);
-    		}catch(Exception e) {
-    			e.printStackTrace();
-    		}
-    	}else if(command.equals("/qnaRemove.bo")) {
-    		action = new QnARemoveAction();
+    		action = new QnAWriteAction1();
     		try {
     			forward = action.execute(request, response);
     		}catch(Exception e) {

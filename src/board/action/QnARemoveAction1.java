@@ -57,7 +57,7 @@ public class QnARemoveAction1 implements Action {
 			} else {
 				board_num = Integer.parseInt(request.getParameter("bnum"));
 				String writer = boardService.selectWriter("qna_board", board_num);
-				if (!id.equals("admin") || !id.equals(writer)) {
+				if (!id.equals("admin") && !id.equals(writer)) {
 					response.setContentType("text/html;charset=UTF-8");
 					PrintWriter out = response.getWriter();
 					out.println("<script>");
