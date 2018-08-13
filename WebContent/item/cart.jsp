@@ -175,12 +175,13 @@ selPrice = "<%=(int)request.getAttribute("totalMoney")%>";
 				<td>가격</td>
 				<td>수량</td>
 				<td>삭제</td>
-			</tr>
+			</tr> 
 			<c:forEach var="cart" items="${cartList }" varStatus="status">
 			<tr>
 				<td><input type="checkbox" id="icheck" name="icheck" value="${cart.item_code }" onClick="checkItem('${cart.sprice*cart.qty }',this)" checked/></td>
 				<td colspan="2">
 				<p>&nbsp;&nbsp;&nbsp;&nbsp;
+				<a href="../uitemView.im?item_code=${cart.item_code}&page=1" style=text-decoration:none;>
 				<img src="../images/${cart.image }" width="100px" height="70px" align="center">
 				&nbsp;&nbsp;&nbsp;${cart.item_name }</p></td>
 				
