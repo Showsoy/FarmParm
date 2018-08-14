@@ -31,7 +31,7 @@ public class NoticeWriteAction implements Action {
 			PrintWriter out = response.getWriter();
 			out.println("<script>");
 			out.println("alert('로그인이 필요합니다.');");
-			out.println("location.href='./member/memberLogin.us?turn=ok';");
+			out.println("location.href='../member/memberLogin.us?turn=ok';");
 			out.println("</script>");
 		}else if(!id.equals("admin")) {
 			response.setContentType("text/html;charset=UTF-8");

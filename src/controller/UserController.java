@@ -59,7 +59,7 @@ protected void doProcess(HttpServletRequest request, HttpServletResponse respons
     	
     	if(command.equals("/memberLogin.us")){
     		forward=new ActionForward();
-			forward.setRedirect(true);
+			forward.setRedirect(false);
 			forward.setPath("./member/login.jsp");
 		}else if(command.equals("/member/memberLogin.us")){
 			forward=new ActionForward();

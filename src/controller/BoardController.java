@@ -13,7 +13,6 @@ import action.Action;
 import board.action.CsBoardListAction;
 import board.action.CsBoardRemoveAction;
 import board.action.CsBoardReplyAction;
-import board.action.CsBoardReplyFormAction;
 import board.action.CsBoardViewAction;
 import board.action.CsBoardWriteAction;
 import board.action.NoticeListAction;
@@ -84,13 +83,6 @@ public class BoardController extends HttpServlet {
     		}
     	}else if(command.equals("/csRemove.bo")) {
     		action = new CsBoardRemoveAction();
-    		try {
-    			forward = action.execute(request, response);
-    		}catch(Exception e) {
-    			e.printStackTrace();
-    		}
-    	}else if(command.equals("/csReplyForm.bo")) {
-    		action = new CsBoardReplyFormAction();
     		try {
     			forward = action.execute(request, response);
     		}catch(Exception e) {

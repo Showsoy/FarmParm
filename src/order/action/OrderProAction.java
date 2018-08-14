@@ -26,14 +26,13 @@ public class OrderProAction implements Action {
 		
 		HttpSession session = request.getSession();
 		String id = (String)session.getAttribute("id");
-		
 		OrderService orderService = new OrderService();
 		if(id==null) {
 			response.setContentType("text/html;charset=UTF-8");
 			PrintWriter out = response.getWriter();
 			out.println("<script>");
 			out.println("alert('로그인이 필요합니다.');");
-			out.println("location.href='./member/memberLogin.us?turn=ok';");
+			out.println("location.href='../member/memberLogin.us?turn=ok';");
 			out.println("</script>");
 		}
 		else {

@@ -36,8 +36,7 @@ public class MemberLoginAction implements Action{
    		   		out.println("<script>");
    		   		out.println("history.go(-2);");
    		   		out.println("</script>");
-   			}
-   			else {
+   			}else {
 		   	    forward = new ActionForward();
 		   		forward.setRedirect(true);
 		   		forward.setPath("../main.im");

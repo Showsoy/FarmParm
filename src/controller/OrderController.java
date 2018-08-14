@@ -13,6 +13,7 @@ import action.Action;
 import admin.action.OrderChangeStateAction;
 import admin.action.OrderListAction;
 import admin.action.OrderViewAction;
+import admin.action.SalesListAction;
 import order.action.MyOrderListAction;
 import order.action.MyOrderViewAction;
 import order.action.OrderFormAction;
@@ -90,6 +91,13 @@ protected void doProcess(HttpServletRequest request, HttpServletResponse respons
     		}
     	}else if(command.equals("/myodView.od")) {
     		action = new MyOrderViewAction();
+    		try {
+    			forward = action.execute(request, response);
+    		}catch(Exception e) {
+    			e.printStackTrace();
+    		}
+    	}else if(command.equals("/salesList.od")) {
+    		action = new SalesListAction();
     		try {
     			forward = action.execute(request, response);
     		}catch(Exception e) {

@@ -218,4 +218,77 @@ public class OrderService {
 		close(conn);
 		return result;
 	}
+	public int salesOrderCount1(String period){
+		OrderDAO orderDAO = OrderDAO.getInstance();
+		Connection conn = getConnection();
+		orderDAO.setConnection(conn);
+		int listCount = orderDAO.salesOrderCount1(period);
+		
+		close(conn);
+		return listCount;
+	}
+	public int salesOrderCount2(String date){
+		OrderDAO orderDAO = OrderDAO.getInstance();
+		Connection conn = getConnection();
+		orderDAO.setConnection(conn);
+		int listCount = orderDAO.salesOrderCount2(date);
+		
+		close(conn);
+		return listCount;
+	}
+	public int salesItemCount1(String period){
+		OrderDAO orderDAO = OrderDAO.getInstance();
+		Connection conn = getConnection();
+		orderDAO.setConnection(conn);
+		int listCount = orderDAO.salesItemCount1(period);
+		
+		close(conn);
+		return listCount;
+	}
+	public int salesItemCount2(String date){
+		OrderDAO orderDAO = OrderDAO.getInstance();
+		Connection conn = getConnection();
+		orderDAO.setConnection(conn);
+		int listCount = orderDAO.salesItemCount2(date);
+		
+		close(conn);
+		return listCount;
+	}
+	
+	public ArrayList<OrderBean> salesOrderList1(String period, int page) {
+		OrderDAO orderDAO = OrderDAO.getInstance();
+		Connection conn = getConnection();
+		orderDAO.setConnection(conn);
+		ArrayList<OrderBean> orderList = orderDAO.salesOrderList1(period, page);
+		
+		close(conn);
+		return orderList;
+	}
+	public ArrayList<OrderBean> salesOrderList2(String date, int page) {
+		OrderDAO orderDAO = OrderDAO.getInstance();
+		Connection conn = getConnection();
+		orderDAO.setConnection(conn);
+		ArrayList<OrderBean> orderList = orderDAO.salesOrderList2(date, page);
+		
+		close(conn);
+		return orderList;
+	}
+	public ArrayList<OrderViewBean> salesItemList1(String period, String order, int page) {
+		OrderDAO orderDAO = OrderDAO.getInstance();
+		Connection conn = getConnection();
+		orderDAO.setConnection(conn);
+		ArrayList<OrderViewBean> orderList = orderDAO.salesItemList1(period, order, page);
+		
+		close(conn);
+		return orderList;
+	}
+	public ArrayList<OrderViewBean> salesItemList2(String date, String order, int page) {
+		OrderDAO orderDAO = OrderDAO.getInstance();
+		Connection conn = getConnection();
+		orderDAO.setConnection(conn);
+		ArrayList<OrderViewBean> orderList = orderDAO.salesItemList2(date, order, page);
+		
+		close(conn);
+		return orderList;
+	}
 }

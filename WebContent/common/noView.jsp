@@ -82,6 +82,11 @@ td, tr{
 #content{
 	text-align:center;
 }
+#commandCell{
+	width:64%;
+	margin:0 auto;
+	text-align:right;
+}
 </style>
 <script>
 
@@ -113,12 +118,13 @@ td, tr{
 					</td>
 				</tr>
 			</table>
-			<c:if test="${id eq 'admin' }">
-				<span style="padding:0 0 0 650px;"><button type="button" id="wbutton" onclick="location.href='noRemove.bo?bnum=${board.board_num}'">삭제</button></span>
-			</c:if>
 			<br>
 			<section id="commandCell">
-				<button type="button" onclick="location.href='noList.bo'">목록</button>
+				<button type="button" id="wbutton" onclick="location.href='noList.bo'">목록</button>
+				<c:if test="${id eq 'admin' }">
+					<button type="button" id="wbutton" onclick="location.href='noRemove.bo?bnum=${board.board_num}'">삭제</button>
+					<button type="button" style="width:70px;" onclick="location.href='noWrite.jsp'" id="wbutton">글쓰기</button>
+				</c:if>
 			</section>
 		</form>
 	</div>

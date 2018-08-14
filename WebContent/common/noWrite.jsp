@@ -91,6 +91,23 @@ function fc_chk2() {
 	if(event.keyCode == 13) 
 	event.returnValue=false; 
 }
+var doubleSubmitFlag = false;
+function doubleSubmitCheck(){
+    if(doubleSubmitFlag){
+        return doubleSubmitFlag;
+    }else{
+        doubleSubmitFlag = true;
+        return false;
+    }
+}
+
+function chkForm(f){
+    if(!doubleSubmitCheck()){
+    	alert("중복접근!");
+    }
+
+    document.notice.submit();
+}
 </script>
 </head>
 <link rel="stylesheet" type="text/css" href="../style/style.css">

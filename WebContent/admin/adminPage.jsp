@@ -5,7 +5,7 @@
 
 	if(id==null) {
 		out.println("<script>");
-		out.println("alert('로그인 한 회원만 쓸 수 있습니다.');");
+		out.println("alert('로그인이 필요한 서비스입니다.');");
 		out.println("location.href='../member/memberLogin.us?turn=ok';");
 		out.println("</script>");
 	}else if(!id.equals("admin")){
@@ -70,7 +70,7 @@
 
 		<button onclick="location.href='./itemList.im'">상품목록</button><br>
 		<button onclick="location.href='./odList.od'">주문목록</button>
-		<button onclick="location.href='#'">매출관리</button>
+		<button onclick="location.href='./salesList.od'">매출관리</button>
 	</div>
 </div>
 </div>

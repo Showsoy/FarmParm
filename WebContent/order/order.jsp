@@ -125,6 +125,23 @@ td, tr{
 			document.getElementById("allprice").innerHTML = parseInt(f.totalMoney.value)-parseInt(depoint);
 		}
 	}
+	var doubleSubmitFlag = false;
+	function doubleSubmitCheck(){
+	    if(doubleSubmitFlag){
+	        return doubleSubmitFlag;
+	    }else{
+	        doubleSubmitFlag = true;
+	        return false;
+	    }
+	}
+
+	function chkForm(f){
+	    if(!doubleSubmitCheck()){
+	    	alert("중복접근!");
+	    }
+
+	    document.orderform.submit();
+	}
 </script>
 </head>
 <link rel="stylesheet" type="text/css" href="../style/style.css">
@@ -136,7 +153,7 @@ td, tr{
 	<h3>&nbsp;&nbsp;결제</h3>
 	<hr color="#4CAF50" size="5">
 	<div class="mypage">
-	<form action="order.od" name="orderform" method="post">
+	<form action="order.od" name="orderform" method="post" onsubmit="return chkForm(this)">
 	<div id="order_info">
 		<div id="grade"><b id="grade_deco">|</b>결제상품</div>
 		<table cellspacing="0" cellpadding="0" id="order_sheet">
