@@ -9,12 +9,6 @@
 <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
 <title>Insert title here</title>
 <style>
-table{
-	margin:0 auto;
-	border-collapse: collapse;
-    width: 80%;
-	background-color:white;
-}
 tr{
 	height:100px;
 }
@@ -29,84 +23,8 @@ img{
 	border: 1px solid #ddd;
 	padding : 0 0 0 2px;
 }
-.mypage button {
-	font-family:"Nanum Gothic";
-	font-weight: 700;
-	text-transform: uppercase;
-	outline: 0;
-	background: black;
-	width: 100px;
-	border: 0;
-	padding: 10px;
-	color: #FFFFFF;
-	font-size: 14px;
-	-webkit-transition: all 0.3 ease;
-	transition: all 0.3 ease;
-	cursor: pointer;
-}
-#wbutton{
-	font-family:"Nanum Gothic";
-	font-weight: 500;
-	text-transform: uppercase;
-	outline: 0;
-	background: #fff;
-	border: 0;
-	padding: 5px;
-	border : 1px solid #ccc;
-	border-radius : 5px;
-	color: #191919;
-	font-size: 14px;
-	-webkit-transition: all 0.3 ease;
-	transition: all 0.3 ease;
-	cursor: pointer;
-}
-#gbutton {
-	font-family:"Nanum Gothic";
-	font-weight: 700;
-	text-transform: uppercase;
-	outline: 0;
-	background: #4CAF50;
-	width: 60px;
-	border: 0;
-	padding: 5px;
-	color: #FFFFFF;
-	font-size: 14px;
-	-webkit-transition: all 0.3 ease;
-	transition: all 0.3 ease;
-	cursor: pointer;
-}
-#top_menu{
-	background-color:#333;
-	color:white;
-	height:40px;
-}
-#tr_total{
-	background-color:#F6F6F6;
-	height:180px;
-}
-#td_check{
-	width:50px;
-	text-align:center;
-}
-#td_info{
-	color:#5D5D5D;
-	font-size:14px;
-}
-#listmenu{
-	display:flex;
-	flex-wrap:wrap;
-	width:850px;
-	padding:0 0 5px 0;
-	margin:0 auto;
-}
-#seldel{
-	float:left;
-}
 #orderby{
-	float:left;
-	text-align:right;
 	padding : 13px 0 0 350px;
-	font-size:13px;
 }
 </style>
 <script>
@@ -165,9 +83,7 @@ img{
 			<span id="selcategory">가공</span></c:when><c:otherwise> 가공</c:otherwise></c:choose></a>
 		</span>
 	</div>
-		<table cellspacing="0" cellpadding="0">
-			<c:choose>
-				<c:when test="${pageInfo.listCount>0 }">	
+		<table class="listtable" cellspacing="0" cellpadding="0">
 			<tr id="top_menu">
 				<td id="td_check"><input type="checkbox" id="allCheck" name="allCheck" onClick="checkAll(this.form)"/></td>
 				<td>상품코드</td>
@@ -177,7 +93,8 @@ img{
 				<td>재고</td>
 				<td>조회</td>
 			</tr>
-
+			<c:choose>
+				<c:when test="${pageInfo.listCount>0 }">	
 			<c:forEach var="itemList" items="${itemList }">
 				<c:choose>
 					<c:when test="${itemList.ihide>0 }">
@@ -236,7 +153,7 @@ img{
 		</c:choose>
 		</table>
 	<br><br><br>
-	<button type="button" onclick="location.href='adminPage.jsp'" style="width:150px;">관리자페이지</button>
+	<button type="button" id="bbutton" onclick="location.href='adminPage.jsp'" style="width:150px;">관리자페이지</button>
 	</div>
 	</form>
 </div>

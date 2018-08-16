@@ -11,64 +11,8 @@
 <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
 <title>Insert title here</title>
 <style>
-.mypage button {
-	font-family:"Nanum Gothic";
-	font-weight: 700;
-	text-transform: uppercase;
-	outline: 0;
-	background: black;
-	width: 100px;
-	border: 0;
-	padding: 10px;
-	color: #FFFFFF;
-	font-size: 14px;
-	-webkit-transition: all 0.3 ease;
-	transition: all 0.3 ease;
-	cursor: pointer;
-}
-#td_left{
-	background-color:#F6F6F6;
-	width:100px;
-}
 #td_info{
 	text-align:right;
-}
-#td_check{
-	width:50px;
-}
-#top_menu{
-	background-color:#333;
-	height:20px;
-	color:white;
-	padding:0;
-}
-#detail_board{
-	margin:0 auto;
-	border-collapse: collapse;
-    width: 700px;
-    height:100px;
-    font-size:10px;
-	background-color:white;
-	text-align:center;
-}
-#detail_board tr td{
-	font-size:12px;
-}
-#detail_board tr:nth-child(even) {background-color: #f2f2f2;}
-#idetail{
-	margin:0 auto;
-	display:inline-block;
-}
-#id_img{
-	float:left;
-}
-#id_text{
-	padding:0 50px 0 50px;
-	float:left;
-	font-size:12px;
-}
-#saled{
-	color:#4CAF50;
 }
 dt{
 	display:inline-block;
@@ -79,53 +23,6 @@ dd{
 	display:inline-block;
 	width:80px;
 	text-align:center;
-}
-#gbutton{
-	float:right;
-	margin-right:50px;
-	margin-top:20px;
-	font-family:"Nanum Gothic";
-	font-weight: 500;
-	text-transform: uppercase;
-}
-#wbutton{
-	float:right;
-	margin-right:50px;
-	margin-top:20px;
-	font-family:"Nanum Gothic";
-	font-weight: 500;
-	text-transform: uppercase;
-	outline: 0;
-	background: #fff;
-	border: 0;
-	padding: 5px;
-	border : 1px solid #ccc;
-	border-radius : 5px;
-	color: #191919;
-	font-size: 14px;
-	-webkit-transition: all 0.3 ease;
-	transition: all 0.3 ease;
-	cursor: pointer;
-}
-#wbutton:active{
-	background: #F6F6F6;
-}
-#td_right_s{
-	width:100px;
-}
-#commandCell{
-	margin-left:658px;
-}
-#qna_regist{
-	margin-left:47px;
-	font-family:"Nanum Gothic";
-	font-weight: 500;
-}
-#pageList{
-	text-align:center;
-}
-#leftalign{
-	text-align:left;
 }
 </style>
 <script>
@@ -251,12 +148,12 @@ pageContext.setAttribute("uprice", uprice);
 			<hr color="#4CAF50" size="5">
 			<c:choose>
 				<c:when test="${stock<=0 }">
-					<button type="button" onclick="#">장바구니</button>
-					<button type="button" onclick="#">바로구매</button>
+					<button id="bbutton" type="button" onclick="#">장바구니</button>
+					<button id="bbutton" type="button" onclick="#">바로구매</button>
 				</c:when>
 				<c:otherwise>
-					<button type="button" onclick="goto_url('./item/addCart.ct?item_code=${item.item_code}');">장바구니</button>
-					<button type="button" onclick="goto_url('./order/odForm.od?type=one&item_code=${item.item_code}');">바로구매</button>
+					<button id="bbutton" type="button" onclick="goto_url('./item/addCart.ct?item_code=${item.item_code}');">장바구니</button>
+					<button id="bbutton" type="button" onclick="goto_url('./order/odForm.od?type=one&item_code=${item.item_code}');">바로구매</button>
 				</c:otherwise>
 			</c:choose>
 		</div>

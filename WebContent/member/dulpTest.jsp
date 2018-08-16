@@ -20,51 +20,35 @@
 <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
 <title>Insert title here</title>
 <style>
-	table{
-		margin : auto;
-		width : 300px;
-		text-align : center;
-	}
-	input {
+table {
+	margin: auto;
+	width: 300px;
+	text-align: center;
+}
+
+input {
 	outline: 0;
 	background: #f2f2f2;
-	width:100%;
+	width: 100%;
 	border: 0;
 	padding: 10px;
 	box-sizing: border-box;
 	font-size: 12px;
 }
 
-	button {
-	font-family:"Nanum Gothic";
-	font-weight: 700;
-	text-transform: uppercase;
-	outline: 0;
-	background: #4CAF50;
-	width:100%;
-	border: 0;
-	padding: 10px;
-	color: #FFFFFF;
-	font-size: 12px;
-	-webkit-transition: all 0.3 ease;
-	transition: all 0.3 ease;
-	cursor: pointer;
+#testform {
+	width: 300px;
+	text-align: center;
+	margin: 0 auto;
 }
 
-button:hover, .form button:active, .form button:focus {
-	background: #43A047;
+a img {
+	height: 16px;
 }
-#testform{
-	width:300px;
-	text-align:center;
-	margin:0 auto;
-}
-a img{
-	height:16px;
-}
-a, a:hover, a:active{
-	text-decoration:none;
-	color:black;
+
+a, a:hover, a:active {
+	text-decoration: none;
+	color: black;
 }
 </style>
 </head>
@@ -105,7 +89,7 @@ a, a:hover, a:active{
 	</tr>
 	<tr>
 		<td>
-		<button type="submit">중복체크</button>
+		<button id="gbutton" style="width:100%;" type="submit">중복체크</button>
 		</td>
 	</tr>
 </table>

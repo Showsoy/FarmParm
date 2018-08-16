@@ -7,58 +7,6 @@
 <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
 <title>Insert title here</title>
 <style>
-body{
-	width:400px;
-	text-align:center;
-}
-table{
-	width:400px;
-	text-align:left;
-	padding : 15px;
-	border-radius:10px;
-	border-collapse: collapse;
-}
-tr{
-	padding-top: 12px;
-    padding-bottom: 12px;
-}
-td{
-	padding:5px 5px 5px 10px;
-}
-table td label{
-	font-weight:700;
-	font-family:"Nanum Gothic";
-	color : #43A047;
-	font-size:14px;
-}
-td, tr{
-	border: 1px solid #ddd;
-}
-
-#td_left{
-	background-color:#F6F6F6;
-	width:50px;
-	text-align:center;
-}
-#wbutton{
-	font-family:"Nanum Gothic";
-	font-weight: 500;
-	text-transform: uppercase;
-	outline: 0;
-	background: #fff;
-	border: 0;
-	padding: 5px;
-	border : 1px solid #ccc;
-	border-radius : 5px;
-	color: #191919;
-	font-size: 14px;
-	-webkit-transition: all 0.3 ease;
-	transition: all 0.3 ease;
-	cursor: pointer;
-}
-#wbutton:active, #wbutton:hover{
-	background: #F6F6F6;
-}
 </style>
 <script>
 function fc_chk_byte(memo) { 

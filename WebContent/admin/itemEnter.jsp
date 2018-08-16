@@ -7,28 +7,7 @@
 <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
 <title>Insert title here</title>
 <style>
-.mypage table{
-	width:700px;
-	margin:0 auto;
-	text-align:left;
-	padding : 15px;
-	border-radius:10px;
-	border-collapse: collapse;
-}
-.mypage tr{
-	padding-top: 12px;
-    padding-bottom: 12px;
-}
-.mypage td{
-	padding:5px 5px 5px 10px;
-}
-.mypage table td label{
-	font-weight:700;
-	font-family:"Nanum Gothic";
-	color : #43A047;
-	font-size:14px;
-}
-.mypage table img{
+.mytable img{
 	padding : 4px 4px 10px 4px;
 }
 td, tr{
@@ -36,27 +15,6 @@ td, tr{
 }
 th{
 	text-align:center;
-}
-.mypage button {
-	font-family:"Nanum Gothic";
-	font-weight: 700;
-	text-transform: uppercase;
-	outline: 0;
-	background: black;
-	border: 0;
-	padding: 10px;
-	color: #FFFFFF;
-	font-size: 14px;
-	-webkit-transition: all 0.3 ease;
-	transition: all 0.3 ease;
-	cursor: pointer;
-}
-.mypage button:hover, .mypage button:active, .mypage button:focus {
-	background: #191919;
-}
-#td_left{
-	background-color:#F6F6F6;
-	width:100px;
 }
 </style>
 <script>
@@ -72,7 +30,6 @@ function chkForm(f){
 		f.idate.focus();
 		return false;
 	}
-	//if(f.pass.value.trim()!=f.passChk.value.trim()){f.pass.value="";}
 	document.joinform.submit();
 }
 </script>
@@ -88,7 +45,7 @@ function chkForm(f){
 	<hr color="#4CAF50" size="5">
 	<div class="mypage">
 	<form action="itemEnterPro.im?item_code=${item.item_code }" method="post" name="enterform" onsubmit="return chkForm(this)">
-			<table>
+			<table class="mytable">
 				<tr>
 					<th colspan="3"><img src="../images/${item.img_path }" width="200px" height="140px"></th>
 					<td>${item.category }</td>
@@ -113,8 +70,8 @@ function chkForm(f){
 				</tr>
 			</table>
 			<br>
-			<section id="commandCell">
-				<button type="button" onclick="location.href='adminPage.jsp'" style="width:150px;">관리자페이지</button> 
+			<section>
+				<button type="button" id="bbutton" onclick="location.href='adminPage.jsp'" style="width:150px;">관리자페이지</button> 
 			</section>
 		</form>
 	</div>

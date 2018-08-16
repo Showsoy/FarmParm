@@ -7,12 +7,6 @@
 <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
 <title>Insert title here</title>
 <style>
-table{
-	margin:0 auto;
-	border-collapse: collapse;
-    width: 80%;
-	background-color:white;
-}
 tr{
 	height:40px;
 }
@@ -33,41 +27,6 @@ a{
 a:hover{
 	text-decoration:underline;
 }
-#top_menu{
-	background-color:#333;
-	color:white;
-	height:35px;
-}
-#td_check{
-	width:50px;
-}
-#td_info{
-	color:#5D5D5D;
-	font-size:14px;
-}
-#wbutton{
-	font-family:"Nanum Gothic";
-	font-weight: 500;
-	text-transform: uppercase;
-	outline: 0;
-	background: #fff;
-	width:70px;
-	border: 0;
-	padding: 5px;
-	border : 1px solid #ccc;
-	border-radius : 5px;
-	color: #191919;
-	font-size: 14px;
-	-webkit-transition: all 0.3 ease;
-	transition: all 0.3 ease;
-	cursor: pointer;
-}
-#search_info{
-	padding:20px;
-	margin:0 auto;
-	width:80%;
-	background-color:#F6F6F6;
-}
 </style>
 </head>
 <link rel="stylesheet" type="text/css" href="../style/style.css">
@@ -85,8 +44,8 @@ a:hover{
 			</div>
 		</c:if>
 		<br>
-		<table cellspacing="0" cellpadding="0">
-			<tr id="top_menu">
+		<table class="listtable" cellspacing="0" cellpadding="0">
+			<tr id="top_menu35">
 				<td id="td_check">번호</td>
 				<td colspan="2" style="width:200px;">제목</td>
 				<td style="width:150px;">작성자</td>

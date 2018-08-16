@@ -8,51 +8,8 @@
 <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
 <title>Insert title here</title>
 <style>
-.mypage table{
-	width:300px;
-	margin:0 auto;
-	text-align:center;
-	padding : 15px;
-	border-radius:10px;
-	border-collapse: collapse;
-}
-.mypage tr{
-	padding-top: 12px;
-    padding-bottom: 12px;
-}
-.mypage td{
-	padding:5px 5px 5px 10px;
-}
-.mypage table td label{
-	font-weight:700;
-	font-family:"Nanum Gothic";
-	color : #43A047;
-	font-size:14px;
-}
 td, tr{
 	border: 1px solid #ddd;
-}
-.mypage button {
-	font-family:"Nanum Gothic";
-	font-weight: 700;
-	text-transform: uppercase;
-	outline: 0;
-	background: black;
-	width: 100px;
-	border: 0;
-	padding: 10px;
-	color: #FFFFFF;
-	font-size: 14px;
-	-webkit-transition: all 0.3 ease;
-	transition: all 0.3 ease;
-	cursor: pointer;
-}
-.mypage button:hover, .mypage button:active, .mypage button:focus {
-	background: #191919;
-}
-#td_left{
-	background-color:#F6F6F6;
-	width:100px;
 }
 </style>
 </head>
@@ -77,7 +34,7 @@ function chkForm(f){
 	<hr color="#4CAF50" size="5">
 	<div class="mypage">
 	<form action="./pwCheck.us" name="pwcheck" method="post" onsubmit="return chkForm(this)">
-	<table cellspacing="0" cellpadding="0">
+	<table class="mytable" cellspacing="0" cellpadding="0">
 	<tr>
 		<td id="td_left"><label for="userID">아이디</label> </td>
 		<td>${id}</td>
@@ -88,20 +45,11 @@ function chkForm(f){
 	</tr>
 </table>
 <br><br>
-		<button type="submit" id="submit">확인</button>
-		<button type="button" onclick="history.back();">돌아가기</button> 
+		<button id="bbutton" type="submit" id="submit">확인</button>
+		<button id="bbutton" type="button" onclick="history.back();">돌아가기</button> 
 		</form>
 	</div>
 </div>
-<footer>
-  <a href="#"><i class="fa fa-facebook-official"></i></a>
-  <a href="#"><i class="fa fa-pinterest-p"></i></a>
-  <a href="#"><i class="fa fa-twitter"></i></a>
-  <a href="#"><i class="fa fa-flickr"></i></a>
-  <a href="#"><i class="fa fa-linkedin"></i></a>
-  <p class="w3-medium">
-    Powered by <a href="https://www.w3schools.com/w3css/default.asp" target="_blank">w3.css</a>
-  </p>
-</footer>
+<jsp:include page="/common/footer.jsp" flush="false"/>
 </body>
 </html>

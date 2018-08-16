@@ -7,97 +7,11 @@
 <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
 <title>Insert title here</title>
 <style>
-.mypage table{
-	width:700px;
-	margin:0 auto;
-	text-align:left;
-	padding:1px;
-	border-radius:5px;
-	border: 1px solid #D9E5FF;
-}
-.mypage tr{
-	padding-top: 12px;
-    padding-bottom: 12px;
-}
 .mypage td{
-	padding:5px 5px 5px 10px;
-	
     border-bottom: 3px solid #fff;
-}
-.mypage table td label{
-	font-weight:700;
-	font-family:"Nanum Gothic";
-	color : #43A047;
-	font-size:14px;
-}
-.mypage button {
-	font-family:"Nanum Gothic";
-	font-weight: 700;
-	text-transform: uppercase;
-	outline: 0;
-	background: black;
-	width: 100px;
-	border: 0;
-	padding: 10px;
-	color: #FFFFFF;
-	font-size: 14px;
-	-webkit-transition: all 0.3 ease;
-	transition: all 0.3 ease;
-	cursor: pointer;
-}
-.mypage button:hover, .mypage button:active, .mypage button:focus {
-	background: #191919;
-}
-#gbutton {
-	font-family:"Nanum Gothic";
-	font-weight: 700;
-	text-transform: uppercase;
-	outline: 0;
-	background: #4CAF50;
-	width: 70px;
-	border: 0;
-	padding: 5px;
-	color: #FFFFFF;
-	font-size: 14px;
-	-webkit-transition: all 0.3 ease;
-	transition: all 0.3 ease;
-	cursor: pointer;
-}
-#gbutton:hover, #gbutton:active, #gbutton:focus {
-	background: #43A047;
-}
-#td_left{
-	background-color:#F6F6F6;
-	width:100px;
-}
-#td_parent{
-	background-color:#F6FFCC;
-}
-#td_child{
-	background-color:#EBF7FF;
 }
 #top_td{
 	font-size:12px;
-}
-#wbutton{
-	font-family:"Nanum Gothic";
-	font-weight: 500;
-	width:50px;
-	text-transform: uppercase;
-	outline: 0;
-	background: #fff;
-	border: 0;
-	padding: 4px;
-	border : 1px solid #ccc;
-	border-radius : 5px;
-	color: #191919;
-	font-size: 14px;
-	-webkit-transition: all 0.3 ease;
-	transition: all 0.3 ease;
-	cursor: pointer;
-}
-#wbutton:active, #wbutton:hover{
-	background: #F6F6F6;
 }
 </style>
 <script>
@@ -154,7 +68,7 @@ function goto_url(act) {
 	<hr color="#4CAF50" size="5">
 	<div class="mypage">
 	<form method="post" name="csview">
-			<table cellspacing="0" cellpadding="0">
+			<table class="board_table" cellspacing="0" cellpadding="0">
 				<tr>
 					<td id="td_left" colspan="2" style="text-align:right;">
 						<label>작성일</label> <span id="top_td">${board.date }</span>
@@ -200,10 +114,14 @@ function goto_url(act) {
 					</tr>
 			</c:if>
 			</table>
+			<br>
+			<section id="commandCell">
 			<c:if test="${board.user_id eq id || id eq 'admin'}">
-				<span style="padding:0 0 0 650px;"><button type="button" id="wbutton" onclick="goto_url('csRemove.bo?bnum=${board.board_num}&page=${page }<c:out value="${keyword !=null ? '&keyword=' : '' }"/>${keyword}')">삭제</button></span>
+				<button type="button" id="wbutton" onclick="goto_url('csRemove.bo?bnum=${board.board_num}&page=${page }<c:out value="${keyword !=null ? '&keyword=' : '' }"/>${keyword}')">삭제</button>
 			</c:if>
-			<br><br>
+				<button type="button" id="wbutton" onclick="location.href='csList.bo?page=${page}<c:out value="${keyword !=null ? '&keyword=' : '' }"/>${keyword}'">목록</button>
+			</section>
+			<br>
 			<c:if test="${board.has_re == 0 && id eq 'admin'}">
 				<table>
 					<tr>
@@ -227,9 +145,6 @@ function goto_url(act) {
 				</table>
 			</c:if>
 			<br>
-			<section id="commandCell">
-				<button type="button" onclick="location.href='csList.bo?page=${page}<c:out value="${keyword !=null ? '&keyword=' : '' }"/>${keyword}'">목록</button>
-			</section>
 		</form>
 	</div>	
 </div>

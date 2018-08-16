@@ -10,12 +10,6 @@
 <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
 <title>Insert title here</title>
 <style>
-footer {
-    padding: 24px; /* some padding */
-    text-align:center;
-    background: #333; /* green background */
-    color:white;/* white text color */
-}
 table{
 	border:0;
 }
@@ -23,40 +17,9 @@ th, td {
     border-bottom: 1px solid #ddd;
     height:50px;
 }
-.page{
-	margin:0 auto;
-	text-align:center;
-}
 #orderby{
-	text-align:right;
 	font-size:12px;
 	padding:5px 5px 5px 720px;
-}
-#orderby img{
-	width:11px;
-	heigh:11px;
-	padding:0px 0px 3px 0px;
-}
-#or_price{
-	text-decoration:line-through;
-	font-size:12px;
-}
-#new_price{
-	line-height:24px;
-}
-#sale_icon{
-	width:15px;
-	border:0;
-}
-#prod_image{
-	width:300px;
-	height:200px;
-	margin:5px 15px 0 15px;
-	border:1px solid #ccc;
-}
-#selcategory{
-	font-weight:700;
-	color:#43A047;
 }
 </style>
 </head>

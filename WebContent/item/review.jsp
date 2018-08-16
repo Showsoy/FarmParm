@@ -7,35 +7,6 @@
 <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
 <title>Insert title here</title>
 <style>
-	#parent{
-		display:flex;
-		flex-wrap:wrap;
-		width:700px;
-		position:relative;
-	}
-	#parent_img{
-		display:flex;
-		flex-wrap:wrap;
-		float:left;
-		position:relative;
-		padding:10px;
-	}
-	#zoom{
-		position:absolute;
-		top:10;
-		left:10;
-	}
-	#parent_cont{
-		float:left;
-	}
-	#parent_command{
-		float:left;
-		position:absolute;
-		right:0;
-	}
-	#orderidspan{
-		color:#FFBB00;
-	}
 </style>
 <script>
 var count1 = 0;
@@ -64,7 +35,7 @@ var count1 = 0;
 	<hr color="#4CAF50" size="5">
 		<button type="button" id="wbutton" onclick="window.open('./item/reForm.bo?item_code=${item.item_code}','','width=500, height=400')">후기쓰기</button>
 		<table cellspacing="0" cellpadding="0" id="detail_board">
-			<tr id="top_menu" height="20px">
+			<tr id="top_menu20" height="20px">
 				<td id="td_check">번호</td>
 				<td colspan="2" width="200px">제목</td>
 				<td width="100px">작성자</td>
@@ -95,7 +66,7 @@ var count1 = 0;
 								</div>
 								</div>
 								<div id="parent_cont" style="width:470px;padding:10px;text-align:left">
-									<span id="orderidspan">주문번호 : ${review.readcount }</span><br>
+									<span id="idnamespan">주문번호 : ${review.readcount }</span><br>
 									${review.content }
 								</div>
 							</c:when>

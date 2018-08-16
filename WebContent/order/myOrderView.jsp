@@ -10,140 +10,11 @@
 <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
 <title>Insert title here</title>
 <style>
-#order_info{
-	margin:0 auto;
-	width:700px;
-}
-.mypage table{
-	width:700px;
-	margin:0 auto;
-	text-align:left;
-	padding : 15px;
-	border-radius:10px;
-	border-collapse: collapse;
-}
-.mypage tr{
-	padding-top: 12px;
-    padding-bottom: 12px;
-}
 .mypage td{
 	padding:5px;
 }
-.mypage table td label{
-	font-weight:700;
-	font-family:"Nanum Gothic";
-	color : #43A047;
-	font-size:14px;
-}
 td, tr{
 	border: 1px solid #ddd;
-}
-.mypage button {
-	font-family:"Nanum Gothic";
-	font-weight: 700;
-	text-transform: uppercase;
-	outline: 0;
-	background: black;
-	width: 100px;
-	border: 0;
-	padding: 10px;
-	color: #FFFFFF;
-	font-size: 14px;
-	-webkit-transition: all 0.3 ease;
-	transition: all 0.3 ease;
-	cursor: pointer;
-}
-.mypage button:hover, .mypage button:active, .mypage button:focus {
-	background: #191919;
-}
-#gbutton {
-	font-family:"Nanum Gothic";
-	font-weight: 700;
-	text-transform: uppercase;
-	outline: 0;
-	width:50px;
-	background: #4CAF50;
-	border: 0;
-	padding: 3px;
-	color: #FFFFFF;
-	font-size: 14px;
-	-webkit-transition: all 0.3 ease;
-	transition: all 0.3 ease;
-	cursor: pointer;
-}
-#gbutton:hover, #gbutton:active, #gbutton:focus {
-	background: #43A047;
-}
-#wbutton{
-	font-family:"Nanum Gothic";
-	font-weight: 500;
-	text-transform: uppercase;
-	outline: 0;
-	background: #fff;
-	border: 0;
-	width:50px;
-	padding: 5px;
-	border : 1px solid #ccc;
-	border-radius : 5px;
-	color: #191919;
-	font-size: 14px;
-	-webkit-transition: all 0.3 ease;
-	transition: all 0.3 ease;
-	cursor: pointer;
-}
-#wbutton:active{
-	background: #F6F6F6;
-}
-#td_left{
-	background-color:#F6F6F6;
-	width:100px;
-}
-#order_top_menu{
-	background-color:#F6F6F6;
-	font-weight:700;
-	font-family:"Nanum Gothic";
-	color : #43A047;
-	font-size:14px;
-}
-#order_sheet{
-	text-align:right;
-}
-#td_name{
-	text-align:left;
-}
-#seldel{
-	float:left;
-}
-#paymentform{
-	width:700px;
-	margin:0 auto;
-}
-#paymentform label{
-	font-weight:700;
-	font-family:"Nanum Gothic";
-	color : #43A047;
-	font-size:15px;
-}
-#statebox{
-	width:700px;
-	height:130px;
-	margin:0 auto;
-	text-align:left;
-	padding:20px;
-	background-color:#F6F6F6;
-}
-#statebox img{
-	opacity:0.6;
-	padding:5px;
-}
-#state{
-	font-size:20px;
-	padding:0 0px 0 0;
-}
-#message{
-	height:64px;
-	text-height:64px;
-	padding:0px 0px 0 300px;
 }
 </style>
 <script>
@@ -184,7 +55,7 @@ td, tr{
 		<div id="grade"><b id="grade_deco">|</b>결제상품</div>
 	<table cellspacing="0" cellpadding="0" id="order_sheet">
 	<tr id="order_top_menu">
-		<td id="td_name">상품명</td>
+		<td id="leftalign">상품명</td>
 		<td>단가</td>
 		<td style="width:70px;">수량</td>
 		<td>총 가격</td>
@@ -193,7 +64,7 @@ td, tr{
 	</tr>
 	<c:forEach var="odtemList" items="${odtemList }" varStatus="status">
 	<tr>
-		<td id="td_name">${odtemList.item_name }</td>
+		<td id="leftalign">${odtemList.item_name }</td>
 		<td>${odtemList.price }원</td>
 		<td>${odtemList.amount }개</td>
 		<td>${odtemList.price*odtemList.amount }원</td>
@@ -209,7 +80,7 @@ td, tr{
 	</c:forEach>
 	<c:if test="${order.parcel>0 }">
 	<tr>
-		<td id="td_name">배송비</td>
+		<td id="leftalign">배송비</td>
 		<td>3000원</td>
 		<td>1개</td>
 		<td>3000원</td>
@@ -254,7 +125,7 @@ td, tr{
 	<font size="4em"><b>총 결제금액 <b id="grade_deco"><span id="allprice">${order.pay }</span></b>원</b></font></p>
 		</div>
 <br><br>
-		<button type="button" onclick="location.href='myodList.od?page=${page}'">목록</button> 
+		<button type="button" id="bbutton" onclick="location.href='myodList.od?page=${page}'">목록</button> 
 </form>	
 	</div>
 	</div>

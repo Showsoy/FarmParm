@@ -10,12 +10,6 @@
 <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
 <title>Insert title here</title>
 <style>
-table{
-	margin:0 auto;
-	border-collapse: collapse;
-    width: 80%;
-	background-color:white;
-}
 tr{
 	height:50px;
 }
@@ -40,150 +34,11 @@ dd{
 	width:150px;
 	text-align:right;
 }
-.mypage button {
-	font-family:"Nanum Gothic";
-	font-weight: 700;
-	text-transform: uppercase;
-	outline: 0;
-	background: black;
-	width: 100px;
-	border: 0;
-	padding: 10px;
-	color: #FFFFFF;
-	font-size: 14px;
-	-webkit-transition: all 0.3 ease;
-	transition: all 0.3 ease;
-	cursor: pointer;
-}
-#wbutton{
-	font-family:"Nanum Gothic";
-	font-weight: 500;
-	text-transform: uppercase;
-	outline: 0;
-	background: #fff;
-	border: 0;
-	padding: 5px;
-	border : 1px solid #ccc;
-	border-radius : 5px;
-	color: #191919;
-	font-size: 14px;
-	-webkit-transition: all 0.3 ease;
-	transition: all 0.3 ease;
-	cursor: pointer;
-}
-#wbutton:active{
-	background: #F6F6F6;
-}
-#gbutton {
-	font-family:"Nanum Gothic";
-	font-weight: 700;
-	text-transform: uppercase;
-	outline: 0;
-	background: #4CAF50;
-	width: 60px;
-	border: 0;
-	padding: 5px;
-	color: #FFFFFF;
-	font-size: 14px;
-	-webkit-transition: all 0.3 ease;
-	transition: all 0.3 ease;
-	cursor: pointer;
-}
-#gbutton:hover, #gbutton:active, #gbutton:focus {
-	background: #43A047;
-}
-#top_menu{
-	background-color:#333;
-	color:white;
-	height:40px;
-}
-#tr_total{
-	background-color:#F6F6F6;
-	height:180px;
-}
-#td_check{
-	width:50px;
-	text-align:center;
-}
-#td_info{
-	color:#5D5D5D;
-	font-size:14px;
-}
-#listmenu{
-	display:flex;
-	flex-wrap:wrap;
-	width:850px;
-	padding:0 0 5px 0;
-	margin:0 auto;
-}
-#seldel{
-	float:left;
-}
 #orderby{
-	float:left;
-	text-align:right;
-	padding : 13px 0 0 380px;
-	font-size:13px;
-}
-#orderby img{
-	width:11px;
-	heigh:11px;
-	padding:0px 0px 5px 0px;
+	padding : 13px 0 0 350px;
 }
 #orderby2{
 	font-size:13px;
-}
-#orderby2 img{
-	width:11px;
-	heigh:11px;
-	padding:0px 0px 5px 0px;
-}
-#selcategory{
-	font-weight:700;
-	color:#43A047;
-}
-#search_info{
-	padding:20px;
-	margin:0 auto;
-	width:80%;
-	background-color:#F6F6F6;
-}
-#categorybl{
-	font-family:"Nanum Gothic";
-	font-weight: 500;
-	text-transform: uppercase;
-	outline: 0;
-	background: #fff;
-	border: 0;
-	padding: 5px;
-	border : 1px solid #ccc;
-	border-radius : 5px 0px 0px 5px;
-	color: #191919;
-	font-size: 14px;
-	-webkit-transition: all 0.3 ease;
-	transition: all 0.3 ease;
-	cursor: pointer;
-}
-#categorybl:active, #categorybl:hover{
-	background: #F6F6F6;
-}
-#categorybr{
-	font-family:"Nanum Gothic";
-	font-weight: 500;
-	text-transform: uppercase;
-	outline: 0;
-	border: 0;
-	padding: 5px;
-	border : 1px solid #ccc;
-	border-radius : 0px 5px 5px 0px;
-	color: #191919;
-	font-size: 14px;
-	-webkit-transition: all 0.3 ease;
-	transition: all 0.3 ease;
-	cursor: pointer;
-}
-#categorybr:active, #categorybr:hover{
-	background: #F6F6F6;
 }
 </style>
 <script>
@@ -277,9 +132,7 @@ dd{
 	<br><br>
 	<c:choose>
 	<c:when test="${orderby==null }">
-		<table cellspacing="0" cellpadding="0">
-			<c:choose>
-				<c:when test="${salesList1!=null && pageInfo.listCount>0 }">	
+		<table class="listtable" cellspacing="0" cellpadding="0">	
 			<tr id="top_menu">
 				<td>주문번호</td>
 				<td>회원ID</td>
@@ -289,7 +142,8 @@ dd{
 				<td>결제방법</td>
 				<td>조회</td>
 			</tr>
-
+			<c:choose>
+				<c:when test="${salesList1!=null && pageInfo.listCount>0 }">
 			<c:forEach var="salesList1" items="${salesList1 }">
 			<tr>
 				<td>${salesList1.order_id }</td>
@@ -348,9 +202,7 @@ dd{
 			</span>
 			&nbsp;&nbsp;
 		</div>
-		<table cellspacing="0" cellpadding="0">
-			<c:choose>
-				<c:when test="${salesList2!=null && pageInfo.listCount>0 }">	
+		<table cellspacing="0" cellpadding="0">	
 			<tr id="top_menu">
 				<td>주문번호</td>
 				<td>상품코드</td>
@@ -361,7 +213,8 @@ dd{
 				<td>기준 매출</td>
 				<td>기준 주문</td>
 			</tr>
-
+			<c:choose>
+				<c:when test="${salesList2!=null && pageInfo.listCount>0 }">
 			<c:forEach var="salesList2" items="${salesList2 }">
 			<tr>
 				<td>${salesList2.order_id }</td>
@@ -412,7 +265,7 @@ dd{
 		</c:otherwise>
 		</c:choose>
 	<br><br><br>
-	<button type="button" onclick="location.href='adminPage.jsp'" style="width:150px;">관리자페이지</button>
+	<button type="button" id="bbutton" onclick="location.href='adminPage.jsp'" style="width:150px;">관리자페이지</button>
 	</div>
 	</form>
 </div>

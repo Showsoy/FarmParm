@@ -7,11 +7,6 @@
 <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
 <title>:::로그인 페이지:::|팜팜농원</title>
 <style>
-#logo{
-	text-align:center;
-	margin:0 auto;
-	padding:0 0 0 60px;
-}
 </style>
 </head>
 <link rel="stylesheet" type="text/css" href="../style/style2.css">

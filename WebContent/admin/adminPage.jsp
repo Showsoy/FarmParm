@@ -21,25 +21,6 @@
 <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
 <title>Insert title here</title>
 <style>
-.mypage button {
-	font-family:"Nanum Gothic";
-	font-weight: 700;
-	text-transform: uppercase;
-	outline: 0;
-	background: black;
-	width: 100px;
-	border: 0;
-	padding: 10px;
-	margin:2px;
-	color: #FFFFFF;
-	font-size: 14px;
-	-webkit-transition: all 0.3 ease;
-	transition: all 0.3 ease;
-	cursor: pointer;
-}
-.mypage button:hover, .mypage button:active, .mypage button:focus {
-	background: #191919;
-}
 </style>
 </head>
 <link rel="stylesheet" type="text/css" href="/FarmParm/style/style.css">
@@ -54,16 +35,14 @@
 	<div class="mypage">
 	<div id="admin_menu">
 	<br><br>
-		<button onclick="location.href='../memberList.us'">회원관리</button>
-
-		<button onclick="location.href='./itemSearch.jsp'">입출고등록</button><br>
-		<button onclick="location.href='./itemRegistForm.im'">상품등록</button>
-
-		<button onclick="location.href='./itemList.im'">상품목록</button><br>
-		<button onclick="location.href='./odList.od'">주문목록</button>
-		<button onclick="location.href='./salesList.od'">매출관리</button><br>
-		<button onclick="location.href='./qnaList.bo'">상품문의</button>
-		<button onclick="location.href='#'">상품발송</button>
+		<button id="bbutton" onclick="location.href='../memberList.us'">회원관리</button>
+		<button id="bbutton" onclick="location.href='./itemSearch.jsp'">입출고등록</button><br>
+		<button id="bbutton" onclick="location.href='./itemRegistForm.im'">상품등록</button>
+		<button id="bbutton" onclick="location.href='./itemList.im'">상품목록</button><br>
+		<button id="bbutton" onclick="location.href='./odList.od'">주문목록</button>
+		<button id="bbutton" onclick="location.href='./salesList.od'">매출관리</button><br>
+		<button id="bbutton" onclick="location.href='./qnaList.bo'">상품문의</button>
+		<button id="bbutton" onclick="location.href='#'">상품발송</button>
 	</div>
 </div>
 </div>

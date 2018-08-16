@@ -8,51 +8,8 @@
 <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
 <title>Insert title here</title>
 <style>
-.mypage table{
-	width:700px;
-	margin:0 auto;
-	text-align:left;
-	padding : 15px;
-	border-radius:10px;
-	border-collapse: collapse;
-}
-.mypage tr{
-	padding-top: 12px;
-    padding-bottom: 12px;
-}
-.mypage td{
-	padding:5px 5px 5px 10px;
-}
-.mypage table td label{
-	font-weight:700;
-	font-family:"Nanum Gothic";
-	color : #43A047;
-	font-size:14px;
-}
 td, tr{
 	border: 1px solid #ddd;
-}
-.mypage button {
-	font-family:"Nanum Gothic";
-	font-weight: 700;
-	text-transform: uppercase;
-	outline: 0;
-	background: black;
-	width: 100px;
-	border: 0;
-	padding: 10px;
-	color: #FFFFFF;
-	font-size: 14px;
-	-webkit-transition: all 0.3 ease;
-	transition: all 0.3 ease;
-	cursor: pointer;
-}
-.mypage button:hover, .mypage button:active, .mypage button:focus {
-	background: #191919;
-}
-#td_left{
-	background-color:#F6F6F6;
-	width:100px;
 }
 </style>
 </head>
@@ -67,7 +24,7 @@ td, tr{
 	<div class="mypage">
 	<div id="grade"><b id="grade_deco">|</b>${user.grade }</div>
 	<p id="point">사용가능 포인트 <b id="grade_deco">${user.point }</b>점</p>
-	<table cellspacing="0" cellpadding="0">
+	<table class="mytable" cellspacing="0" cellpadding="0">
 	<tr>
 		<td id="td_left"><label for="userID">아이디</label> </td>
 		<td>${user.user_id}</td>
@@ -98,12 +55,12 @@ td, tr{
 	</tr>
 </table>
 <br><br>
-			<button onclick="location.href='./pwCheckForm.us?id=${user.user_id}'">수정</button> 
+			<button id="bbutton" onclick="location.href='./pwCheckForm.us?id=${user.user_id}'">수정</button> 
 	
-			<button onclick="location.href='main.im'">홈으로</button> 
+			<button id="bbutton" onclick="location.href='main.im'">홈으로</button> 
 		
 	</div>
 </div>
- <jsp:include page="/common/footer.jsp" flush="false"/>
+<jsp:include page="/common/footer.jsp" flush="false"/>
 </body>
 </html>

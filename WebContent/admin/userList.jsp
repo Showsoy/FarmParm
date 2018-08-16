@@ -8,13 +8,6 @@
 <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
 <title>Insert title here</title>
 <style>
-
-table{
-	margin:0 auto;
-	border-collapse: collapse;
-    width: 80%;
-	background-color:white;
-}
 tr{
 	height:50px;
 }
@@ -29,77 +22,8 @@ img{
 	border: 1px solid #ddd;
 	padding : 0 0 0 2px;
 }
-input{
-	font-family:"Nanum Gothic";
-	font-weight: 700;
-	outline: 0;
-	background: white;
-	width: 100px;
-	height: 23px;
-	border: 1;
-	padding: 0px;
-	color: black;
-	font-size: 10px;
-	font-color: black;
-	-webkit-transition: all 0.3 ease;
-	transition: all 0.3 ease;
-	cursor: pointer;
-}
-input:hover, .mypage button:active, .mypage button:focus {
-	background: white;
-}
 #seldel{
 	width:320px;
-}
-#gbutton {
-	font-family:"Nanum Gothic";
-	font-weight: 700;
-	text-transform: uppercase;
-	outline: 0;
-	background: #4CAF50;
-	width: 60px;
-	border: 0;
-	padding: 5px;
-	color: #FFFFFF;
-	font-size: 14px;
-	-webkit-transition: all 0.3 ease;
-	transition: all 0.3 ease;
-	cursor: pointer;
-}
-#gbutton:hover, #gbutton:active, #gbutton:focus {
-	background: #43A047;
-}
-#wbutton{
-	font-family:"Nanum Gothic";
-	font-weight: 500;
-	text-transform: uppercase;
-	outline: 0;
-	background: #fff;
-	width: 70px;
-	border: 0;
-	padding: 5px;
-	border : 1px solid #ccc;
-	border-radius : 5px;
-	color: #191919;
-	font-size: 14px;
-	-webkit-transition: all 0.3 ease;
-	transition: all 0.3 ease;
-	cursor: pointer;
-}
-#wbutton:active{
-	background: #F6F6F6;
-}
-#top_menu{
-	background-color:#333;
-	color:white;
-	height:40px;
-}
-#td_check{
-	width:5px;
-}
-#td_info{
-	color:#5D5D5D;
-	font-size:14px;
 }
 .search{
 	font-family:"Nanum Gothic";
@@ -108,78 +32,8 @@ input:hover, .mypage button:active, .mypage button:focus {
 	margin-bottom: 5px;
 	padding: 5px;
 }
-#searchbt{
-	font-family:"Nanum Gothic";
-	width:50px;
-	color: #FFFFFF;
-	background: #4CAF50;
-	border: 0;
-}
-#searchbt:hover, #gbutton:active, #gbutton:focus {
-	background: #43A047;
-}
-#deletebt{
-	font-family:"Nanum Gothic";
-	font-weight: 500;
-	text-transform: uppercase;
-	outline: 0;
-	background: #fff;
-	width: 70px;
-	border: 0;
-	padding: 5px;
-	border : 1px solid #ccc;
-	border-radius : 5px;
-	color: #191919;
-	font-size: 13px;
-	-webkit-transition: all 0.3 ease;
-	transition: all 0.3 ease;
-	cursor: pointer;
-}
-#deletebt:active{
-	background: #F6F6F6;
-}
-
-#ckb, #allCheck{
-	width:15px;
-	margin-left:40px;
-	
-}
-#bbutton {
-	font-family:"Nanum Gothic";
-	font-weight: 700;
-	text-transform: uppercase;
-	outline: 0;
-	background: black;
-	width: 100px;
-	border: 0;
-	padding: 10px;
-	color: #FFFFFF;
-	font-size: 14px;
-	-webkit-transition: all 0.3 ease;
-	transition: all 0.3 ease;
-	cursor: pointer;
-}
-#listmenu{
-	display:flex;
-	flex-wrap:wrap;
-	width:850px;
-	padding:0 0 5px 0;
-	margin:0 auto;
-}
 #orderby{
-	float:left;
-	text-align:right;
 	padding : 10px 70px 0 90px;
-	font-size:13px;
-}
-#orderby img{
-	width:11px;
-	heigh:11px;
-	padding:0px 0px 5px 0px;
-}
-#selcategory{
-	font-weight:700;
-	color:#43A047;
 }
 #searchbar{
 	padding : 10px 0 0 0;
@@ -225,7 +79,7 @@ function goto_url(act) {
 	<form name="listForm" id="listForm">
 	<div id="listmenu">
 	<span>
-	<button type="button" id="deletebt" onclick="goto_url('memberSelectDelete.us')">선택삭제</button>
+	<button type="button" id="wbutton" onclick="goto_url('memberSelectDelete.us')">선택삭제</button>
 	</span>
 	<span id="orderby">
 		<a href="memberList.us"><img src="./images/checked.png"/><c:choose><c:when test="${category eq 'all' }">
@@ -243,10 +97,10 @@ function goto_url(act) {
 	</span>
 	<span id="searchbar">
 		<input type="text" name="search" id="search" placeholder="아이디"/>
-		<button type="button" name="searchbt" id="searchbt" onclick="goto_url('memberList.us')">검색</button>
+		<button type="button" name="searchbt" id="wbutton" onclick="goto_url('memberList.us')">검색</button>
 	</span>
 	</div>
-		<table cellspacing="0" cellpadding="0">
+		<table class="listtable" cellspacing="0" cellpadding="0">
 			<tr id="top_menu">
 				<td id="td_check">
 				<input type="checkbox" id="allCheck" name="allCheck" onClick="checkAll(this.form)"/></td>

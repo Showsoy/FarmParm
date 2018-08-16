@@ -21,12 +21,13 @@
 <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
 <title>Insert title here</title>
 <style>
-	table{
-		margin : auto;
-		width : 300px;
-		text-align : center;
-	}
-	input {
+table {
+	margin: auto;
+	width: 300px;
+	text-align: center;
+}
+
+input {
 	outline: 0;
 	background: #fff;
 	border: 0;
@@ -34,27 +35,7 @@
 	box-sizing: border-box;
 	font-size: 16px;
 	font-weight: 700;
-	text-align : center;
-}
-
-	button {
-	font-family:"Nanum Gothic";
-	font-weight: 700;
-	text-transform: uppercase;
-	outline: 0;
-	background: #4CAF50;
-	width:100%;
-	border: 0;
-	padding: 10px;
-	color: #FFFFFF;
-	font-size: 12px;
-	-webkit-transition: all 0.3 ease;
-	transition: all 0.3 ease;
-	cursor: pointer;
-}
-
-button:hover, .form button:active, .form button:focus {
-	background: #43A047;
+	text-align: center;
 }
 </style>
 </head>
@@ -91,12 +72,12 @@ function fclose(f){
 	</tr>
 	<tr>
 		<td>
-		<button type="submit">확인</button>
+		<button id="gbutton" style="width:100%;" type="submit">확인</button>
 		</td>
 	</tr>
 	<tr>
 		<td>
-		<button type="button" onclick="fclose(this)">다시선택</button>
+		<button id="gbutton" style="width:100%;" type="button" onclick="fclose(this)">다시선택</button>
 		</td>
 	</tr>
 </table>

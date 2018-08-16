@@ -7,69 +7,8 @@
 <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
 <title>Insert title here</title>
 <style>
-.mypage table{
-	width:700px;
-	margin:0 auto;
-	text-align:left;
-	padding : 15px;
-	border-radius:10px;
-	border-collapse: collapse;
-}
-.mypage tr{
-	padding-top: 12px;
-    padding-bottom: 12px;
-}
-.mypage td{
-	padding:5px 5px 5px 10px;
-}
-.mypage table td label{
-	font-weight:700;
-	font-family:"Nanum Gothic";
-	color : #43A047;
-	font-size:14px;
-}
 td, tr{
 	border: 1px solid #ddd;
-}
-.mypage button {
-	font-family:"Nanum Gothic";
-	font-weight: 700;
-	text-transform: uppercase;
-	outline: 0;
-	background: black;
-	width: 100px;
-	border: 0;
-	padding: 10px;
-	color: #FFFFFF;
-	font-size: 14px;
-	-webkit-transition: all 0.3 ease;
-	transition: all 0.3 ease;
-	cursor: pointer;
-}
-.mypage button:hover, .mypage button:active, .mypage button:focus {
-	background: #191919;
-}
-#gbutton {
-	font-family:"Nanum Gothic";
-	font-weight: 700;
-	text-transform: uppercase;
-	outline: 0;
-	background: #4CAF50;
-	width: 70px;
-	border: 0;
-	padding: 5px;
-	color: #FFFFFF;
-	font-size: 14px;
-	-webkit-transition: all 0.3 ease;
-	transition: all 0.3 ease;
-	cursor: pointer;
-}
-#gbutton:hover, #gbutton:active, #gbutton:focus {
-	background: #43A047;
-}
-#td_left{
-	background-color:#F6F6F6;
-	width:100px;
 }
 </style>
 <script>
@@ -137,7 +76,7 @@ function selCategory(sel) {
 	<hr color="#4CAF50" size="5">
 	<div class="mypage">
 	<form action="itemRegistPro.im" method="post" enctype="multipart/form-data" name="itemnew" onsubmit="return chkForm(this)">
-			<table>
+			<table class="mytable">
 				<tr>
 					<td id="td_left">
 						<label for="item_name">이름</label>
@@ -171,7 +110,7 @@ function selCategory(sel) {
 					</td>
 					<td id="codegen" colspan="2">
 						<input type="text" name="item_code" id="item_code" size="4"/>&nbsp;
-						<button type="button" name="check" id="check" onclick="window.open('./codeGen.jsp?openInit=true','','width=370, height=220')" id="gbutton">자동생성</button>
+						<button type="button" name="check" onclick="window.open('./codeGen.jsp?openInit=true','','width=370, height=220')" id="gbutton">자동생성</button>
 					</td>
 				</tr>
 				<tr>
@@ -212,9 +151,9 @@ function selCategory(sel) {
 				</tr>
 			</table>
 			<br>
-			<section id="commandCell">
-				<button type="submit">등록</button>
-				<button type="button" onclick="location.href='/FarmParm/admin/adminPage.jsp'" style="width:120px;">관리자 페이지</button>
+			<section>
+				<button id="bbutton" type="submit">등록</button>
+				<button id="bbutton" type="button" onclick="location.href='/FarmParm/admin/adminPage.jsp'" style="width:120px;">관리자 페이지</button>
 			</section>
 		</form>
 	</div>	

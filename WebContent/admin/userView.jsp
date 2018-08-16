@@ -8,71 +8,8 @@
 <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
 <title>Insert title here</title>
 <style>
-.mypage table{
-	width:700px;
-	margin:0 auto;
-	text-align:left;
-	padding : 15px;
-	border-radius:10px;
-	border-collapse: collapse;
-}
-.mypage tr{
-	padding-top: 12px;
-    padding-bottom: 12px;
-}
-.mypage td{
-	padding:5px 5px 5px 10px;
-}
-.mypage table td label{
-	font-weight:700;
-	font-family:"Nanum Gothic";
-	color : #43A047;
-	font-size:14px;
-}
 td, tr{
 	border: 1px solid #ddd;
-}
-.mypage button {
-	font-family:"Nanum Gothic";
-	font-weight: 700;
-	text-transform: uppercase;
-	outline: 0;
-	background: black;
-	width: 100px;
-	border: 0;
-	padding: 10px;
-	color: #FFFFFF;
-	font-size: 14px;
-	-webkit-transition: all 0.3 ease;
-	transition: all 0.3 ease;
-	cursor: pointer;
-}
-.mypage button:hover, .mypage button:active, .mypage button:focus {
-	background: #191919;
-}
-#td_left{
-	background-color:#F6F6F6;
-	width:100px;
-}
-#wbutton{
-	font-family:"Nanum Gothic";
-	font-weight: 500;
-	width:50px;
-	text-transform: uppercase;
-	outline: 0;
-	background: #fff;
-	border: 0;
-	padding: 4px;
-	border : 1px solid #ccc;
-	border-radius : 5px;
-	color: #191919;
-	font-size: 14px;
-	-webkit-transition: all 0.3 ease;
-	transition: all 0.3 ease;
-	cursor: pointer;
-}
-#wbutton:active, #wbutton:hover{
-	background: #F6F6F6;
 }
 #commandLine{
 	margin:0 auto;
@@ -82,8 +19,6 @@ td, tr{
 }
 #td_info{
 	text-align:center;
-	color:#5D5D5D;
-	font-size:14px;
 }
 </style>
 <script>
@@ -111,7 +46,7 @@ td, tr{
 		<button id="wbutton" onclick="location.href='./memberModAdForm.us?uid=${user.user_id}'">수정</button> 
 		<button id="wbutton" onclick="deleteCheck('${user.user_id}');">삭제</button> 
 	</div>
-	<table cellspacing="0" cellpadding="0">
+	<table class="mytable" cellspacing="0" cellpadding="0">
 	<tr>
 		<td id="td_left"><label for="userID">아이디</label> </td>
 		<td>${user.user_id}</td>

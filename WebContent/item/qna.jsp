@@ -7,32 +7,6 @@
 <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
 <title>Insert title here</title>
 <style>
-	#parent{
-		display:flex;
-		flex-wrap:wrap;
-		width:700px;
-		position:relative;
-	}
-	#parent_img{
-		display:flex;
-		flex-wrap:wrap;
-		float:left;
-		position:relative;
-		padding:10px;
-	}
-	#zoom{
-		position:absolute;
-		top:10;
-		left:10;
-	}
-	#parent_cont{
-		float:left;
-	}
-	#parent_command{
-		float:left;
-		position:absolute;
-		right:0;
-	}
 </style>
 <script>
 var count2 = 0;
@@ -61,7 +35,7 @@ var count2 = 0;
 	<hr color="#4CAF50" size="5">
 	<button type="button" id="wbutton" onclick="window.open('./item/qnaForm.bo?item_code=${item.item_code}','','width=500, height=400')">문의하기</button>
 		<table cellspacing="0" cellpadding="0" id="detail_board">
-			<tr id="top_menu" height="20px">
+			<tr id="top_menu20" height="20px">
 				<td id="td_check">번호</td>
 				<td colspan="2" width="200px" >제목</td>
 				<td width="100px">작성자</td>

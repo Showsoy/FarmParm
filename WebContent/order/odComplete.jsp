@@ -6,17 +6,6 @@
 <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
 <title>Insert title here</title>
 <style>
-table{
-	border:0;
-}
-th, td {
-    border-bottom: 1px solid #ddd;
-    height:50px;
-}
-td img{
-	height:100%;
-	border:0;
-}
 </style>
 </head>
 <link rel="stylesheet" type="text/css" href="../style/style.css">

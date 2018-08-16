@@ -8,12 +8,6 @@
 <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
 <title>Insert title here</title>
 <style>
-table{
-	margin:0 auto;
-	border-collapse: collapse;
-    width: 80%;
-	background-color:white;
-}
 tr{
 	height:100px;
 }
@@ -28,86 +22,11 @@ img{
 	border: 1px solid #ddd;
 	padding : 0 0 0 2px;
 }
-.mypage button {
-	font-family:"Nanum Gothic";
-	font-weight: 700;
-	text-transform: uppercase;
-	outline: 0;
-	background: black;
-	width: 100px;
-	border: 0;
-	padding: 10px;
-	color: #FFFFFF;
-	font-size: 14px;
-	-webkit-transition: all 0.3 ease;
-	transition: all 0.3 ease;
-	cursor: pointer;
-}
-#wbutton{
-	font-family:"Nanum Gothic";
-	font-weight: 500;
-	text-transform: uppercase;
-	outline: 0;
-	background: #fff;
-	border: 0;
-	padding: 5px;
-	border : 1px solid #ccc;
-	border-radius : 5px;
-	color: #191919;
-	font-size: 14px;
-	-webkit-transition: all 0.3 ease;
-	transition: all 0.3 ease;
-	cursor: pointer;
-}
-#wbutton:active{
-	background: #F6F6F6;
-}
-#gbutton {
-	font-family:"Nanum Gothic";
-	font-weight: 700;
-	text-transform: uppercase;
-	outline: 0;
-	background: #4CAF50;
-	width: 60px;
-	border: 0;
-	padding: 5px;
-	color: #FFFFFF;
-	font-size: 14px;
-	-webkit-transition: all 0.3 ease;
-	transition: all 0.3 ease;
-	cursor: pointer;
-}
-#gbutton:hover, #gbutton:active, #gbutton:focus {
-	background: #43A047;
-}
-#top_menu{
-	background-color:#333;
-	color:white;
-	height:40px;
-}
 #tr_total{
-	background-color:#F6F6F6;
-	height:180px;
 	text-align:right;
-}
-#td_check{
-	width:50px;
-	text-align:center;
-}
-#td_info{
-	color:#5D5D5D;
-	font-size:14px;
 }
 #seldel{
 	width:300px;
-}
-#parcel_info{
-	font-size:12px;
-	line-height:8px;
-	color:#4C4C4C;
-}
-#total{
-	color:#43A047;
 }
 </style>
 <script>
@@ -168,7 +87,7 @@ selPrice = "<%=(int)request.getAttribute("totalMoney")%>";
 	<form method="post" name="cartform">
 	<div class="mypage">
 		<p id="seldel"><button type="button" onclick="goto_url('removeCart.ct');" id="wbutton" style="width:70px;">선택삭제</button></p>
-		<table cellspacing="0" cellpadding="0">
+		<table class="listtable" cellspacing="0" cellpadding="0">
 			<tr id="top_menu">
 				<td id="td_check"><input type="checkbox" id="allCheck" name="allCheck" onClick="checkAll(this.form)" checked/></td>
 				<td colspan="2">상품명</td>
@@ -183,7 +102,7 @@ selPrice = "<%=(int)request.getAttribute("totalMoney")%>";
 				<p>&nbsp;&nbsp;&nbsp;&nbsp;
 				<a href="../uitemView.im?item_code=${cart.item_code}&page=1" style=text-decoration:none;>
 				<img src="../images/${cart.image }" width="100px" height="70px" align="center">
-				&nbsp;&nbsp;&nbsp;${cart.item_name }</p></td>
+				&nbsp;&nbsp;&nbsp;${cart.item_name }</a></p></td>
 				
 				<td>
 				<c:choose>
@@ -236,8 +155,8 @@ selPrice = "<%=(int)request.getAttribute("totalMoney")%>";
 			</c:if>
 			<tr>
 				<td colspan="6" id="td_info">
-					<button onclick="goto_url('../order/odForm.od?type=all');">전체주문</button>
-					<button onclick="goto_url('../order/odForm.od?type=sel');">선택주문</button>
+					<button id="bbutton" onclick="goto_url('../order/odForm.od?type=all');">전체주문</button>
+					<button id="bbutton" onclick="goto_url('../order/odForm.od?type=sel');">선택주문</button>
 				</td>
 			</tr>
 		</table>

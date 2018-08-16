@@ -10,104 +10,9 @@
 <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
 <title>Insert title here</title>
 <style>
-#order_info{
-	margin:0 auto;
-	width:700px;
-}
-.mypage table{
-	width:700px;
-	margin:0 auto;
-	text-align:left;
-	padding : 15px;
-	border-radius:10px;
-	border-collapse: collapse;
-}
-.mypage tr{
-	padding-top: 12px;
-    padding-bottom: 12px;
-}
-.mypage td{
-	padding:5px 5px 5px 10px;
-}
-.mypage table td label{
-	font-weight:700;
-	font-family:"Nanum Gothic";
-	color : #43A047;
-	font-size:14px;
-}
 td, tr{
 	border: 1px solid #ddd;
 }
-.mypage button {
-	font-family:"Nanum Gothic";
-	font-weight: 700;
-	text-transform: uppercase;
-	outline: 0;
-	background: black;
-	width: 100px;
-	border: 0;
-	padding: 10px;
-	color: #FFFFFF;
-	font-size: 14px;
-	-webkit-transition: all 0.3 ease;
-	transition: all 0.3 ease;
-	cursor: pointer;
-}
-.mypage button:hover, .mypage button:active, .mypage button:focus {
-	background: #191919;
-}
-#gbutton {
-	font-family:"Nanum Gothic";
-	font-weight: 700;
-	text-transform: uppercase;
-	outline: 0;
-	background: #4CAF50;
-	border: 0;
-	padding: 3px;
-	color: #FFFFFF;
-	font-size: 14px;
-	-webkit-transition: all 0.3 ease;
-	transition: all 0.3 ease;
-	cursor: pointer;
-}
-#gbutton:hover, #gbutton:active, #gbutton:focus {
-	background: #43A047;
-}
-#wbutton{
-	font-family:"Nanum Gothic";
-	font-weight: 500;
-	text-transform: uppercase;
-	outline: 0;
-	background: #fff;
-	border: 0;
-	width:50px;
-	padding: 5px;
-	border : 1px solid #ccc;
-	border-radius : 5px;
-	color: #191919;
-	font-size: 14px;
-	-webkit-transition: all 0.3 ease;
-	transition: all 0.3 ease;
-	cursor: pointer;
-}
-#wbutton:active{
-	background: #F6F6F6;
-}
-#td_left{
-	background-color:#F6F6F6;
-	width:100px;
-}
-#order_top_menu{
-	background-color:#F6F6F6;
-	text-weight:700;
-}
-#order_sheet{
-	text-align:right;
-}
-#td_name{
-	text-align:left;
-}
-
 </style>
 <script>
 	function depointf(f,v,t){
@@ -158,7 +63,7 @@ td, tr{
 		<div id="grade"><b id="grade_deco">|</b>결제상품</div>
 		<table cellspacing="0" cellpadding="0" id="order_sheet">
 	<tr id="order_top_menu">
-		<td id="td_name">상품명</td>
+		<td id="leftalign">상품명</td>
 		<td>단가</td>
 		<td>수량</td>
 		<td>총 가격</td>
@@ -166,7 +71,7 @@ td, tr{
 	</tr>
 	<c:forEach var="order" items="${orderList }" varStatus="status">
 	<tr>
-		<td id="td_name">${order.item_name }</td>
+		<td id="leftalign">${order.item_name }</td>
 		<td>${order.price }원</td>
 		<td>${order.amount }개</td>
 		<td>${order.price*order.amount }</td>
@@ -181,7 +86,7 @@ td, tr{
 	</c:forEach>
 	<c:if test="${parcel eq '3000' }">
 	<tr>
-		<td id="td_name">택배비</td>
+		<td id="leftalign">택배비</td>
 		<td>3000원</td>
 		<td>-</td>
 		<td>3000원</td>
@@ -203,7 +108,7 @@ td, tr{
 	</div>
 	<br>
 	<div id="grade"><b id="grade_deco">|</b>배송지 정보</div>
-	<table cellspacing="0" cellpadding="0">
+	<table class="mytable" cellspacing="0" cellpadding="0">
 	<tr>
 		<td id="td_left"><label for="userName">주문인</label></td>
 		<td>${user.name }</td>
@@ -223,7 +128,7 @@ td, tr{
 	<tr>
 		<td rowspan="3" id="td_left"><label for="userID">주소</label></td>
 		<td><input type="text" name="userAddr1" id="userAddr1"size="7" value="${user.postcode }"/>
-		<button type="button" onclick="sample6_execDaumPostcode()" id="gbutton">주소검색</button></td>
+		<button type="button" onclick="sample6_execDaumPostcode()" id="gbutton" style="width:70px;">주소검색</button></td>
 	</tr>
 	<tr>
 		<td>
@@ -291,9 +196,9 @@ td, tr{
 		<hr color="#4CAF50">
 		</div>
 <br><br>
-			<button type="submit">결제</button> 
+			<button id="bbutton" type="submit">결제</button> 
 	
-			<button type="button" onclick="location.href='main.im'">돌아가기</button> 
+			<button id="bbutton" type="button" onclick="location.href='main.im'">돌아가기</button> 
 </form>	
 	</div>
 	</div>
