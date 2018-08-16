@@ -44,6 +44,7 @@
   <li><a href="./itemList.im" class="dropbtn">&nbsp;&nbsp;상품목록&nbsp;&nbsp;</a></li>
   <li><a href="./odList.od" class="dropbtn">&nbsp;&nbsp;주문목록&nbsp;&nbsp;</a></li>
   <li><a href="./salesList.od" class="dropbtn">&nbsp;&nbsp;매출관리&nbsp;&nbsp;</a></li>
+  <li><a href="./qnaList.bo" class="dropbtn">&nbsp;&nbsp;상품문의&nbsp;&nbsp;</a></li>
 </ul>
 </div>
 </body>

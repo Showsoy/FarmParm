@@ -15,7 +15,7 @@
 <div class="right">
 	<c:choose>
 		<c:when test="${id == null}">
-			<a href="<%=request.getContextPath()%>/member/memberLogin.us?turn=ok">로그인</a>&nbsp;
+			<a href="javascript:void(0);" onclick="location.href='<%=request.getContextPath()%>/member/memberLogin.us?returnURI='+encodeURIComponent(location);">로그인</a>&nbsp;
 			<a href="<%=request.getContextPath()%>/member/joinForm.jsp">회원가입</a>&nbsp;
 		</c:when>
 		<c:otherwise>
@@ -26,6 +26,7 @@
 			<a href="<%=request.getContextPath()%>/order/myodList.od">주문/배송</a>&nbsp;
 
 			<a href="<%=request.getContextPath()%>/common/csList.bo">고객센터</a>&nbsp;
+			<a href="<%=request.getContextPath()%>/item/reList.bo">상품후기</a>&nbsp;
 			<a href="<%=request.getContextPath()%>/item/cartList.ct">장바구니</a>&nbsp;
 			<c:if test="${id == 'admin'}">
 				<a href="<%=request.getContextPath()%>/admin/adminPage.jsp">관리자페이지</a>&nbsp;

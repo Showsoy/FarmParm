@@ -30,6 +30,16 @@ img{
 	border: 1px solid #ddd;
 	padding : 0 0 0 2px;
 }
+dt{
+	display:inline-block;
+	width:150px;
+	text-align:left;
+}
+dd{
+	display:inline-block;
+	width:150px;
+	text-align:right;
+}
 .mypage button {
 	font-family:"Nanum Gothic";
 	font-weight: 700;
@@ -112,10 +122,18 @@ img{
 #orderby{
 	float:left;
 	text-align:right;
-	padding : 13px 0 0 350px;
+	padding : 13px 0 0 380px;
 	font-size:13px;
 }
 #orderby img{
+	width:11px;
+	heigh:11px;
+	padding:0px 0px 5px 0px;
+}
+#orderby2{
+	font-size:13px;
+}
+#orderby2 img{
 	width:11px;
 	heigh:11px;
 	padding:0px 0px 5px 0px;
@@ -129,6 +147,43 @@ img{
 	margin:0 auto;
 	width:80%;
 	background-color:#F6F6F6;
+}
+#categorybl{
+	font-family:"Nanum Gothic";
+	font-weight: 500;
+	text-transform: uppercase;
+	outline: 0;
+	background: #fff;
+	border: 0;
+	padding: 5px;
+	border : 1px solid #ccc;
+	border-radius : 5px 0px 0px 5px;
+	color: #191919;
+	font-size: 14px;
+	-webkit-transition: all 0.3 ease;
+	transition: all 0.3 ease;
+	cursor: pointer;
+}
+#categorybl:active, #categorybl:hover{
+	background: #F6F6F6;
+}
+#categorybr{
+	font-family:"Nanum Gothic";
+	font-weight: 500;
+	text-transform: uppercase;
+	outline: 0;
+	border: 0;
+	padding: 5px;
+	border : 1px solid #ccc;
+	border-radius : 0px 5px 5px 0px;
+	color: #191919;
+	font-size: 14px;
+	-webkit-transition: all 0.3 ease;
+	transition: all 0.3 ease;
+	cursor: pointer;
+}
+#categorybr:active, #categorybr:hover{
+	background: #F6F6F6;
 }
 </style>
 <script>
@@ -145,6 +200,37 @@ img{
 	<hr color="#4CAF50" size="5">
 	<form action="salesList.od?datesel=ok" method="post" name="salesList">
 	<div class="mypage">
+		<c:if test="${salesMap !=null }">
+			<div id="search_info">
+			<dl>
+				<dt><b>해당 기간 매출 A</b></dt>
+				<dd><fmt:formatNumber value="${salesMap['this_pay'] }" type="number"/>원</dd>
+			</dl>
+			<dl>
+				<dt><b>포인트 결제 B</b></dt>
+				<dd><fmt:formatNumber value="${salesMap['this_depoint'] }" type="number"/>원</dd>
+			</dl>
+			<dl>
+				<dt><b>순 이익(A-B-배송비)</b></dt>
+				<dd><fmt:formatNumber value="${salesMap['this_profit'] }" type="number"/>원</dd>
+			</dl>
+			<dl>
+				<dt><b>해당 기간 판매량</b></dt>
+				<dd><fmt:formatNumber value="${salesMap['this_sales'] }" type="number"/>개</dd>
+			</dl>
+			<c:if test="${salesMap['profit_ration']!=null }">
+				<dl>
+					<dt><b>전월 대비 순이익</b></dt>
+					<dd>${salesMap['profit_ration'] }%</dd>
+				</dl>
+				<dl>
+					<dt><b>전월 대비 판매량</b></dt>
+					<dd>${salesMap['sales_ration'] }%</dd>
+				</dl>
+			</c:if>
+			</div>
+		</c:if>
+		<br><br>
 	<div id="listmenu">
 		<jsp:useBean id="now" class="java.util.Date" />
 		<fmt:formatDate value="${now}" pattern="yyyy" var="nowYear" /> 
@@ -173,29 +259,27 @@ img{
 		   <option value="${datePattern}" <c:out value="${date2 eq datePattern ? 'selected=\"selected\"' : '' }"/>> ${datePattern}월 </option>
 		 </c:forEach>
 		</select>
-		<button type="submit" id="wbutton">조회</button>
+		<button type="submit" id="wbutton" style="width:70px;">조회</button>
 		<span id="orderby">
-			<a href="salesList.od?period=week&orderby=${orderby }"><img src="../images/checked.png"/><c:choose><c:when test="${period eq 'week' }">
+			<a href="salesList.od?period=week<c:out value="${orderby !=null ? '&orderby=' : '' }"/>${orderby }"><img src="../images/checked.png"/><c:choose><c:when test="${period eq 'week' }">
 			<span id="selcategory">일주일</span></c:when><c:otherwise> 일주일</c:otherwise></c:choose></a>
-			<a href="salesList.od?period=1month&orderby=${orderby }"><img src="../images/checked.png"/><c:choose><c:when test="${period eq '1month' }">
+			<a href="salesList.od?period=1month<c:out value="${orderby !=null ? '&orderby=' : '' }"/>${orderby }"><img src="../images/checked.png"/><c:choose><c:when test="${period eq '1month' }">
 			<span id="selcategory">한 달</span></c:when><c:otherwise> 한 달</c:otherwise></c:choose></a>
-			<a href="salesList.od?period=3month&orderby=${orderby }"><img src="../images/checked.png"/><c:choose><c:when test="${period eq '3month' }">
+			<a href="salesList.od?period=3month<c:out value="${orderby !=null ? '&orderby=' : '' }"/>${orderby }"><img src="../images/checked.png"/><c:choose><c:when test="${period eq '3month' }">
 			<span id="selcategory">3개월</span></c:when><c:otherwise> 3개월</c:otherwise></c:choose></a>
-			<a href="salesList.od?period=6month&orderby=${orderby }"><img src="../images/checked.png"/><c:choose><c:when test="${period eq '6month' }">
+			<a href="salesList.od?period=6month<c:out value="${orderby !=null ? '&orderby=' : '' }"/>${orderby }"><img src="../images/checked.png"/><c:choose><c:when test="${period eq '6month' }">
 			<span id="selcategory">6개월</span></c:when><c:otherwise> 6개월</c:otherwise></c:choose></a>
-			<a href="salesList.od?period=year&orderby=${orderby }"><img src="../images/checked.png"/><c:choose><c:when test="${period eq 'year' }">
+			<a href="salesList.od?period=year<c:out value="${orderby !=null ? '&orderby=' : '' }"/>${orderby }"><img src="../images/checked.png"/><c:choose><c:when test="${period eq 'year' }">
 			<span id="selcategory">1년</span></c:when><c:otherwise> 1년</c:otherwise></c:choose></a>
 		</span>
 	</div>
-		<c:if test="${keyword !=null }">
-			<div id="search_info">
-				해당 기간 매출 ..원
-			</div>
-		</c:if>
-		주문별
+	<button type="button" id="categorybl" style="background-color:<c:out value="${orderby==null ? '#F6F6F6' : '#fff'}"/>;" onclick="location.href='salesList.od?<c:out value="${date !=null ? 'datesel=ok&' : '' }"/>period=${period }&date=${date }'">주문별</button><button type="button" id="categorybr" style="background-color:<c:out value="${orderby!=null ? '#F6F6F6' : '#fff'}"/>;" onclick="location.href='salesList.od?<c:out value="${date !=null ? 'datesel=ok&' : '' }"/>period=${period }&date=${date }&orderby=profit'">상품별</button>
+	<br><br>
+	<c:choose>
+	<c:when test="${orderby==null }">
 		<table cellspacing="0" cellpadding="0">
 			<c:choose>
-				<c:when test="${salesList1!=null && o_pageInfo.listCount>0 }">	
+				<c:when test="${salesList1!=null && pageInfo.listCount>0 }">	
 			<tr id="top_menu">
 				<td>주문번호</td>
 				<td>회원ID</td>
@@ -210,8 +294,8 @@ img{
 			<tr>
 				<td>${salesList1.order_id }</td>
 				<td>${salesList1.user_id }</td>
-				<td>${salesList1.dati }</td>
-				<td>${salesList1.pay }</td>
+				<td><fmt:formatDate pattern="yyyy-MM-dd HH:mm:ss" value="${salesList1.dati }" /></td>
+				<td><fmt:formatNumber value="${salesList1.pay }" type="number"/>원</td>
 				<td>${salesList1.payment }</td>
 				<td>${salesList1.state }</td>
 				<td><button type="button" onclick="location.href='odView.od?order_id=${salesList1.order_id}'" id="gbutton">조회</button></td>
@@ -219,69 +303,54 @@ img{
 			</c:forEach>
 			<tr>
 				<td colspan="8" id="td_info">
-					<c:if test="${o_pageInfo.page<=1 }">
+					<c:if test="${pageInfo.page<=1 }">
 						[이전]&nbsp;
 					</c:if>
-					<c:if test="${o_pageInfo.page>1 }">
-						<c:choose>
-						<c:when test="${date!=null }">
-						<a href="salesList.od?datesel=ok&date=${date }&o_page=${o_pageInfo.page-1}&i_page=${i_page}">[이전]</a>&nbsp;
-						</c:when>
-						<c:otherwise>
-						<a href="salesList.od?period=${period }&orderby=${orderby }&o_page=${o_pageInfo.page-1}&i_page=${i_page}">[이전]</a>&nbsp;
-						</c:otherwise></c:choose>
+					<c:if test="${pageInfo.page>1 }">
+						<a href="salesList.od?<c:out value="${date !=null ? 'datesel=ok&' : '' }"/>period=${period }&date=${date }&page=${pageInfo.page-1}">[이전]</a>&nbsp;
 					</c:if>
-					
-					<c:forEach var="a" begin="${o_pageInfo.startPage }" end="${o_pageInfo.endPage }" step="1">
+
+					<c:forEach var="a" begin="${pageInfo.startPage }" end="${pageInfo.endPage }" step="1">
 						<c:choose>
-							<c:when test="${a==o_pageInfo.page }">
+							<c:when test="${a==pageInfo.page }">
 								[${a }]
 							</c:when>
 							<c:otherwise>
-								<c:choose>
-								<c:when test="${date!=null }">
-								<a href="salesList.od?datesel=ok&date=${date }&o_page=${a }&i_page=${i_page}">[${a }]</a>&nbsp;
-								</c:when>
-								<c:otherwise>
-								<a href="salesList.od?period=${period }&orderby=${orderby }&o_page=${a }&i_page=${i_page}">[${a }]</a>&nbsp;
-								</c:otherwise></c:choose>
+								<a href="salesList.od?<c:out value="${date !=null ? 'datesel=ok&' : '' }"/>period=${period }&date=${date }&page=${a }">[${a }]</a>&nbsp;
 							</c:otherwise>
 						</c:choose>
 					</c:forEach>
 					<c:choose>
-						<c:when test="${o_pageInfo.page>=o_pageInfo.maxPage }">
+						<c:when test="${pageInfo.page>=pageInfo.maxPage }">
 							[다음]
 						</c:when>
 						<c:otherwise>
-							<c:choose>
-							<c:when test="${date!=null }">
-							<a href="salesList.od?datesel=ok&date=${date }&o_page=${o_pageInfo.page+1 }&i_page=${i_page}">[다음]</a>&nbsp;
-							</c:when>
-							<c:otherwise>
-							<a href="salesList.od?period=${period }&orderby=${orderby }&o_page=${o_pageInfo.page+1 }&i_page=${i_page}">[다음]</a>
-							</c:otherwise></c:choose>
+							<a href="salesList.od?<c:out value="${date !=null ? 'datesel=ok&' : '' }"/>period=${period }&date=${date }&page=${pageInfo.page+1 }">[다음]</a>&nbsp;
 						</c:otherwise>
 					</c:choose>
 				</td>
 			</tr>
 			</c:when>
 			<c:otherwise>
-				<tr><td colspan="7">등록된 정보가 없습니다.</td></tr>
+				<tr><td colspan="8">등록된 정보가 없습니다.</td></tr>
 			</c:otherwise>
 		</c:choose>
 		</table>
-		<div id="listmenu">
-			<span id="orderby">
+		</c:when>
+		<c:otherwise>
+		<div style="width:80%;margin:0 auto;text-align:right;">
+			<span id="orderby2">
 			<a href="salesList.od?period=${period }&orderby=profit"><img src="../images/checked.png"/><c:choose><c:when test="${orderby eq 'profit' }">
 			<span id="selcategory">기준 매출</span></c:when><c:otherwise> 기준 매출</c:otherwise></c:choose></a>
-			<a href="salesList.od?period=${period }&orderby=sales"><img src="../images/checked.png"/><c:choose><c:when test="${orderby eq 'sales' }">
+			<a href="salesList.od?<c:out value="${date !=null ? 'datesel=ok&' : '' }"/>period=${period }&orderby=sales&date=${date }">
+			<img src="../images/checked.png"/><c:choose><c:when test="${orderby eq 'sales' }">
 			<span id="selcategory">기준 주문량</span></c:when><c:otherwise> 기준 주문량</c:otherwise></c:choose></a>
 			</span>
+			&nbsp;&nbsp;
 		</div>
-		상품별
 		<table cellspacing="0" cellpadding="0">
 			<c:choose>
-				<c:when test="${salesList2!=null && i_pageInfo.listCount>0 }">	
+				<c:when test="${salesList2!=null && pageInfo.listCount>0 }">	
 			<tr id="top_menu">
 				<td>주문번호</td>
 				<td>상품코드</td>
@@ -290,8 +359,7 @@ img{
 				<td>주문량</td>
 				<td>주문일시</td>
 				<td>기준 매출</td>
-				<td>기준 주문량</td>
-				<td>조회</td>
+				<td>기준 주문</td>
 			</tr>
 
 			<c:forEach var="salesList2" items="${salesList2 }">
@@ -299,70 +367,50 @@ img{
 				<td>${salesList2.order_id }</td>
 				<td>${salesList2.item_code }</td>
 				<td>${salesList2.item_name }</td>
-				<td>${salesList2.price }</td>
+				<td><fmt:formatNumber value="${salesList2.price }" type="number"/>원</td>
 				<td>${salesList2.amount }</td>
-				<td>${salesList2.dati }</td>
-				<td>${salesList2.profit }</td>
+				<td><fmt:formatDate pattern="yyyy-MM-dd HH:mm:ss" value="${salesList2.dati }" /></td>
+				<td><fmt:formatNumber value="${salesList2.profit }" type="number"/>원</td>
 				<td>${salesList2.sales }</td>
-				<td><button type="button" onclick="location.href='itemView.im?item_code=${salesList2.item_code}'" id="gbutton">조회</button></td>
 			</tr>
 			</c:forEach>
 			<tr>
-				<td colspan="9" id="td_info">
-					<c:if test="${i_pageInfo.page<=1 }">
+				<td colspan="8" id="td_info">
+					<c:if test="${pageInfo.page<=1 }">
 						[이전]&nbsp;
 					</c:if>
-					<c:if test="${i_pageInfo.page>1 }">
-						<c:choose>
-						<c:when test="${date!=null }">
-						<a href="salesList.od?datesel=ok&date=${date }&o_page=${o_page }&i_page=${i_pageInfo.page-1}">[이전]</a>&nbsp;
-						</c:when>
-						<c:otherwise>
-						<a href="salesList.od?period=${period }&orderby=${orderby }&o_page=${o_page }&i_page=${i_pageInfo.page-1}">[이전]</a>&nbsp;
-						</c:otherwise>
-						</c:choose>
+					<c:if test="${pageInfo.page>1 }">
+						<a href="salesList.od?<c:out value="${date !=null ? 'datesel=ok&' : '' }"/>period=${period }&orderby=${orderby }&date=${date }&page=${pageInfo.page-1}">[이전]</a>&nbsp;
 					</c:if>
 					
-					<c:forEach var="a" begin="${i_pageInfo.startPage }" end="${i_pageInfo.endPage }" step="1">
+					<c:forEach var="a" begin="${pageInfo.startPage }" end="${pageInfo.endPage }" step="1">
 						<c:choose>
-							<c:when test="${a==i_pageInfo.page }">
+							<c:when test="${a==pageInfo.page }">
 								[${a }]
 							</c:when>
 							<c:otherwise>
-							<c:choose>
-							<c:when test="${date!=null }">
-								<a href="salesList.od?datesel=ok&date=${date }&o_page=${o_page }&i_page=${a }">[${a }]</a>&nbsp;
-							</c:when>
-							<c:otherwise>
-								<a href="salesList.od?period=${period }&orderby=${orderby }&o_page=${o_page }&i_page=${a }">[${a }]</a>&nbsp;
-							</c:otherwise>
-							</c:choose>
+								<a href="salesList.od?<c:out value="${date !=null ? 'datesel=ok&' : '' }"/>period=${period }&orderby=${orderby }&date=${date }&page=${a }">[${a }]</a>&nbsp;
 							</c:otherwise>
 						</c:choose>
 					</c:forEach>
 					<c:choose>
-						<c:when test="${i_pageInfo.page>=i_pageInfo.maxPage }">
+						<c:when test="${pageInfo.page>=pageInfo.maxPage }">
 							[다음]
 						</c:when>
 						<c:otherwise>
-						<c:choose>
-						<c:when test="${date!=null }">
-							<a href="salesList.od?datesel=ok&date=${date }&o_page=${o_page }&i_page=${i_pageInfo.page+1}">[다음]</a>&nbsp;
-						</c:when>
-						<c:otherwise>
-							<a href="salesList.od?period=${period }&orderby=${orderby }&o_page=${o_page }&i_page=${i_pageInfo.page+1 }">[다음]</a>
-						</c:otherwise>
-						</c:choose>
+							<a href="salesList.od?<c:out value="${date !=null ? 'datesel=ok&' : '' }"/>period=${period }&orderby=${orderby }&date=${date }&page=${pageInfo.page+1 }">[다음]</a>
 						</c:otherwise>
 					</c:choose>
 				</td>
 			</tr>
 			</c:when>
 			<c:otherwise>
-				<tr><td colspan="9">등록된 정보가 없습니다.</td></tr>
+				<tr><td colspan="8">등록된 정보가 없습니다.</td></tr>
 			</c:otherwise>
 		</c:choose>
 		</table>
+		</c:otherwise>
+		</c:choose>
 	<br><br><br>
 	<button type="button" onclick="location.href='adminPage.jsp'" style="width:150px;">관리자페이지</button>
 	</div>

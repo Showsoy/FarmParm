@@ -280,3 +280,8 @@ USE `java2b`;
 alter table qna_board add qhide int default 0;
 drop view order_view;
 create view order_view as SELECT order_item.order_id AS order_id, items.item_code as item_code, items.item_name AS item_name, round(items.price*(100-items.sale)/100) AS price, order_item.amount as amount, orders.dati as dati FROM order_item, items, orders WHERE order_item.item_code = items.item_code AND orders.order_id = order_item.order_id;
+
+
+--20180816 orders 택배비--
+USE `java2b`;
+alter table orders add parcel int default 0;

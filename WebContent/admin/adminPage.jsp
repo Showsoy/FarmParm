@@ -71,6 +71,7 @@
 		<button onclick="location.href='./itemList.im'">상품목록</button><br>
 		<button onclick="location.href='./odList.od'">주문목록</button>
 		<button onclick="location.href='./salesList.od'">매출관리</button>
+		<button onclick="location.href='./qnaList.bo'">상품문의</button>
 	</div>
 </div>
 </div>

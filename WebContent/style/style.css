@@ -2,15 +2,6 @@
 body {
     font-family: Arial, Helvetica, sans-serif;
 }
-dl{
-	
-}
-dt{
-}
-dd{
-	display:inline-block;
-	text-align:left;
-}
 a{
 	text-decoration:none;
 }
@@ -331,6 +322,7 @@ footer {
 	width:200px;
 	height:100px;
 	margin:0 auto;
+	color: #fff;
 }
 #goods_container .caption h1, .prod-list .caption p {
 	color: black;

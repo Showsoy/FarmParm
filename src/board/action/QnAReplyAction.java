@@ -1,13 +1,11 @@
 package board.action;
 
 import java.io.PrintWriter;
+import java.sql.Date;
 
-import javax.servlet.ServletContext;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
-
-import com.oreilly.servlet.MultipartRequest;
-import com.oreilly.servlet.multipart.DefaultFileRenamePolicy;
+import javax.servlet.http.HttpSession;
 
 import action.Action;
 import svc.BoardService;
@@ -19,52 +17,41 @@ public class QnAReplyAction implements Action {
 	@Override
 	public ActionForward execute(HttpServletRequest request, HttpServletResponse response) throws Exception {
 		// TODO Auto-generated method stub
+		request.setCharacterEncoding("UTF-8");
+		ActionForward forward = null;
 		
-	 	ActionForward forward = null;
-	 	request.setCharacterEncoding("UTF-8");
-	    String nowPage = request.getParameter("page");
-	    String item_code = request.getParameter("item_code");
-	    String bnum = request.getParameter("re_rgroup");
-	    
-		String realFolder="";
-		String saveFolder="/images";
-		int fileSize=5*1024*1024;
-		ServletContext context = request.getServletContext();
-		realFolder=context.getRealPath(saveFolder);   		
-		MultipartRequest multi=new MultipartRequest(request,
-				realFolder,
-				fileSize,
-				"UTF-8",
-				new DefaultFileRenamePolicy());
-    
-	 	BoardBean article = new BoardBean();  		
-	 	article.setBoard_num(Integer.parseInt(bnum));
-	 	article.setSubject(multi.getParameter("qna_subject"));
-	 	article.setContent(multi.getParameter("qna_content"));
-	 	article.setCode(item_code);
-	 	article.setImg_path(multi.getFilesystemName("img_path"));
-	 	article.setRgroup(Integer.parseInt(bnum));
-	 	article.setRstep(1);
-	 	
-	 	BoardService boardService = new BoardService();
-	 	
-	 	boolean isReplySuccess = boardService.replyArticle("qna_board", article);
-	 	
-   		if(isReplySuccess){
-   			forward = new ActionForward();
-   			forward.setRedirect(true);
-   			forward.setPath("uitemView.im?page="+nowPage);
-   		}
-   		else{
-   			response.setContentType("text/html;charset=UTF-8");
-   			PrintWriter out = response.getWriter();
-   			out.println("<script>");
-   			out.println("alert('실패했습니다')");
-   			out.println("history.back()");
-   			out.println("</script>");
-   		}
-   		
-   		return forward;
+		HttpSession session = request.getSession();
+		String id = (String)session.getAttribute("id");
+		if(id==null) {
+			request.setAttribute("act", "login");
+			forward= new ActionForward("./qnareform.jsp",false);
+		}else {
+			BoardService boardService = new BoardService();
+		
+			Date date = new Date(0, 0, 0);	
+			
+			int bnum = boardService.searchBNum("qna_board", request.getParameter("item_code"));
+			BoardBean board = new BoardBean(
+					bnum,
+					request.getParameter("item_code"),
+					"admin",
+					request.getParameter("content"),
+					request.getParameter("subject"),
+					"",0,date,0,Integer.parseInt(request.getParameter("rgroup")),2);
+			boolean isWriteSuccess = boardService.replyQnA(board);
+			if(!isWriteSuccess) {
+				response.setContentType("text/html;charset=UTF-8");
+				PrintWriter out = response.getWriter();
+				out.println("<script>");
+				out.println("alert('등록실패');");
+				out.println("history.back();");
+				out.println("</script>");
+			}else {
+				request.setAttribute("act", "ok");
+				forward= new ActionForward("./qnareform.jsp",false);//리스트로 들어감
+			}
+		}
+		return forward;
 	}
 
 }

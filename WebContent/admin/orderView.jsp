@@ -203,6 +203,15 @@ function goto_url(act) {
 		<td>${point }점</td>
 	</tr>
 	</c:forEach>
+	<c:if test="${order.parcel>0 }">
+	<tr>
+		<td id="td_name">배송비</td>
+		<td>3000원</td>
+		<td>1개</td>
+		<td>3000원</td>
+		<td>-</td>
+	</tr>
+	</c:if>
 	</table>
 	<br>
 	</div>

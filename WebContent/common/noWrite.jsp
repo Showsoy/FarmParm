@@ -102,10 +102,9 @@ function doubleSubmitCheck(){
 }
 
 function chkForm(f){
-    if(!doubleSubmitCheck()){
-    	alert("중복접근!");
-    }
-
+    if(doubleSubmitCheck()) return;
+    
+	alert("등록되었습니다.");
     document.notice.submit();
 }
 </script>

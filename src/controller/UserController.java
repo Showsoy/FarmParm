@@ -55,8 +55,6 @@ protected void doProcess(HttpServletRequest request, HttpServletResponse respons
     	ActionForward forward = null;
     	Action action = null;
     	
-    	System.out.println(command);
-    	
     	if(command.equals("/memberLogin.us")){
     		forward=new ActionForward();
 			forward.setRedirect(false);
@@ -66,6 +64,7 @@ protected void doProcess(HttpServletRequest request, HttpServletResponse respons
 			forward.setRedirect(false);
 			forward.setPath("./login.jsp");
 			if(request.getParameter("turn")!=null) request.setAttribute("turn", request.getParameter("turn"));
+			if(request.getParameter("returnURI")!=null) request.setAttribute("returnURI", request.getParameter("returnURI"));
     	}else if(command.equals("/member/memberLoginAction.us")){
 			action = new MemberLoginAction();
 			try{
@@ -202,15 +201,6 @@ protected void doProcess(HttpServletRequest request, HttpServletResponse respons
 				e.printStackTrace();
 			}
     	}
-//    	else if(command.equals("/searchMemberList.us")) {
-//    		System.out.println("dd");
-//    		action = new MemberSearchAction();
-//			try{
-//				forward=action.execute(request, response);
-//			}catch(Exception e){
-//				e.printStackTrace();
-//			}
-//    	}
     	else if(command.equals("/memberSelectDelete.us")) {
     		action = new MemberSelectDeleteAction();
 			try{

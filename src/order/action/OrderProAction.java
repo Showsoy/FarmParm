@@ -50,9 +50,6 @@ public class OrderProAction implements Action {
 						Integer.parseInt(od_price[i]), Integer.parseInt(od_amount[i]), date));
 				plpoint += (int)(Integer.parseInt(od_price[i])*Integer.parseInt(od_amount[i])*0.01);
 			}
-			if(request.getParameter("parcel")!=null&&request.getParameter("parcel").equals("exist"))
-				orderList.add(new OrderViewBean(order_id, "Z000", "택배비", 3000, 1, date));
-			
 			int totalPayment = Integer.parseInt(request.getParameter("totalMoney"))-Integer.parseInt(request.getParameter("depoint"));
 			int depoint = Integer.parseInt(request.getParameter("depoint"));
 			
@@ -60,7 +57,8 @@ public class OrderProAction implements Action {
 					request.getParameter("email"),
 					request.getParameter("userAddr2")+request.getParameter("userAddr3"), 
 					request.getParameter("userAddr1"), depoint, "주문완료", totalPayment, 
-					request.getParameter("payment"), request.getParameter("receiver"));
+					request.getParameter("payment"), request.getParameter("receiver"),
+					Integer.parseInt(request.getParameter("parcel")));
 			boolean isRegistSuccess = orderService.takeOrder(order, orderList, id, depoint, plpoint);
 			if(!isRegistSuccess) {
 					response.setContentType("text/html;charset=UTF-8");
@@ -77,6 +75,7 @@ public class OrderProAction implements Action {
 					mail_content += orderList.get(i).getItem_name()+" "+orderList.get(i).getPrice()+
 							"원 X "+orderList.get(i).getAmount()+"개 <br>";
 				}
+				if(Integer.parseInt(request.getParameter("parcel"))>0) mail_content += "배송비 3000원 X 1개<br>";
 				mail_content+="총 "+request.getParameter("totalMoney")+"원<br>";
 				mail_content+="사용하신 포인트 "+request.getParameter("depoint")+"원<br>";
 				mail_content+="총 결제금액 "+totalPayment+"원<br>";

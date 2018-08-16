@@ -75,10 +75,12 @@ public class OrderFormAction implements Action {
 			for(int i=0;i<orderList.size();i++) {
 				totalMoney += orderList.get(i).getPrice()*orderList.get(i).getAmount();
 			}
+			int parcel = 0;
 			if(totalMoney<30000) {
-				request.setAttribute("parcel", "exist");
+				parcel = 3000;
 				totalMoney+=3000;
 			}
+			request.setAttribute("parcel", parcel);
 			request.setAttribute("user", user);
 			request.setAttribute("orderList", orderList);
 			request.setAttribute("totalMoney", totalMoney);

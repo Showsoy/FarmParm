@@ -11,7 +11,7 @@ import svc.BoardService;
 import vo.ActionForward;
 import vo.Util;
 
-public class QnARemoveAction1 implements Action {
+public class QnARemoveAction implements Action {
 
 	@Override
 	public ActionForward execute(HttpServletRequest request, HttpServletResponse response) throws Exception {

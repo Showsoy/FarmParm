@@ -6,6 +6,8 @@ import java.sql.Connection;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.util.ArrayList;
+import java.util.HashMap;
+import java.util.Map;
 
 import vo.OrderBean;
 import vo.OrderViewBean;
@@ -49,7 +51,7 @@ public class OrderDAO {
 	public int takeOrder(OrderBean order) {
 		int insertCount = 0;
 		PreparedStatement pstmt = null;
-		String sql = "INSERT INTO orders VALUES(?,?,now(),?,?,?,?,?,?,?,?,?)";
+		String sql = "INSERT INTO orders VALUES(?,?,now(),?,?,?,?,?,?,?,?,?,?)";
 		
 		try {
 			pstmt = conn.prepareStatement(sql);
@@ -64,6 +66,7 @@ public class OrderDAO {
 			pstmt.setInt(9, order.getPay());
 			pstmt.setString(10, order.getPayment());
 			pstmt.setString(11, order.getReceiver());
+			pstmt.setInt(12, order.getParcel());
 			
 			insertCount = pstmt.executeUpdate();
 		}catch(Exception e) {
@@ -170,9 +173,8 @@ public class OrderDAO {
 				orderList = new ArrayList<OrderBean>();
 				do {
 					orderList.add(new OrderBean(rs.getInt("order_id"),rs.getString("user_id"),rs.getTimestamp("dati"),
-							rs.getString("del_phone"), rs.getString("del_mail"),rs.getString("del_addr"),
-							rs.getString("del_postcode"), rs.getInt("depoint"),rs.getString("state"),
-							rs.getInt("pay"),rs.getString("payment"),rs.getString("receiver")));
+							"", "","","", 0,rs.getString("state"),
+							rs.getInt("pay"),rs.getString("payment"),rs.getString("receiver"),0));
 				}while(rs.next());
 			}
 		}catch(Exception e) {
@@ -199,9 +201,8 @@ public class OrderDAO {
 				orderList = new ArrayList<OrderBean>();
 				do {
 					orderList.add(new OrderBean(rs.getInt("order_id"),rs.getString("user_id"),rs.getTimestamp("dati"),
-							rs.getString("del_phone"), rs.getString("del_mail"),rs.getString("del_addr"),
-							rs.getString("del_postcode"), rs.getInt("depoint"),rs.getString("state"),
-							rs.getInt("pay"),rs.getString("payment"),rs.getString("receiver")));
+							"", "","","", 0,rs.getString("state"),
+							rs.getInt("pay"),rs.getString("payment"),rs.getString("receiver"),0));
 				}while(rs.next());
 			}
 		}catch(Exception e) {
@@ -279,7 +280,7 @@ public class OrderDAO {
 				orderList = new ArrayList<OrderBean>();
 				do {
 					orderList.add(new OrderBean(rs.getInt("order_id"),rs.getString("user_id"),rs.getTimestamp("dati"),
-							"", "","","", 0,rs.getString("state"),rs.getInt("pay"),rs.getString("payment"),""));
+							"", "","","", 0,rs.getString("state"),rs.getInt("pay"),rs.getString("payment"),"",0));
 				}while(rs.next());
 			}
 		}catch(Exception e) {
@@ -304,7 +305,7 @@ public class OrderDAO {
 				order = new OrderBean(rs.getInt("order_id"),rs.getString("user_id"),rs.getTimestamp("dati"),
 						rs.getString("del_phone"), rs.getString("del_mail"),rs.getString("del_addr"),
 						rs.getString("del_postcode"), rs.getInt("depoint"),rs.getString("state"),
-						rs.getInt("pay"),rs.getString("payment"),rs.getString("receiver"));
+						rs.getInt("pay"),rs.getString("payment"),rs.getString("receiver"),rs.getInt("parcel"));
 			}
 		}catch(Exception e) {
 			e.printStackTrace();
@@ -420,7 +421,7 @@ public class OrderDAO {
 		return listCount;
 	}
 	public int salesItemCount1(String period){
-		String sql = "SELECT count(*) FROM order_view WHERE dati >= date_add(now(), interval "+period+") AND item_code != 'Z000'";
+		String sql = "SELECT count(*) FROM order_view WHERE dati >= date_add(now(), interval "+period+")";
 		PreparedStatement pstmt = null;
 		ResultSet rs = null;
 		int listCount = 0;
@@ -472,7 +473,7 @@ public class OrderDAO {
 				salesList = new ArrayList<OrderBean>();
 				do {
 					salesList.add(new OrderBean(rs.getInt("order_id"),rs.getString("user_id"),rs.getTimestamp("dati"),
-							"", "","","", 0,rs.getString("state"),rs.getInt("pay"),rs.getString("payment"),""));
+							"", "","","", 0,rs.getString("state"),rs.getInt("pay"),rs.getString("payment"),"",0));
 				}while(rs.next());
 			}
 		}catch(Exception e) {
@@ -483,6 +484,37 @@ public class OrderDAO {
 		}
 		
 		return salesList;
+	}
+	public Map<String, Integer> calculateProfit(String period) {
+		Map<String, Integer> salesMap = new HashMap<String, Integer>();
+		PreparedStatement pstmt1 = null;
+		ResultSet rs1 = null;
+		PreparedStatement pstmt2 = null;
+		ResultSet rs2 = null;
+		String sql1 = "SELECT sum(pay), sum(depoint), sum(parcel) FROM orders WHERE dati >= date_add(now(), interval "+period+")";
+		String sql2 = "SELECT count(*) FROM order_view WHERE dati >= date_add(now(), interval "+period+")";
+		try {
+			pstmt1 = conn.prepareStatement(sql1);
+			rs1 = pstmt1.executeQuery();
+			if(rs1.next()) {
+				salesMap.put("this_profit", rs1.getInt(1)-rs1.getInt(3));
+				salesMap.put("this_depoint", rs1.getInt(2));
+				salesMap.put("this_pay", rs1.getInt(1)+rs1.getInt(2));
+			}
+			
+			pstmt2 = conn.prepareStatement(sql2);
+			rs2 = pstmt2.executeQuery();
+			if(rs2.next()) salesMap.put("this_sales", rs2.getInt(1));
+		}catch(Exception e) {
+			e.printStackTrace();
+		}finally {
+			if(rs2!=null) close(rs2);
+			if(pstmt2!=null) close(pstmt2);
+			if(rs1!=null) close(rs1);
+			if(pstmt1!=null) close(pstmt1);
+		}
+		
+		return salesMap;
 	}
 	public ArrayList<OrderBean> salesOrderList2(String date, int page){
 		ArrayList<OrderBean> salesList = null;
@@ -501,7 +533,7 @@ public class OrderDAO {
 				salesList = new ArrayList<OrderBean>();
 				do {
 					salesList.add(new OrderBean(rs.getInt("order_id"),rs.getString("user_id"),rs.getTimestamp("dati"),
-							"", "","","", 0,rs.getString("state"),rs.getInt("pay"),rs.getString("payment"),""));
+							"", "","","", 0,rs.getString("state"),rs.getInt("pay"),rs.getString("payment"),"",0));
 				}while(rs.next());
 			}
 		}catch(Exception e) {
@@ -515,7 +547,10 @@ public class OrderDAO {
 	}
 	public ArrayList<OrderViewBean> salesItemList1(String period, String order, int page){
 		ArrayList<OrderViewBean> orderList = null;
-		String sql = "SELECT order_id, item_code, item_name, price, amount, dati, (select sum(price*amount) from order_view b where a.item_code=b.item_code group by item_code) as profit, (select sum(amount) from order_view c where a.item_code=c.item_code group by item_code) as sales FROM order_view a WHERE dati >= date_add(now(), interval "+period+") AND item_code != 'Z000' ORDER BY "+order+" DESC LIMIT ?,10";
+		String sql = "SELECT order_id, item_code, item_name, price, amount, dati, "
+				+ "(select sum(price*amount) from order_view b where dati >= date_add(now(), interval "+period+") and a.item_code=b.item_code group by item_code) as profit, "
+				+ "(select sum(amount) from order_view c where dati >= date_add(now(), interval "+period+") and a.item_code=c.item_code group by item_code) as sales "
+				+ "FROM order_view a WHERE dati >= date_add(now(), interval "+period+") ORDER BY "+order+" DESC LIMIT ?,10";
 		PreparedStatement pstmt = null;
 		ResultSet rs = null;
 		int startrow = (page-1)*10;
@@ -543,7 +578,10 @@ public class OrderDAO {
 	}
 	public ArrayList<OrderViewBean> salesItemList2(String date, String order, int page){
 		ArrayList<OrderViewBean> orderList = null;
-		String sql = "select order_id, item_code, item_name, price, amount, dati, (select sum(price*amount) from order_view b where a.item_code=b.item_code group by item_code) as profit, (select sum(amount) from order_view c where a.item_code=c.item_code group by item_code) as sales from order_view a where dati BETWEEN str_to_date('"+date+"','%Y-%m-%d') AND date_add(str_to_date('"+date+"', '%Y-%m-%d'), interval 1 month) ORDER BY "+order+" DESC LIMIT ?,10";
+		String sql = "select order_id, item_code, item_name, price, amount, dati, "
+				+ "(select sum(price*amount) from order_view b where dati BETWEEN str_to_date('"+date+"','%Y-%m-%d') AND date_add(str_to_date('"+date+"', '%Y-%m-%d'), interval 1 month) and a.item_code=b.item_code group by item_code) as profit, "
+				+ "(select sum(amount) from order_view c where dati BETWEEN str_to_date('"+date+"','%Y-%m-%d') AND date_add(str_to_date('"+date+"', '%Y-%m-%d'), interval 1 month) and a.item_code=c.item_code group by item_code) as sales "
+				+ "from order_view a where dati BETWEEN str_to_date('"+date+"','%Y-%m-%d') AND date_add(str_to_date('"+date+"', '%Y-%m-%d'), interval 1 month) ORDER BY "+order+" DESC LIMIT ?,10";
 		PreparedStatement pstmt = null;
 		ResultSet rs = null;
 		int startrow = (page-1)*10;
@@ -568,5 +606,58 @@ public class OrderDAO {
 		}
 		
 		return orderList;
+	}
+	public Map<String, Integer> thisMonthSales(String date){
+		Map<String, Integer> salesMap = new HashMap<String, Integer>(); 
+		PreparedStatement pstmt1 = null;PreparedStatement pstmt2 = null;
+		PreparedStatement pstmt3 = null;PreparedStatement pstmt4 = null;
+		ResultSet rs1 = null;ResultSet rs2 = null;ResultSet rs3 = null;ResultSet rs4 = null;
+		String sql1 = "select sum(pay), sum(depoint), sum(parcel) from orders where dati BETWEEN str_to_date('"+date+"','%Y-%m-%d') AND date_add(str_to_date('"+date+"', '%Y-%m-%d'), interval 1 month)";
+		String sql2 = "select count(*) from order_view a where dati BETWEEN str_to_date('"+date+"','%Y-%m-%d') AND date_add(str_to_date('"+date+"', '%Y-%m-%d'), interval 1 month)";
+		String sql3 = "select sum(pay)-sum(parcel) from orders where dati BETWEEN date_add(str_to_date('"+date+"', '%Y-%m-%d'), interval -1 month) AND date_add(str_to_date('"+date+"','%Y-%m-%d'), interval -1 day)";
+		String sql4 = "select count(*) from order_view a where dati BETWEEN date_add(str_to_date('"+date+"', '%Y-%m-%d'), interval -1 month) AND date_add(str_to_date('"+date+"','%Y-%m-%d'), interval -1 day)";
+		try {
+			pstmt1 = conn.prepareStatement(sql1);
+			rs1 = pstmt1.executeQuery();
+			if(rs1.next()) {
+				salesMap.put("this_profit", rs1.getInt(1)-rs1.getInt(3));//(총 금액 - 포인트 결제 (결제금액)) - 택배비 = 순이익
+				salesMap.put("this_depoint", rs1.getInt(2));
+				salesMap.put("this_pay", rs1.getInt(1)+rs1.getInt(2)); //결제금액+포인트결제 = 총 금액
+			}
+			
+			pstmt2 = conn.prepareStatement(sql2);
+			rs2 = pstmt2.executeQuery();
+			if(rs2.next()) salesMap.put("this_sales", rs2.getInt(1));
+			
+			pstmt3 = conn.prepareStatement(sql3);
+			rs3 = pstmt3.executeQuery();
+			if(rs3.next()) {
+				int temp = rs3.getInt(1)==0||salesMap.get("this_profit")==0 ? 
+						salesMap.get("this_profit")-rs3.getInt(1) : (int)(((double)salesMap.get("this_profit")/rs3.getInt(1)-1.0)*100);
+				salesMap.put("profit_ration", temp);
+			}
+			
+			pstmt4 = conn.prepareStatement(sql4);
+			rs4 = pstmt4.executeQuery();
+			if(rs4.next()) {
+				int temp = rs4.getInt(1)==0||salesMap.get("this_sales")==0 ? 
+						salesMap.get("this_sales")-rs4.getInt(1) : (int)(((double)salesMap.get("this_sales")/rs4.getInt(1)-1.0)*100);
+				salesMap.put("sales_ration", temp);
+			}
+			
+		}catch(Exception e) {
+			e.printStackTrace();
+		}finally {
+			if(rs4!=null) close(rs4);
+			if(pstmt4!=null) close(pstmt4);
+			if(rs3!=null) close(rs3);
+			if(pstmt3!=null) close(pstmt3);
+			if(rs2!=null) close(rs2);
+			if(pstmt2!=null) close(pstmt2);
+			if(rs1!=null) close(rs1);
+			if(pstmt1!=null) close(pstmt1);
+		}
+		
+		return salesMap;
 	}
 }

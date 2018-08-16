@@ -7,6 +7,7 @@ import static db.JdbcUtil.rollback;
 
 import java.sql.Connection;
 import java.util.ArrayList;
+import java.util.Map;
 import java.util.Properties;
 
 import javax.mail.Address;
@@ -264,6 +265,15 @@ public class OrderService {
 		close(conn);
 		return orderList;
 	}
+	public Map<String, Integer> calculateProfit(String period) {
+		OrderDAO orderDAO = OrderDAO.getInstance();
+		Connection conn = getConnection();
+		orderDAO.setConnection(conn);
+		Map<String, Integer> salesMap = orderDAO.calculateProfit(period);
+		
+		close(conn);
+		return salesMap;
+	}
 	public ArrayList<OrderBean> salesOrderList2(String date, int page) {
 		OrderDAO orderDAO = OrderDAO.getInstance();
 		Connection conn = getConnection();
@@ -290,5 +300,14 @@ public class OrderService {
 		
 		close(conn);
 		return orderList;
+	}
+	public Map<String, Integer> thisMonthSales(String date) {
+		OrderDAO orderDAO = OrderDAO.getInstance();
+		Connection conn = getConnection();
+		orderDAO.setConnection(conn);
+		Map<String, Integer> salesMap = orderDAO.thisMonthSales(date);
+		
+		close(conn);
+		return salesMap;
 	}
 }

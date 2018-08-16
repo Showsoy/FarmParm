@@ -30,7 +30,7 @@ import item.action.CartRemoveAction;
 import item.action.MainItemListAction;
 import item.action.NewItemListAction;
 import item.action.UserItemListAction;
-import item.action.UserItemViewAction1;
+import item.action.UserItemViewAction;
 import vo.ActionForward;
 
 /**
@@ -56,8 +56,6 @@ protected void doProcess(HttpServletRequest request, HttpServletResponse respons
     	String[] commands;
 		commands = command.split("/");
 		command = "/"+commands[commands.length-1];
-		
-		System.out.println(command + " :command");
     	
     	ActionForward forward = null;
     	Action action = null;
@@ -159,7 +157,7 @@ protected void doProcess(HttpServletRequest request, HttpServletResponse respons
     			e.printStackTrace();
     		}
     	}else if(command.equals("/uitemView.im")) {
-    		action = new UserItemViewAction1();
+    		action = new UserItemViewAction();
     		try {
     			forward = action.execute(request, response);
     		}catch(Exception e) {

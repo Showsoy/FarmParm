@@ -14,7 +14,7 @@ table{
 	background-color:white;
 }
 tr{
-	height:50px;
+	height:40px;
 }
 tr:nth-child(even) {background-color: #f2f2f2;}
 td{
@@ -24,6 +24,8 @@ td p{
 	text-height:100%;
 	float:left;
 	padding: 0 0 0 10px;
+	border:0;
+	margin:0;
 }
 a{
 	text-decoration:none;
@@ -34,7 +36,7 @@ a:hover{
 #top_menu{
 	background-color:#333;
 	color:white;
-	height:40px;
+	height:35px;
 }
 #td_check{
 	width:50px;

@@ -137,7 +137,7 @@ td, tr{
 
 	function chkForm(f){
 	    if(!doubleSubmitCheck()){
-	    	alert("중복접근!");
+	    	alert("주문완료");
 	    }
 
 	    document.orderform.submit();
@@ -171,15 +171,15 @@ td, tr{
 		<td>${order.amount }개</td>
 		<td>${order.price*order.amount }</td>
 		<fmt:parseNumber var="point" value="${(order.price*order.amount) div 100 }" integerOnly="true"/>
-		<td>${point }점</td>
+		<td>${point }점
 		<input type="hidden" id="od_item_code" name="od_item_code" value="${order.item_code }">
 		<input type="hidden" id="od_item_name" name="od_item_name" value="${order.item_name }">
 		<input type="hidden" id="od_price" name="od_price" value="${order.price }">
 		<input type="hidden" id="od_amount" name="od_amount" value="${order.amount }">
+		</td>
 	</tr>
 	</c:forEach>
-	<c:if test="${parcel eq 'exist' }">
-	<input type="hidden" id="parcel" name="parcel" value="exist"/>
+	<c:if test="${parcel eq '3000' }">
 	<tr>
 		<td id="td_name">택배비</td>
 		<td>3000원</td>
@@ -189,6 +189,7 @@ td, tr{
 	</tr>
 	</c:if>
 	</table>
+	<input type="hidden" id="parcel" name="parcel" value="${parcel }"/>
 	<br>
 	<div id="grade"><b id="grade_deco">|</b>포인트 사용</div>
 	<div id="point" style="background-color:#F6FFCC;padding:10px;">

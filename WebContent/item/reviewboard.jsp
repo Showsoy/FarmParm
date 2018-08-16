@@ -87,22 +87,22 @@ img{
 <body>
 <jsp:include page="/common/top_menu.jsp" flush="false"/>
 <div class="pageform">
-	<h3>&nbsp;&nbsp;고객센터</h3>
+	<h3>&nbsp;&nbsp;상품후기</h3>
 	<hr color="#4CAF50" size="5">
 	<div class="mypage">
 		<c:if test="${keyword !=null }">
 			<div id="search_info">
-				"${keyword }" 검색결과... <a href="csList.bo">전체보기</a>
+				"${keyword }" 검색결과... <a href="reList.bo">전체보기</a>
 			</div>
 		</c:if>
 		<br>
 		<table cellspacing="0" cellpadding="0">
 			<tr id="top_menu">
 				<td id="td_check">번호</td>
+				<td style="width:150px;">상품</td>
 				<td colspan="2" style="width:200px;">제목</td>
-				<td style="width:150px;">작성자</td>
+				<td style="width:100px;">작성자</td>
 				<td style="width:150px;">작성일</td>
-				<td style="width:100px;">답변</td>
 			</tr>
 			<c:choose>
 				<c:when test="${pageInfo.listCount>0 }">	
@@ -111,20 +111,15 @@ img{
 					<tr>
 						<td>${num }</td>
 						<c:set var="num" value="${num-1 }"/>
+						<td>${board.code }</td>
 						<td colspan="2">
-							<p><c:if test="${board.code eq 'HIDE' }">
-								<img src="../images/lock.png"></c:if>
+							<p>
 							<a href="csView.bo?bnum=${board.board_num }&page=${pageInfo.page}">
 							${board.subject }
 							</a></p>
 						</td>
 						<td>${board.user_id }***</td>
 						<td>${board.date }</td>
-						<td>
-							<c:if test="${board.has_re == 1 }">
-								완료
-							</c:if>
-						</td>
 					</tr>
 					</c:forEach>
 			<tr>
@@ -133,7 +128,7 @@ img{
 						[이전]&nbsp;
 					</c:if>
 					<c:if test="${pageInfo.page>1 }">
-						<a href="csList.bo?page=${pageInfo.page-1}">[이전]</a>&nbsp;
+						<a href="reList.bo?page=${pageInfo.page-1}">[이전]</a>&nbsp;
 					</c:if>
 					
 					<c:forEach var="a" begin="${pageInfo.startPage }" end="${pageInfo.endPage }" step="1">
@@ -142,7 +137,7 @@ img{
 								[${a }]
 							</c:when>
 							<c:otherwise>
-								<a href="csList.bo?page=${a }">[${a }]</a>&nbsp;
+								<a href="reList.bo?page=${a }">[${a }]</a>&nbsp;
 							</c:otherwise>
 						</c:choose>
 					</c:forEach>
@@ -151,7 +146,7 @@ img{
 							[다음]
 						</c:when>
 						<c:otherwise>
-							<a href="csList.bo?page=${pageInfo.page+1 }">[다음]</a>
+							<a href="reList.bo?page=${pageInfo.page+1 }">[다음]</a>
 						</c:otherwise>
 					</c:choose>
 				</td>
@@ -164,10 +159,9 @@ img{
 		</table>
 		<br>
 		<section id="commandCell">
-			<form action="csList.bo" name="csearch" method="post">
+			<form action="reList.bo" name="research" method="post">
 				<input type="text" id="keyword" name="keyword" size="20"/>
 				<button type="submit" id="wbutton">검색</button>
-				<button type="button" onclick="location.href='csWrite.jsp'" id="wbutton">글쓰기</button>
 			</form>
 			
 		</section>

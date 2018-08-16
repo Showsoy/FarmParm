@@ -26,7 +26,7 @@ public class NoticeViewAction implements Action{
 		BoardService boardService = new BoardService();
 		BoardBean board = boardService.selectNotice(board_num);
 		request.setAttribute("board", board);
-		if (id!=null&&!id.equals("admin")) {
+		if (id!=null&&id.equals("admin")) {
 			
 		}else {
 			boardService.updateReadCount(board_num);

@@ -18,6 +18,7 @@ public class MemberLoginAction implements Action{
 		UserBean users = new UserBean();
 		String id = request.getParameter("userID");
 		String turn = request.getParameter("turn");
+		String returnURI = request.getParameter("returnURI");
 		UserService userService = new UserService();
 
 		String salt = userService.salt(id);
@@ -35,6 +36,12 @@ public class MemberLoginAction implements Action{
    		   		PrintWriter out=response.getWriter();
    		   		out.println("<script>");
    		   		out.println("history.go(-2);");
+   		   		out.println("</script>");
+   			}else if(returnURI!=null) {
+   				response.setContentType("text/html;charset=utf-8");
+   		   		PrintWriter out=response.getWriter();
+   		   		out.println("<script>");
+   		   		out.println("location.href='"+returnURI+"';");
    		   		out.println("</script>");
    			}else {
 		   	    forward = new ActionForward();

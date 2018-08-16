@@ -9,27 +9,26 @@
 <title>Insert title here</title>
 <meta name="viewport" content="width=device-width, initial-scale=1">
 <style>
-#mainicon1{
-	width:170px;height:170px;
-	cursor:pointer;
-	background-image:url(./images/mainicon1.png);
-	background-size:96%;
-	border:0;
-	margin-left:200px;
+#mainicon{
+	position: relative;
+	overflow: hidden;
+	z-index:5;
 }
-#mainicon2{
-	width:170px;height:170px;
-	cursor:pointer;
-	background-image:url(./images/mainicon2.png);
-	background-size:96%;
-	border:0;
-	margin-left:200px;
+#mainicon a {
+	position: absolute;
+	top:0px;
+	right:50px;
+	margin:0 auto;
+	opacity:0.5;
+	z-index:10;
 }
-#mainicon1:hover, #mainicon2:hover{
-	background-image:url(./images/mainicon3.png);
-	background-size:96%;
-	border:0;
+#mainicon img {
+	width:110px;
+	height:110px;
 }
+#mainicon:hover #mainicon a{
+	opacity: 0.8;
+} 
 </style>
 </head>
 <link rel="stylesheet" type="text/css" href="style/style.css">
@@ -61,23 +60,39 @@ function carousel() {
 </script>
 <br><br>
 <!-- 베스트 상품 리스트 -->
-<section class="w3-container w3-center" style="max-width:500px;">
+<section class="w3-container w3-center" id ="mainicon" style="max-width:500px;">
 	<h2 class="w3-wide">BEST</h2>
   	<p class="w3-opacity"><i>가장 사랑받은 제품들</i></p>
+  	<a href="./bestlist.im"><img src="./images/mainicon3.png"></a>
 </section>
 
 	<div id="container">
 		<ul class="prod-list" align="center">
 		<c:forEach var="best" items="${bestList }">
+		<c:set var="price" value="${best.price }"/>
+		<c:set var="sale" value="${best.sale }"/>
+		<%
+		int price = (int)pageContext.getAttribute("price");
+		int sale = (int)pageContext.getAttribute("sale");
+		double saled = 1-(double)sale/100;
+		int uprice = (int)(price*saled);
+		pageContext.setAttribute("uprice", uprice);
+		%>
 			<li><img src="images/${best.img_path }" alt="${best.item_name }">
 			<p>${best.item_name }</p>
 				<div class="caption">
-					<h4><fmt:formatNumber value="${best.price }" type="currency"/></h4>
+					<h4><fmt:formatNumber value="${uprice }" type="currency"/></h4>
 					<p>&nbsp;&nbsp;&nbsp;
 						<a href="./uitemView.im?item_code=${best.item_code }"><img src="./images/zoom-in.png" style="width:24px;height:24px;border:0;"></a>
 						&nbsp;&nbsp;
+						<c:choose>
+						<c:when test="${best.stock>0 }">
 						<a href="./item/addCart.ct?item_code=${best.item_code }"><img src="./images/shopping-cart.png" style="width:24px;height:24px;border:0;"></a>
-
+						</c:when>
+						<c:otherwise>
+							매진!
+						</c:otherwise>
+						</c:choose>
 					</p>
 				</div> 
 			</li>
@@ -87,23 +102,38 @@ function carousel() {
 
 
 	<!-- 신메뉴 리스트 -->
-<section class="w3-container w3-center" style="max-width:500px;">
+<section class="w3-container w3-center" id ="mainicon" style="max-width:500px;">
  	<h2 class="w3-wide">NEW</h2>
   	<p class="w3-opacity"><i>야심찬 새 상품</i></p>
+  	<a href="./newlist.im"><img src="./images/mainicon3.png"></a>
 </section>
 <div id="container">
 		<ul class="prod-list" align="center">
 			<c:forEach var="newList" items="${newList }">
+			<c:set var="price" value="${newList.price }"/>
+			<c:set var="sale" value="${newList.sale }"/>
+			<%
+			int price = (int)pageContext.getAttribute("price");
+			int sale = (int)pageContext.getAttribute("sale");
+			double saled = 1-(double)sale/100;
+			int uprice = (int)(price*saled);
+			pageContext.setAttribute("uprice", uprice);
+			%>
 			<li><img src="images/${newList.img_path }" alt="${newList.item_name }">
 			<p>${newList.item_name }</p>
 				<div class="caption">
 
-					<h4><fmt:formatNumber value="${newList.price }" type="currency"/></h4>
+					<h4><fmt:formatNumber value="${uprice }" type="currency"/></h4>
 					<p>&nbsp;&nbsp;&nbsp;
 						<a href="./uitemView.im?item_code=${newList.item_code }"><img src="./images/zoom-in.png" style="width:24px;height:24px;border:0;"></a>
 						&nbsp;&nbsp;
-						<a href="./item/addCart.ct?item_code=${newList.item_code }"><img src="./images/shopping-cart.png" style="width:24px;height:24px;border:0;"></a>
-
+						<c:choose><c:when test="${newList.stock>0 }">
+							<a href="./item/addCart.ct?item_code=${newList.item_code }"><img src="./images/shopping-cart.png" style="width:24px;height:24px;border:0;"></a>
+						</c:when>
+						<c:otherwise>
+							매진!
+						</c:otherwise>
+						</c:choose>
 					</p>
 				</div> 
 			</li>

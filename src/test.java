@@ -16,6 +16,9 @@ public class test {
 		String date1 = allDate.substring(0, 4);
 		String date2 = allDate.substring(5, 7);
 		System.out.println(date1+","+date2);
+		
+		double temp = (double)110/100-1;
+		System.out.println((int)(temp*100));
 	}
 	
 

@@ -17,7 +17,7 @@ import vo.ItemBean;
 import vo.PageInfo;
 
 
-public class UserItemViewAction1 implements action.Action{
+public class UserItemViewAction implements action.Action{
 
 
 	@Override

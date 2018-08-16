@@ -112,11 +112,29 @@ public class BoardService {
 		close(conn);
 		return articleList;
 	}
+	public ArrayList<BoardBean> selectReviewList(int page) {
+		BoardDAO boardDAO = BoardDAO.getInstance();
+		Connection conn = getConnection();
+		boardDAO.setConnection(conn);
+		ArrayList<BoardBean> articleList = boardDAO.selectReviewList(page);
+		
+		close(conn);
+		return articleList;
+	}
 	public ArrayList<BoardBean> selectQnAList(int page, String item_code, String user_id) {
 		BoardDAO boardDAO = BoardDAO.getInstance();
 		Connection conn = getConnection();
 		boardDAO.setConnection(conn);
 		ArrayList<BoardBean> articleList = boardDAO.selectQnAList(page, item_code, user_id);
+		
+		close(conn);
+		return articleList;
+	}
+	public ArrayList<BoardBean> selectQnAList(int page) {
+		BoardDAO boardDAO = BoardDAO.getInstance();
+		Connection conn = getConnection();
+		boardDAO.setConnection(conn);
+		ArrayList<BoardBean> articleList = boardDAO.selectQnAList(page);
 		
 		close(conn);
 		return articleList;
@@ -139,11 +157,11 @@ public class BoardService {
 		close(conn);
 		return board;
 	}
-	public BoardBean selectArticle(String bName, int board_num) {
+	public BoardBean selectArticle(String bName, String item_code, int board_num) {
 		BoardDAO boardDAO = BoardDAO.getInstance();
 		Connection conn = getConnection();
 		boardDAO.setConnection(conn);
-		BoardBean board = boardDAO.selectArticle(bName, board_num);
+		BoardBean board = boardDAO.selectArticle(bName, item_code, board_num);
 		
 		close(conn);
 		return board;
@@ -190,82 +208,6 @@ public class BoardService {
 		
 		close(conn);
 		return isWriteSuccess;
-	}
-	// 상품문의 글 리스트 개수
-	public int qnaListCount() throws Exception{
-		// TODO Auto-generated method stub
-		
-		int listCount = 0;
-		Connection con = getConnection();
-		BoardDAO boardDAO = BoardDAO.getInstance();
-		boardDAO.setConnection(con);
-		
-		listCount = boardDAO.qnaListCount();
-		close(con);
-		
-		return listCount;
-		
-	}
-	// qna 답변삭제
-	public boolean deleteQnaReplyArticle(String bnum) {
-		boolean deleteResult = false;
-		Connection con = getConnection();
-		BoardDAO boardDAO = BoardDAO.getInstance();
-		boardDAO.setConnection(con);
-		int deleteCount = boardDAO.deleteQnaReplyArticle(bnum);
-		if(deleteCount > 0){
-			commit(con);
-			deleteResult = true;
-		}
-		else{
-			rollback(con);
-		}
-		close(con);
-		return deleteResult;
-	}
-	// qna 답변삭제 후 원글 has_re 0으로 되돌리기
-	public int resetQnaReplyArticle(String rgroup) {
-		BoardDAO boardDAO = BoardDAO.getInstance();
-		Connection conn = getConnection();
-		boardDAO.setConnection(conn);
-		int updateCount = boardDAO.resetQnaReplyArticle(rgroup);
-		
-		if(updateCount>0) {
-			commit(conn);
-		}else {
-			rollback(conn);
-		}
-		close(conn);
-		return updateCount;
-	}
-	
-	// qna 원글삭제
-		public boolean deleteQnaArticle(String rgroup) {
-			boolean deleteResult = false;
-			Connection con = getConnection();
-			BoardDAO boardDAO = BoardDAO.getInstance();
-			boardDAO.setConnection(con);
-			int deleteCount = boardDAO.deleteQnaArticle(rgroup);
-			if(deleteCount > 0){
-				commit(con);
-				deleteResult = true;
-			}
-			else{
-				rollback(con);
-			}
-			close(con);
-			return deleteResult;
-		}
-	
-	
-	// 상품문의 글 리스트 불러오기
-	public ArrayList<BoardBean> qna_list(int page, int limit) throws Exception{
-		Connection con = getConnection();
-		BoardDAO boardDAO = BoardDAO.getInstance();
-		boardDAO.setConnection(con);
-		ArrayList<BoardBean> userList = boardDAO.qna_list(page,limit);
-		close(con);
-		return userList;
 	}
 	public boolean testReviewBoard(String item_code, String id, int order_id) {
 		BoardDAO boardDAO = BoardDAO.getInstance();
@@ -329,23 +271,6 @@ public class BoardService {
 		close(conn);
 		return isWriteSuccess;
 	}
-	public boolean writeArticle1(String id, BoardBean board) {
-		BoardDAO boardDAO = BoardDAO.getInstance();
-		Connection conn = getConnection();
-		boardDAO.setConnection(conn);
-		boolean isWriteSuccess = false;
-		int insertCount = boardDAO.writeArticle1(id, board);
-		
-		if(insertCount>0) {
-			commit(conn);
-			isWriteSuccess = true;
-		}else {
-			rollback(conn);
-		}
-		
-		close(conn);
-		return isWriteSuccess;
-	}
 	public int searchBNum(String bName) {
 		BoardDAO boardDAO = BoardDAO.getInstance();
 		Connection conn = getConnection();
@@ -384,24 +309,6 @@ public class BoardService {
 		boardDAO.setConnection(conn);
 		boolean isReplySuccess = false;
 		int insertCount = boardDAO.replyCsBoard(board);
-		
-		if(insertCount>0) {
-			commit(conn);
-			isReplySuccess = true;
-		}else {
-			rollback(conn);
-		}
-		
-		close(conn);
-		return isReplySuccess;
-	}
-	public boolean replyArticle(String bName, BoardBean board) {
-		BoardDAO boardDAO = BoardDAO.getInstance();
-		Connection conn = getConnection();
-		boardDAO.setConnection(conn);
-		boolean isReplySuccess = false;
-		int insertCount = boardDAO.replyArticle(bName, board);
-		
 		
 		if(insertCount>0) {
 			commit(conn);

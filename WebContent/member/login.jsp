@@ -39,6 +39,9 @@ function chkForm(f){
 				<c:if test="${turn eq 'ok' }">
 					<input type="hidden" id="turn" name="turn" value="ok">
 				</c:if>
+				<c:if test="${returnURI!=null }">
+					<input type="hidden" id="returnURI" name="returnURI" value="${returnURI }">
+				</c:if>
 				<input type="text" id="userID" name="userID" placeholder="아이디" maxlength="20" class="input100"/> 
 				<input type="password" name="userPass" id="userPass" placeholder="비밀번호" class="input100"/> 
 				<button type="submit" class="input100">로그인</button> 
