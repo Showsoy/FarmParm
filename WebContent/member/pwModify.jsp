@@ -71,6 +71,11 @@ function chkForm(f){
 			return false;
 		}
 	}
+	if(f.userPass.value.length<6) {
+	    alert("비밀번호는 6자리 이상 입력해주세요.");
+	    f.userPass.focus();
+	    return false;
+	  }
 	document.joinform.submit();
 }
 </script>
@@ -90,8 +95,8 @@ function chkForm(f){
 		<td><input type="password" id="old_pswd" name="old_pswd"></td>
 	</tr>
 	<tr>
-		<td id="td_left"><label for="userID">변경할 비밀번호</label> </td>
-		<td><input type="password" id="userPass" name="userPass"></td>
+		<td id="td_left"><label for="userID">변경할 비밀번호</label></td>
+		<td><input type="password" id="userPass" name="userPass"><a style="color:gray;font-size:12px"> 6자리 이상</a></td>
 	</tr>
 	<tr>
 		<td id="td_left"><label for="userID">비밀번호 확인</label> </td>

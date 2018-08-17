@@ -2,7 +2,6 @@ package member.action;
 
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
-
 import action.Action;
 import svc.UserService;
 import vo.ActionForward;
@@ -20,5 +19,4 @@ public class MemberIdTestAction implements Action {
 		ActionForward forward = new ActionForward("/member/dulpTest.jsp",false);
 		return forward;
 	}
-
 }

@@ -4,7 +4,6 @@ import java.io.PrintWriter;
 import java.sql.Date;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
-import javax.servlet.http.HttpSession;
 import action.Action;
 import svc.UserService;
 import vo.ActionForward;
@@ -12,9 +11,7 @@ import vo.UserBean;
 import vo.Util;
 
 public class MemberJoinAction  implements Action{
-	public ActionForward execute(HttpServletRequest request, HttpServletResponse response) 
-			throws Exception{
-		
+	public ActionForward execute(HttpServletRequest request, HttpServletResponse response)throws Exception{
 		UserBean users = new UserBean();
    		boolean joinResult=false;
    		Util util = new Util();
@@ -40,6 +37,7 @@ public class MemberJoinAction  implements Action{
    		joinResult = userService.joinUser(users);
    		
    		ActionForward forward = null;
+   		
    		if(joinResult==false){
    			response.setContentType("text/html;charset=UTF-8");
    			PrintWriter out = response.getWriter();
@@ -51,9 +49,9 @@ public class MemberJoinAction  implements Action{
    		else{
    	    forward = new ActionForward();
    		forward.setRedirect(true);
-   		forward.setPath("../member/login.jsp");
+   		forward.setPath("../member/joinAfterLogin.jsp");
    		}
    		return forward;
-}
-		
 	}
+		
+}
