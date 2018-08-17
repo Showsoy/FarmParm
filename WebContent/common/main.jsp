@@ -9,26 +9,7 @@
 <title>Insert title here</title>
 <meta name="viewport" content="width=device-width, initial-scale=1">
 <style>
-#mainicon{
-	position: relative;
-	overflow: hidden;
-	z-index:5;
-}
-#mainicon a {
-	position: absolute;
-	top:0px;
-	right:50px;
-	margin:0 auto;
-	opacity:0.5;
-	z-index:10;
-}
-#mainicon img {
-	width:110px;
-	height:110px;
-}
-#mainicon:hover #mainicon a{
-	opacity: 0.8;
-} 
+
 </style>
 </head>
 <link rel="stylesheet" type="text/css" href="style/style.css">
@@ -67,7 +48,7 @@ function carousel() {
 </section>
 
 	<div id="container">
-		<ul class="prod-list" align="center">
+		<ul class="mprod-list" align="center">
 		<c:forEach var="best" items="${bestList }">
 		<c:set var="price" value="${best.price }"/>
 		<c:set var="sale" value="${best.sale }"/>
@@ -80,7 +61,7 @@ function carousel() {
 		%>
 			<li><img src="images/${best.img_path }" alt="${best.item_name }">
 			<p>${best.item_name }</p>
-				<div class="caption">
+				<div class="mcaption">
 					<h4><fmt:formatNumber value="${uprice }" type="currency"/></h4>
 					<p>&nbsp;&nbsp;&nbsp;
 						<a href="./uitemView.im?item_code=${best.item_code }"><img src="./images/zoom-in.png" style="width:24px;height:24px;border:0;"></a>
@@ -108,7 +89,7 @@ function carousel() {
   	<a href="./newlist.im"><img src="./images/mainicon3.png"></a>
 </section>
 <div id="container">
-		<ul class="prod-list" align="center">
+		<ul class="mprod-list" align="center">
 			<c:forEach var="newList" items="${newList }">
 			<c:set var="price" value="${newList.price }"/>
 			<c:set var="sale" value="${newList.sale }"/>
@@ -121,7 +102,7 @@ function carousel() {
 			%>
 			<li><img src="images/${newList.img_path }" alt="${newList.item_name }">
 			<p>${newList.item_name }</p>
-				<div class="caption">
+				<div class="mcaption">
 
 					<h4><fmt:formatNumber value="${uprice }" type="currency"/></h4>
 					<p>&nbsp;&nbsp;&nbsp;

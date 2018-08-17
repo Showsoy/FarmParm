@@ -58,6 +58,24 @@ public class BoardService {
 		close(conn);
 		return listCount;
 	}
+	public int searchReviewCount(String keyword) {
+		BoardDAO boardDAO = BoardDAO.getInstance();
+		Connection conn = getConnection();
+		boardDAO.setConnection(conn);
+		int listCount = boardDAO.searchReviewCount(keyword);
+		
+		close(conn);
+		return listCount;
+	}
+	public int searchQnACount(String keyword) {
+		BoardDAO boardDAO = BoardDAO.getInstance();
+		Connection conn = getConnection();
+		boardDAO.setConnection(conn);
+		int listCount = boardDAO.searchQnACount(keyword);
+		
+		close(conn);
+		return listCount;
+	}
 	public String selectWriter(String bName, int board_num) {
 		BoardDAO boardDAO = BoardDAO.getInstance();
 		Connection conn = getConnection();
@@ -139,6 +157,24 @@ public class BoardService {
 		close(conn);
 		return articleList;
 	}
+	public ArrayList<BoardBean> searchReviewList(String keyword, int page) {
+		BoardDAO boardDAO = BoardDAO.getInstance();
+		Connection conn = getConnection();
+		boardDAO.setConnection(conn);
+		ArrayList<BoardBean> articleList = boardDAO.searchReviewList(keyword, page);
+		
+		close(conn);
+		return articleList;
+	}
+	public ArrayList<BoardBean> searchQnAList(String keyword, int page) {
+		BoardDAO boardDAO = BoardDAO.getInstance();
+		Connection conn = getConnection();
+		boardDAO.setConnection(conn);
+		ArrayList<BoardBean> articleList = boardDAO.searchQnAList(keyword, page);
+		
+		close(conn);
+		return articleList;
+	}
 	public BoardBean selectNotice(int board_num) {
 		BoardDAO boardDAO = BoardDAO.getInstance();
 		Connection conn = getConnection();
@@ -166,11 +202,20 @@ public class BoardService {
 		close(conn);
 		return board;
 	}
-	public BoardBean selectReply(String bName, int bgroup) {
+	public BoardBean selectReply(int bgroup) {
 		BoardDAO boardDAO = BoardDAO.getInstance();
 		Connection conn = getConnection();
 		boardDAO.setConnection(conn);
-		BoardBean board = boardDAO.selectReply(bName, bgroup);
+		BoardBean board = boardDAO.selectReply(bgroup);
+		
+		close(conn);
+		return board;
+	}
+	public BoardBean selectReply(String bName, int bgroup, String item_code) {
+		BoardDAO boardDAO = BoardDAO.getInstance();
+		Connection conn = getConnection();
+		boardDAO.setConnection(conn);
+		BoardBean board = boardDAO.selectReply(bName, bgroup, item_code);
 		
 		close(conn);
 		return board;
@@ -420,5 +465,14 @@ public class BoardService {
 		
 		close(conn);
 		return result;
+	}
+	public String findItemName(String item_code) {
+		BoardDAO boardDAO = BoardDAO.getInstance();
+		Connection conn = getConnection();
+		boardDAO.setConnection(conn);
+		String item_name = boardDAO.findItemName(item_code);
+		
+		close(conn);
+		return item_name;
 	}
 }

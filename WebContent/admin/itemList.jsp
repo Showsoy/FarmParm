@@ -60,9 +60,6 @@ img{
 	transition: all 0.3 ease;
 	cursor: pointer;
 }
-#wbutton:active{
-	background: #F6F6F6;
-}
 #gbutton {
 	font-family:"Nanum Gothic";
 	font-weight: 700;
@@ -77,9 +74,6 @@ img{
 	-webkit-transition: all 0.3 ease;
 	transition: all 0.3 ease;
 	cursor: pointer;
-}
-#gbutton:hover, #gbutton:active, #gbutton:focus {
-	background: #43A047;
 }
 #top_menu{
 	background-color:#333;
@@ -113,15 +107,6 @@ img{
 	text-align:right;
 	padding : 13px 0 0 350px;
 	font-size:13px;
-}
-#orderby img{
-	width:11px;
-	heigh:11px;
-	padding:0px 0px 5px 0px;
-}
-#selcategory{
-	font-weight:700;
-	color:#43A047;
 }
 </style>
 <script>

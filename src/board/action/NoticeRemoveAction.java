@@ -39,7 +39,7 @@ public class NoticeRemoveAction implements Action {
 			String nums[];
 			int board_num;
 			int deleteCount=0;
-			
+			int page = Integer.parseInt(request.getParameter("page"));
 			if(request.getParameter("bnum")==null) {
 				nums = request.getParameterValues("icheck");
 				for(int i=0;i<nums.length;i++) {
@@ -58,7 +58,15 @@ public class NoticeRemoveAction implements Action {
 				out.println("history.back();");
 				out.println("</script>");
 			}else {
-				forward= new ActionForward("./noList.bo",true);
+				String path = "./noList.bo?page="+page;
+				if(request.getParameter("keyword")!=null) {
+					path += "&keyword="+request.getParameter("keyword");
+					response.setContentType("text/html;charset=UTF-8");
+					PrintWriter out = response.getWriter();
+					out.println("<script>");
+					out.println("location.href='"+path+"';");
+					out.println("</script>");
+				}else forward= new ActionForward(path,true);
 			}
 		}
 		return forward;

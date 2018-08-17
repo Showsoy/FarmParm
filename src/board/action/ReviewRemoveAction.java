@@ -29,8 +29,6 @@ public class ReviewRemoveAction implements Action {
 		} else {
 			String item_code = request.getParameter("item_code");
 			int page = Integer.parseInt(request.getParameter("page"));
-			int r_page = Integer.parseInt(request.getParameter("r_page"));
-			int q_page = Integer.parseInt(request.getParameter("q_page"));
 			BoardService boardService = new BoardService();
 			String nums[];
 			String codes[];
@@ -76,7 +74,21 @@ public class ReviewRemoveAction implements Action {
 				out.println("history.back();");
 				out.println("</script>");
 			} else {
-				forward = new ActionForward("./uitemView.im?item_code="+item_code+"&page="+page+"&r_page="+r_page+"&q_page="+q_page, true);
+				if(request.getParameter("r_page")==null) {
+					String path = "./reList.bo?page="+page;
+					if(request.getParameter("keyword")!=null) {
+						path += "&keyword="+request.getParameter("keyword");
+						response.setContentType("text/html;charset=UTF-8");
+						PrintWriter out = response.getWriter();
+						out.println("<script>");
+						out.println("location.href='"+path+"';");
+						out.println("</script>");
+					}else forward= new ActionForward(path,true);
+				}else {
+					String r_page = request.getParameter("r_page");
+					String q_page = request.getParameter("q_page");
+					forward = new ActionForward("./uitemView.im?item_code="+item_code+"&page="+page+"&r_page="+r_page+"&q_page="+q_page, true);
+				}
 			}
 		}
 		return forward;

@@ -55,9 +55,8 @@ public class NoticeModProAction implements Action {
 			MultipartRequest multi = new MultipartRequest(request, realFolder, fileSize, encType, new DefaultFileRenamePolicy());
 			String image = multi.getFilesystemName("img_path");
 			
-			if(image==null) {
+			if(image==null&&multi.getParameter("oldImage").length()>0) {
 				image = multi.getParameter("oldImage");
-				//<input type="hidden" id="oldImage" name="oldImage" value="${item.img_path}"/>
 			}
 			
 			BoardBean board = new BoardBean(
@@ -67,8 +66,8 @@ public class NoticeModProAction implements Action {
 					multi.getParameter("content"),
 					multi.getParameter("subject"),
 					image,0,date,0,0,0);
-			boolean isWriteSuccess = boardService.writeNotice(board);
-			if(!isWriteSuccess) {
+			boolean isModSuccess = boardService.modifyNotice(board);
+			if(!isModSuccess) {
 				response.setContentType("text/html;charset=UTF-8");
 				PrintWriter out = response.getWriter();
 				out.println("<script>");
@@ -76,7 +75,20 @@ public class NoticeModProAction implements Action {
 				out.println("history.back();");
 				out.println("</script>");
 			}else {
-				forward= new ActionForward("./noView.bo?bnum="+bnum,true);
+				String page = multi.getParameter("page");
+				String keyword = multi.getParameter("keyword");
+				String path = "./noView.bo?bnum="+bnum+"&page="+page;
+				if(keyword!=null) {
+					path += "&keyword="+keyword;
+					response.setContentType("text/html;charset=UTF-8");
+					PrintWriter out = response.getWriter();
+					out.println("<script>");
+					out.println("location.href='"+path+"';");
+					out.println("</script>");
+				}else {
+					forward= new ActionForward(path,true);
+				}
+				
 			}
 		}
 		return forward;

@@ -62,14 +62,6 @@ a:hover{
 	transition: all 0.3 ease;
 	cursor: pointer;
 }
-#wbutton:active{
-	background: #F6F6F6;
-}
-#commandCell{
-	width:80%;
-	margin:0 auto;
-	text-align:right;
-}
 #search_info{
 	padding:20px;
 	margin:0 auto;
@@ -107,7 +99,7 @@ a:hover{
 					<tr>
 						<td>${board.board_num }</td>
 						<td colspan="2">
-						<p><a href="noView.bo?bnum=${board.board_num }&page=${pageInfo.page}">${board.subject }</a></p></td>
+						<p><a href="noView.bo?bnum=${board.board_num }&page=${pageInfo.page}<c:out value="${keyword !=null ? '&keyword=' : '' }"/>${keyword}">${board.subject }</a></p></td>
 						<td>관리자</td>
 						<td>${board.date }</td>
 						<td>${board.readcount }</td>
@@ -119,7 +111,7 @@ a:hover{
 						[이전]&nbsp;
 					</c:if>
 					<c:if test="${pageInfo.page>1 }">
-						<a href="csList.bo?page=${pageInfo.page-1}">[이전]</a>&nbsp;
+						<a href="noList.bo?page=${pageInfo.page-1}<c:out value="${keyword !=null ? '&keyword=' : '' }"/>${keyword}">[이전]</a>&nbsp;
 					</c:if>
 					
 					<c:forEach var="a" begin="${pageInfo.startPage }" end="${pageInfo.endPage }" step="1">
@@ -128,7 +120,7 @@ a:hover{
 								[${a }]
 							</c:when>
 							<c:otherwise>
-								<a href="csList.bo?page=${a }">[${a }]</a>&nbsp;
+								<a href="noList.bo?page=${a }<c:out value="${keyword !=null ? '&keyword=' : '' }"/>${keyword}">[${a }]</a>&nbsp;
 							</c:otherwise>
 						</c:choose>
 					</c:forEach>
@@ -137,7 +129,7 @@ a:hover{
 							[다음]
 						</c:when>
 						<c:otherwise>
-							<a href="csList.bo?page=${pageInfo.page+1 }">[다음]</a>
+							<a href="noList.bo?page=${pageInfo.page+1 }<c:out value="${keyword !=null ? '&keyword=' : '' }"/>${keyword}">[다음]</a>
 						</c:otherwise>
 					</c:choose>
 				</td>

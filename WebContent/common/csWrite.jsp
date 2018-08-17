@@ -83,7 +83,22 @@ td, tr{
 }
 </style>
 <script>
+var doubleSubmitFlag = false;
+function doubleSubmitCheck(){
+    if(doubleSubmitFlag){
+        return doubleSubmitFlag;
+    }else{
+        doubleSubmitFlag = true;
+        return false;
+    }
+}
 
+function chkForm(f){
+    if(doubleSubmitCheck()) return;
+    
+	alert("등록되었습니다.");
+    document.csboard.submit();
+}
 function fc_chk_byte(memo) { 
 	var ari_max=600;
 	var ls_str = memo.value;
@@ -132,7 +147,7 @@ function fc_chk2() {
 	<h3>&nbsp;&nbsp;고객센터</h3>
 	<hr color="#4CAF50" size="5">
 	<div class="mypage">
-	<form action="csWrite.bo" method="post" enctype="multipart/form-data" name="csboard">
+	<form action="csWrite.bo" method="post" enctype="multipart/form-data" name="csboard" onsubmit="return chkForm(this)">
 	<input type="hidden" id="user_id" name="user_id" value="${id }"/>
 			<table>
 				<tr>

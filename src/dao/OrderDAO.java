@@ -325,7 +325,6 @@ public class OrderDAO {
 			pstmt = conn.prepareStatement(sql);
 			pstmt.setInt(1, order_id);
 			updateCount = pstmt.executeUpdate();
-			System.out.println(updateCount+state);
 		}catch(Exception e) {
 			e.printStackTrace();
 		}finally {

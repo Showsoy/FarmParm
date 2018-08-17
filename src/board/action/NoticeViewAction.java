@@ -31,6 +31,9 @@ public class NoticeViewAction implements Action{
 		}else {
 			boardService.updateReadCount(board_num);
 		}
+		String page = request.getParameter("page");
+		if(request.getParameter("keyword")!=null) request.setAttribute("keyword", request.getParameter("keyword"));
+		request.setAttribute("page", page);
 		forward = new ActionForward("./noView.jsp", false);
 		return forward;
 	}

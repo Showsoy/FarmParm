@@ -32,7 +32,7 @@ public class CsBoardRemoveAction implements Action {
 			String nums[];
 			int board_num;
 			int deleteCount = 0;
-	
+			int page = Integer.parseInt(request.getParameter("page"));
 			if (request.getParameter("bnum") == null) {
 				if (!id.equals("admin")) {
 					response.setContentType("text/html;charset=UTF-8");
@@ -70,7 +70,15 @@ public class CsBoardRemoveAction implements Action {
 				out.println("history.back();");
 				out.println("</script>");
 			} else {
-				forward = new ActionForward("./csList.bo", true);
+				String path = "./csList.bo?page="+page;
+				if(request.getParameter("keyword")!=null) {
+					path += "&keyword="+request.getParameter("keyword");
+					response.setContentType("text/html;charset=UTF-8");
+					PrintWriter out = response.getWriter();
+					out.println("<script>");
+					out.println("location.href='"+path+"';");
+					out.println("</script>");
+				}else forward= new ActionForward(path,true);
 			}
 		}
 		return forward;

@@ -201,7 +201,7 @@ function goto_url(act) {
 			</c:if>
 			</table>
 			<c:if test="${board.user_id eq id || id eq 'admin'}">
-				<span style="padding:0 0 0 650px;"><button type="button" id="wbutton" onclick="goto_url('csRemove.bo?bnum=${board.board_num}')">삭제</button></span>
+				<span style="padding:0 0 0 650px;"><button type="button" id="wbutton" onclick="goto_url('csRemove.bo?bnum=${board.board_num}&page=${page }<c:out value="${keyword !=null ? '&keyword=' : '' }"/>${keyword}')">삭제</button></span>
 			</c:if>
 			<br><br>
 			<c:if test="${board.has_re == 0 && id eq 'admin'}">
@@ -221,14 +221,14 @@ function goto_url(act) {
 					</tr>
 					<tr>
 						<td colspan="2">
-							<span style="padding:0 0 0 300px;"><button type="button" id="wbutton" onclick="goto_url('csReply.bo?bnum=${board.board_num}&page=${page }')" style="width:80px;">답변하기</button></span>
+							<span style="padding:0 0 0 300px;"><button type="button" id="wbutton" onclick="goto_url('csReply.bo?bnum=${board.board_num}&page=${page }<c:out value="${keyword !=null ? '&keyword=' : '' }"/>${keyword}')" style="width:80px;">답변하기</button></span>
 						</td>
 					</tr>
 				</table>
 			</c:if>
 			<br>
 			<section id="commandCell">
-				<button type="button" onclick="location.href='csList.bo?page=${page}'">목록</button>
+				<button type="button" onclick="location.href='csList.bo?page=${page}<c:out value="${keyword !=null ? '&keyword=' : '' }"/>${keyword}'">목록</button>
 			</section>
 		</form>
 	</div>	

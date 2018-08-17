@@ -56,6 +56,15 @@ td, tr{
 </style>
 </head>
 <script>
+var doubleSubmitFlag = false;
+function doubleSubmitCheck(){
+    if(doubleSubmitFlag){
+        return doubleSubmitFlag;
+    }else{
+        doubleSubmitFlag = true;
+        return false;
+    }
+}
 var chkId = false;
 function chkForm(f){
 	if(f.userPass.value.trim()==""){
@@ -71,6 +80,7 @@ function chkForm(f){
 			return false;
 		}
 	}
+	if(doubleSubmitCheck()) return;
 	document.joinform.submit();
 }
 </script>

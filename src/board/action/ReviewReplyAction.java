@@ -51,8 +51,23 @@ public class ReviewReplyAction implements Action {
 				out.println("history.back();");
 				out.println("</script>");
 			}else {
-				request.setAttribute("act", "ok");
-				forward= new ActionForward("./rereform.jsp",false);//리스트로 들어감
+				if(request.getParameter("page")!=null) {
+					String page = request.getParameter("page");
+					String item_code = request.getParameter("item_code");
+					String rgroup = request.getParameter("rgroup");
+					String path = "./reView.bo?bnum="+rgroup+"&item_code="+item_code+"&page="+page;
+					if(request.getParameter("keyword")!=null) {
+						path += "&keyword="+request.getParameter("keyword");
+						response.setContentType("text/html;charset=UTF-8");
+						PrintWriter out = response.getWriter();
+						out.println("<script>");
+						out.println("location.href='"+path+"';");
+						out.println("</script>");
+					}else forward= new ActionForward(path,true);
+				}else {
+					request.setAttribute("act", "ok");
+					forward= new ActionForward("./rereform.jsp",false);//리스트로 들어감
+				}
 			}
 		}
 		return forward;

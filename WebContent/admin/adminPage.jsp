@@ -21,15 +21,6 @@
 <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
 <title>Insert title here</title>
 <style>
-#admin_menu{
-	margin:0 auto;
-	text-align:center;
-	background-color:#f6f6f6;
-	width:400px;
-	height:230px;
-	border:1px solid #ccc;
-	border-radius:5px;
-}
 .mypage button {
 	font-family:"Nanum Gothic";
 	font-weight: 700;
@@ -70,8 +61,9 @@
 
 		<button onclick="location.href='./itemList.im'">상품목록</button><br>
 		<button onclick="location.href='./odList.od'">주문목록</button>
-		<button onclick="location.href='./salesList.od'">매출관리</button>
+		<button onclick="location.href='./salesList.od'">매출관리</button><br>
 		<button onclick="location.href='./qnaList.bo'">상품문의</button>
+		<button onclick="location.href='#'">상품발송</button>
 	</div>
 </div>
 </div>

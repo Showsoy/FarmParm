@@ -16,17 +16,23 @@ import board.action.CsBoardReplyAction;
 import board.action.CsBoardViewAction;
 import board.action.CsBoardWriteAction;
 import board.action.NoticeListAction;
+import board.action.NoticeModFormAction;
+import board.action.NoticeModProAction;
 import board.action.NoticeRemoveAction;
 import board.action.NoticeViewAction;
 import board.action.NoticeWriteAction;
+import board.action.QnAListAction;
 import board.action.QnARemoveAction;
 import board.action.QnAReplyAction;
 import board.action.QnAReplyFormAction;
+import board.action.QnAViewAction;
 import board.action.QnAWriteAction;
 import board.action.QnAWriteFormAction;
+import board.action.ReviewListAction;
 import board.action.ReviewRemoveAction;
 import board.action.ReviewReplyAction;
 import board.action.ReviewReplyFormAction;
+import board.action.ReviewViewAction;
 import board.action.ReviewWriteAction;
 import board.action.ReviewWriteFormAction;
 import vo.ActionForward;
@@ -48,6 +54,7 @@ public class BoardController extends HttpServlet {
     protected void doProcess(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException{
     	
     	request.setCharacterEncoding("UTF-8");
+    	response.setHeader("Content-Type", "text/html;charset=utf-8");
     	String RequestURI = request.getRequestURI();
     	String contextPath = request.getContextPath();
     	String command = RequestURI.substring(contextPath.length());
@@ -114,8 +121,50 @@ public class BoardController extends HttpServlet {
     		}catch(Exception e) {
     			e.printStackTrace();
     		}
+    	}else if(command.equals("/noModForm.bo")) {
+    		action = new NoticeModFormAction();
+    		try {
+    			forward = action.execute(request, response);
+    		}catch(Exception e) {
+    			e.printStackTrace();
+    		}
+    	}else if(command.equals("/noModify.bo")) {
+    		action = new NoticeModProAction();
+    		try {
+    			forward = action.execute(request, response);
+    		}catch(Exception e) {
+    			e.printStackTrace();
+    		}
     	}else if(command.equals("/noRemove.bo")) {
     		action = new NoticeRemoveAction();
+    		try {
+    			forward = action.execute(request, response);
+    		}catch(Exception e) {
+    			e.printStackTrace();
+    		}
+    	}else if(command.equals("/reList.bo")) {
+    		action = new ReviewListAction();
+    		try {
+    			forward = action.execute(request, response);
+    		}catch(Exception e) {
+    			e.printStackTrace();
+    		}
+    	}else if(command.equals("/qnaList.bo")) {
+    		action = new QnAListAction();
+    		try {
+    			forward = action.execute(request, response);
+    		}catch(Exception e) {
+    			e.printStackTrace();
+    		}
+    	}else if(command.equals("/reView.bo")) {
+    		action = new ReviewViewAction();
+    		try {
+    			forward = action.execute(request, response);
+    		}catch(Exception e) {
+    			e.printStackTrace();
+    		}
+    	}else if(command.equals("/qnaView.bo")) {
+    		action = new QnAViewAction();
     		try {
     			forward = action.execute(request, response);
     		}catch(Exception e) {

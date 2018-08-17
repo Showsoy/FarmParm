@@ -111,11 +111,12 @@ img{
 					<tr>
 						<td>${num }</td>
 						<c:set var="num" value="${num-1 }"/>
-						<td>${board.code }</td>
+						<td>${board.content }</td>
 						<td colspan="2">
 							<p>
-							<a href="csView.bo?bnum=${board.board_num }&page=${pageInfo.page}">
+							<a href="reView.bo?bnum=${board.board_num }&item_code=${board.code }&page=${pageInfo.page}<c:out value="${keyword !=null ? '&keyword=' : '' }"/>${keyword}">
 							${board.subject }
+							<c:if test="${board.has_re>0 }">[1]</c:if>
 							</a></p>
 						</td>
 						<td>${board.user_id }***</td>
@@ -128,7 +129,7 @@ img{
 						[이전]&nbsp;
 					</c:if>
 					<c:if test="${pageInfo.page>1 }">
-						<a href="reList.bo?page=${pageInfo.page-1}">[이전]</a>&nbsp;
+						<a href="reList.bo?page=${pageInfo.page-1}<c:out value="${keyword !=null ? '&keyword=' : '' }"/>${keyword}">[이전]</a>&nbsp;
 					</c:if>
 					
 					<c:forEach var="a" begin="${pageInfo.startPage }" end="${pageInfo.endPage }" step="1">
@@ -137,7 +138,7 @@ img{
 								[${a }]
 							</c:when>
 							<c:otherwise>
-								<a href="reList.bo?page=${a }">[${a }]</a>&nbsp;
+								<a href="reList.bo?page=${a }<c:out value="${keyword !=null ? '&keyword=' : '' }"/>${keyword}">[${a }]</a>&nbsp;
 							</c:otherwise>
 						</c:choose>
 					</c:forEach>
@@ -146,7 +147,7 @@ img{
 							[다음]
 						</c:when>
 						<c:otherwise>
-							<a href="reList.bo?page=${pageInfo.page+1 }">[다음]</a>
+							<a href="reList.bo?page=${pageInfo.page+1 }<c:out value="${keyword !=null ? '&keyword=' : '' }"/>${keyword}">[다음]</a>
 						</c:otherwise>
 					</c:choose>
 				</td>

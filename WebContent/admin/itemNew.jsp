@@ -73,6 +73,15 @@ td, tr{
 }
 </style>
 <script>
+var doubleSubmitFlag = false;
+function doubleSubmitCheck(){
+    if(doubleSubmitFlag){
+        return doubleSubmitFlag;
+    }else{
+        doubleSubmitFlag = true;
+        return false;
+    }
+}
 var chkCode = false;
 function chkForm(f){
 	var price = f.price.value;
@@ -106,6 +115,9 @@ function chkForm(f){
 			return false;
 		}
 	}
+	if(doubleSubmitCheck()) return;
+	alert("등록되었습니다.");
+	
 	document.joinform.submit();
 }
 function selCategory(sel) {

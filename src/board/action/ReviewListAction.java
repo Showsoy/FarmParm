@@ -34,8 +34,8 @@ public class ReviewListAction implements Action {
 		
 		if(request.getParameter("keyword")!=null) {
 			keyword = request.getParameter("keyword");
-			listCount = boardService.searchListCount(keyword);
-			boardList = boardService.searchCsBoardList(keyword, page);
+			listCount = boardService.searchReviewCount(keyword);
+			boardList = boardService.searchReviewList(keyword, page);
 			request.setAttribute("keyword", keyword);
 		}else {
 			listCount = boardService.selectListCount("review_board");
@@ -54,7 +54,7 @@ public class ReviewListAction implements Action {
 		pageInfo.setStartPage(startPage);
 		request.setAttribute("pageInfo", pageInfo);
 		request.setAttribute("boardList", boardList);
-		forward= new ActionForward("../common/cs_center.jsp",false);
+		forward= new ActionForward("../item/reviewboard.jsp",false);
 		return forward;
 	}
 

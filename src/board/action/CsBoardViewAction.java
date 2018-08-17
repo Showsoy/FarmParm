@@ -25,7 +25,7 @@ public class CsBoardViewAction implements Action {
 		int board_num = Integer.parseInt(request.getParameter("bnum"));
 		BoardService boardService = new BoardService();
 		BoardBean board = boardService.selectCsBoard(board_num);
-		BoardBean rboard = boardService.selectReply("cs_board", board.getRgroup());
+		BoardBean rboard = boardService.selectReply(board.getRgroup());
 		
 		if (board.getCode().equals("HIDE")) {
 			if (id!=null&&(board.getUser_id().equals(id)||id.equals("admin"))) {
@@ -46,6 +46,7 @@ public class CsBoardViewAction implements Action {
 			request.setAttribute("board", board);
 			request.setAttribute("rboard", rboard);
 			String page = request.getParameter("page");
+			if(request.getParameter("keyword")!=null) request.setAttribute("keyword", request.getParameter("keyword"));
 			request.setAttribute("page", page);
 			forward = new ActionForward("./csView.jsp", false);
 		}

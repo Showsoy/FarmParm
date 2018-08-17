@@ -64,7 +64,15 @@ public class CsBoardReplyAction implements Action {
 				out.println("history.back();");
 				out.println("</script>");
 			}else {
-				forward= new ActionForward("./csView.bo?bnum="+bnum,true);//리스트로 들어감
+				String path = "./csView.bo?bnum="+bnum;
+				if(request.getParameter("keyword")!=null) {
+					path += "&keyword="+request.getParameter("keyword");
+					response.setContentType("text/html;charset=UTF-8");
+					PrintWriter out = response.getWriter();
+					out.println("<script>");
+					out.println("location.href='"+path+"';");
+					out.println("</script>");
+				}else forward= new ActionForward(path,true);
 			}
 		}
 		return forward;

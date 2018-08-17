@@ -98,6 +98,15 @@ function fc_chk2() {
 	if(event.keyCode == 13) 
 	event.returnValue=false; 
 }
+var doubleSubmitFlag = false;
+function doubleSubmitCheck(){
+    if(doubleSubmitFlag){
+        return doubleSubmitFlag;
+    }else{
+        doubleSubmitFlag = true;
+        return false;
+    }
+}
 function chkForm(f){
 
 	if(f.subject.value.trim()==""){
@@ -105,6 +114,7 @@ function chkForm(f){
 		f.subject.focus();
 		return false;
 	}
+	if(doubleSubmitCheck()) return;
 	document.reviewform.submit();
 }
 function fclose(f){

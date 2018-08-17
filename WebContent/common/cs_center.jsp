@@ -114,7 +114,7 @@ img{
 						<td colspan="2">
 							<p><c:if test="${board.code eq 'HIDE' }">
 								<img src="../images/lock.png"></c:if>
-							<a href="csView.bo?bnum=${board.board_num }&page=${pageInfo.page}">
+							<a href="csView.bo?bnum=${board.board_num }&page=${pageInfo.page}<c:out value="${keyword !=null ? '&keyword=' : '' }"/>${keyword}">
 							${board.subject }
 							</a></p>
 						</td>
@@ -133,7 +133,7 @@ img{
 						[이전]&nbsp;
 					</c:if>
 					<c:if test="${pageInfo.page>1 }">
-						<a href="csList.bo?page=${pageInfo.page-1}">[이전]</a>&nbsp;
+						<a href="csList.bo?page=${pageInfo.page-1}<c:out value="${keyword !=null ? '&keyword=' : '' }"/>${keyword}">[이전]</a>&nbsp;
 					</c:if>
 					
 					<c:forEach var="a" begin="${pageInfo.startPage }" end="${pageInfo.endPage }" step="1">
@@ -142,7 +142,7 @@ img{
 								[${a }]
 							</c:when>
 							<c:otherwise>
-								<a href="csList.bo?page=${a }">[${a }]</a>&nbsp;
+								<a href="csList.bo?page=${a }<c:out value="${keyword !=null ? '&keyword=' : '' }"/>${keyword}">[${a }]</a>&nbsp;
 							</c:otherwise>
 						</c:choose>
 					</c:forEach>
@@ -151,7 +151,7 @@ img{
 							[다음]
 						</c:when>
 						<c:otherwise>
-							<a href="csList.bo?page=${pageInfo.page+1 }">[다음]</a>
+							<a href="csList.bo?page=${pageInfo.page+1 }<c:out value="${keyword !=null ? '&keyword=' : '' }"/>${keyword}">[다음]</a>
 						</c:otherwise>
 					</c:choose>
 				</td>
