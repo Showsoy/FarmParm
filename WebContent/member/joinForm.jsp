@@ -46,6 +46,11 @@ function chkForm(f){
 			return false;
 		}
 	}
+	if(f.userPass.value.length<6) {
+	    alert("비밀번호는 6자리 이상 입력해주세요.");
+	    f.userPass.focus();
+	    return false;
+	  }
 	if (!reg_birth.test(birth)) {
 		alert("올바른 형식이 아닙니다.");
 		f.userBirth.focus();
@@ -83,23 +88,23 @@ function selectEmail(sel) {
 		<div class="form">
 			<form class="login-form" name="joinform" action="./memberJoinAction.us" method="post" onsubmit="return chkForm(this)">
 				<div id="header">
-				<a href="../common/main.jsp"><img src="../images/farm_logo.png" width="150px"></a>
+				<a href="<%=request.getContextPath()%>/main.im"><img src="../images/farm_logo.png" width="150px"></a>
 				<hr color="#4CAF50">
 				<h3>회원가입</h3><br>
 				</div>
 		<label for="userID">아이디</label>
-		<input type="text" name="userID" id="userID" class="input100">
+		<input type="text" name="userID" id="userID" 
+		placeholder="중복검사 필수" class="input100">
 		<button class="input100" name="check" id="check" type="button"
 		onclick="window.open('./dulpTest.us?openInit=true','','width=500, height=300')">중복검사</button>
 		<br><br>
-	
+
 		<label for="userPass">비밀번호</label>
-		<input type="password" name="userPass" id="userPass" class="input100"/>
-	
+		<input type="password" name="userPass" id="userPass" 
+		placeholder="6자리 이상" class="input100"/>
 	
 		<label for="userPassre">비밀번호확인</label>
 		<input type="password" name="userPassre" id="userPassre" class="input100"/>
-	
 	
 		<label for="userName">이름</label>
 		<input type="text" name="userName" id="userName" class="input100"/>

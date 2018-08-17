@@ -38,21 +38,13 @@ public class MemberAdModifyFormAction implements Action{
 			String email = userService.email(uid);
 			String emails[] = new String[2];
 			emails = email.split("@");
-	
-			if(id==null){
-	   			forward = new ActionForward();
-				forward.setRedirect(true);
-				forward.setPath("./memberLogin.us");
-	   		}else{
 		   		forward = new ActionForward();
 		   		UserBean user = userService.modifyUserForm(uid);
 		   		request.setAttribute("user", user);
 		   		request.setAttribute("email1", emails[0]);
 		   		request.setAttribute("email2", emails[1]);
 		   		request.setAttribute("uid", uid);
-		   		//forward.setRedirect(false);
 		   		forward.setPath("./admin/userMod.jsp");
-		   		}
 		}
 		return forward;
 	}

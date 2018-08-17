@@ -32,10 +32,13 @@ function chkForm(f){
 }
 </script>
 <body>
+	
 	<div class="login-page">
 		<div class="form">
 			<form class="login-form" name="loginform" action="./memberLoginAction.us" method="post" onsubmit="return chkForm(this)">
 				<a href="<%=request.getContextPath()%>/main.im" id="logo"><img src="../images/farm_logo.png" width="150px"></a><br><br>
+				<a style="color:black;font-size:16px;">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;회원가입이 <b>완료</b>되었습니다.<br><br></a>
+				&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<img src="../images/welcome.png" width="150px"><br><br>
 				<c:if test="${turn eq 'ok' }">
 					<input type="hidden" id="turn" name="turn" value="ok">
 				</c:if>

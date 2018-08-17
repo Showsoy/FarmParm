@@ -17,6 +17,7 @@ public class MemberAdModifyAction implements Action {
 		ActionForward forward = null;
 		HttpSession session = request.getSession();
 		String id = (String) session.getAttribute("id");
+		String uid = (String) request.getParameter("uid");
 
 		if (id == null) {
 			response.setContentType("text/html;charset=UTF-8");
@@ -34,14 +35,10 @@ public class MemberAdModifyAction implements Action {
 			out.println("</script>");
 		} else {
 			UserService userService = new UserService();
-
-			String uid = request.getParameter("uid");
 			Util util = new Util();
 			Date birth = util.transformDate(request.getParameter("userBirth"));
-
 			String email = (request.getParameter("userEmailId") + "@" + request.getParameter("userEmailAd"));
-
-			UserBean user = new UserBean(id, "", request.getParameter("userName"), request.getParameter("userPhone"),
+			UserBean user = new UserBean(uid, "", request.getParameter("userName"), request.getParameter("userPhone"),
 					birth, request.getParameter("userGen"), request.getParameter("userAddr1"),
 					request.getParameter("userAddr2"), request.getParameter("userAddr3"), email,
 					request.getParameter("userGrade"), "", 0);
@@ -52,20 +49,10 @@ public class MemberAdModifyAction implements Action {
 				PrintWriter out = response.getWriter();
 				out.println("<script>");
 				out.println("alert('수정되었습니다.');");
-				/*
-				 * out.println("document.id.action='/FarmParm/member/myPage.jsp';");
-				 * out.println("document.id.submit();");
-				 */
 				out.println("location.href='./memberList.us';");
 				out.println("</script>");
-
-				/*
-				 * forward = new ActionForward(); forward.setRedirect(false);
-				 * forward.setPath("/myPage.us?id="+id);
-				 */
 			} else {
 				try {
-
 					response.setContentType("text/html;charset=UTF-8");
 					PrintWriter out = response.getWriter();
 					out.println("<script>");

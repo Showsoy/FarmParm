@@ -34,8 +34,6 @@ public class MemberIdFindAction implements Action{
 	   		out.println("history.back();");
 	   		out.println("</script>");
 	   	}
-		 
 		return forward;
 	}
-
 }

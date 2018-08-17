@@ -35,10 +35,6 @@ public class MemberDeleteAction implements Action{
 			boolean deleteResult = userService.deleteMember(uid);
 
 			if (deleteResult) {
-				/*
-				 * forward = new ActionForward(); forward.setRedirect(true);
-				 * forward.setPath("./memberList.us");
-				 */
 				response.setContentType("text/html;charset=UTF-8");
 				PrintWriter out = response.getWriter();
 				out.println("<script>");
