@@ -49,9 +49,7 @@ public class ItemEnterProAction implements Action {
 					date,
 					request.getParameter("inandout").equals("item_in") ? 
 							Integer.parseInt(request.getParameter("amount")):-Integer.parseInt(request.getParameter("amount")),
-					0,
-					0);
-			
+					0, 0);
 			
 			ItemService itemService = new ItemService();
 			

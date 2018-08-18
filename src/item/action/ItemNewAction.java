@@ -56,6 +56,7 @@ public class ItemNewAction implements action.Action{
 			realFolder = context.getRealPath(saveFolder);
 			MultipartRequest multi = new MultipartRequest(request, realFolder, fileSize, encType, new DefaultFileRenamePolicy());
 			String image = multi.getFilesystemName("img_path");
+			
 			ItemBean item = new ItemBean(
 					multi.getParameter("item_code"),
 					multi.getParameter("item_name"),
@@ -66,11 +67,13 @@ public class ItemNewAction implements action.Action{
 					Integer.parseInt(multi.getParameter("sale")),
 					multi.getParameter("content"),
 					0,0);
+			
 			ItemStockBean itemS = new ItemStockBean(
 					multi.getParameter("item_code"),
 					"등록",
 					date,
 					0,Integer.parseInt(multi.getParameter("stock")),1);
+			
 			boolean isRegistSuccess = itemService.registItem(item);
 			
 			if(!isRegistSuccess) {

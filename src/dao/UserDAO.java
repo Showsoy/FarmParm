@@ -44,7 +44,12 @@ public class UserDAO {
 			pstmt.setString(1, id);
 			rs = pstmt.executeQuery();
 			if(rs.next()) {
-				user = new UserBean(rs.getString("user_id"), "", rs.getString("name"), rs.getString("phone"), rs.getDate("birth"), rs.getString("gender"), rs.getString("postcode"), rs.getString("address"), rs.getString("address_second"), rs.getString("email"), rs.getString("grade"), "", rs.getInt("point"));
+				user = new UserBean(rs.getString("user_id"), "", 
+						rs.getString("name"), rs.getString("phone"), 
+						rs.getDate("birth"), rs.getString("gender"), 
+						rs.getString("postcode"), rs.getString("address"), 
+						rs.getString("address_second"), rs.getString("email"), 
+						rs.getString("grade"), "", rs.getInt("point"));
 			}
 		}catch(Exception e) {
 			e.printStackTrace();
@@ -77,6 +82,7 @@ public class UserDAO {
 		}
 		return flag;
 	}
+	//로그인
 	public String selectLoginId(UserBean users){
 		String loginId = null;
 		String sql="SELECT user_id FROM users WHERE user_id=? AND passwd=?";
@@ -223,6 +229,7 @@ public class UserDAO {
 		}
 		return articleList;
 	}
+	//삭제
 	public String selectEmail(String id){
 		String email = null;
 		String sql="SELECT email FROM users WHERE user_id=?";
@@ -241,6 +248,7 @@ public class UserDAO {
 		}
 		return email;
 	}
+	//중복
 	public UserBean AdSelectUser(String user_id){
 		String sql="SELECT * FROM users WHERE user_id=?";
 		UserBean ub = null;
@@ -296,6 +304,7 @@ public class UserDAO {
 		}
 		return updateCount;
 	}
+	//중복
 	public UserBean selectUser(String user_id){
 		String sql="SELECT * FROM users WHERE user_id=?";
 		UserBean ub = null;
@@ -344,6 +353,7 @@ public class UserDAO {
 		}
 		return modifyPw;
 	}
+	//중복
 	public UserBean myModForm(String user_id){
 		String sql="SELECT * FROM users WHERE user_id=?";
 		UserBean ub = null;

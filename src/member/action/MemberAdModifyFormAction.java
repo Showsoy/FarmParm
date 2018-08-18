@@ -30,21 +30,21 @@ public class MemberAdModifyFormAction implements Action{
 			out.println("alert('권한이 없습니다.');");
 			out.println("location.href='../main.im';");
 			out.println("</script>");
-		}else {
+		} else {
 			String uid = request.getParameter("uid");
-			
+
 			UserService userService = new UserService();
-			
-			String email = userService.email(uid);
+		
+			String email = userService.email(uid); //user.getEmail();
 			String emails[] = new String[2];
 			emails = email.split("@");
-		   		forward = new ActionForward();
-		   		UserBean user = userService.modifyUserForm(uid);
-		   		request.setAttribute("user", user);
-		   		request.setAttribute("email1", emails[0]);
-		   		request.setAttribute("email2", emails[1]);
-		   		request.setAttribute("uid", uid);
-		   		forward.setPath("./admin/userMod.jsp");
+			forward = new ActionForward();
+			UserBean user = userService.modifyUserForm(uid);
+			request.setAttribute("user", user);
+			request.setAttribute("email1", emails[0]);
+			request.setAttribute("email2", emails[1]);
+			request.setAttribute("uid", uid);
+			forward.setPath("./admin/userMod.jsp");
 		}
 		return forward;
 	}

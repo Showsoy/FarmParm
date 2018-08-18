@@ -26,7 +26,6 @@ public class ItemUnhideAction implements Action {
 		if(item_code==null) {
 			codes = request.getParameterValues("icheck");
 			for(int i=0;i<codes.length;i++) {
-				System.out.println(codes[i]);
 				updateCount = itemService.unhideItem(codes[i]);
 			}
 		}else {

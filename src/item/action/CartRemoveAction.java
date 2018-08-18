@@ -20,8 +20,6 @@ public class CartRemoveAction implements action.Action{
 			cartService.cartRemove(request, item_code);
 		}
 		
-		
-		
 		ActionForward forward = new ActionForward("./cartList.ct",true);
 		return forward;
 
