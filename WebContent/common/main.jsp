@@ -44,7 +44,7 @@ function carousel() {
 <section class="w3-container w3-center" id ="mainicon" style="max-width:500px;">
 	<h2 class="w3-wide">BEST</h2>
   	<p class="w3-opacity"><i>가장 사랑받은 제품들</i></p>
-  	<a href="./bestlist.im"><img src="./images/mainicon3.png"></a>
+  	<a href="./bnlist.im?type=best"><img src="./images/mainicon3.png"></a>
 </section>
 
 	<div id="container">
@@ -63,9 +63,8 @@ function carousel() {
 			<p>${best.item_name }</p>
 				<div class="mcaption">
 					<h4><fmt:formatNumber value="${uprice }" type="currency"/></h4>
-					<p>&nbsp;&nbsp;&nbsp;
+					<p>
 						<a href="./uitemView.im?item_code=${best.item_code }"><img src="./images/zoom-in.png" style="width:24px;height:24px;border:0;"></a>
-						&nbsp;&nbsp;
 						<c:choose>
 						<c:when test="${best.stock>0 }">
 						<a href="./item/addCart.ct?item_code=${best.item_code }"><img src="./images/shopping-cart.png" style="width:24px;height:24px;border:0;"></a>
@@ -86,7 +85,7 @@ function carousel() {
 <section class="w3-container w3-center" id ="mainicon" style="max-width:500px;">
  	<h2 class="w3-wide">NEW</h2>
   	<p class="w3-opacity"><i>야심찬 새 상품</i></p>
-  	<a href="./newlist.im"><img src="./images/mainicon3.png"></a>
+  	<a href="./bnlist.im?type=new"><img src="./images/mainicon3.png"></a>
 </section>
 <div id="container">
 		<ul class="mprod-list" align="center">
@@ -105,9 +104,8 @@ function carousel() {
 				<div class="mcaption">
 
 					<h4><fmt:formatNumber value="${uprice }" type="currency"/></h4>
-					<p>&nbsp;&nbsp;&nbsp;
+					<p>
 						<a href="./uitemView.im?item_code=${newList.item_code }"><img src="./images/zoom-in.png" style="width:24px;height:24px;border:0;"></a>
-						&nbsp;&nbsp;
 						<c:choose><c:when test="${newList.stock>0 }">
 							<a href="./item/addCart.ct?item_code=${newList.item_code }"><img src="./images/shopping-cart.png" style="width:24px;height:24px;border:0;"></a>
 						</c:when>

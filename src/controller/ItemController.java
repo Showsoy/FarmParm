@@ -10,7 +10,7 @@ import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
 import action.Action;
-import item.action.BestItemListAction;
+import item.action.BNItemListAction;
 import item.action.CartAddAction;
 import item.action.CartChangeQtyAction;
 import item.action.CartListAction;
@@ -28,7 +28,6 @@ import item.action.ItemSearchAction;
 import item.action.ItemUnhideAction;
 import item.action.ItemViewAction;
 import item.action.MainItemListAction;
-import item.action.NewItemListAction;
 import item.action.UserItemListAction;
 import item.action.UserItemViewAction;
 import vo.ActionForward;
@@ -170,15 +169,8 @@ protected void doProcess(HttpServletRequest request, HttpServletResponse respons
     		}catch(Exception e) {
     			e.printStackTrace();
     		}
-    	}else if(command.equals("/bestlist.im")) {
-    		action = new BestItemListAction();
-    		try {
-    			forward = action.execute(request, response);
-    		}catch(Exception e) {
-    			e.printStackTrace();
-    		}
-    	}else if(command.equals("/newlist.im")) {
-    		action = new NewItemListAction();
+    	}else if(command.equals("/bnlist.im")) {
+    		action = new BNItemListAction();
     		try {
     			forward = action.execute(request, response);
     		}catch(Exception e) {

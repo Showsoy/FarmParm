@@ -33,7 +33,9 @@ var count2 = 0;
 <div class="qna" id="qnaboard">
 <h3>&nbsp;&nbsp;상품문의</h3>
 	<hr color="#4CAF50" size="5">
+	<div id="commandCell">
 	<button type="button" id="wbutton" onclick="window.open('./item/qnaForm.bo?item_code=${item.item_code}','','width=500, height=400')">문의하기</button>
+	</div>
 		<table cellspacing="0" cellpadding="0" id="detail_board">
 			<tr id="top_menu20" height="20px">
 				<td id="td_check">번호</td>

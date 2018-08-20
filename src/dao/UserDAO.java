@@ -83,24 +83,22 @@ public class UserDAO {
 		return flag;
 	}
 	//로그인
-	public String selectLoginId(UserBean users){
-		String loginId = null;
-		String sql="SELECT user_id FROM users WHERE user_id=? AND passwd=?";
+	public boolean selectLoginId(String id, String pass){
+		boolean token = false;
+		String sql="SELECT * FROM users WHERE user_id=? AND passwd=?";
 		try{
-			pstmt=con.prepareStatement(sql);
-			pstmt.setString(1, users.getUser_id());
-			pstmt.setString(2, users.getPasswd());
+			pstmt = con.prepareStatement(sql);
+			pstmt.setString(1, id);
+			pstmt.setString(2, pass);
 			rs = pstmt.executeQuery();
-			if(rs.next()){
-				loginId = rs.getString("user_id");
-			}
+			if(rs.next()) token = true;
 		}catch(Exception e){
 			e.printStackTrace();	
 		}finally{
 			close(rs);
 			close(pstmt);
 		}
-		return loginId;
+		return token;
 	}
 	public String selectLoginSalt(String id){
 		String loginSalt = null;
@@ -111,7 +109,7 @@ public class UserDAO {
 			rs = pstmt.executeQuery();
 			if(rs.next()){
 				loginSalt = rs.getString("usalt");
-			}
+			}else loginSalt = "nullID";
 		}catch(Exception e){
 			e.printStackTrace();		
 		}finally{

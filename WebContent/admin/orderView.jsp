@@ -13,9 +13,10 @@
 td, tr{
 	border: 1px solid #ddd;
 }
-#seldel{
-	width:600px;
-	float:right;
+#order-state{
+	width:700px;
+	margin:0 auto;
+	text-align:right;
 }
 </style>
 <script>
@@ -35,8 +36,28 @@ function goto_url(act) {
 	<h3>&nbsp;&nbsp;주문조회</h3>
 	<hr color="#4CAF50" size="5">
 	<div class="mypage">
+	<div id="statebox">
+		<span id="state">${order.state }</span><br>
+		<c:choose>
+			<c:when test="${order.state eq '주문완료' }">
+				<img src="../images/invoice.png"><span id="message">고객님의 주문을 접수했습니다.</span>
+			</c:when>
+			<c:when test="${order.state eq '결제완료' }">
+				<img src="../images/credit-card.png"><span id="message">고객님의 주문 결제가 완료되었습니다.</span>
+			</c:when>
+			<c:when test="${order.state eq '상품출고' }">
+				<img src="../images/sealed-parcel.png"><span id="message">고객님의 주문 배송을 시작했습니다.</span>
+			</c:when>
+			<c:when test="${order.state eq '배송완료' }">
+				<img src="../images/shipped.png"><span id="message">고객님의 주문 배송을 완료했습니다.</span>
+			</c:when>
+			<c:otherwise>
+				<img src="../images/cancel.png"><span id="message">주문이 취소되었습니다.</span>
+			</c:otherwise>
+		</c:choose>
+	</div>
 	<form name="orderview" method="post">
-		<span id="seldel">
+		<div id="order-state">
 		<select name="od_state" id="od_state">
 			<c:if test="${order.state eq '주문완료'}">
 				<option value="주문완료" selected>주문완료</option>
@@ -75,7 +96,7 @@ function goto_url(act) {
 			</c:if>
 		</select>
 		<button type="button" id="wbutton" style="width:100px;" onclick="goto_url('odChgState.od?order_id=${order.order_id}&page=${page }');">주문상태변경</button>
-		</span><br>
+		</div>
 	<div id="order_info">
 		<div id="grade"><b id="grade_deco">|</b>결제상품</div>
 	<table cellspacing="0" cellpadding="0" id="order_sheet">

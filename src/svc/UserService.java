@@ -21,16 +21,12 @@ public class UserService {
 		close(con);
 		return result;
 	}
-	public boolean login(UserBean users) {
+	public boolean login(String id, String pass) {
 		Connection con = getConnection();
 		UserDAO userDAO = UserDAO.getInstance();
 		userDAO.setConnection(con);
-		boolean loginResult = false;
-		String loginId = userDAO.selectLoginId(users);
-		
-		if(loginId != null){
-			loginResult = true;
-		}
+		boolean loginResult = userDAO.selectLoginId(id, pass);
+
 		close(con);
 		return loginResult;
 	}

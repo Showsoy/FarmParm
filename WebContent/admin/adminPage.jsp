@@ -21,6 +21,9 @@
 <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
 <title>Insert title here</title>
 <style>
+#bbutton{
+	margin:2px;
+}
 </style>
 </head>
 <link rel="stylesheet" type="text/css" href="/FarmParm/style/style.css">

@@ -41,7 +41,7 @@ function chkForm(f){
 <jsp:include page="/common/top_menu.jsp" flush="false"/>
 <jsp:include page="/common/adminbar.jsp" flush="false"/>
 <div class="pageform">
-	<h3>&nbsp;&nbsp;입고등록</h3>
+	<h3>&nbsp;&nbsp;입출고등록</h3>
 	<hr color="#4CAF50" size="5">
 	<div class="mypage">
 	<form action="itemEnterPro.im?item_code=${item.item_code }" method="post" name="enterform" onsubmit="return chkForm(this)">

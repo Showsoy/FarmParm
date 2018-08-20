@@ -446,14 +446,14 @@ public class BoardDAO {
 			rs3 = pstmt3.executeQuery();
 			
 				while(rs3.next()) {
-					if(!user_id.equals("admin")&&rs3.getInt("rstep")==1&&rs3.getInt(11)>0&&(!user_id.equals(rs3.getString("user_id")))) {
-						board = new BoardBean(rs3.getInt(1), rs3.getString(2), rs3.getString(3).substring(0, 3), 
-								"숨김 글입니다.", rs3.getString(5), rs3.getString(6), 
-								rs3.getInt(7), rs3.getDate(8), 1, rs3.getInt(9), rs3.getInt(10));
-					}else{
+					if(user_id!=null&&(user_id.equals("admin")||(user_id.equals(rs3.getString("user_id"))))&&rs3.getInt(11)==0) {
 						board = new BoardBean(rs3.getInt(1), rs3.getString(2), rs3.getString(3).substring(0, 3), 
 								rs3.getString(4), rs3.getString(5), rs3.getString(6), 
 								rs3.getInt(7), rs3.getDate(8),0, rs3.getInt(9), rs3.getInt(10));
+					}else{
+						board = new BoardBean(rs3.getInt(1), rs3.getString(2), rs3.getString(3).substring(0, 3), 
+								"숨김 글입니다.", rs3.getString(5), rs3.getString(6), 
+								rs3.getInt(7), rs3.getDate(8), 1, rs3.getInt(9), rs3.getInt(10));
 					}
 					articleList.add(board);
 				}

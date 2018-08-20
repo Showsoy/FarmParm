@@ -173,11 +173,11 @@ li.dropdown {
 	border-radius:10px;
 	border-collapse: collapse;
 }
-.mypage table tr{
+.mytable tr{
 	padding-top: 12px;
     padding-bottom: 12px;
 }
-.mypage table td{
+.mytable td{
 	padding:5px 5px 5px 10px;
 }
 .mypage table td label{
@@ -244,8 +244,10 @@ footer {
 }
 .recent_view table{
 	margin:0 auto;
-	border-collapse: collapse;
 	padding:0;
+	border:0;
+	border-bottom: 1px solid #ddd;
+	border-top: 1px solid #ddd;
 }
 .recent_view hr{
 	padding:0;
@@ -254,13 +256,12 @@ footer {
 	padding:5px;
 }
 .recent_view table tr td{
-	border-bottom: 1px solid #ddd;
-	border-top: 1px solid #ddd;
 	padding:10px;
 }
 .recent_view table tr td img{
 	width:180px;
 	height:100px;
+	border:0;
 }
 .detail_table{
 	width:700px;
@@ -362,11 +363,11 @@ footer {
 		float:left;
 		overflow: hidden;
 }
-#goods_container .caption{
+#goods_container .uicaption{
 	width:200px;
 	height:100px;
 	margin:0 auto;
-	color: #fff;
+	color: black;
 }
 #goods_container #prod_image{
 	width:300px;
@@ -419,11 +420,16 @@ th{
 	transition: all 0.3 ease;
 	cursor: pointer;
 }
-#wbutton:active #wbutton:hover{
+#wbutton:active, #wbutton:hover{
 	background: #F6F6F6;
 }
 #commandCell{
 	width:700px;
+	margin:0 auto;
+	text-align:right;
+}
+#commandCellp{
+	width:80%;
 	margin:0 auto;
 	text-align:right;
 }
@@ -460,7 +466,7 @@ th{
 }
 #detail_board{
 	margin:0 auto;
-	border-collapse: collapse;
+	border:0;
     width: 700px;
     height:100px;
     font-size:10px;
@@ -495,6 +501,8 @@ th{
 	font-size:14px;
 }
 #statebox{
+	display:flex;
+	flex-wrap:wrap;
 	width:700px;
 	height:130px;
 	margin:0 auto;
@@ -632,7 +640,12 @@ th{
 	text-align:right;
 	font-size:13px;
 }
-#orderby img #orderby2 img{
+#orderby img{
+	width:11px;
+	heigh:11px;
+	padding:0px 0px 5px 0px;
+}
+#orderby2 img{
 	width:11px;
 	heigh:11px;
 	padding:0px 0px 5px 0px;
@@ -661,7 +674,7 @@ th{
 }
 .listtable{
 	margin:0 auto;
-	border-collapse: collapse;
+	border:0;
     width: 80% !important;
 	background-color:white;
 }
@@ -693,6 +706,13 @@ th{
 	border-radius:10px;
 	border-collapse: collapse;
 	text-align:right;
+}
+#order_sheet tr{
+	padding-top: 12px;
+    padding-bottom: 12px;
+}
+#order_sheet td{
+	padding:5px 5px 5px 10px;
 }
 #or_price{
 	text-decoration:line-through;
@@ -735,11 +755,6 @@ th{
 #leftalign{
 	text-align:left;
 }
-#logo{
-	text-align:center;
-	margin:0 auto;
-	padding:0 0 0 60px;
-}
 .popup_body {
 	width:400px;
 	text-align:center;
@@ -769,4 +784,13 @@ th{
 }
 #hide_check{
 	font-size:13px;
+}
+#sales-keyword{
+	margin:0 auto;
+	width:80%;
+	text-align:center;
+	background-color:#EBF7FF;
+	color:#4374D9;
+	border:1px solid #4374D9;
+	padding:10px;
 }

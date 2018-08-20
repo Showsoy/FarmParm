@@ -14,12 +14,11 @@ table{
 	border:0;
 }
 th, td {
-    border-bottom: 1px solid #ddd;
     height:50px;
 }
 #orderby{
 	font-size:12px;
-	padding:5px 5px 5px 720px;
+	padding:5px 5px 5px 650px;
 }
 </style>
 </head>
@@ -85,7 +84,7 @@ th, td {
 			<li>
 				<a href="uitemView.im?item_code=${itemList.item_code }&page=${pageInfo.page}">
 				<img id="prod_image" src="images/${itemList.img_path }"/></a>
-				<div class="caption">
+				<div class="uicaption">
 				<a href="uitemView.im?item_code=${itemList.item_code }&page=${pageInfo.page}">
 					<b>${itemList.item_name }</b></a><br>
 				<c:choose>

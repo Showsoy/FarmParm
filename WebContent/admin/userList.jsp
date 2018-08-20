@@ -33,7 +33,7 @@ img{
 	padding: 5px;
 }
 #orderby{
-	padding : 10px 70px 0 90px;
+	padding : 10px 70px 0 80px;
 }
 #searchbar{
 	padding : 10px 0 0 0;
@@ -96,7 +96,7 @@ function goto_url(act) {
 		<span id="selcategory">주문금액순</span></c:when><c:otherwise> 주문금액순</c:otherwise></c:choose></a>
 	</span>
 	<span id="searchbar">
-		<input type="text" name="search" id="search" placeholder="아이디"/>
+		<input type="text" name="search" id="search" placeholder="아이디" size="10"/>
 		<button type="button" name="searchbt" id="wbutton" onclick="goto_url('memberList.us')">검색</button>
 	</span>
 	</div>

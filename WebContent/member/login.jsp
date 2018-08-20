@@ -7,6 +7,15 @@
 <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
 <title>:::로그인 페이지:::|팜팜농원</title>
 <style>
+#login-error{
+	background-color:#FFEAEA;
+	border-radius:5px;
+	border:1px solid #FF4848;
+	color:#FF4848;
+	padding:10px;
+	margin:5px;
+	text-align:center;
+}
 </style>
 </head>
 <link rel="stylesheet" type="text/css" href="../style/style2.css">
@@ -31,6 +40,14 @@ function chkForm(f){
 		<div class="form">
 			<form class="login-form" name="loginform" action="./memberLoginAction.us" method="post" onsubmit="return chkForm(this)">
 				<a href="<%=request.getContextPath()%>/main.im" id="logo"><img src="../images/farm_logo.png" width="150px"></a><br><br>
+				<c:choose>
+				<c:when test="${type eq 'nullID' }">
+					<div id="login-error">존재하지 않는 아이디</div>	
+				</c:when>
+				<c:when test="${type eq 'passError' }">
+					<div id="login-error">잘못된 비밀번호</div>	
+				</c:when>
+				</c:choose>
 				<c:if test="${turn eq 'ok' }">
 					<input type="hidden" id="turn" name="turn" value="ok">
 				</c:if>

@@ -35,7 +35,7 @@ a:hover{
 <body>
 <jsp:include page="/common/top_menu.jsp" flush="false"/>
 <div class="pageform">
-	<h3>&nbsp;&nbsp;고객센터</h3>
+	<h3>&nbsp;&nbsp;안내사항</h3>
 	<hr color="#4CAF50" size="5">
 	<div class="mypage">
 		<c:if test="${keyword !=null }">
@@ -100,7 +100,7 @@ a:hover{
 		</c:choose>
 		</table>
 		<br>
-		<section id="commandCell">
+		<section id="commandCellp">
 			<form action="noList.bo" name="nsearch" method="post">
 				<input type="text" id="keyword" name="keyword" size="20"/>
 				<button type="submit" id="wbutton">검색</button>

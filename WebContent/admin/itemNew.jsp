@@ -110,7 +110,7 @@ function selCategory(sel) {
 					</td>
 					<td id="codegen" colspan="2">
 						<input type="text" name="item_code" id="item_code" size="4"/>&nbsp;
-						<button type="button" name="check" onclick="window.open('./codeGen.jsp?openInit=true','','width=370, height=220')" id="gbutton">자동생성</button>
+						<button type="button" name="check" onclick="window.open('./codeGen.jsp?openInit=true','','width=370, height=220')" id="gbutton" style="width:70px">자동생성</button>
 					</td>
 				</tr>
 				<tr>

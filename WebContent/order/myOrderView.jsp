@@ -60,7 +60,7 @@ td, tr{
 		<td style="width:70px;">수량</td>
 		<td>총 가격</td>
 		<td style="width:70px;">적립</td>
-		<td style="width:120px;">기타</td>
+		<td style="width:140px;">기타</td>
 	</tr>
 	<c:forEach var="odtemList" items="${odtemList }" varStatus="status">
 	<tr>
@@ -74,6 +74,7 @@ td, tr{
 			<c:if test="${order.state eq '배송완료' || order.state eq '상품출고'}">
 				<button type="button" id="gbutton" onclick="window.open('../item/reForm.bo?order_id=${order.order_id }&item_code=${odtemList.item_code}','','width=500, height=400')">리뷰</button>
 			</c:if>
+			
 				<button type="button" id="gbutton" onclick="window.open('../item/qnaForm.bo?order_id=${order.order_id }&item_code=${odtemList.item_code}','','width=500, height=400')">문의</button>
 		</td>
 	</tr>
@@ -93,7 +94,7 @@ td, tr{
 	</div>
 	<br>
 	<div id="grade"><b id="grade_deco">|</b>배송지 정보</div>
-	<table cellspacing="0" cellpadding="0">
+	<table cellspacing="0" cellpadding="0" class="mytable">
 	<tr>
 		<td id="td_left"><label for="receiver">받는 사람</label></td>
 		<td>${order.receiver }</td>

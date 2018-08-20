@@ -14,8 +14,11 @@ table{
 	border:0;
 }
 th, td {
-    border-bottom: 1px solid #ddd;
     height:50px;
+}
+#orderby{
+	font-size:12px;
+	padding:5px 5px 5px 720px;
 }
 </style>
 </head>
@@ -38,14 +41,14 @@ th, td {
 </div>
 </c:if>
 <div class="pageform">
-	<h3>&nbsp;&nbsp;NEW</h3>
+	<h3>&nbsp;&nbsp;<c:if test="${type eq 'best' }">BEST</c:if><c:if test="${type eq 'new' }">NEW</c:if></h3>
 	<hr color="#4CAF50" size="5">
 	<div class="mypage">
 	<div id="goods_container">
 		<ul class="prod-list" align="center">
-		<c:forEach var="newList" items="${newList }">
-		<c:set var="price" value="${newList.price }"/>
-		<c:set var="sale" value="${newList.sale }"/>
+		<c:forEach var="itemList" items="${itemList }">
+		<c:set var="price" value="${itemList.price }"/>
+		<c:set var="sale" value="${itemList.sale }"/>
 		<%
 		int price = (int)pageContext.getAttribute("price");
 		int sale = (int)pageContext.getAttribute("sale");
@@ -54,28 +57,28 @@ th, td {
 		pageContext.setAttribute("uprice", uprice);
 		%>
 			<li>
-				<a href="uitemView.im?item_code=${newList.item_code }">
-				<img id="prod_image" src="images/${newList.img_path }"/></a>
-				<div class="caption">
-				<a href="uitemView.im?item_code=${newList.item_code }">
-					<b>${newList.item_name }</b></a><br>
+				<a href="uitemView.im?item_code=${itemList.item_code }">
+				<img id="prod_image" src="images/${itemList.img_path }"/></a>
+				<div class="uicaption">
+				<a href="uitemView.im?item_code=${itemList.item_code }">
+					<b>${itemList.item_name }</b></a><br>
 				<c:choose>
-					<c:when test="${newList.sale==0 }">
-						<fmt:formatNumber value="${newList.price }" type="number"/>원<br>
+					<c:when test="${itemList.sale==0 }">
+						<fmt:formatNumber value="${itemList.price }" type="number"/>원<br>
 					</c:when>
 					<c:otherwise>
-						<span id="or_price"><fmt:formatNumber value="${newList.price }" type="number"/>원</span><br>
+						<span id="or_price"><fmt:formatNumber value="${itemList.price }" type="number"/>원</span><br>
 						<img src="images/sale.png" style="width:24px;height:15px;border:none;padding:0;margin:0;">
 						<span id="new_price" style="line-height:5px;margin:0 auto;font-size:14px;">
-						<fmt:formatNumber value="${uprice }" type="number"/>원(-${newList.sale }%)</span><br>
+						<fmt:formatNumber value="${uprice }" type="number"/>원(-${itemList.sale }%)</span><br>
 					</c:otherwise>
 				</c:choose>	
 				<c:choose>
-				<c:when test="${newList.stock<=0 }">
+				<c:when test="${itemList.stock<=0 }">
 					<font style="font-size:14px;color:red;">매진</font>
 				</c:when>
 				<c:otherwise>
-					<a href="./item/addCart.ct?item_code=${newList.item_code }" style="color:black;paddin:0;font-size:13px;"><img src="images/cart.png"/> 장바구니</a>
+					<a href="./item/addCart.ct?item_code=${itemList.item_code }" style="color:black;paddin:0;font-size:13px;"><img src="images/cart.png"/> 장바구니</a>
 				</c:otherwise>
 				</c:choose>
 				</div>

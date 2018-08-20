@@ -5,6 +5,11 @@
 	padding: 8% 0 0;
 	margin: auto;
 }
+#logo{
+	text-align:center;
+	margin:0 auto;
+	padding:0 0 0 60px;
+}
 .join-page {
 	width: 550px;
 	padding: 8% 0 0;

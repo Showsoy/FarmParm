@@ -13,7 +13,7 @@ import svc.ItemService;
 import vo.ActionForward;
 import vo.ItemViewBean;
 
-public class NewItemListAction implements Action {
+public class BNItemListAction implements Action {
 
 	@Override
 	public ActionForward execute(HttpServletRequest request, HttpServletResponse response) throws Exception {
@@ -22,7 +22,13 @@ public class NewItemListAction implements Action {
 		ActionForward forward = null;
 		
 		ItemService itemService = new ItemService();
-		ArrayList<ItemViewBean> newList = itemService.newItemList(12);
+		String type=request.getParameter("type");
+		ArrayList<ItemViewBean> itemList = new ArrayList<ItemViewBean>();
+		if(type!=null&&type.equals("best")) {
+			itemList = itemService.bestItemList(12);
+		}else if(type!=null&&type.equals("new")) {
+			itemList = itemService.newItemList(12);
+		}
 		
 		Cookie[] cookieArray = request.getCookies();
 		Map<String, String> todayImageMap = new HashMap<String, String>();
@@ -38,9 +44,10 @@ public class NewItemListAction implements Action {
 			}
 		}
 		request.setAttribute("todayImageMap", todayImageMap);
-		
-		request.setAttribute("newList", newList);
-		forward= new ActionForward("./item/newItem.jsp",false);
+				
+		request.setAttribute("itemList", itemList);
+		request.setAttribute("type", type);
+		forward= new ActionForward("./item/bnItem.jsp",false);
 		return forward;
 	}
 

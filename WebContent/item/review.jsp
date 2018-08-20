@@ -33,7 +33,9 @@ var count1 = 0;
 <div class="review" id="reboard">
 <h3>&nbsp;&nbsp;상품후기</h3>
 	<hr color="#4CAF50" size="5">
-		<button type="button" id="wbutton" onclick="window.open('./item/reForm.bo?item_code=${item.item_code}','','width=500, height=400')">후기쓰기</button>
+		<div id="commandCell">
+			<button type="button" id="wbutton" onclick="window.open('./item/reForm.bo?item_code=${item.item_code}','','width=500, height=400')">후기쓰기</button>
+		</div>
 		<table cellspacing="0" cellpadding="0" id="detail_board">
 			<tr id="top_menu20" height="20px">
 				<td id="td_check">번호</td>
@@ -72,7 +74,7 @@ var count1 = 0;
 							</c:when>
 							<c:otherwise>
 								<div id="parent_cont" style="width:600px;padding:10px 10px 10px 50px;text-align:left">
-									<span id="orderidspan">주문번호 : ${review.readcount }</span><br>
+									<span id="idnamespan">주문번호 : ${review.readcount }</span><br>
 									${review.content }
 								</div>
 							</c:otherwise>

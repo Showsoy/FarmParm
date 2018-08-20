@@ -285,3 +285,4 @@ create view order_view as SELECT order_item.order_id AS order_id, items.item_cod
 --20180816 orders 택배비--
 USE `java2b`;
 alter table orders add parcel int default 0;
+

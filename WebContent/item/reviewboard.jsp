@@ -21,12 +21,6 @@ td p{
 	border:0;
 	margin:0;
 }
-a{
-	text-decoration:none;
-}
-a:hover{
-	text-decoration:underline;
-}
 img{
 	padding:0 0 3px 0;
 }
@@ -110,7 +104,7 @@ img{
 		</c:choose>
 		</table>
 		<br>
-		<section id="commandCell">
+		<section id="commandCellp">
 			<form action="reList.bo" name="research" method="post">
 				<input type="text" id="keyword" name="keyword" size="20"/>
 				<button type="submit" id="wbutton">검색</button>

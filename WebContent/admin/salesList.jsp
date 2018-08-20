@@ -35,7 +35,7 @@ dd{
 	text-align:right;
 }
 #orderby{
-	padding : 13px 0 0 350px;
+	padding : 13px 0 0 380px;
 }
 #orderby2{
 	font-size:13px;
@@ -129,7 +129,27 @@ dd{
 		</span>
 	</div>
 	<button type="button" id="categorybl" style="background-color:<c:out value="${orderby==null ? '#F6F6F6' : '#fff'}"/>;" onclick="location.href='salesList.od?<c:out value="${date !=null ? 'datesel=ok&' : '' }"/>period=${period }&date=${date }'">주문별</button><button type="button" id="categorybr" style="background-color:<c:out value="${orderby!=null ? '#F6F6F6' : '#fff'}"/>;" onclick="location.href='salesList.od?<c:out value="${date !=null ? 'datesel=ok&' : '' }"/>period=${period }&date=${date }&orderby=profit'">상품별</button>
-	<br><br>
+	<br>
+	<div id="sales-keyword">
+		<b>
+		<c:choose>
+			<c:when test="${date == null }">
+				<c:choose>
+					<c:when test="${period eq 'week' }">일주일</c:when>
+					<c:when test="${period eq '1month' }">한 달</c:when>
+					<c:when test="${period eq '3month' }">3개월</c:when>
+					<c:when test="${period eq '6month' }">6개월</c:when>
+					<c:when test="${period eq 'year' }">1년</c:when>
+				</c:choose>
+			</c:when>
+			<c:otherwise>
+				${date }
+			</c:otherwise>
+		</c:choose>
+		</b>
+		검색 결과
+	</div>
+	<br>
 	<c:choose>
 	<c:when test="${orderby==null }">
 		<table class="listtable" cellspacing="0" cellpadding="0">	
@@ -202,7 +222,7 @@ dd{
 			</span>
 			&nbsp;&nbsp;
 		</div>
-		<table cellspacing="0" cellpadding="0">	
+		<table class="listtable" cellspacing="0" cellpadding="0">	
 			<tr id="top_menu">
 				<td>주문번호</td>
 				<td>상품코드</td>
