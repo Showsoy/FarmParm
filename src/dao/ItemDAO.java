@@ -520,6 +520,35 @@ public class ItemDAO {
 		
 		return item_code;
 	}
+	public ArrayList<ItemStockBean> itemStockList(int page) {
+		PreparedStatement pstmt = null;
+		ResultSet rs = null;
+		ArrayList<ItemStockBean> itemStockList = null;
+		int startrow = (page-1)*10;
+		//select * from items a inner join (select item_code, state, max(idate) as idate from item_stock group by item_code) b on a.item_code  = b.item_code where state != '주문' 
+		try {
+			pstmt = conn.prepareStatement("SELECT * FROM item_stock WHERE item_code=? ORDER BY idate DESC LIMIT ?,10");
+			pstmt.setString(1, item_code);
+			pstmt.setInt(2, startrow);
+			rs = pstmt.executeQuery();
+			if(rs.next()) {
+				itemStockList = new ArrayList<ItemStockBean>();
+				do {
+					itemStockList.add(new ItemStockBean(rs.getString("item_code"),
+							rs.getString("state"),rs.getDate("idate"),rs.getInt("amount"),
+							rs.getInt("stock"),rs.getInt("inumber")));
+				}while(rs.next());
+			}
+			
+		}catch(Exception e) {
+			e.printStackTrace();
+		}finally {
+			close(pstmt);
+			close(rs);
+		}
+		
+		return itemStockList;
+	}
 	public ArrayList<ItemBean> itemSearch(String keyword) {
 		PreparedStatement pstmt = null;
 		ResultSet rs = null;
