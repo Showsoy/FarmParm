@@ -70,7 +70,6 @@ public class ItemViewAction implements action.Action{
 			
 			request.setAttribute("item",item);
 			request.setAttribute("itemStockList", itemStockList);
-			
 			String page = request.getParameter("page");
 			String stock = request.getParameter("stock");
 			request.setAttribute("page", page);

@@ -54,7 +54,6 @@ protected void doProcess(HttpServletRequest request, HttpServletResponse respons
     		}catch(Exception e) {
     			e.printStackTrace();
     		}
-    		System.out.println(command + ":?");
     	}else if(command.equals("/order.od")) {
     		action = new OrderProAction();
     		try {

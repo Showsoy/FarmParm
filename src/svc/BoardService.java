@@ -171,7 +171,6 @@ public class BoardService {
 		Connection conn = getConnection();
 		boardDAO.setConnection(conn);
 		ArrayList<BoardBean> articleList = boardDAO.searchQnAList(keyword, page, qna_search);
-		
 		close(conn);
 		return articleList;
 	}
