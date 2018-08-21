@@ -212,6 +212,26 @@ li.dropdown {
 #bbutton button:hover, #bbutton button:active, #bbutton button:focus {
 	background: #191919;
 }
+#obutton{
+	font-family:"Nanum Gothic";
+	font-weight: 500;
+	text-transform: uppercase;
+	outline: 0;
+	background: #F6FFCC;
+	border: 0;
+	margin:5px 0 0 0;
+	padding: 3px;
+	border : 1px solid #4CAF50;
+	border-radius : 5px;
+	color: #4CAF50;
+	font-size: 14px;
+	-webkit-transition: all 0.3 ease;
+	transition: all 0.3 ease;
+	cursor: pointer;
+}
+#obutton:active, #obutton:hover{
+	background: #E4F7BA;
+}
 footer {
     padding: 24px; /* some padding */
     text-align:center;
@@ -501,8 +521,6 @@ th{
 	font-size:14px;
 }
 #statebox{
-	display:flex;
-	flex-wrap:wrap;
 	width:700px;
 	height:130px;
 	margin:0 auto;
@@ -519,6 +537,7 @@ th{
 	padding:0 0px 0 0;
 }
 #message{
+	float:left;
 	height:64px;
 	text-height:64px;
 	padding:0px 0px 0 300px;

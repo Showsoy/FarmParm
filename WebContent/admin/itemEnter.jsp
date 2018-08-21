@@ -47,12 +47,22 @@ function chkForm(f){
 	<form action="itemEnterPro.im?item_code=${item.item_code }" method="post" name="enterform" onsubmit="return chkForm(this)">
 			<table class="mytable">
 				<tr>
+					<th colspan="3"></th>
+					<td>분류</td>
+					<td>상품코드</td>
+					<td>상품명</td>
+					<td>원산지</td>
+					<td>가격</td>
+					<td>재고</td>
+				</tr>
+				<tr>
 					<th colspan="3"><img src="../images/${item.img_path }" width="200px" height="140px"></th>
 					<td>${item.category }</td>
 					<td>${item.item_code }</td>
 					<td>${item.item_name }</td>
 					<td>${item.origin }</td>
 					<td>${item.price }</td>
+					<td>${item.readcount }</td>
 				</tr>
 				<tr>
 					<td  id="td_left">구분</td>

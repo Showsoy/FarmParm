@@ -380,8 +380,8 @@ public class OrderDAO {
 		
 		return orderids;
 	}
-	public int salesOrderCount1(String period){
-		String sql = "SELECT count(*) FROM orders WHERE dati >= date_add(now(), interval "+period+")";
+	public int salesOrderCount1(String start, String end){
+		String sql = "SELECT count(*) FROM orders WHERE dati between "+start+" and "+end;
 		PreparedStatement pstmt = null;
 		ResultSet rs = null;
 		int listCount = 0;
@@ -419,8 +419,8 @@ public class OrderDAO {
 		
 		return listCount;
 	}
-	public int salesItemCount1(String period){
-		String sql = "SELECT count(*) FROM order_view WHERE dati >= date_add(now(), interval "+period+")";
+	public int salesItemCount1(String start, String end){
+		String sql = "SELECT count(*) FROM order_view WHERE dati between "+start+" and "+end;
 		PreparedStatement pstmt = null;
 		ResultSet rs = null;
 		int listCount = 0;
@@ -457,9 +457,9 @@ public class OrderDAO {
 		
 		return listCount;
 	}
-	public ArrayList<OrderBean> salesOrderList1(String period, int page){
+	public ArrayList<OrderBean> salesOrderList1(String start, String end, int page){
 		ArrayList<OrderBean> salesList = null;
-		String sql = "SELECT order_id, user_id, dati, state, pay, payment FROM orders WHERE dati >= date_add(now(), interval "+period+") ORDER BY dati DESC LIMIT ?,10";
+		String sql = "SELECT order_id, user_id, dati, state, pay, payment FROM orders WHERE dati between "+start+" and "+end+" ORDER BY dati DESC LIMIT ?,10";
 		PreparedStatement pstmt = null;
 		ResultSet rs = null;
 		int startrow = (page-1)*10;
@@ -484,14 +484,14 @@ public class OrderDAO {
 		
 		return salesList;
 	}
-	public Map<String, Integer> calculateProfit(String period) {
+	public Map<String, Integer> calculateProfit(String start, String end) {
 		Map<String, Integer> salesMap = new HashMap<String, Integer>();
 		PreparedStatement pstmt1 = null;
 		ResultSet rs1 = null;
 		PreparedStatement pstmt2 = null;
 		ResultSet rs2 = null;
-		String sql1 = "SELECT sum(pay), sum(depoint), sum(parcel) FROM orders WHERE dati >= date_add(now(), interval "+period+")";
-		String sql2 = "SELECT count(*) FROM order_view WHERE dati >= date_add(now(), interval "+period+")";
+		String sql1 = "SELECT sum(pay), sum(depoint), sum(parcel) FROM orders WHERE dati between "+start+" and "+end;
+		String sql2 = "SELECT count(*) FROM order_view WHERE dati between "+start+" and "+end;
 		try {
 			pstmt1 = conn.prepareStatement(sql1);
 			rs1 = pstmt1.executeQuery();
@@ -544,12 +544,12 @@ public class OrderDAO {
 		
 		return salesList;
 	}
-	public ArrayList<OrderViewBean> salesItemList1(String period, String order, int page){
+	public ArrayList<OrderViewBean> salesItemList1(String start, String end, String order, int page){
 		ArrayList<OrderViewBean> orderList = null;
 		String sql = "SELECT order_id, item_code, item_name, price, amount, dati, "
-				+ "(select sum(price*amount) from order_view b where dati >= date_add(now(), interval "+period+") and a.item_code=b.item_code group by item_code) as profit, "
-				+ "(select sum(amount) from order_view c where dati >= date_add(now(), interval "+period+") and a.item_code=c.item_code group by item_code) as sales "
-				+ "FROM order_view a WHERE dati >= date_add(now(), interval "+period+") ORDER BY "+order+" DESC LIMIT ?,10";
+				+ "(select sum(price*amount) from order_view b where dati between "+start+" and "+end+" and a.item_code=b.item_code group by item_code) as profit, "
+				+ "(select sum(amount) from order_view c where dati between "+start+" and "+end+" and a.item_code=c.item_code group by item_code) as sales "
+				+ "FROM order_view a WHERE dati between "+start+" and "+end+" ORDER BY "+order+" DESC LIMIT ?,10";
 		PreparedStatement pstmt = null;
 		ResultSet rs = null;
 		int startrow = (page-1)*10;
@@ -606,15 +606,15 @@ public class OrderDAO {
 		
 		return orderList;
 	}
-	public Map<String, Integer> thisMonthSales(String date){
+	public Map<String, Integer> thisMonthSales(String start, String end){
 		Map<String, Integer> salesMap = new HashMap<String, Integer>(); 
 		PreparedStatement pstmt1 = null;PreparedStatement pstmt2 = null;
 		PreparedStatement pstmt3 = null;PreparedStatement pstmt4 = null;
 		ResultSet rs1 = null;ResultSet rs2 = null;ResultSet rs3 = null;ResultSet rs4 = null;
-		String sql1 = "select sum(pay), sum(depoint), sum(parcel) from orders where dati BETWEEN str_to_date('"+date+"','%Y-%m-%d') AND date_add(str_to_date('"+date+"', '%Y-%m-%d'), interval 1 month)";
-		String sql2 = "select count(*) from order_view a where dati BETWEEN str_to_date('"+date+"','%Y-%m-%d') AND date_add(str_to_date('"+date+"', '%Y-%m-%d'), interval 1 month)";
-		String sql3 = "select sum(pay)-sum(parcel) from orders where dati BETWEEN date_add(str_to_date('"+date+"', '%Y-%m-%d'), interval -1 month) AND date_add(str_to_date('"+date+"','%Y-%m-%d'), interval -1 day)";
-		String sql4 = "select count(*) from order_view a where dati BETWEEN date_add(str_to_date('"+date+"', '%Y-%m-%d'), interval -1 month) AND date_add(str_to_date('"+date+"','%Y-%m-%d'), interval -1 day)";
+		String sql1 = "select sum(pay), sum(depoint), sum(parcel) from orders where dati BETWEEN "+start+" AND "+end;
+		String sql2 = "select count(*) from order_view a where dati BETWEEN "+start+" AND "+end;
+		String sql3 = "select sum(pay)-sum(parcel) from orders where dati BETWEEN "+start+" AND "+end;
+		String sql4 = "select count(*) from order_view a where dati BETWEEN "+start+" AND "+end;
 		try {
 			pstmt1 = conn.prepareStatement(sql1);
 			rs1 = pstmt1.executeQuery();

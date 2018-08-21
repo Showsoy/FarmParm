@@ -58,6 +58,15 @@ public class ItemService {
 		close(conn);
 		return item;
 	}
+	public ItemBean getItemWithStock(String item_code) {
+		ItemDAO itemDAO = ItemDAO.getInstance();
+		Connection conn = getConnection();
+		itemDAO.setConnection(conn);
+		ItemBean item = itemDAO.selectItemWithStock(item_code);
+		
+		close(conn);
+		return item;
+	}
 	public ArrayList<ItemStockBean> getItemStockList(String item_code,int i_page) {
 		ItemDAO itemDAO = ItemDAO.getInstance();
 		Connection conn = getConnection();
@@ -186,6 +195,24 @@ public class ItemService {
 		
 		close(conn);
 		return item_code;
+	}
+	public int iSearchStockCount(String startDate, String endDate) {
+		ItemDAO itemDAO = ItemDAO.getInstance();
+		Connection conn = getConnection();
+		itemDAO.setConnection(conn);
+		int listCount = itemDAO.iSearchStockCount(startDate, endDate);
+		
+		close(conn);
+		return listCount;
+	}
+	public ArrayList<ItemViewBean> iSearchStockList(String startDate, String endDate, int page) {
+		ItemDAO itemDAO = ItemDAO.getInstance();
+		Connection conn = getConnection();
+		itemDAO.setConnection(conn);
+		ArrayList<ItemViewBean> itemList = itemDAO.iSearchStockList(startDate, endDate, page);
+		
+		close(conn);
+		return itemList;
 	}
 	public int deleteItem(String item_code) {
 		ItemDAO itemDAO = ItemDAO.getInstance();

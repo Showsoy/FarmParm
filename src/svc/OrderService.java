@@ -219,11 +219,11 @@ public class OrderService {
 		close(conn);
 		return result;
 	}
-	public int salesOrderCount1(String period){
+	public int salesOrderCount1(String start, String end){
 		OrderDAO orderDAO = OrderDAO.getInstance();
 		Connection conn = getConnection();
 		orderDAO.setConnection(conn);
-		int listCount = orderDAO.salesOrderCount1(period);
+		int listCount = orderDAO.salesOrderCount1(start, end);
 		
 		close(conn);
 		return listCount;
@@ -237,11 +237,11 @@ public class OrderService {
 		close(conn);
 		return listCount;
 	}
-	public int salesItemCount1(String period){
+	public int salesItemCount1(String start, String end){
 		OrderDAO orderDAO = OrderDAO.getInstance();
 		Connection conn = getConnection();
 		orderDAO.setConnection(conn);
-		int listCount = orderDAO.salesItemCount1(period);
+		int listCount = orderDAO.salesItemCount1(start, end);
 		
 		close(conn);
 		return listCount;
@@ -256,20 +256,20 @@ public class OrderService {
 		return listCount;
 	}
 	
-	public ArrayList<OrderBean> salesOrderList1(String period, int page) {
+	public ArrayList<OrderBean> salesOrderList1(String start, String end, int page) {
 		OrderDAO orderDAO = OrderDAO.getInstance();
 		Connection conn = getConnection();
 		orderDAO.setConnection(conn);
-		ArrayList<OrderBean> orderList = orderDAO.salesOrderList1(period, page);
+		ArrayList<OrderBean> orderList = orderDAO.salesOrderList1(start, end, page);
 		
 		close(conn);
 		return orderList;
 	}
-	public Map<String, Integer> calculateProfit(String period) {
+	public Map<String, Integer> calculateProfit(String start, String end) {
 		OrderDAO orderDAO = OrderDAO.getInstance();
 		Connection conn = getConnection();
 		orderDAO.setConnection(conn);
-		Map<String, Integer> salesMap = orderDAO.calculateProfit(period);
+		Map<String, Integer> salesMap = orderDAO.calculateProfit(start, end);
 		
 		close(conn);
 		return salesMap;
@@ -283,11 +283,11 @@ public class OrderService {
 		close(conn);
 		return orderList;
 	}
-	public ArrayList<OrderViewBean> salesItemList1(String period, String order, int page) {
+	public ArrayList<OrderViewBean> salesItemList1(String start, String end, String order, int page) {
 		OrderDAO orderDAO = OrderDAO.getInstance();
 		Connection conn = getConnection();
 		orderDAO.setConnection(conn);
-		ArrayList<OrderViewBean> orderList = orderDAO.salesItemList1(period, order, page);
+		ArrayList<OrderViewBean> orderList = orderDAO.salesItemList1(start, end, order, page);
 		
 		close(conn);
 		return orderList;
@@ -301,11 +301,11 @@ public class OrderService {
 		close(conn);
 		return orderList;
 	}
-	public Map<String, Integer> thisMonthSales(String date) {
+	public Map<String, Integer> thisMonthSales(String start, String end) {
 		OrderDAO orderDAO = OrderDAO.getInstance();
 		Connection conn = getConnection();
 		orderDAO.setConnection(conn);
-		Map<String, Integer> salesMap = orderDAO.thisMonthSales(date);
+		Map<String, Integer> salesMap = orderDAO.thisMonthSales(start, end);
 		
 		close(conn);
 		return salesMap;

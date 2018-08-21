@@ -11,7 +11,7 @@
 <title>Insert title here</title>
 <style>
 tr{
-	height:70px;
+	height:50px;
 }
 td{
     border-bottom: 1px solid #ddd;
