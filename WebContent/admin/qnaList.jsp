@@ -109,7 +109,7 @@ img{
 				<select name="qna_search" id="qna_search">
 					<option value="제목">제목</option>
 					<option value="내용">내용</option>
-					<option value="상품">상품</option>
+					<option value="상품">상품명</option>
 				</select>
 				<input type="text" id="keyword" name="keyword" size="15"/>
 				<button type="submit" id="wbutton">검색</button>

@@ -170,7 +170,7 @@ function doImgPop(img){
 			<c:if test="${board.user_id eq id || id eq 'admin'}">
 				<button type="button" id="wbutton" onclick="goto_url('reRemove.bo?item_code=${board.code}&bnum=${board.board_num}&page=${page }<c:out value="${keyword !=null ? '&keyword=' : '' }"/>${keyword}')">삭제</button>
 			</c:if>
-				<button id="wbutton" type="button" onclick="location.href='reList.bo?page=${page}<c:out value="${keyword !=null ? '&keyword=' : '' }"/>${keyword}'">목록</button>
+				<button id="wbutton" type="button" onclick="location.href='reList.bo?page=${page}<c:out value="${keyword !=null ? '&keyword=' : '' }"/>${keyword}<c:out value="${review_search !=null ? '&review_search=' : '' }"/>${review_search}'">목록</button>
 			</section>
 			<br>
 			<c:if test="${board.has_re == 0 && id eq 'admin'}">

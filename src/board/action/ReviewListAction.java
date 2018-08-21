@@ -39,6 +39,7 @@ public class ReviewListAction implements Action {
 			listCount = boardService.searchReviewCount(keyword,review_search);
 			boardList = boardService.searchReviewList(keyword, page, review_search);
 			request.setAttribute("keyword", keyword);
+			request.setAttribute("review_search", review_search);
 		}else {
 			listCount = boardService.selectListCount("review_board");
 			boardList = boardService.selectReviewList(page);

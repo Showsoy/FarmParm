@@ -59,7 +59,7 @@ img{
 						<td>${board.content }</td>
 						<td colspan="2">
 							<p>
-							<a href="reView.bo?bnum=${board.board_num }&item_code=${board.code }&page=${pageInfo.page}<c:out value="${keyword !=null ? '&keyword=' : '' }"/>${keyword}">
+							<a href="reView.bo?bnum=${board.board_num }&item_code=${board.code }&page=${pageInfo.page}<c:out value="${keyword !=null ? '&keyword=' : '' }"/>${keyword}<c:out value="${review_search !=null ? '&review_search=' : '' }"/>${review_search}">
 							${board.subject }
 							<c:if test="${board.has_re>0 }">[1]</c:if>
 							</a></p>
