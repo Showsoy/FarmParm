@@ -15,6 +15,12 @@ public class test {
 		String start = DATE_FORMAT.format(date);
 		System.out.println(end);
 		System.out.println(start);
+		
+		Calendar tmpCal = Calendar.getInstance();
+		tmpCal.set(Calendar.YEAR, 2018);
+		tmpCal.set(Calendar.MONTH, 2-1);
+		tmpCal.set(Calendar.DATE, 1);
+		System.out.println(tmpCal.getActualMaximum(Calendar.DATE));
 	}
 
 }

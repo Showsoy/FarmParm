@@ -40,8 +40,22 @@ dd{
 #orderby2{
 	font-size:13px;
 }
+#datesel{
+	display:inline-block;
+}
+#datesel select{
+	height:30px;
+}
+#datesel button{
+	float:left;
+}
+#monthseldel1, #monthseldel2, #monthseldel3{
+	float:left;
+}
+#monthseldel3{
+	padding:0 0 0 5px;
+}
 </style>
-<script>
 <script>
 function selectSDay(sel) {
 	var year = document.getElementById("sYear").options[document.getElementById("sYear").selectedIndex].value;
@@ -67,7 +81,17 @@ function selectEDay(sel) {
 	}
 	document.getElementById("eDay").innerHTML = string;
 }
-</script>
+function monthSelDel(){
+	if(document.getElementById("monthseldel2").style.display=="none"){
+		document.getElementById("monthseldel2").style.display = "block";
+		document.getElementById("sDay").disabled = false;
+		return;
+	}else if(document.getElementById("monthseldel2").style.display=="block"){
+		document.getElementById("monthseldel2").style.display = "none";
+		document.getElementById("sDay").disabled = true;
+		return;
+	}
+}
 </script>
 </head>
 <link rel="stylesheet" type="text/css" href="../style/style.css">
@@ -129,6 +153,9 @@ function selectEDay(sel) {
 
 		pageContext.setAttribute("dayMap", dayMap);
 		%>
+		<input type="checkbox" name = "monthsel" value="check" onchange="monthSelDel()"><b>월 매출 검색</b><br>
+		<div id="datesel">
+		<span id="monthseldel1">
 		<select id="sYear" name="sYear">
 		  <c:forEach var="year" begin="${nowYear - 2}" end="${nowYear}">
 		   <option value="${year}" <c:out value="${dayMap['syear'] eq year ? 'selected=\"selected\"' : '' }"/>>${year}년 </option>
@@ -144,7 +171,9 @@ function selectEDay(sel) {
 		   <option value="${datePattern}" <c:out value="${dayMap['sday'] eq datePattern ? 'selected=\"selected\"' : '' }"/>> ${day}일 </option>
 		 </c:forEach>
 		</select>
-		&nbsp;-&nbsp;
+		</span>
+		<span id="monthseldel2" style="display:block;">
+		&nbsp;-
 		<select id="eYear" name="eYear">
 		  <c:forEach var="year" begin="${nowYear - 2}" end="${nowYear}">
 		   <option value="${year}" <c:out value="${dayMap['eyear'] eq year ? 'selected=\"selected\"' : '' }"/>>${year}년 </option>
@@ -160,7 +189,11 @@ function selectEDay(sel) {
 		   <option value="${datePattern}" <c:out value="${dayMap['eday'] eq datePattern ? 'selected=\"selected\"' : '' }"/>> ${day}일 </option>
 		 </c:forEach>
 		</select>
+		</span>&nbsp;
+		<span id="monthseldel3">
 		<button type="submit" id="wbutton">&nbsp;검색&nbsp;</button>
+		</span>
+		</div>
 		<br>
 		<button type="button" id="wbutton" onclick="location.href='salesList.od?period=week'">일주일</button>
 		<button type="button" id="wbutton" onclick="location.href='salesList.od?period=2week'">이주일</button>
@@ -169,7 +202,7 @@ function selectEDay(sel) {
 		<b>${start } - ${end }</b> 검색결과
 		</div>
 		<br>
-	<button type="button" id="categorybl" style="background-color:<c:out value="${orderby==null ? '#F6F6F6' : '#fff'}"/>;" onclick="location.href='salesList.od?<c:out value="${date !=null ? 'datesel=ok&' : '' }"/>period=${period }&date=${date }'">주문별</button><button type="button" id="categorybr" style="background-color:<c:out value="${orderby!=null ? '#F6F6F6' : '#fff'}"/>;" onclick="location.href='salesList.od?<c:out value="${date !=null ? 'datesel=ok&' : '' }"/>period=${period }&date=${date }&orderby=profit'">상품별</button>
+	<button type="button" id="categorybl" style="background-color:<c:out value="${orderby==null ? '#F6F6F6' : '#fff'}"/>;" onclick="location.href='salesList.od?<c:out value="${monthsel !=null ? 'monthsel=check' : '' }"/>&start=${start}&end=${end}'">주문별</button><button type="button" id="categorybr" style="background-color:<c:out value="${orderby!=null ? '#F6F6F6' : '#fff'}"/>;" onclick="location.href='salesList.od?<c:out value="${monthsel !=null ? 'monthsel=check' : '' }"/>&start=${start}&end=${end}&orderby=profit'">상품별</button>
 	<br>
 	<c:choose>
 	<c:when test="${orderby==null }">
@@ -211,7 +244,7 @@ function selectEDay(sel) {
 								[${a }]
 							</c:when>
 							<c:otherwise>
-								<a href="salesList.od?page=${a }&start=${start}&end=${end}">[${a }]</a>&nbsp;
+								<a href="salesList.od?<c:out value="${monthsel !=null ? 'monthsel=check' : '' }"/>&page=${a }&start=${start}&end=${end}">[${a }]</a>&nbsp;
 							</c:otherwise>
 						</c:choose>
 					</c:forEach>
@@ -220,7 +253,7 @@ function selectEDay(sel) {
 							[다음]
 						</c:when>
 						<c:otherwise>
-							<a href="salesList.od?page=${pageInfo.page+1 }&start=${start}&end=${end}">[다음]</a>&nbsp;
+							<a href="salesList.od?<c:out value="${monthsel !=null ? 'monthsel=check' : '' }"/>&page=${pageInfo.page+1 }&start=${start}&end=${end}">[다음]</a>&nbsp;
 						</c:otherwise>
 					</c:choose>
 				</td>
@@ -274,7 +307,7 @@ function selectEDay(sel) {
 						[이전]&nbsp;
 					</c:if>
 					<c:if test="${pageInfo.page>1 }">
-						<a href="salesList.od?page=${pageInfo.page-1}&start=${start}&end=${end}&orderby=${orderby }">[이전]</a>&nbsp;
+						<a href="salesList.od?<c:out value="${monthsel !=null ? 'monthsel=check' : '' }"/>&page=${pageInfo.page-1}&start=${start}&end=${end}&orderby=${orderby }">[이전]</a>&nbsp;
 					</c:if>
 					
 					<c:forEach var="a" begin="${pageInfo.startPage }" end="${pageInfo.endPage }" step="1">
@@ -283,7 +316,7 @@ function selectEDay(sel) {
 								[${a }]
 							</c:when>
 							<c:otherwise>
-								<a href="salesList.od?page=${a }&start=${start}&end=${end}&orderby=${orderby }">[${a }]</a>&nbsp;
+								<a href="salesList.od?<c:out value="${monthsel !=null ? 'monthsel=check' : '' }"/>&page=${a }&start=${start}&end=${end}&orderby=${orderby }">[${a }]</a>&nbsp;
 							</c:otherwise>
 						</c:choose>
 					</c:forEach>
@@ -292,7 +325,7 @@ function selectEDay(sel) {
 							[다음]
 						</c:when>
 						<c:otherwise>
-							<a href="salesList.od?page=${pageInfo.page+1 }&start=${start}&end=${end}&orderby=${orderby }">[다음]</a>
+							<a href="salesList.od?<c:out value="${monthsel !=null ? 'monthsel=check' : '' }"/>&page=${pageInfo.page+1 }&start=${start}&end=${end}&orderby=${orderby }">[다음]</a>
 						</c:otherwise>
 					</c:choose>
 				</td>

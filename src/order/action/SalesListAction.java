@@ -60,6 +60,9 @@ public class SalesListAction implements Action {
 			String orderby = request.getParameter("orderby");
 			
 			Map<String, Integer> salesMap = new HashMap<String, Integer>();
+			SimpleDateFormat DATE_FORMAT = new SimpleDateFormat("yyyy-MM-dd");
+			Calendar cal = Calendar.getInstance();
+			Date date = cal.getTime();
 			
 			if(start!=null){
 				if(orderby==null) {
@@ -69,11 +72,21 @@ public class SalesListAction implements Action {
 					listCount = orderService.salesItemCount1(start, end);
 					salesList2 = orderService.salesItemList1(start, end, orderby, page);
 				}
-			}else if(request.getParameter("sYear")==null) {
+			}else if(request.getParameter("monthsel")!=null){
+				start = request.getParameter("sYear")+"-"+request.getParameter("sMonth")+"-01";
+				cal.set(Calendar.YEAR, Integer.parseInt(request.getParameter("sYear")));
+				cal.set(Calendar.MONTH, Integer.parseInt(request.getParameter("sMonth"))-1);
+				cal.set(Calendar.DATE, 1);
+				end = request.getParameter("sYear")+"-"+request.getParameter("sMonth")+cal.getActualMaximum(Calendar.DATE);
+				if(orderby==null) {
+					listCount = orderService.salesOrderCount1(start, end);
+					salesList1 = orderService.salesOrderList1(start, end, page);
+				}else {
+					listCount = orderService.salesItemCount1(start, end);
+					salesList2 = orderService.salesItemList1(start, end, orderby, page);
+				}
+			}else if(request.getParameter("eYear")==null) {
 				String period = request.getParameter("period");
-				SimpleDateFormat DATE_FORMAT = new SimpleDateFormat("yyyy-MM-dd");
-				Calendar cal = Calendar.getInstance();
-				Date date = cal.getTime();
 				end = DATE_FORMAT.format(date);
 				if(period==null||period.equals("week")) cal.add(Calendar.DATE,-7);
 				else if(period.equals("2week")) cal.add(Calendar.DATE,-14);
@@ -99,12 +112,10 @@ public class SalesListAction implements Action {
 					salesList2 = orderService.salesItemList1(start, end, orderby, page);
 				}
 			}
-			System.out.println(start+","+end);
-			if(request.getParameter("monthsel")==null) {
-				salesMap = orderService.calculateProfit(start, end);
-			}else {
-				salesMap = orderService.thisMonthSales(start, end);
-			}
+			
+			if(request.getParameter("monthsel")!=null) salesMap = orderService.thisMonthSales(start, end);
+			else salesMap = orderService.calculateProfit(start, end);
+
 			int maxPage = (int)((double)listCount/limit+0.95); 
 			int startPage = (((int)((double)page/limitPage+0.9))-1) *limitPage +1;
 			int endPage = startPage+limitPage-1;
