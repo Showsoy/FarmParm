@@ -47,7 +47,10 @@ public class QnAViewAction implements Action {
 			request.setAttribute("board", board);
 			request.setAttribute("rboard", rboard);
 			String page = request.getParameter("page");
-			if(request.getParameter("keyword")!=null) request.setAttribute("keyword", request.getParameter("keyword"));
+			if(request.getParameter("keyword")!=null) {
+				request.setAttribute("keyword", request.getParameter("keyword"));
+				request.setAttribute("qna_search", request.getParameter("qna_search"));
+			}
 			request.setAttribute("page", page);
 			request.setAttribute("item_name", item_name);
 			forward = new ActionForward("./qna_view.jsp", false);

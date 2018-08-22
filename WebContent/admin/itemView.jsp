@@ -41,7 +41,7 @@ th{
 	
 	<table cellspacing="0" cellpadding="0" class="detail_table">
 	<tr>
-		<th rowspan="7"><img src="../images/${item.img_path }" width="300px"></th>
+		<th rowspan="9"><img src="../images/${item.img_path }" width="300px"></th>
 		<td id="td_left">분류</td>
 		<td>${item.category }</td>
 	</tr>
@@ -52,6 +52,10 @@ th{
 	<tr>
 		<td id="td_left">상품명</td>
 		<td>${item.item_name }</td>
+	</tr>
+	<tr>
+		<td id="td_left">재고</td>
+		<td>${stock }</td>
 	</tr>
 	<tr>
 		<td id="td_left">원산지</td>

@@ -138,12 +138,24 @@ public class BoardDAO {
 		
 		return listCount;
 	}
-	public int searchReviewCount(String keyword) {
+	public int searchReviewCount(String keyword, String review_search) {
 		int listCount = 0;
 		PreparedStatement pstmt = null;
 		ResultSet rs = null;
-		String sql = "SELECT COUNT(*) FROM review_board a LEFT JOIN items b ON a.item_code = b.item_code"
-				+ " WHERE rstep = 1 AND b.item_name LIKE '%"+keyword+"%' OR a.subject LIKE '%"+keyword+"%' OR a.content LIKE '%"+keyword+"%'";
+		String sql = "";
+		
+		if(review_search.equals("제목")) {
+			sql = "SELECT COUNT(*) FROM review_board a LEFT JOIN items b ON a.item_code = b.item_code"
+					+ " WHERE rstep = 1 AND a.subject LIKE '%"+keyword+"%'";
+			
+		}else if(review_search.equals("상품")) {
+			sql = "SELECT COUNT(*) FROM review_board a LEFT JOIN items b ON a.item_code = b.item_code"
+					+ " WHERE rstep = 1 AND b.item_name LIKE '%"+keyword+"%'";
+			
+		}else if(review_search.equals("내용")) {
+			sql = "SELECT COUNT(*) FROM review_board a LEFT JOIN items b ON a.item_code = b.item_code"
+					+ " WHERE rstep = 1 AND a.content LIKE '%"+keyword+"%'";
+		}
 		
 		try {
 			pstmt = conn.prepareStatement(sql);
@@ -161,12 +173,24 @@ public class BoardDAO {
 		
 		return listCount;
 	}
-	public int searchQnACount(String keyword) {
+	public int searchQnACount(String keyword, String qna_search) {
 		int listCount = 0;
 		PreparedStatement pstmt = null;
 		ResultSet rs = null;
-		String sql = "SELECT COUNT(*) FROM qna_board a LEFT JOIN items b ON a.item_code = b.item_code"
-				+ " WHERE rstep = 1 AND b.item_name LIKE '%"+keyword+"%' OR a.subject LIKE '%"+keyword+"%' OR a.content LIKE '%"+keyword+"%'";
+		String sql="";
+		
+		if(qna_search.equals("상품")) {
+			sql = "SELECT COUNT(*) FROM qna_board a LEFT JOIN items b ON a.item_code = b.item_code"
+					+ " WHERE rstep = 1 AND b.item_name LIKE '%"+keyword+"%'";
+		}else if(qna_search.equals("제목")) {
+			sql = "SELECT COUNT(*) FROM qna_board a LEFT JOIN items b ON a.item_code = b.item_code"
+					+ " WHERE rstep = 1 AND a.subject LIKE '%"+keyword+"%'";
+		}else if(qna_search.equals("내용")) {
+			sql = "SELECT COUNT(*) FROM qna_board a LEFT JOIN items b ON a.item_code = b.item_code"
+			+ " WHERE rstep = 1 AND a.content LIKE '%"+keyword+"%'";	
+		}
+		
+	
 		
 		try {
 			pstmt = conn.prepareStatement(sql);
@@ -499,11 +523,20 @@ public class BoardDAO {
 		
 		return articleList;
 	}
-	public ArrayList<BoardBean> searchReviewList(String keyword, int page) {
+	public ArrayList<BoardBean> searchReviewList(String keyword, int page, String review_search) {
 		PreparedStatement pstmt = null;
 		ResultSet rs = null;
-		String sql = "SELECT bnum, a.item_code, user_id, item_name, subject, has_re, rdate FROM review_board a LEFT JOIN items b ON a.item_code = b.item_code"
-				+ " WHERE rstep = 1 AND (b.item_name LIKE '%"+keyword+"%' OR a.subject LIKE '%"+keyword+"%' OR a.content LIKE '%"+keyword+"%') LIMIT ?,10";
+		String sql = "";
+		if(review_search.equals("제목")) {
+			sql = "SELECT bnum, a.item_code, user_id, item_name, subject, has_re, rdate FROM review_board a LEFT JOIN items b ON a.item_code = b.item_code"
+					+ " WHERE rstep = 1 AND (a.subject LIKE '%"+keyword+"%') LIMIT ?,10";
+		}else if(review_search.equals("상품")) {
+			sql = "SELECT bnum, a.item_code, user_id, item_name, subject, has_re, rdate FROM review_board a LEFT JOIN items b ON a.item_code = b.item_code"
+					+ " WHERE rstep = 1 AND (b.item_name LIKE '%"+keyword+"%') LIMIT ?,10";
+		}else if(review_search.equals("내용")) {
+			sql = "SELECT bnum, a.item_code, user_id, item_name, subject, has_re, rdate FROM review_board a LEFT JOIN items b ON a.item_code = b.item_code"
+					+ " WHERE rstep = 1 AND (a.content LIKE '%"+keyword+"%') LIMIT ?,10";
+		}
 		ArrayList<BoardBean> articleList = new ArrayList<BoardBean>();
 		BoardBean board = null;
 		int startrow = (page-1)*10;
@@ -528,11 +561,21 @@ public class BoardDAO {
 		
 		return articleList;
 	}
-	public ArrayList<BoardBean> searchQnAList(String keyword, int page) {
+	public ArrayList<BoardBean> searchQnAList(String keyword, int page, String qna_search) {
 		PreparedStatement pstmt = null;
 		ResultSet rs = null;
-		String sql = "SELECT bnum, a.item_code, user_id, item_name, subject, has_re, qdate, qhide FROM qna_board a LEFT JOIN items b ON a.item_code = b.item_code"
-				+ " WHERE rstep = 1 AND (b.item_name LIKE '%"+keyword+"%' OR a.subject LIKE '%"+keyword+"%' OR a.content LIKE '%"+keyword+"%') LIMIT ?,10";
+		String sql ="";
+		if(qna_search.equals("상품")) {
+			sql = "SELECT bnum, a.item_code, user_id, item_name, subject, has_re, qdate, qhide FROM qna_board a LEFT JOIN items b ON a.item_code = b.item_code"
+					+ " WHERE rstep = 1 AND (b.item_name LIKE '%"+keyword+"%') LIMIT ?,10";
+		}else if(qna_search.equals("제목")) {
+			sql = "SELECT bnum, a.item_code, user_id, item_name, subject, has_re, qdate, qhide FROM qna_board a LEFT JOIN items b ON a.item_code = b.item_code"
+					+ " WHERE rstep = 1 AND (a.subject LIKE '%"+keyword+"%') LIMIT ?,10";
+		}else if(qna_search.equals("내용")) {
+			sql = "SELECT bnum, a.item_code, user_id, item_name, subject, has_re, qdate, qhide FROM qna_board a LEFT JOIN items b ON a.item_code = b.item_code"
+					+ " WHERE rstep = 1 AND (a.content LIKE '%"+keyword+"%') LIMIT ?,10";
+		}
+		
 		ArrayList<BoardBean> articleList = new ArrayList<BoardBean>();
 		BoardBean board = null;
 		int startrow = (page-1)*10;

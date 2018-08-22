@@ -60,7 +60,7 @@ img{
 						<td colspan="2">
 							<p><c:if test="${board.readcount>0 }">
 								<img src="../images/lock.png"></c:if>
-							<a href="qnaView.bo?bnum=${board.board_num }&item_code=${board.code }&page=${pageInfo.page}<c:out value="${keyword !=null ? '&keyword=' : '' }"/>${keyword}">
+							<a href="qnaView.bo?bnum=${board.board_num }&item_code=${board.code }&page=${pageInfo.page}<c:out value="${keyword !=null ? '&keyword=' : '' }"/>${keyword}<c:out value="${qna_search !=null ? '&qna_search=' : '' }"/>${qna_search}">
 							${board.subject }
 							</a></p>
 						</td>
@@ -106,7 +106,12 @@ img{
 		<br>
 		<section id="commandCellp">
 			<form action="qnaList.bo" name="qnasearch" method="post">
-				<input type="text" id="keyword" name="keyword" size="20"/>
+				<select name="qna_search" id="qna_search">
+					<option value="제목">제목</option>
+					<option value="내용">내용</option>
+					<option value="상품">상품명</option>
+				</select>
+				<input type="text" id="keyword" name="keyword" size="15"/>
 				<button type="submit" id="wbutton">검색</button>
 			</form>
 			

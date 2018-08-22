@@ -58,20 +58,20 @@ public class BoardService {
 		close(conn);
 		return listCount;
 	}
-	public int searchReviewCount(String keyword) {
+	public int searchReviewCount(String keyword,String review_search) {
 		BoardDAO boardDAO = BoardDAO.getInstance();
 		Connection conn = getConnection();
 		boardDAO.setConnection(conn);
-		int listCount = boardDAO.searchReviewCount(keyword);
+		int listCount = boardDAO.searchReviewCount(keyword, review_search);
 		
 		close(conn);
 		return listCount;
 	}
-	public int searchQnACount(String keyword) {
+	public int searchQnACount(String keyword, String qna_search) {
 		BoardDAO boardDAO = BoardDAO.getInstance();
 		Connection conn = getConnection();
 		boardDAO.setConnection(conn);
-		int listCount = boardDAO.searchQnACount(keyword);
+		int listCount = boardDAO.searchQnACount(keyword, qna_search);
 		
 		close(conn);
 		return listCount;
@@ -157,21 +157,20 @@ public class BoardService {
 		close(conn);
 		return articleList;
 	}
-	public ArrayList<BoardBean> searchReviewList(String keyword, int page) {
+	public ArrayList<BoardBean> searchReviewList(String keyword, int page, String review_search) {
 		BoardDAO boardDAO = BoardDAO.getInstance();
 		Connection conn = getConnection();
 		boardDAO.setConnection(conn);
-		ArrayList<BoardBean> articleList = boardDAO.searchReviewList(keyword, page);
+		ArrayList<BoardBean> articleList = boardDAO.searchReviewList(keyword, page, review_search);
 		
 		close(conn);
 		return articleList;
 	}
-	public ArrayList<BoardBean> searchQnAList(String keyword, int page) {
+	public ArrayList<BoardBean> searchQnAList(String keyword, int page, String qna_search) {
 		BoardDAO boardDAO = BoardDAO.getInstance();
 		Connection conn = getConnection();
 		boardDAO.setConnection(conn);
-		ArrayList<BoardBean> articleList = boardDAO.searchQnAList(keyword, page);
-		
+		ArrayList<BoardBean> articleList = boardDAO.searchQnAList(keyword, page, qna_search);
 		close(conn);
 		return articleList;
 	}

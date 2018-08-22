@@ -41,6 +41,7 @@ public class QnAListAction implements Action {
 		
 			ArrayList<BoardBean> boardList = new ArrayList<BoardBean>();
 			String keyword = "";
+			String qna_search = "";
 			int page = 1;
 			int limit = 10;
 			int limitPage = 10;
@@ -53,10 +54,12 @@ public class QnAListAction implements Action {
 			BoardService boardService = new BoardService();
 			
 			if(request.getParameter("keyword")!=null) {
+				qna_search = request.getParameter("qna_search");
 				keyword = request.getParameter("keyword");
-				listCount = boardService.searchQnACount(keyword);
-				boardList = boardService.searchQnAList(keyword, page);
+				listCount = boardService.searchQnACount(keyword,qna_search);
+				boardList = boardService.searchQnAList(keyword, page, qna_search);
 				request.setAttribute("keyword", keyword);
+				request.setAttribute("qna_search", qna_search);
 			}else {
 				listCount = boardService.selectListCount("qna_board");
 				boardList = boardService.selectQnAList(page);

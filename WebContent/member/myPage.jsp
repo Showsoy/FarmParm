@@ -55,10 +55,9 @@ td, tr{
 	</tr>
 </table>
 <br><br>
-			<button id="bbutton" onclick="location.href='./pwCheckForm.us?id=${user.user_id}'">수정</button> 
-	
+			<button id="bbutton" onclick="location.href='./pwCheckForm.us?id=${user.user_id}'">수정</button>
 			<button id="bbutton" onclick="location.href='main.im'">홈으로</button> 
-		
+			<button id="bbutton" onclick="location.href='#'">내 문의 보기</button>
 	</div>
 </div>
 <jsp:include page="/common/footer.jsp" flush="false"/>

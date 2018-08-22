@@ -59,7 +59,7 @@ img{
 						<td>${board.content }</td>
 						<td colspan="2">
 							<p>
-							<a href="reView.bo?bnum=${board.board_num }&item_code=${board.code }&page=${pageInfo.page}<c:out value="${keyword !=null ? '&keyword=' : '' }"/>${keyword}">
+							<a href="reView.bo?bnum=${board.board_num }&item_code=${board.code }&page=${pageInfo.page}<c:out value="${keyword !=null ? '&keyword=' : '' }"/>${keyword}<c:out value="${review_search !=null ? '&review_search=' : '' }"/>${review_search}">
 							${board.subject }
 							<c:if test="${board.has_re>0 }">[1]</c:if>
 							</a></p>
@@ -106,7 +106,12 @@ img{
 		<br>
 		<section id="commandCellp">
 			<form action="reList.bo" name="research" method="post">
-				<input type="text" id="keyword" name="keyword" size="20"/>
+				<select name="review_search" id="review_search">
+					<option value="제목">제목</option>
+					<option value="내용">내용</option>
+					<option value="상품">상품명</option>
+				</select>
+				<input type="text" id="keyword" name="keyword" size="15"/>
 				<button type="submit" id="wbutton">검색</button>
 			</form>
 			

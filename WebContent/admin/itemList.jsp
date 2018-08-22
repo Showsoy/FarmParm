@@ -114,7 +114,8 @@ img{
 				<td>${itemList.price }</td>
 				<td>${itemList.purchase }</td>
 				<td>${itemList.stock }</td>
-				<td><button type="button" onclick="location.href='itemView.im?item_code=${itemList.item_code}&page=${pageInfo.page }'" id="gbutton">조회</button></td>
+				<td><button type="button" onclick="location.href='itemView.im?item_code=${itemList.item_code}&page=${pageInfo.page }&stock=${itemList.stock }'" id="gbutton">조회</button></td>
+
 			</tr>
 			</c:forEach>
 			<tr>
