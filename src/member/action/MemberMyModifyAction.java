@@ -1,4 +1,4 @@
-package member.action;
+﻿package member.action;
 
 import java.io.PrintWriter;
 import java.sql.Date;
@@ -21,17 +21,16 @@ public class MemberMyModifyAction implements Action{
 		String id = (String)session.getAttribute("id");
 		Date birth = util.transformDate(request.getParameter("userBirth"));
 		String email = (request.getParameter("userEmailId") +"@"+ request.getParameter("userEmailAd"));
-		
-			UserBean user = new UserBean(
-					request.getParameter("userPhone"), 
-					birth, 
-					request.getParameter("userGen"),
-					request.getParameter("userAddr1"),
-					request.getParameter("userAddr2"),
-					request.getParameter("userAddr3"),
-					email,
-					id
-					);
+
+			UserBean user = new UserBean();
+			user.setPhone(request.getParameter("userPhone"));
+			user.setBirth(birth);
+			user.setGender(request.getParameter("userGen"));
+			user.setPostcode(request.getParameter("userAddr1"));
+			user.setAddress(request.getParameter("userAddr2"));
+			user.setAddress_second(request.getParameter("userAddr3"));
+			user.setEmail(email);
+			user.setUser_id(id);
 			
 			ActionForward forward = null;
 			boolean isRegistSuccess = userService.modifyMy(user);

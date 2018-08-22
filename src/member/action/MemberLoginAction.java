@@ -23,7 +23,6 @@ public class MemberLoginAction implements Action{
 		String salt = userService.salt(id);
 		if(salt.equals("nullID")) {
 			request.setAttribute("type", "nullID");
-			request.setAttribute("turn", turn);
 			request.setAttribute("returnURI", returnURI);
 			forward = new ActionForward("login.jsp",false);
 		}else {
@@ -50,7 +49,6 @@ public class MemberLoginAction implements Action{
 	   			}
 	   		}else{
 	   			request.setAttribute("type", "passError");
-	   			request.setAttribute("turn", turn);
 				request.setAttribute("returnURI", returnURI);
 	   			forward = new ActionForward("login.jsp",false);
 		   		

@@ -21,8 +21,17 @@ td, tr{
 </style>
 <script>
 function goto_url(act) {
-	document.orderview.action = act;
-	document.orderview.submit();
+	int od_state = document.getElementById("od_state").options[document.getElementById("od_state").selectedIndex].value
+	if(od_state=='삭제'){
+		var flag = confirm('주문을 취소하시겠습니까?');
+		if(flag){
+			document.orderview.action = act;
+			document.orderview.submit();
+		}
+	}else{
+		document.orderview.action = act;
+		document.orderview.submit();
+	}
 }
 </script>
 </head>
@@ -58,7 +67,7 @@ function goto_url(act) {
 	</div>
 	<form name="orderview" method="post">
 		<div id="order-state">
-		<select name="od_state" id="od_state">
+		<select name="od_state" id="od_state" <c:out value="${order.state eq '취소' ? 'disable=\"disable\"' : ''}"/>>
 			<c:if test="${order.state eq '주문완료'}">
 				<option value="주문완료" selected>주문완료</option>
 				<option value="결제완료">결제완료</option>

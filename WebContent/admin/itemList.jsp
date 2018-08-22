@@ -1,4 +1,4 @@
-<%@ page language="java" contentType="text/html; charset=UTF-8"
+﻿<%@ page language="java" contentType="text/html; charset=UTF-8"
     pageEncoding="UTF-8"%>
 <%@ page import="java.util.*" %>
 <%@ page import="java.text.SimpleDateFormat" %>
@@ -113,9 +113,14 @@ img{
 				
 				<td>${itemList.price }</td>
 				<td>${itemList.purchase }</td>
+				<!-- 재고량 30 이하면 빨간색-->
+				<c:if test="${itemList.stock <= 30}">
+				<td style="color:red;">${itemList.stock }</td>
+				</c:if>
+				<c:if test="${itemList.stock > 30}">
 				<td>${itemList.stock }</td>
-				<td><button type="button" onclick="location.href='itemView.im?item_code=${itemList.item_code}&page=${pageInfo.page }&stock=${itemList.stock }'" id="gbutton">조회</button></td>
-
+				<td><button type="button" onclick="location.href='itemView.im?item_code=${itemList.item_code}&page=${pageInfo.page }'" id="gbutton">조회</button></td>
+				</c:if>
 			</tr>
 			</c:forEach>
 			<tr>

@@ -1,15 +1,19 @@
 package dao;
 
 import static db.JdbcUtil.close;
+
 import java.sql.Connection;
 import java.sql.Date;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.util.ArrayList;
+import java.util.HashMap;
+import java.util.Map;
 
 import javax.sql.DataSource;
 
+import vo.PointBean;
 import vo.UserBean;
 import vo.UserViewBean;
 
@@ -49,7 +53,7 @@ public class UserDAO {
 						rs.getDate("birth"), rs.getString("gender"), 
 						rs.getString("postcode"), rs.getString("address"), 
 						rs.getString("address_second"), rs.getString("email"), 
-						rs.getString("grade"), "", rs.getInt("point"));
+						rs.getString("grade"), "");
 			}
 		}catch(Exception e) {
 			e.printStackTrace();
@@ -255,18 +259,18 @@ public class UserDAO {
 			pstmt.setString(1, user_id);
 			rs=pstmt.executeQuery();
 			if(rs.next()){
-				ub = new UserBean(
-						rs.getString("user_id"),
-						rs.getString("passwd"),
-						rs.getString("name"),
-						rs.getString("grade"),
-						rs.getString("phone"),
-						rs.getDate("birth"),
-						rs.getString("gender"),
-						rs.getString("email"),
-						rs.getString("postcode"),
-						rs.getString("address"),
-						rs.getString("address_second"));
+				ub = new UserBean();
+				ub.setUser_id(rs.getString("user_id"));
+				ub.setPasswd(rs.getString("passwd"));
+				ub.setName(rs.getString("name"));
+				ub.setGrade(rs.getString("grade"));
+				ub.setPhone(rs.getString("phone"));
+				ub.setBirth(rs.getDate("birth"));
+				ub.setGender(rs.getString("gender"));
+				ub.setEmail(rs.getString("email"));
+				ub.setPostcode(rs.getString("postcode"));
+				ub.setAddress(rs.getString("address"));
+				ub.setAddress_second(rs.getString("address_second"));
 			}
 		}catch(Exception e){
 			e.printStackTrace();			
@@ -311,18 +315,18 @@ public class UserDAO {
 			pstmt.setString(1, user_id);
 			rs=pstmt.executeQuery();
 			if(rs.next()){
-				ub = new UserBean(
-						rs.getString("user_id"),
-						rs.getString("passwd"),
-						rs.getString("name"),
-						rs.getString("phone"),
-						rs.getDate("birth"),
-						rs.getString("gender"),
-						rs.getString("postcode"),
-						rs.getString("address"),
-						rs.getString("address_second"),
-						rs.getString("email"),
-						rs.getString("grade"));
+				ub = new UserBean();
+				ub.setUser_id(rs.getString("user_id"));
+				ub.setPasswd(rs.getString("passwd"));
+				ub.setName(rs.getString("name"));
+				ub.setPhone(rs.getString("phone"));
+				ub.setBirth(rs.getDate("birth"));
+				ub.setGender(rs.getString("gender"));
+				ub.setPostcode(rs.getString("postcode"));
+				ub.setAddress(rs.getString("address"));
+				ub.setAddress_second(rs.getString("address_second"));
+				ub.setEmail(rs.getString("email"));
+				ub.setGrade(rs.getString("grade"));
 			}
 		}catch(Exception e){
 			e.printStackTrace();		
@@ -360,16 +364,16 @@ public class UserDAO {
 			pstmt.setString(1, user_id);
 			rs=pstmt.executeQuery();
 			if(rs.next()){
-				ub = new UserBean(
-						rs.getString("user_id"),
-						rs.getString("name"),
-						rs.getString("phone"),
-						rs.getDate("birth"),
-						rs.getString("gender"),
-						rs.getString("email"),
-						rs.getString("postcode"),
-						rs.getString("address"),
-						rs.getString("address_second"));
+				ub = new UserBean();
+				ub.setUser_id(rs.getString("user_id"));
+				ub.setName(rs.getString("name"));
+				ub.setPhone(rs.getString("phone"));
+				ub.setBirth(rs.getDate("birth"));
+				ub.setGender(rs.getString("gender"));
+				ub.setEmail(rs.getString("email"));
+				ub.setPostcode(rs.getString("postcode"));
+				ub.setAddress(rs.getString("address"));
+				ub.setAddress_second(rs.getString("address_second"));
 			}
 		}catch(Exception e){
 			e.printStackTrace();		
@@ -570,13 +574,41 @@ public class UserDAO {
 		}
 		return userList;
 	}
-	public int userDeductPoint(String id, int depoint) {
-		int updateCount = 0;
+	public int findRecentPoint(String user_id) {
+		int balance = 0;
 		PreparedStatement pstmt = null;
-		String sql = "UPDATE users SET point=point-? WHERE user_id='"+id+"'";
+		ResultSet rs = null;
+		String sql = "SELECT balance FROM point WHERE user_id = ? AND pt_num = (SELECT MAX(pt_num) FROM point WHERE user_id = ?)";
 		try {
 			pstmt = con.prepareStatement(sql);
-			pstmt.setInt(1, depoint);
+			pstmt.setString(1, user_id);
+			pstmt.setString(2, user_id);
+			rs = pstmt.executeQuery();
+			
+			if(rs.next()) balance = rs.getInt(1);
+		}catch(Exception e) {
+			e.printStackTrace();
+		}finally {
+			if(pstmt!=null) close(pstmt);
+			if(rs!=null) close(rs);
+		}
+		return balance;
+	}
+	public int userPlminusPoint(PointBean point) {
+		int updateCount = 0;
+		PreparedStatement pstmt = null;
+		int balance = findRecentPoint(point.getUser_id());
+		balance += point.getPlminus()*point.getPoint();
+		String sql = "INSERT INTO point VALUES(null,?,?,?,?,?,?,now())";
+		try {
+			pstmt = con.prepareStatement(sql);
+			pstmt.setString(1, point.getUser_id());
+			pstmt.setInt(2, point.getOrder_id());
+			pstmt.setString(3, point.getState());
+			pstmt.setInt(4, point.getPlminus());
+			pstmt.setInt(5, point.getPoint());
+			pstmt.setInt(6, balance);
+			
 			updateCount = pstmt.executeUpdate();
 		}catch(Exception e) {
 			e.printStackTrace();
@@ -585,19 +617,75 @@ public class UserDAO {
 		}
 		return updateCount;
 	}
-	public int userPlusPoint(String id, int point) {
-		int updateCount = 0;
+	public int myPointListCount(String startDate, String endDate) {
+		int listCount = 0;
 		PreparedStatement pstmt = null;
-		String sql = "UPDATE users SET point=point+? WHERE user_id='"+id+"'";
+		ResultSet rs = null;
+		String sql = "select COUNT(*) from point where pdate between '"+startDate+"' and '"+endDate+"'"; 
 		try {
 			pstmt = con.prepareStatement(sql);
-			pstmt.setInt(1, point);
-			updateCount = pstmt.executeUpdate();
+			rs = pstmt.executeQuery();
+			if(rs.next()) listCount = rs.getInt(1);
 		}catch(Exception e) {
 			e.printStackTrace();
 		}finally {
-			if(pstmt!=null) close(pstmt);
+			close(pstmt);
+			close(rs);
 		}
-		return updateCount;
+		
+		return listCount;
+	}
+	public ArrayList<PointBean> myPointList(String startDate, String endDate, int page) {
+		PreparedStatement pstmt = null;
+		ResultSet rs = null;
+		ArrayList<PointBean> myPointList = null;
+		int startrow = (page-1)*10;
+		String sql = "select * from point where pdate between '"+startDate+"' and '"+endDate+"' order by idate desc limit ?,10"; 
+		try {
+			pstmt = con.prepareStatement(sql);
+			pstmt.setInt(1, startrow);
+			rs = pstmt.executeQuery();
+			if(rs.next()) {
+				myPointList = new ArrayList<PointBean>();
+				do {
+					myPointList.add(new PointBean(rs.getInt("pt_num"), rs.getString("user_id"), rs.getInt("order_id"),
+							rs.getString("state"), rs.getInt("plminus"), rs.getInt("point"), rs.getInt("balance"),rs.getDate("pdate")));
+				}while(rs.next());
+			}
+			
+		}catch(Exception e) {
+			e.printStackTrace();
+		}finally {
+			close(pstmt);
+			close(rs);
+		}
+		
+		return myPointList;
+	}
+	public Map<String, Integer> orderPointMap(int order_id) {
+		PreparedStatement pstmt = null;
+		ResultSet rs = null;
+		Map<String, Integer> orderPointMap = null;
+		String sql = "select plminus, point from point where order_id = ? order by idate desc limit ?,10"; 
+		try {
+			pstmt = con.prepareStatement(sql);
+			pstmt.setInt(1, order_id);
+			rs = pstmt.executeQuery();
+			if(rs.next()) {
+				orderPointMap = new HashMap<String, Integer>(); 
+				do {
+					if(rs.getInt("plminus")>0) orderPointMap.put("save", rs.getInt("point"));
+					else orderPointMap.put("user", rs.getInt("point"));
+				}while(rs.next());
+			}
+			
+		}catch(Exception e) {
+			e.printStackTrace();
+		}finally {
+			close(pstmt);
+			close(rs);
+		}
+		
+		return orderPointMap;
 	}
 }

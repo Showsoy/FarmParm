@@ -1,7 +1,8 @@
-package item.action;
+﻿package item.action;
 
 import java.io.PrintWriter;
 import java.util.ArrayList;
+import java.util.Calendar;
 
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
@@ -49,8 +50,14 @@ public class ItemViewAction implements action.Action{
 			if(request.getParameter("i_page")!=null) {
 				i_page = Integer.parseInt(request.getParameter("i_page"));
 			}
-			
-			int listCount = itemService.itemStockCount(item_code);
+
+			Calendar tmpCal = Calendar.getInstance();
+			int iyear = request.getParameter("iyear")==null ? tmpCal.get(Calendar.YEAR) 
+					: Integer.parseInt(request.getParameter("iyear"));
+			int imonth = request.getParameter("imonth")==null ? tmpCal.get(Calendar.MONTH)+1 
+					: Integer.parseInt(request.getParameter("imonth"));
+
+			int listCount = itemService.itemStockCount(item_code, iyear, imonth);
 			int i_maxPage = (int)((double)listCount/i_limit+0.95); 
 			int i_startPage = (((int)((double)i_page/i_limitPage+0.9))-1) *i_limitPage +1;
 			int i_endPage = i_startPage+i_limitPage-1;
@@ -65,16 +72,16 @@ public class ItemViewAction implements action.Action{
 			request.setAttribute("i_pageInfo", i_pageInfo);
 			
 			forward = new ActionForward();
-			ItemBean item = itemService.getItem(item_code);
-			ArrayList<ItemStockBean> itemStockList = itemService.getItemStockList(item_code,i_page);
+			ItemBean item = itemService.getItemWithStock(item_code);
+			ArrayList<ItemStockBean> itemStockList = itemService.getItemStockList(item_code, iyear, imonth, i_page);
 			
 			request.setAttribute("item",item);
 			request.setAttribute("itemStockList", itemStockList);
 			String page = request.getParameter("page");
-			String stock = request.getParameter("stock");
 			request.setAttribute("page", page);
+			request.setAttribute("imonth", imonth);
+			request.setAttribute("iyear", iyear);
 			request.setAttribute("i_page", i_page);
-			request.setAttribute("stock", stock);
 			forward= new ActionForward();
 			forward.setPath("./itemView.jsp?page="+page);
 		}

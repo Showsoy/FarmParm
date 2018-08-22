@@ -209,14 +209,15 @@ public class ItemDAO {
 		
 		return listCount;
 	}
-	public int itemStockCount(String item_code){
+	public int itemStockCount(String item_code, int iyear, int imonth){
 		PreparedStatement pstmt = null;
 		ResultSet rs = null;
 		int listCount = 0;
-		
 		try {
-			pstmt = conn.prepareStatement("SELECT COUNT(*) FROM item_stock WHERE item_code = ?");
+			pstmt = conn.prepareStatement("SELECT COUNT(*) FROM item_stock WHERE item_code=? AND YEAR(idate) = ? AND MONTH(idate) = ?");
 			pstmt.setString(1, item_code);
+			pstmt.setInt(2, iyear);
+			pstmt.setInt(3, imonth);
 			rs = pstmt.executeQuery();
 			if(rs.next()) {
 				listCount = rs.getInt(1);
@@ -255,15 +256,45 @@ public class ItemDAO {
 		
 		return item;
 	}
-	public ArrayList<ItemStockBean> itemStockList(String item_code,int i_page) {
+	public ItemBean selectItemWithStock(String item_code) {
+		PreparedStatement pstmt = null;
+		ResultSet rs = null;
+		ItemBean item = null;
+		
+		try {
+			pstmt = conn.prepareStatement("SELECT a.item_code, a.item_name, a.price, a.origin, a.category, a.img_path, a.sale, a.ihide, stock FROM items a, item_view b WHERE a.item_code=? AND b.item_code=?");
+			pstmt.setString(1, item_code);
+			pstmt.setString(2, item_code);
+			rs = pstmt.executeQuery();
+			
+			if(rs.next()) {
+				item = new ItemBean(rs.getString("item_code"),rs.getString("item_name"),rs.getInt("price"),
+						rs.getString("origin"),rs.getString("category"),rs.getString("img_path"),rs.getInt("sale"),
+						null,rs.getInt("stock"), rs.getInt("ihide"));
+			}
+			
+		}catch(Exception e) {
+			e.printStackTrace();
+		}finally {
+			close(pstmt);
+			close(rs);
+		}
+		
+		return item;
+	}
+	public ArrayList<ItemStockBean> itemStockList(String item_code, int iyear, int imonth, int i_page) {
 		PreparedStatement pstmt = null;
 		ResultSet rs = null;
 		ArrayList<ItemStockBean> itemStockList = null;
+		String sql = "SELECT * FROM item_stock WHERE item_code=? AND YEAR(idate) = ? AND MONTH(idate) = ? "
+				+ "ORDER BY idate DESC LIMIT ?,10";
 		int startrow = (i_page-1)*10;
 		try {
-			pstmt = conn.prepareStatement("SELECT * FROM item_stock WHERE item_code=? ORDER BY idate DESC LIMIT ?,10");
+			pstmt = conn.prepareStatement(sql);
 			pstmt.setString(1, item_code);
-			pstmt.setInt(2, startrow);
+			pstmt.setInt(2, iyear);
+			pstmt.setInt(3, imonth);
+			pstmt.setInt(4, startrow);
 			rs = pstmt.executeQuery();
 			if(rs.next()) {
 				itemStockList = new ArrayList<ItemStockBean>();
@@ -520,23 +551,99 @@ public class ItemDAO {
 		
 		return item_code;
 	}
-	public ArrayList<ItemStockBean> itemStockList(int page) {
+	public int iSearchStockCount(String startDate, String endDate) {
 		PreparedStatement pstmt = null;
 		ResultSet rs = null;
-		ArrayList<ItemStockBean> itemStockList = null;
-		int startrow = (page-1)*10;
-		//select * from items a inner join (select item_code, state, max(idate) as idate from item_stock group by item_code) b on a.item_code  = b.item_code where state != '주문' 
+		int listCount = 0;
+		String sql = "select count(*) from item_stock "
+				+ "inner join items on item_stock.item_code = items.item_code "
+				+ " where idate between '"+startDate+"' and '"+endDate+"'";
 		try {
-			pstmt = conn.prepareStatement("SELECT * FROM item_stock WHERE item_code=? ORDER BY idate DESC LIMIT ?,10");
-			//pstmt.setString(1, item_code);
-			pstmt.setInt(2, startrow);
+			pstmt = conn.prepareStatement(sql);
+			rs = pstmt.executeQuery();
+			if(rs.next()) listCount = rs.getInt(1);
+			
+		}catch(Exception e) {
+			e.printStackTrace();
+		}finally {
+			close(pstmt);
+			close(rs);
+		}
+		
+		return listCount;
+	}
+	public int iSearchStockCount(String startDate, String endDate, String isearch, String keyword) {
+		PreparedStatement pstmt = null;
+		ResultSet rs = null;
+		int listCount = 0;
+		String sql = "select count(*) from item_stock "
+				+ "inner join items on item_stock.item_code = items.item_code "
+				+ " where idate between '"+startDate+"' and '"+endDate+"' AND items."+isearch+" LIKE '%"+keyword+"%'";
+		try {
+			pstmt = conn.prepareStatement(sql);
+			rs = pstmt.executeQuery();
+			if(rs.next()) listCount = rs.getInt(1);
+			
+		}catch(Exception e) {
+			e.printStackTrace();
+		}finally {
+			close(pstmt);
+			close(rs);
+		}
+		
+		return listCount;
+	}
+	public ArrayList<ItemViewBean> iSearchStockList(String startDate, String endDate, int page) {
+		PreparedStatement pstmt = null;
+		ResultSet rs = null;
+		ArrayList<ItemViewBean> itemStockList = null;
+		int startrow = (page-1)*10;
+		String sql = "select items.item_code, item_name, category,state, amount, idate, stock from item_stock "
+				+ "inner join items on item_stock.item_code = items.item_code "
+				+ " where idate between '"+startDate+"' and '"+endDate+"' "
+				+ "order by idate desc limit ?,10"; 
+		try {
+			pstmt = conn.prepareStatement(sql);
+			pstmt.setInt(1, startrow);
 			rs = pstmt.executeQuery();
 			if(rs.next()) {
-				itemStockList = new ArrayList<ItemStockBean>();
+				itemStockList = new ArrayList<ItemViewBean>();
 				do {
-					itemStockList.add(new ItemStockBean(rs.getString("item_code"),
-							rs.getString("state"),rs.getDate("idate"),rs.getInt("amount"),
-							rs.getInt("stock"),rs.getInt("inumber")));
+					itemStockList.add(new ItemViewBean(rs.getDate("idate"), rs.getString("item_code"), 
+							rs.getString("category"), rs.getString("state"), rs.getString("item_name"),
+							rs.getInt("stock"), rs.getInt("amount")));
+				}while(rs.next());
+			}
+			
+		}catch(Exception e) {
+			e.printStackTrace();
+		}finally {
+			close(pstmt);
+			close(rs);
+		}
+		
+		return itemStockList;
+	}
+	public ArrayList<ItemViewBean> iSearchStockList(String startDate, String endDate, String isearch, String keyword, int page) {
+		PreparedStatement pstmt = null;
+		ResultSet rs = null;
+		ArrayList<ItemViewBean> itemStockList = null;
+		int startrow = (page-1)*10;
+
+		String sql = "select items.item_code, item_name, category,state, amount, idate, stock from item_stock "
+				+ "inner join items on item_stock.item_code = items.item_code "
+				+ " where idate between '"+startDate+"' and '"+endDate+"' AND items."+isearch+" LIKE '%"+keyword+"%'"
+				+ "order by idate desc limit ?,10"; 
+		try {
+			pstmt = conn.prepareStatement(sql);
+			pstmt.setInt(1, startrow);
+			rs = pstmt.executeQuery();
+			if(rs.next()) {
+				itemStockList = new ArrayList<ItemViewBean>();
+				do {
+					itemStockList.add(new ItemViewBean(rs.getDate("idate"), rs.getString("item_code"), 
+							rs.getString("category"), rs.getString("state"), rs.getString("item_name"),
+							rs.getInt("stock"), rs.getInt("amount")));
 				}while(rs.next());
 			}
 			

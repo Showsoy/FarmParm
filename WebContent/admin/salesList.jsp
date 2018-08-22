@@ -10,7 +10,8 @@
 <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
 <title>Insert title here</title>
 <style>
-tr{
+
+.listtable tr{
 	height:50px;
 }
 td{
@@ -24,16 +25,6 @@ img{
 	border: 1px solid #ddd;
 	padding : 0 0 0 2px;
 }
-dt{
-	display:inline-block;
-	width:150px;
-	text-align:left;
-}
-dd{
-	display:inline-block;
-	width:150px;
-	text-align:right;
-}
 #orderby{
 	padding : 13px 0 0 380px;
 }
@@ -42,6 +33,41 @@ dd{
 }
 </style>
 <script>
+function selectSDay(sel) {
+	var year = document.getElementById("sYear").options[document.getElementById("sYear").selectedIndex].value;
+	var month = sel.options[sel.selectedIndex].value;
+	
+	var lastDay = (new Date(year,month,0)).getDate();
+	var string = "";
+	for(var i=1; i<=lastDay; i++){
+		if(i<10) string += "<option value = '0"+i+"'>"+i+"일</option>";
+		else string += "<option value = '"+i+"'>"+i+"일</option>";
+	}
+	document.getElementById("sDay").innerHTML = string;
+}
+function selectEDay(sel) {
+	var year = document.getElementById("eYear").options[document.getElementById("eYear").selectedIndex].value;
+	var month = sel.options[sel.selectedIndex].value;
+	
+	var lastDay = (new Date(year,month,0)).getDate();
+	var string = "";
+	for(var i=1; i<=lastDay; i++){
+		if(i<10) string += "<option value = '0"+i+"'>"+i+"일</option>";
+		else string += "<option value = '"+i+"'>"+i+"일</option>";
+	}
+	document.getElementById("eDay").innerHTML = string;
+}
+function monthSelDel(){
+	if(document.getElementById("monthseldel2").style.display=="none"){
+		document.getElementById("monthseldel2").style.display = "block";
+		document.getElementById("sDay").disabled = false;
+		return;
+	}else if(document.getElementById("monthseldel2").style.display=="block"){
+		document.getElementById("monthseldel2").style.display = "none";
+		document.getElementById("sDay").disabled = true;
+		return;
+	}
+}
 </script>
 </head>
 <link rel="stylesheet" type="text/css" href="../style/style.css">
@@ -53,105 +79,103 @@ dd{
 <div class="pageform">
 	<h3>&nbsp;&nbsp;매출관리</h3>
 	<hr color="#4CAF50" size="5">
-	<form action="salesList.od?datesel=ok" method="post" name="salesList">
+	<form action="salesList.od" method="post" name="salesList">
 	<div class="mypage">
-		<c:if test="${salesMap !=null }">
-			<div id="search_info">
-			<dl>
-				<dt><b>해당 기간 매출 A</b></dt>
-				<dd><fmt:formatNumber value="${salesMap['this_pay'] }" type="number"/>원</dd>
-			</dl>
-			<dl>
-				<dt><b>포인트 결제 B</b></dt>
-				<dd><fmt:formatNumber value="${salesMap['this_depoint'] }" type="number"/>원</dd>
-			</dl>
-			<dl>
-				<dt><b>순 이익(A-B-배송비)</b></dt>
-				<dd><fmt:formatNumber value="${salesMap['this_profit'] }" type="number"/>원</dd>
-			</dl>
-			<dl>
-				<dt><b>해당 기간 판매량</b></dt>
-				<dd><fmt:formatNumber value="${salesMap['this_sales'] }" type="number"/>개</dd>
-			</dl>
-			<c:if test="${salesMap['profit_ration']!=null }">
-				<dl>
-					<dt><b>전월 대비 순이익</b></dt>
-					<dd>${salesMap['profit_ration'] }%</dd>
-				</dl>
-				<dl>
-					<dt><b>전월 대비 판매량</b></dt>
-					<dd>${salesMap['sales_ration'] }%</dd>
-				</dl>
-			</c:if>
-			</div>
-		</c:if>
 		<br><br>
-	<div id="listmenu">
+		<div id="sales-keyword">
 		<jsp:useBean id="now" class="java.util.Date" />
-		<fmt:formatDate value="${now}" pattern="yyyy" var="nowYear" /> 
-		<fmt:formatDate value="${now}" pattern="MM" var="nowMon" />
+		<fmt:formatDate value="${now}" pattern="yyyy" var="nowYear" />
 		<%
-		Calendar cal = Calendar.getInstance();
-		String date1 = ""+cal.get(Calendar.YEAR);
-		int temp = cal.get(Calendar.MONTH)+1;
-		String date2 = temp>=10 ? ""+temp : "0"+temp;
-		if(request.getAttribute("date")!=null){
-			String allDate = (String)request.getAttribute("date");
-			date1 = allDate.substring(0, 4);
-			date2 = allDate.substring(5, 7);
-		}
-		pageContext.setAttribute("date1", date1);
-		pageContext.setAttribute("date2", date2);
+		String start = (String)request.getAttribute("start");
+		String end = (String)request.getAttribute("end");
+		HashMap<String, String> dayMap = new HashMap<String, String>();
+		dayMap.put("syear", start.substring(0, 4));
+		dayMap.put("smonth", start.substring(5, 7));
+		dayMap.put("sday", start.substring(8, 10));
+		
+		dayMap.put("eyear", end.substring(0, 4));
+		dayMap.put("emonth", end.substring(5, 7));
+		dayMap.put("eday", end.substring(8, 10));
+
+		pageContext.setAttribute("dayMap", dayMap);
 		%>
-		<select id="orderYear" name="orderYear">
+		<input type="checkbox" name = "monthsel" id="monthsel" value="check" onchange="monthSelDel()"><label for="monthsel"><b>월 매출 검색</b></label><br>
+        <div id="datesel">
+		<span id="monthseldel1">
+		<select id="sYear" name="sYear">
 		  <c:forEach var="year" begin="${nowYear - 2}" end="${nowYear}">
-		   <option value="${year}" <c:out value="${date1 eq year ? 'selected=\"selected\"' : '' }"/>>${year}년 </option>
+		   <option value="${year}" <c:out value="${dayMap['syear'] eq year ? 'selected=\"selected\"' : '' }"/>>${year}년 </option>
 		  </c:forEach>
-		</select>
-		<select id="orderMonth" name="orderMonth">
+		</select><select id="sMonth" name="sMonth" onchange="selectSDay(this)">
 		 <c:forEach var="month" begin="1" end="12">
 		 <fmt:formatNumber var="datePattern" value="${month}" pattern="00"/>
-		   <option value="${datePattern}" <c:out value="${date2 eq datePattern ? 'selected=\"selected\"' : '' }"/>> ${datePattern}월 </option>
+		   <option value="${datePattern}" <c:out value="${dayMap['smonth'] eq datePattern ? 'selected=\"selected\"' : '' }"/>> ${month}월 </option>
+		 </c:forEach>
+		</select><select id="sDay" name="sDay">
+		 <c:forEach var="day" begin="1" end="31">
+		 <fmt:formatNumber var="datePattern" value="${day}" pattern="00"/>
+		   <option value="${datePattern}" <c:out value="${dayMap['sday'] eq datePattern ? 'selected=\"selected\"' : '' }"/>> ${day}일 </option>
 		 </c:forEach>
 		</select>
-		<button type="submit" id="wbutton" style="width:70px;">조회</button>
-		<span id="orderby">
-			<a href="salesList.od?period=week<c:out value="${orderby !=null ? '&orderby=' : '' }"/>${orderby }"><img src="../images/checked.png"/><c:choose><c:when test="${period eq 'week' }">
-			<span id="selcategory">일주일</span></c:when><c:otherwise> 일주일</c:otherwise></c:choose></a>
-			<a href="salesList.od?period=1month<c:out value="${orderby !=null ? '&orderby=' : '' }"/>${orderby }"><img src="../images/checked.png"/><c:choose><c:when test="${period eq '1month' }">
-			<span id="selcategory">한 달</span></c:when><c:otherwise> 한 달</c:otherwise></c:choose></a>
-			<a href="salesList.od?period=3month<c:out value="${orderby !=null ? '&orderby=' : '' }"/>${orderby }"><img src="../images/checked.png"/><c:choose><c:when test="${period eq '3month' }">
-			<span id="selcategory">3개월</span></c:when><c:otherwise> 3개월</c:otherwise></c:choose></a>
-			<a href="salesList.od?period=6month<c:out value="${orderby !=null ? '&orderby=' : '' }"/>${orderby }"><img src="../images/checked.png"/><c:choose><c:when test="${period eq '6month' }">
-			<span id="selcategory">6개월</span></c:when><c:otherwise> 6개월</c:otherwise></c:choose></a>
-			<a href="salesList.od?period=year<c:out value="${orderby !=null ? '&orderby=' : '' }"/>${orderby }"><img src="../images/checked.png"/><c:choose><c:when test="${period eq 'year' }">
-			<span id="selcategory">1년</span></c:when><c:otherwise> 1년</c:otherwise></c:choose></a>
 		</span>
-	</div>
-	<button type="button" id="categorybl" style="background-color:<c:out value="${orderby==null ? '#F6F6F6' : '#fff'}"/>;" onclick="location.href='salesList.od?<c:out value="${date !=null ? 'datesel=ok&' : '' }"/>period=${period }&date=${date }'">주문별</button><button type="button" id="categorybr" style="background-color:<c:out value="${orderby!=null ? '#F6F6F6' : '#fff'}"/>;" onclick="location.href='salesList.od?<c:out value="${date !=null ? 'datesel=ok&' : '' }"/>period=${period }&date=${date }&orderby=profit'">상품별</button>
-	<br>
-	<div id="sales-keyword">
-		<b>
-		<c:choose>
-			<c:when test="${date == null }">
-				<c:choose>
-					<c:when test="${period eq 'week' }">일주일</c:when>
-					<c:when test="${period eq '1month' }">한 달</c:when>
-					<c:when test="${period eq '3month' }">3개월</c:when>
-					<c:when test="${period eq '6month' }">6개월</c:when>
-					<c:when test="${period eq 'year' }">1년</c:when>
-				</c:choose>
-			</c:when>
-			<c:otherwise>
-				${date }
-			</c:otherwise>
-		</c:choose>
-		</b>
-		검색 결과
-	</div>
+		<span id="monthseldel2" style="display:block;">
+		&nbsp;-
+		<select id="eYear" name="eYear">
+		  <c:forEach var="year" begin="${nowYear - 2}" end="${nowYear}">
+		   <option value="${year}" <c:out value="${dayMap['eyear'] eq year ? 'selected=\"selected\"' : '' }"/>>${year}년 </option>
+		  </c:forEach>
+		</select><select id="eMonth" name="eMonth" onchange="selectEDay(this)">
+		 <c:forEach var="month" begin="1" end="12">
+		 <fmt:formatNumber var="datePattern" value="${month}" pattern="00"/>
+		   <option value="${datePattern}" <c:out value="${dayMap['emonth'] eq datePattern ? 'selected=\"selected\"' : '' }"/>> ${month}월 </option>
+		 </c:forEach>
+		</select><select id="eDay" name="eDay">
+		 <c:forEach var="day" begin="1" end="31">
+		 <fmt:formatNumber var="datePattern" value="${day}" pattern="00"/>
+		   <option value="${datePattern}" <c:out value="${dayMap['eday'] eq datePattern ? 'selected=\"selected\"' : '' }"/>> ${day}일 </option>
+		 </c:forEach>
+		</select>
+		</span>&nbsp;
+		<span id="monthseldel3">
+		<button type="submit" id="wbutton">&nbsp;검색&nbsp;</button>
+		</span>
+		</div>
+		<br>
+		<button type="button" id="wbutton" onclick="location.href='salesList.od?period=week'">일주일</button>
+		<button type="button" id="wbutton" onclick="location.href='salesList.od?period=2week'">이주일</button>
+		<button type="button" id="wbutton" onclick="location.href='salesList.od?period=month'">한 달</button>
+		<br><br>
+		<b>${start } - ${end }</b> 기간 검색
+		</div>
+		<br>
+		<c:if test="${salesMap !=null }">
+			<table class="sales-table" cellpadding="0" cellspacing="0">
+			<tr>
+			<td id="float-top"><b>해당 기간 매출 A</b></td>
+			<td id="float-top"><b>포인트 결제 B</b></td>
+			<td id="float-top"><b>순 이익(A-B-배송비)</b></td>
+			<td id="float-top"><b>해당 기간 판매량</b></td>
+			<c:if test="${salesMap['profit_ration']!=null }">
+				<td id="float-top"><b>전월 대비 순이익</b></td>
+				<td id="float-top"><b>전월 대비 판매량</b></td>
+			</c:if>
+			</tr>
+			<tr>
+			<td><fmt:formatNumber value="${salesMap['this_pay'] }" type="number"/>원</td>
+			<td><fmt:formatNumber value="${salesMap['this_depoint'] }" type="number"/>원</td>
+			<td><fmt:formatNumber value="${salesMap['this_profit'] }" type="number"/>원</td>
+			<td><fmt:formatNumber value="${salesMap['this_sales'] }" type="number"/>개</td>
+			<c:if test="${salesMap['profit_ration']!=null }">
+				<td>${salesMap['profit_ration'] }%</td>
+				<td>${salesMap['sales_ration'] }%</td>
+			</c:if>
+			</table>
+		</c:if><br>
+	<button type="button" id="categorybl" style="background-color:<c:out value="${orderby==null ? '#F6F6F6' : '#fff'}"/>;" onclick="location.href='salesList.od?<c:out value="${monthsel !=null ? 'monthsel=check' : '' }"/>&start=${start}&end=${end}'">주문별</button><button type="button" id="categorybr" style="background-color:<c:out value="${orderby!=null ? '#F6F6F6' : '#fff'}"/>;" onclick="location.href='salesList.od?<c:out value="${monthsel !=null ? 'monthsel=check' : '' }"/>&start=${start}&end=${end}&orderby=profit'">상품별</button>
 	<br>
 	<c:choose>
 	<c:when test="${orderby==null }">
+		<br>
 		<table class="listtable" cellspacing="0" cellpadding="0">	
 			<tr id="top_menu">
 				<td>주문번호</td>
@@ -181,7 +205,7 @@ dd{
 						[이전]&nbsp;
 					</c:if>
 					<c:if test="${pageInfo.page>1 }">
-						<a href="salesList.od?<c:out value="${date !=null ? 'datesel=ok&' : '' }"/>period=${period }&date=${date }&page=${pageInfo.page-1}">[이전]</a>&nbsp;
+						<a href="salesList.od?<c:out value="${monthsel !=null ? 'monthsel=check' : '' }"/>&page=${pageInfo.page-1}&start=${start}&end=${end}">[이전]</a>&nbsp;
 					</c:if>
 
 					<c:forEach var="a" begin="${pageInfo.startPage }" end="${pageInfo.endPage }" step="1">
@@ -190,7 +214,7 @@ dd{
 								[${a }]
 							</c:when>
 							<c:otherwise>
-								<a href="salesList.od?<c:out value="${date !=null ? 'datesel=ok&' : '' }"/>period=${period }&date=${date }&page=${a }">[${a }]</a>&nbsp;
+								<a href="salesList.od?<c:out value="${monthsel !=null ? 'monthsel=check' : '' }"/>&page=${a }&start=${start}&end=${end}">[${a }]</a>&nbsp;
 							</c:otherwise>
 						</c:choose>
 					</c:forEach>
@@ -199,7 +223,7 @@ dd{
 							[다음]
 						</c:when>
 						<c:otherwise>
-							<a href="salesList.od?<c:out value="${date !=null ? 'datesel=ok&' : '' }"/>period=${period }&date=${date }&page=${pageInfo.page+1 }">[다음]</a>&nbsp;
+							<a href="salesList.od?<c:out value="${monthsel !=null ? 'monthsel=check' : '' }"/>&page=${pageInfo.page+1 }&start=${start}&end=${end}">[다음]</a>&nbsp;
 						</c:otherwise>
 					</c:choose>
 				</td>
@@ -214,9 +238,9 @@ dd{
 		<c:otherwise>
 		<div style="width:80%;margin:0 auto;text-align:right;">
 			<span id="orderby2">
-			<a href="salesList.od?period=${period }&orderby=profit"><img src="../images/checked.png"/><c:choose><c:when test="${orderby eq 'profit' }">
+			<a href="salesList.od?&start=${start}&end=${end}&orderby=profit"><img src="../images/checked.png"/><c:choose><c:when test="${orderby eq 'profit' }">
 			<span id="selcategory">기준 매출</span></c:when><c:otherwise> 기준 매출</c:otherwise></c:choose></a>
-			<a href="salesList.od?<c:out value="${date !=null ? 'datesel=ok&' : '' }"/>period=${period }&orderby=sales&date=${date }">
+			<a href="salesList.od?start=${start}&end=${end}&orderby=sales">
 			<img src="../images/checked.png"/><c:choose><c:when test="${orderby eq 'sales' }">
 			<span id="selcategory">기준 주문량</span></c:when><c:otherwise> 기준 주문량</c:otherwise></c:choose></a>
 			</span>
@@ -253,7 +277,7 @@ dd{
 						[이전]&nbsp;
 					</c:if>
 					<c:if test="${pageInfo.page>1 }">
-						<a href="salesList.od?<c:out value="${date !=null ? 'datesel=ok&' : '' }"/>period=${period }&orderby=${orderby }&date=${date }&page=${pageInfo.page-1}">[이전]</a>&nbsp;
+						<a href="salesList.od?<c:out value="${monthsel !=null ? 'monthsel=check' : '' }"/>&page=${pageInfo.page-1}&start=${start}&end=${end}&orderby=${orderby }">[이전]</a>&nbsp;
 					</c:if>
 					
 					<c:forEach var="a" begin="${pageInfo.startPage }" end="${pageInfo.endPage }" step="1">
@@ -262,7 +286,7 @@ dd{
 								[${a }]
 							</c:when>
 							<c:otherwise>
-								<a href="salesList.od?<c:out value="${date !=null ? 'datesel=ok&' : '' }"/>period=${period }&orderby=${orderby }&date=${date }&page=${a }">[${a }]</a>&nbsp;
+								<a href="salesList.od?<c:out value="${monthsel !=null ? 'monthsel=check' : '' }"/>&page=${a }&start=${start}&end=${end}&orderby=${orderby }">[${a }]</a>&nbsp;
 							</c:otherwise>
 						</c:choose>
 					</c:forEach>
@@ -271,7 +295,7 @@ dd{
 							[다음]
 						</c:when>
 						<c:otherwise>
-							<a href="salesList.od?<c:out value="${date !=null ? 'datesel=ok&' : '' }"/>period=${period }&orderby=${orderby }&date=${date }&page=${pageInfo.page+1 }">[다음]</a>
+							<a href="salesList.od?<c:out value="${monthsel !=null ? 'monthsel=check' : '' }"/>&page=${pageInfo.page+1 }&start=${start}&end=${end}&orderby=${orderby }">[다음]</a>
 						</c:otherwise>
 					</c:choose>
 				</td>

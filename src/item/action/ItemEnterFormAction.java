@@ -40,7 +40,7 @@ public class ItemEnterFormAction implements Action {
 			forward = new ActionForward();
 			String item_code = request.getParameter("item_code");
 			ItemService itemService = new ItemService();
-			ItemBean item = itemService.getItem(item_code);
+			ItemBean item = itemService.getItemWithStock(item_code);
 			request.setAttribute("item",item);
 			forward= new ActionForward("./itemEnter.jsp",false);
 		}

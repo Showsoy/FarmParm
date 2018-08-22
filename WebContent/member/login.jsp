@@ -7,15 +7,6 @@
 <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
 <title>:::로그인 페이지:::|팜팜농원</title>
 <style>
-#login-error{
-	background-color:#FFEAEA;
-	border-radius:5px;
-	border:1px solid #FF4848;
-	color:#FF4848;
-	padding:10px;
-	margin:5px;
-	text-align:center;
-}
 </style>
 </head>
 <link rel="stylesheet" type="text/css" href="../style/style2.css">
@@ -47,6 +38,9 @@ function chkForm(f){
 				<c:when test="${type eq 'passError' }">
 					<div id="login-error">잘못된 비밀번호</div>	
 				</c:when>
+				<c:when test="${type eq 'join' }">
+					<div id="login-join">회원가입 완료!</div>	
+				</c:when>
 				</c:choose>
 				<c:if test="${turn eq 'ok' }">
 					<input type="hidden" id="turn" name="turn" value="ok">
@@ -54,9 +48,10 @@ function chkForm(f){
 				<c:if test="${returnURI!=null }">
 					<input type="hidden" id="returnURI" name="returnURI" value="${returnURI }">
 				</c:if>
+
 				<input type="text" id="userID" name="userID" placeholder="아이디" maxlength="20" class="input100"/> 
 				<input type="password" name="userPass" id="userPass" placeholder="비밀번호" class="input100"/> 
-				<button type="submit" class="input100">로그인</button> 
+				<button type="submit" class="input100">${type }로그인</button> 
 				<br><br>
 				<div id="footer">
 				<a href="idFind.jsp">아이디 찾기</a>&nbsp;&nbsp;|&nbsp;&nbsp;

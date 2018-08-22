@@ -20,6 +20,7 @@ public class QnARemoveAction implements Action {
 		ActionForward forward = null;
 		HttpSession session = request.getSession();
 		String id = (String) session.getAttribute("id");
+		String myQna = request.getParameter("myqna");
 		if (id == null) {
 			response.setContentType("text/html;charset=UTF-8");
 			PrintWriter out = response.getWriter();
@@ -55,7 +56,7 @@ public class QnARemoveAction implements Action {
 			} else {
 				board_num = Integer.parseInt(request.getParameter("bnum"));
 				String writer = boardService.selectWriter("qna_board", board_num);
-				if (!id.equals("admin") && !id.equals(writer)) {
+				if (!id.equals("admin") && !id.equals(writer) && myQna.equals("MYQNA")) {
 					response.setContentType("text/html;charset=UTF-8");
 					PrintWriter out = response.getWriter();
 					out.println("<script>");
@@ -76,7 +77,7 @@ public class QnARemoveAction implements Action {
 				out.println("</script>");
 			} else {
 				if(request.getParameter("r_page")==null) {
-					String path = "./qnaList.bo?page="+page;
+					String path = myQna!=null ? "myQna.us" : "./qnaList.bo?page="+page;
 					if(request.getParameter("keyword")!=null) {
 						path += "&keyword="+request.getParameter("keyword");
 						response.setContentType("text/html;charset=UTF-8");
@@ -89,6 +90,7 @@ public class QnARemoveAction implements Action {
 					String r_page = request.getParameter("r_page");
 					String q_page = request.getParameter("q_page");
 					forward = new ActionForward("./uitemView.im?item_code="+item_code+"&page="+page+"&r_page="+r_page+"&q_page="+q_page, true);
+					
 				}
 			}
 		}

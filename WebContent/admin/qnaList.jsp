@@ -56,12 +56,13 @@ img{
 					<tr>
 						<td>${num }</td>
 						<c:set var="num" value="${num-1 }"/>
-						<td>${board.content }</td>
+						<td><a href="../uitemView.im?item_code=${board.code}">
+						${board.content }</a></td>
 						<td colspan="2">
 							<p><c:if test="${board.readcount>0 }">
 								<img src="../images/lock.png"></c:if>
 							<a href="qnaView.bo?bnum=${board.board_num }&item_code=${board.code }&page=${pageInfo.page}<c:out value="${keyword !=null ? '&keyword=' : '' }"/>${keyword}<c:out value="${qna_search !=null ? '&qna_search=' : '' }"/>${qna_search}">
-							${board.subject }
+							${board.subject }<c:if test="${board.has_re==1 }"> [1]</c:if>
 							</a></p>
 						</td>
 						<td>${board.user_id }***</td>
@@ -69,7 +70,7 @@ img{
 					</tr>
 					</c:forEach>
 			<tr>
-				<td colspan="6" id="td_info"><!-- 페이지 수 넣을 것임 -->
+				<td colspan="6" id="td_info">
 					<c:if test="${pageInfo.page<=1 }">
 						[이전]&nbsp;
 					</c:if>

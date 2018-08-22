@@ -1,7 +1,6 @@
 package order.action;
 
 import java.io.PrintWriter;
-import java.sql.Date;
 import java.sql.Timestamp;
 import java.util.ArrayList;
 import java.util.Calendar;
@@ -15,6 +14,7 @@ import svc.OrderService;
 import vo.ActionForward;
 import vo.OrderBean;
 import vo.OrderViewBean;
+import vo.PointBean;
 
 public class OrderProAction implements Action {
 
@@ -59,7 +59,9 @@ public class OrderProAction implements Action {
 					request.getParameter("userAddr1"), depoint, "주문완료", totalPayment, 
 					request.getParameter("payment"), request.getParameter("receiver"),
 					Integer.parseInt(request.getParameter("parcel")));
-			boolean isRegistSuccess = orderService.takeOrder(order, orderList, id, depoint, plpoint);
+			PointBean point1 = new PointBean(id, order_id, "결제차감", -1, depoint);
+			PointBean point2 = new PointBean(id, order_id, "결제적립", 1, plpoint);
+			boolean isRegistSuccess = orderService.takeOrder(order, orderList, point1, point2);
 			if(!isRegistSuccess) {
 					response.setContentType("text/html;charset=UTF-8");
 					PrintWriter out = response.getWriter();

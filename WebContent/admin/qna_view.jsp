@@ -16,6 +16,9 @@
 img{
 	max-width:50%;
 }
+.re{
+	margin: 0 0 0 200px;
+}
 </style>
 <script>
 var doubleSubmitFlag = false;
@@ -116,7 +119,7 @@ function doImgPop(img){
 <body>
 <jsp:include page="/common/top_menu.jsp" flush="false"/>
 <div class="pageform">
-	<h3>&nbsp;&nbsp;상품후기</h3>
+	<h3>&nbsp;&nbsp;상품문의</h3>
 	<hr color="#4CAF50" size="5">
 	<div class="mypage">
 	<form method="post" name="qna">
@@ -176,6 +179,7 @@ function doImgPop(img){
 				<button type="button" id="wbutton" onclick="location.href='qnaList.bo?page=${page}<c:out value="${keyword !=null ? '&keyword=' : '' }"/>${keyword}<c:out value="${qna_search !=null ? '&qna_search=' : '' }"/>${qna_search}'">목록</button>
 			</section>
 			<br>
+			<div class="re">
 			<c:if test="${board.has_re == 0 && id eq 'admin'}">
 				<table>
 					<tr>
@@ -201,11 +205,12 @@ function doImgPop(img){
 					</tr>
 					<tr>
 						<td colspan="2">
-							<span style="padding:0 0 0 300px;"><button type="button" id="wbutton" onclick="goto_url('qnaReply.bo?item_code=${board.code}&rgroup=${board.board_num }&page=${page }<c:out value="${keyword !=null ? '&keyword=' : '' }"/>${keyword}')" style="width:80px;">답변하기</button></span>
+							<span style="padding:0 0 0 600px;"><button type="button" id="wbutton" onclick="goto_url('qnaReply.bo?item_code=${board.code}&rgroup=${board.board_num }&page=${page }<c:out value="${keyword !=null ? '&keyword=' : '' }"/>${keyword}')" style="width:80px;">답변하기</button></span>
 						</td>
 					</tr>
 				</table>
 			</c:if>
+			</div>
 			<br>
 		</form>
 	</div>	

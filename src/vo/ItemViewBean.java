@@ -17,7 +17,6 @@ public class ItemViewBean {
 	
 	public ItemViewBean(Date vdate, String item_code, String category, String img_path, String item_name, int price, 
 			int sale, int stock, int readcount, int purchase, int ihide) {
-		super();
 		this.vdate = vdate;
 		this.item_code = item_code;
 		this.category = category;
@@ -29,6 +28,16 @@ public class ItemViewBean {
 		this.readcount = readcount;
 		this.purchase = purchase;
 		this.ihide = ihide;
+	}
+	//입출고 리스트
+	public ItemViewBean(Date vdate, String item_code, String category, String state, String item_name, int stock, int amount) {
+		this.vdate = vdate;
+		this.item_code = item_code;
+		this.category = category;
+		this.img_path = state;
+		this.item_name = item_name;
+		this.stock = stock;
+		this.readcount = amount;
 	}
 	public Date getVdate() {
 		return vdate;

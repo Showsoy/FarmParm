@@ -116,7 +116,11 @@ function goto_url(act) {
 				<td><c:if test="${userList.grade != '관리자' }">
 						<input type="checkbox" id="ckb" name="ckb" value="${userList.user_id }"/>
 				</c:if></td>
-				<td>${num }</td><c:set var="num" value="${num-1}"/>
+				<td><c:if test="${userList.grade != '관리자' }">
+					${num }</c:if>
+					<c:if test="${userList.grade == '관리자' }">
+					-</c:if>
+					</td><c:set var="num" value="${num-1}"/>
 				<td>${userList.user_id }</td>
 				<td>${userList.grade }</td>
 				<td><fmt:formatNumber value="${userList.tot_price }" type="number"/>원</td>

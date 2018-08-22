@@ -286,3 +286,17 @@ create view order_view as SELECT order_item.order_id AS order_id, items.item_cod
 USE `java2b`;
 alter table orders add parcel int default 0;
 
+--20180823 포인트 테이블--
+USE `java2b`;
+alter table users drop column point;
+CREATE TABLE IF NOT EXISTS `java2b`.`point` (
+  `pt_num` INT NOT NULL,
+  `user_id` VARCHAR(20) NOT NULL,
+  `order_id` INT NULL,
+  `state` VARCHAR(10) NOT NULL,
+  `plminus` INT NOT NULL,
+  `point` INT NOT NULL,
+  `balance` INT NOT NULL,
+  `pdate` DATE NULL);
+alter table point modify pt_num int primary key auto_increment;
+alter table point auto_increment = 1;

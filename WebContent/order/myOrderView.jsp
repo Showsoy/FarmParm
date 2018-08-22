@@ -40,7 +40,8 @@ td, tr{
 				<img src="../images/credit-card.png"><span id="message">고객님의 주문 결제가 완료되었습니다.</span>
 			</c:when>
 			<c:when test="${order.state eq '상품출고' }">
-				<img src="../images/sealed-parcel.png"><span id="message">고객님의 주문 배송을 시작했습니다.</span>
+				<img src="../images/sealed-parcel.png"><span id="message">고객님의 주문 배송을 시작했습니다.
+				</span>
 			</c:when>
 			<c:when test="${order.state eq '배송완료' }">
 				<img src="../images/shipped.png"><span id="message">고객님의 주문 배송을 완료했습니다.</span>
@@ -49,7 +50,13 @@ td, tr{
 				<img src="../images/cancel.png"><span id="message">주문이 취소되었습니다.</span>
 			</c:otherwise>
 		</c:choose>
-	</div><br><br>
+	</div>
+	<section id="commandCell">
+		<c:if test="${order.state eq '상품출고' }">
+		<button type="button" id="obutton" style="width:70px;" onclick="location.href='myodChg.od?order_id=${order.order_id}&od_state=배송완료'">수취완료</button>
+		</c:if>
+		<button type="button" id="obutton" style="width:70px;" onclick="location.href='myodChg.od?order_id=${order.order_id}&od_state=취소신청'">주문취소</button>
+	</section>
 	<form action="odChgState.od" name="orderview" method="post">
 	<div id="order_info">
 		<div id="grade"><b id="grade_deco">|</b>결제상품</div>
@@ -60,7 +67,7 @@ td, tr{
 		<td style="width:70px;">수량</td>
 		<td>총 가격</td>
 		<td style="width:70px;">적립</td>
-		<td style="width:140px;">기타</td>
+		<td style="width:150px;">기타</td>
 	</tr>
 	<c:forEach var="odtemList" items="${odtemList }" varStatus="status">
 	<tr>

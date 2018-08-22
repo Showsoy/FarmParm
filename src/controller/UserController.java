@@ -29,6 +29,8 @@ import member.action.MemberPwCheckAction;
 import member.action.MemberPwFindAction;
 import member.action.MemberPwModifyAction;
 import member.action.MemberSelectDeleteAction;
+import member.action.MyQnAViewAction;
+import member.action.MyQnaListAction;
 import vo.ActionForward;
 
 /**
@@ -65,6 +67,7 @@ protected void doProcess(HttpServletRequest request, HttpServletResponse respons
 			forward.setPath("./login.jsp");
 			if(request.getParameter("turn")!=null) request.setAttribute("turn", request.getParameter("turn"));
 			if(request.getParameter("returnURI")!=null) request.setAttribute("returnURI", request.getParameter("returnURI"));
+			if(request.getParameter("type")!=null) request.setAttribute("type", request.getParameter("type"));
     	}else if(command.equals("/member/memberLoginAction.us")){
 			action = new MemberLoginAction();
 			try{
@@ -217,6 +220,20 @@ protected void doProcess(HttpServletRequest request, HttpServletResponse respons
 			}
     	}else if(command.equals("/member/idTest.us")) {
     		action = new MemberIdTestAction();
+			try{
+				forward=action.execute(request, response);
+			}catch(Exception e){
+				e.printStackTrace();
+			}
+    	}else if(command.equals("/myQna.us")) {
+    		action = new MyQnaListAction();
+			try{
+				forward=action.execute(request, response);
+			}catch(Exception e){
+				e.printStackTrace();
+			}
+    	}else if(command.equals("/myQnaView.us")) {
+    		action = new MyQnAViewAction();
 			try{
 				forward=action.execute(request, response);
 			}catch(Exception e){

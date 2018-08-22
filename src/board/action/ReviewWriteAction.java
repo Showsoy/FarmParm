@@ -15,6 +15,7 @@ import action.Action;
 import svc.BoardService;
 import vo.ActionForward;
 import vo.BoardBean;
+import vo.PointBean;
 
 public class ReviewWriteAction implements Action {
 
@@ -51,7 +52,8 @@ public class ReviewWriteAction implements Action {
 					multi.getParameter("content"),
 					multi.getParameter("subject"),
 					image,0,date,Integer.parseInt(multi.getParameter("order_id")),bnum,1);
-			boolean isWriteSuccess = boardService.writeReview(board);
+			PointBean point = new PointBean(id, 0, "리뷰작성", 1, 500);
+			boolean isWriteSuccess = boardService.writeReview(board, point);
 			if(!isWriteSuccess) {
 				response.setContentType("text/html;charset=UTF-8");
 				PrintWriter out = response.getWriter();
