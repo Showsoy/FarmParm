@@ -312,7 +312,7 @@ public class ItemDAO {
 		
 		return updateCount;
 	}
-	public int updateItemStock(String old_code,String new_code) {
+	public int updateItemStock(String old_code, String new_code) {
 		PreparedStatement pstmt = null;
 		int updateCount = 0;
 		String sql = "UPDATE item_stock set item_code = ? WHERE item_code = ?";
@@ -528,7 +528,7 @@ public class ItemDAO {
 		//select * from items a inner join (select item_code, state, max(idate) as idate from item_stock group by item_code) b on a.item_code  = b.item_code where state != '주문' 
 		try {
 			pstmt = conn.prepareStatement("SELECT * FROM item_stock WHERE item_code=? ORDER BY idate DESC LIMIT ?,10");
-			pstmt.setString(1, item_code);
+			//pstmt.setString(1, item_code);
 			pstmt.setInt(2, startrow);
 			rs = pstmt.executeQuery();
 			if(rs.next()) {

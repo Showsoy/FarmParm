@@ -11,7 +11,7 @@ import svc.ItemService;
 import vo.ActionForward;
 import vo.ItemBean;
 
-public class ItemModFormAction implements action.Action{
+public class ItemModFormAction implements Action{
 
 	@Override
 	public ActionForward execute(HttpServletRequest request, HttpServletResponse response) throws Exception {
