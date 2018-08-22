@@ -390,6 +390,7 @@ public class OrderDAO {
 			pstmt = conn.prepareStatement(sql);
 			rs = pstmt.executeQuery();
 			if(rs.next()) listCount = rs.getInt(1);
+			System.out.println(listCount);
 		}catch(Exception e) {
 			e.printStackTrace();
 		}finally {
@@ -475,6 +476,7 @@ public class OrderDAO {
 							"", "","","", 0,rs.getString("state"),rs.getInt("pay"),rs.getString("payment"),"",0));
 				}while(rs.next());
 			}
+			System.out.println(salesList.size());
 		}catch(Exception e) {
 			e.printStackTrace();
 		}finally {

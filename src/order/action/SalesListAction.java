@@ -99,7 +99,8 @@ public class SalesListAction implements Action {
 					salesList2 = orderService.salesItemList1(start, end, orderby, page);
 				}
 			}
-			if(request.getParameter("datesel")==null) {
+			System.out.println(start+","+end);
+			if(request.getParameter("monthsel")==null) {
 				salesMap = orderService.calculateProfit(start, end);
 			}else {
 				salesMap = orderService.thisMonthSales(start, end);
