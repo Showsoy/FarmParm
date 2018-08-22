@@ -18,12 +18,6 @@ td{
 #td_info{
 	text-align:center;
 }
-#sales-keyword select{
-	height:30px;
-	margin:5px 0 5px 0;
-	padding:0;
-	border : 1px solid #ccc;
-}
 </style>
 <script>
 function selectSDay(sel) {
@@ -63,6 +57,12 @@ function selectEDay(sel) {
 	<hr color="#4CAF50" size="5">
 	<div class="mypage">
 	<form action="./itemSearch.im" method="post">
+		<c:if test="${isearch!=null && isearch != '' }">
+		<input type="hidden" name="isearch" value="${isearch }">
+		</c:if>
+		<c:if test="${keyword!=null && keyword != '' }">
+		<input type="hidden" name="keyword" value="${keyword }">
+		</c:if>
 		<div id="sales-keyword">
 		<jsp:useBean id="now" class="java.util.Date" />
 		<fmt:formatDate value="${now}" pattern="yyyy" var="nowYear" />
@@ -113,14 +113,32 @@ function selectEDay(sel) {
 		</select>
 		<button type="submit" id="wbutton">&nbsp;검색&nbsp;</button>
 		<br>
-		<button type="button" id="wbutton" onclick="location.href='itemSearch.im?period=week'">일주일</button>
-		<button type="button" id="wbutton" onclick="location.href='itemSearch.im?period=2week'">이주일</button>
-		<button type="button" id="wbutton" onclick="location.href='itemSearch.im?period=month'">한 달</button>
+		<button type="button" id="wbutton" onclick="location.href='itemSearch.im?period=week<c:out value="${isearch !=null ? '&isearch=' : '' }"/>${isearch}<c:out value="${keyword !=null ? '&keyword=' : '' }"/>${keyword}'">일주일</button>
+		<button type="button" id="wbutton" onclick="location.href='itemSearch.im?period=2week<c:out value="${isearch !=null ? '&isearch=' : '' }"/>${isearch}<c:out value="${keyword !=null ? '&keyword=' : '' }"/>${keyword}'">이주일</button>
+		<button type="button" id="wbutton" onclick="location.href='itemSearch.im?period=month<c:out value="${isearch !=null ? '&isearch=' : '' }"/>${isearch}<c:out value="${keyword !=null ? '&keyword=' : '' }"/>${keyword}'">한 달</button>
 		<br><br>
-		<b>${start } - ${end }</b> 검색결과
+		<b>${start } - ${end }</b> 기간 검색
+		<c:if test="${keyword!=null&& keyword!='' }"><br>중 <b>"${keyword }"</b> 검색결과... <a href="itemSearch.im">전체보기</a></c:if> 
 		</div>
 	</form>
-	<br><br>
+	<br>
+	<form action="./itemSearch.im" method="post">
+	<c:if test="${start!=null&& start != '' }">
+		<input type="hidden" name="start" value="${start }">
+	</c:if>
+	<c:if test="${end!=null&& end != '' }">
+		<input type="hidden" name="end" value="${end }">
+	</c:if>
+	<section id="commandCellp">
+	<select name="isearch" id="isearch" style="height:30px;">
+		<option value="category" <c:out value="${isearch==null || isearch eq 'category' ? 'selected=\"selected\"' : '' }"/>>분류</option>
+		<option value="item_code" <c:out value="${isearch eq 'item_code' ? 'selected=\"selected\"' : '' }"/>>코드</option>
+		<option value="item_name" <c:out value="${isearch==null || isearch eq 'item_name' ? 'selected=\"selected\"' : '' }"/>>이름</option>
+	</select>
+	<input type="text" id="keyword" name="keyword"/>
+	<button id="wbutton" type="submit">검색</button>
+	</section>
+	</form>
 	<br>
 	<table cellspacing="0" cellpadding="0" class="listtable">
 	<tr id="top_menu35">
@@ -153,7 +171,7 @@ function selectEDay(sel) {
 					[이전]&nbsp;
 				</c:if>
 				<c:if test="${pageInfo.page>1 }">
-					<a href="itemSearch.im?page=${pageInfo.page-1}&start=${start}&end=${end}">[이전]</a>&nbsp;
+					<a href="itemSearch.im?page=${pageInfo.page-1}&start=${start}&end=${end}<c:out value="${isearch !=null ? '&isearch=' : '' }"/>${isearch}<c:out value="${keyword !=null ? '&keyword=' : '' }"/>${keyword}">[이전]</a>&nbsp;
 				</c:if>
 					
 				<c:forEach var="a" begin="${pageInfo.startPage }" end="${pageInfo.endPage }" step="1">
@@ -162,7 +180,7 @@ function selectEDay(sel) {
 							[${a }]
 						</c:when>
 						<c:otherwise>
-							<a href="itemSearch.im?page=${a }&start=${start}&end=${end}">[${a }]</a>&nbsp;
+							<a href="itemSearch.im?page=${a }&start=${start}&end=${end}<c:out value="${isearch !=null ? '&isearch=' : '' }"/>${isearch}<c:out value="${keyword !=null ? '&keyword=' : '' }"/>${keyword}">[${a }]</a>&nbsp;
 						</c:otherwise>
 					</c:choose>
 				</c:forEach>
@@ -171,7 +189,7 @@ function selectEDay(sel) {
 						[다음]
 					</c:when>
 					<c:otherwise>
-						<a href="itemSearch.im?page=${pageInfo.page+1 }&start=${start}&end=${end}">[다음]</a>
+						<a href="itemSearch.im?page=${pageInfo.page+1 }&start=${start}&end=${end}<c:out value="${isearch !=null ? '&isearch=' : '' }"/>${isearch}<c:out value="${keyword !=null ? '&keyword=' : '' }"/>${keyword}">[다음]</a>
 					</c:otherwise>
 				</c:choose>
 			</td>

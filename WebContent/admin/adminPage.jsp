@@ -39,7 +39,7 @@
 	<div id="admin_menu">
 	<br><br>
 		<button id="bbutton" onclick="location.href='../memberList.us'">회원관리</button>
-		<button id="bbutton" onclick="location.href='./itemSearch.im'">입출고등록</button><br>
+		<button id="bbutton" onclick="location.href='./itemSearch.im'">입출고관리</button><br>
 		<button id="bbutton" onclick="location.href='./itemRegistForm.im'">상품등록</button>
 		<button id="bbutton" onclick="location.href='./itemList.im'">상품목록</button><br>
 		<button id="bbutton" onclick="location.href='./odList.od'">주문목록</button>

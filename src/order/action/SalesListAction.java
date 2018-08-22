@@ -58,33 +58,19 @@ public class SalesListAction implements Action {
 			String start = request.getParameter("start");
 			String end = request.getParameter("end");
 			String orderby = request.getParameter("orderby");
+			String monthsel = request.getParameter("monthsel");
 			
 			Map<String, Integer> salesMap = new HashMap<String, Integer>();
 			SimpleDateFormat DATE_FORMAT = new SimpleDateFormat("yyyy-MM-dd");
 			Calendar cal = Calendar.getInstance();
 			Date date = cal.getTime();
-			
 			if(start!=null){
-				if(orderby==null) {
-					listCount = orderService.salesOrderCount1(start, end);
-					salesList1 = orderService.salesOrderList1(start, end, page);
-				}else {
-					listCount = orderService.salesItemCount1(start, end);
-					salesList2 = orderService.salesItemList1(start, end, orderby, page);
-				}
-			}else if(request.getParameter("monthsel")!=null){
+			}else if(monthsel!=null){
 				start = request.getParameter("sYear")+"-"+request.getParameter("sMonth")+"-01";
 				cal.set(Calendar.YEAR, Integer.parseInt(request.getParameter("sYear")));
 				cal.set(Calendar.MONTH, Integer.parseInt(request.getParameter("sMonth"))-1);
 				cal.set(Calendar.DATE, 1);
-				end = request.getParameter("sYear")+"-"+request.getParameter("sMonth")+cal.getActualMaximum(Calendar.DATE);
-				if(orderby==null) {
-					listCount = orderService.salesOrderCount1(start, end);
-					salesList1 = orderService.salesOrderList1(start, end, page);
-				}else {
-					listCount = orderService.salesItemCount1(start, end);
-					salesList2 = orderService.salesItemList1(start, end, orderby, page);
-				}
+				end = request.getParameter("sYear")+"-"+request.getParameter("sMonth")+"-"+cal.getActualMaximum(Calendar.DATE);
 			}else if(request.getParameter("eYear")==null) {
 				String period = request.getParameter("period");
 				end = DATE_FORMAT.format(date);
@@ -94,26 +80,19 @@ public class SalesListAction implements Action {
 				
 				date = cal.getTime(); 
 		        start = DATE_FORMAT.format(date);
-		        if(orderby==null) {
-					listCount = orderService.salesOrderCount1(start, end);
-					salesList1 = orderService.salesOrderList1(start, end, page);
-				}else {
-					listCount = orderService.salesItemCount1(start, end);
-					salesList2 = orderService.salesItemList1(start, end, orderby, page);
-				}
 			}else {
 				start = request.getParameter("sYear")+"-"+request.getParameter("sMonth")+"-"+request.getParameter("sDay");
 				end = request.getParameter("eYear")+"-"+request.getParameter("eMonth")+"-"+request.getParameter("eDay");
-				if(orderby==null) {
-					listCount = orderService.salesOrderCount1(start, end);
-					salesList1 = orderService.salesOrderList1(start, end, page);
-				}else {
-					listCount = orderService.salesItemCount1(start, end);
-					salesList2 = orderService.salesItemList1(start, end, orderby, page);
-				}
 			}
 			
-			if(request.getParameter("monthsel")!=null) salesMap = orderService.thisMonthSales(start, end);
+			if(orderby==null) {
+				listCount = orderService.salesOrderCount1(start, end);
+				salesList1 = orderService.salesOrderList1(start, end, page);
+			}else {
+				listCount = orderService.salesItemCount1(start, end);
+				salesList2 = orderService.salesItemList1(start, end, orderby, page);
+			}
+			if(monthsel!=null) salesMap = orderService.thisMonthSales(start, end);
 			else salesMap = orderService.calculateProfit(start, end);
 
 			int maxPage = (int)((double)listCount/limit+0.95); 
@@ -130,6 +109,7 @@ public class SalesListAction implements Action {
 			request.setAttribute("salesMap", salesMap);
 			request.setAttribute("start", start);
 			request.setAttribute("end", end);
+			request.setAttribute("monthsel", monthsel);
 			request.setAttribute("orderby", orderby);
 			request.setAttribute("pageInfo", pageInfo);
 			request.setAttribute("page", page);

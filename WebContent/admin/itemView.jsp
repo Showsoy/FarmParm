@@ -1,10 +1,9 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"
     pageEncoding="UTF-8"%>
-<%@ page import="vo.PageInfo" %>
-<%@ page import="vo.ItemStockBean" %>
-<%@ page import="java.util.*" %>
-<%@ page import="java.text.SimpleDateFormat" %>
+<%@ page import="java.util.HashMap" %>
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
+<%@ taglib prefix="fmt" uri="http://java.sun.com/jsp/jstl/fmt" %>
+
 <!DOCTYPE html PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN" "http://www.w3.org/TR/html4/loose.dtd">
 <html>
 <head>
@@ -55,7 +54,7 @@ th{
 	</tr>
 	<tr>
 		<td id="td_left">재고</td>
-		<td>${stock }</td>
+		<td>${item.readcount }</td>
 	</tr>
 	<tr>
 		<td id="td_left">원산지</td>
@@ -93,6 +92,25 @@ th{
 </table>
 <br><br>
 <div>
+<form method="post" action="itemView.im">
+	<input type="hidden" name="item_code" value="${item.item_code }">
+	<section id="commandCell">
+	<jsp:useBean id="now" class="java.util.Date" />
+	<fmt:formatDate value="${now}" pattern="yyyy" var="nowYear" />
+		<select id="iyear" name="iyear">
+		  <c:forEach var="year" begin="${nowYear - 2}" end="${nowYear}">
+		   <option value="${year}" <c:out value="${iyear eq year ? 'selected=\"selected\"' : '' }"/>>${year}년 </option>
+		  </c:forEach>
+		</select><select id="imonth" name="imonth">
+		 <c:forEach var="month" begin="1" end="12">
+		   <option value="${month}" <c:out value="${imonth eq month ? 'selected=\"selected\"' : '' }"/>> ${month}월 </option>
+		 </c:forEach>
+		</select>
+		<button type="submit" id="wbutton">&nbsp;검색&nbsp;</button>
+		<button type="button" id="wbutton" onclick="location.href='itemSearch.im?isearch=item_code&keyword=${item.item_code}'">&nbsp;상세검색&nbsp;</button>
+		</section>
+</form>
+<br>
 	<table cellspacing="0" cellpadding="0" id="state_table">
 			<tr id="top_menu">
 				<td style="width:100px;">코드</td>
@@ -118,7 +136,7 @@ th{
 						[이전]&nbsp;
 					</c:if>
 					<c:if test="${i_pageInfo.page>1 }">
-						<a href="itemView.im?item_code=${item.item_code }&page=${page }&i_page=${i_pageInfo.page-1}">[이전]</a>&nbsp;
+						<a href="itemView.im?item_code=${item.item_code }&page=${page }&i_page=${i_pageInfo.page-1}&iyear=${iyear}&imonth=${imonth}">[이전]</a>&nbsp;
 					</c:if>
 					
 					<c:forEach var="a" begin="${i_pageInfo.startPage }" end="${i_pageInfo.endPage }" step="1">
@@ -127,7 +145,7 @@ th{
 								[${a }]
 							</c:when>
 							<c:otherwise>
-								<a href="itemView.im?item_code=${item.item_code }&page=${page }&i_page=${a }">[${a }]</a>&nbsp;
+								<a href="itemView.im?item_code=${item.item_code }&page=${page }&i_page=${a }&iyear=${iyear}&imonth=${imonth}">[${a }]</a>&nbsp;
 							</c:otherwise>
 						</c:choose>
 					</c:forEach>
@@ -136,7 +154,7 @@ th{
 							[다음]
 						</c:when>
 						<c:otherwise>
-							<a href="itemView.im?item_code=${item.item_code }&page=${page }&i_page=${i_pageInfo.page+1 }">[다음]</a>
+							<a href="itemView.im?item_code=${item.item_code }&page=${page }&i_page=${i_pageInfo.page+1 }&iyear=${iyear}&imonth=${imonth}">[다음]</a>
 						</c:otherwise>
 					</c:choose>
 				</td>

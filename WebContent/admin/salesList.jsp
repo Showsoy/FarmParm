@@ -10,7 +10,7 @@
 <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
 <title>Insert title here</title>
 <style>
-tr{
+.listtable tr{
 	height:50px;
 }
 td{
@@ -24,36 +24,11 @@ img{
 	border: 1px solid #ddd;
 	padding : 0 0 0 2px;
 }
-dt{
-	display:inline-block;
-	width:150px;
-	text-align:left;
-}
-dd{
-	display:inline-block;
-	width:150px;
-	text-align:right;
-}
 #orderby{
 	padding : 13px 0 0 380px;
 }
 #orderby2{
 	font-size:13px;
-}
-#datesel{
-	display:inline-block;
-}
-#datesel select{
-	height:30px;
-}
-#datesel button{
-	float:left;
-}
-#monthseldel1, #monthseldel2, #monthseldel3{
-	float:left;
-}
-#monthseldel3{
-	padding:0 0 0 5px;
 }
 </style>
 <script>
@@ -105,36 +80,6 @@ function monthSelDel(){
 	<hr color="#4CAF50" size="5">
 	<form action="salesList.od" method="post" name="salesList">
 	<div class="mypage">
-		<c:if test="${salesMap !=null }">
-			<div id="search_info">
-			<dl>
-				<dt><b>해당 기간 매출 A</b></dt>
-				<dd><fmt:formatNumber value="${salesMap['this_pay'] }" type="number"/>원</dd>
-			</dl>
-			<dl>
-				<dt><b>포인트 결제 B</b></dt>
-				<dd><fmt:formatNumber value="${salesMap['this_depoint'] }" type="number"/>원</dd>
-			</dl>
-			<dl>
-				<dt><b>순 이익(A-B-배송비)</b></dt>
-				<dd><fmt:formatNumber value="${salesMap['this_profit'] }" type="number"/>원</dd>
-			</dl>
-			<dl>
-				<dt><b>해당 기간 판매량</b></dt>
-				<dd><fmt:formatNumber value="${salesMap['this_sales'] }" type="number"/>개</dd>
-			</dl>
-			<c:if test="${salesMap['profit_ration']!=null }">
-				<dl>
-					<dt><b>전월 대비 순이익</b></dt>
-					<dd>${salesMap['profit_ration'] }%</dd>
-				</dl>
-				<dl>
-					<dt><b>전월 대비 판매량</b></dt>
-					<dd>${salesMap['sales_ration'] }%</dd>
-				</dl>
-			</c:if>
-			</div>
-		</c:if>
 		<br><br>
 		<div id="sales-keyword">
 		<jsp:useBean id="now" class="java.util.Date" />
@@ -153,8 +98,8 @@ function monthSelDel(){
 
 		pageContext.setAttribute("dayMap", dayMap);
 		%>
-		<input type="checkbox" name = "monthsel" value="check" onchange="monthSelDel()"><b>월 매출 검색</b><br>
-		<div id="datesel">
+		<input type="checkbox" name = "monthsel" id="monthsel" value="check" onchange="monthSelDel()"><label for="monthsel"><b>월 매출 검색</b></label><br>
+        <div id="datesel">
 		<span id="monthseldel1">
 		<select id="sYear" name="sYear">
 		  <c:forEach var="year" begin="${nowYear - 2}" end="${nowYear}">
@@ -199,13 +144,37 @@ function monthSelDel(){
 		<button type="button" id="wbutton" onclick="location.href='salesList.od?period=2week'">이주일</button>
 		<button type="button" id="wbutton" onclick="location.href='salesList.od?period=month'">한 달</button>
 		<br><br>
-		<b>${start } - ${end }</b> 검색결과
+		<b>${start } - ${end }</b> 기간 검색
 		</div>
 		<br>
+		<c:if test="${salesMap !=null }">
+			<table class="sales-table" cellpadding="0" cellspacing="0">
+			<tr>
+			<td id="float-top"><b>해당 기간 매출 A</b></td>
+			<td id="float-top"><b>포인트 결제 B</b></td>
+			<td id="float-top"><b>순 이익(A-B-배송비)</b></td>
+			<td id="float-top"><b>해당 기간 판매량</b></td>
+			<c:if test="${salesMap['profit_ration']!=null }">
+				<td id="float-top"><b>전월 대비 순이익</b></td>
+				<td id="float-top"><b>전월 대비 판매량</b></td>
+			</c:if>
+			</tr>
+			<tr>
+			<td><fmt:formatNumber value="${salesMap['this_pay'] }" type="number"/>원</td>
+			<td><fmt:formatNumber value="${salesMap['this_depoint'] }" type="number"/>원</td>
+			<td><fmt:formatNumber value="${salesMap['this_profit'] }" type="number"/>원</td>
+			<td><fmt:formatNumber value="${salesMap['this_sales'] }" type="number"/>개</td>
+			<c:if test="${salesMap['profit_ration']!=null }">
+				<td>${salesMap['profit_ration'] }%</td>
+				<td>${salesMap['sales_ration'] }%</td>
+			</c:if>
+			</table>
+		</c:if><br>
 	<button type="button" id="categorybl" style="background-color:<c:out value="${orderby==null ? '#F6F6F6' : '#fff'}"/>;" onclick="location.href='salesList.od?<c:out value="${monthsel !=null ? 'monthsel=check' : '' }"/>&start=${start}&end=${end}'">주문별</button><button type="button" id="categorybr" style="background-color:<c:out value="${orderby!=null ? '#F6F6F6' : '#fff'}"/>;" onclick="location.href='salesList.od?<c:out value="${monthsel !=null ? 'monthsel=check' : '' }"/>&start=${start}&end=${end}&orderby=profit'">상품별</button>
 	<br>
 	<c:choose>
 	<c:when test="${orderby==null }">
+		<br>
 		<table class="listtable" cellspacing="0" cellpadding="0">	
 			<tr id="top_menu">
 				<td>주문번호</td>
@@ -235,7 +204,7 @@ function monthSelDel(){
 						[이전]&nbsp;
 					</c:if>
 					<c:if test="${pageInfo.page>1 }">
-						<a href="salesList.od?page=${pageInfo.page-1}&start=${start}&end=${end}">[이전]</a>&nbsp;
+						<a href="salesList.od?<c:out value="${monthsel !=null ? 'monthsel=check' : '' }"/>&page=${pageInfo.page-1}&start=${start}&end=${end}">[이전]</a>&nbsp;
 					</c:if>
 
 					<c:forEach var="a" begin="${pageInfo.startPage }" end="${pageInfo.endPage }" step="1">
