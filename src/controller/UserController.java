@@ -29,10 +29,8 @@ import member.action.MemberPwCheckAction;
 import member.action.MemberPwFindAction;
 import member.action.MemberPwModifyAction;
 import member.action.MemberSelectDeleteAction;
-<<<<<<< HEAD
+import member.action.MyQnAViewAction;
 import member.action.MyQnaListAction;
-=======
->>>>>>> 5166f2568e8c6acb26007983da939408557e6f88
 import vo.ActionForward;
 
 /**
@@ -58,10 +56,7 @@ protected void doProcess(HttpServletRequest request, HttpServletResponse respons
     	String command = RequestURI.substring(contextPath.length());
     	ActionForward forward = null;
     	Action action = null;
-<<<<<<< HEAD
-=======
     	
->>>>>>> 5166f2568e8c6acb26007983da939408557e6f88
     	if(command.equals("/memberLogin.us")){
     		forward=new ActionForward();
 			forward.setRedirect(false);
@@ -229,7 +224,6 @@ protected void doProcess(HttpServletRequest request, HttpServletResponse respons
 			}catch(Exception e){
 				e.printStackTrace();
 			}
-<<<<<<< HEAD
     	}else if(command.equals("/myQna.us")) {
     		action = new MyQnaListAction();
 			try{
@@ -237,8 +231,13 @@ protected void doProcess(HttpServletRequest request, HttpServletResponse respons
 			}catch(Exception e){
 				e.printStackTrace();
 			}
-=======
->>>>>>> 5166f2568e8c6acb26007983da939408557e6f88
+    	}else if(command.equals("/myQnaView.us")) {
+    		action = new MyQnAViewAction();
+			try{
+				forward=action.execute(request, response);
+			}catch(Exception e){
+				e.printStackTrace();
+			}
     	}
     	
     	if(forward!=null) {

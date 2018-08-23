@@ -8,12 +8,9 @@ a{
 a:hover{
 	text-decoration:underline;
 }
-<<<<<<< HEAD
-=======
 select{
 	height:30px;
 }
->>>>>>> 5166f2568e8c6acb26007983da939408557e6f88
 .header {
     padding: 10px; /* some padding */
     text-align:center;
@@ -849,5 +846,4 @@ th{
 }
 #float-top{
 	background-color:#F6F6F6;
->>>>>>> 5166f2568e8c6acb26007983da939408557e6f88
 }

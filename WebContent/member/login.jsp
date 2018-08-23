@@ -56,7 +56,7 @@ function chkForm(f){
 				</c:if>
 				<input type="text" id="userID" name="userID" placeholder="아이디" maxlength="20" class="input100"/> 
 				<input type="password" name="userPass" id="userPass" placeholder="비밀번호" class="input100"/> 
-				<button type="submit" class="input100">로그인</button> 
+				<button type="submit" class="input100">${type }로그인</button> 
 				<br><br>
 				<div id="footer">
 				<a href="idFind.jsp">아이디 찾기</a>&nbsp;&nbsp;|&nbsp;&nbsp;

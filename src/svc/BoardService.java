@@ -157,7 +157,6 @@ public class BoardService {
 		close(conn);
 		return articleList;
 	}
-<<<<<<< HEAD
 	public int myQnaListCount(String bName, String id) {
 		BoardDAO boardDAO = BoardDAO.getInstance();
 		Connection conn = getConnection();
@@ -175,8 +174,6 @@ public class BoardService {
 		close(conn);
 		return articleList;
 	}
-=======
->>>>>>> 5166f2568e8c6acb26007983da939408557e6f88
 	public ArrayList<BoardBean> searchReviewList(String keyword, int page, String review_search) {
 		BoardDAO boardDAO = BoardDAO.getInstance();
 		Connection conn = getConnection();

@@ -35,6 +35,7 @@ public class MemberJoinAction  implements Action{
    		
    		UserService userService = new UserService();
    		joinResult = userService.joinUser(users);
+   		String newuser = "newuser";
    		
    		ActionForward forward = null;
    		
@@ -49,7 +50,7 @@ public class MemberJoinAction  implements Action{
    		else{
    	    forward = new ActionForward();
    		forward.setRedirect(true);
-   		forward.setPath("../member/joinAfterLogin.jsp");
+   		forward.setPath("../member/login.jsp");
    		}
    		return forward;
 	}

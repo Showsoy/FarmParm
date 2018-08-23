@@ -13,6 +13,9 @@
 #top_td{
 	font-size:12px;
 }
+.re{
+	margin:0 0 0 200px;
+}
 </style>
 <script>
 function fc_chk_byte(memo) { 
@@ -122,6 +125,7 @@ function goto_url(act) {
 				<button type="button" id="wbutton" onclick="location.href='csList.bo?page=${page}<c:out value="${keyword !=null ? '&keyword=' : '' }"/>${keyword}'">목록</button>
 			</section>
 			<br>
+			<div class="re">
 			<c:if test="${board.has_re == 0 && id eq 'admin'}">
 				<table>
 					<tr>
@@ -139,11 +143,12 @@ function goto_url(act) {
 					</tr>
 					<tr>
 						<td colspan="2">
-							<span style="padding:0 0 0 300px;"><button type="button" id="wbutton" onclick="goto_url('csReply.bo?bnum=${board.board_num}&page=${page }<c:out value="${keyword !=null ? '&keyword=' : '' }"/>${keyword}')" style="width:80px;">답변하기</button></span>
+							<span style="padding:0 0 0 610px;"><button type="button" id="wbutton" onclick="goto_url('csReply.bo?bnum=${board.board_num}&page=${page }<c:out value="${keyword !=null ? '&keyword=' : '' }"/>${keyword}')" style="width:80px;">답변하기</button></span>
 						</td>
 					</tr>
 				</table>
 			</c:if>
+			</div>
 			<br>
 		</form>
 	</div>	
