@@ -8,6 +8,12 @@ a{
 a:hover{
 	text-decoration:underline;
 }
+<<<<<<< HEAD
+=======
+select{
+	height:30px;
+}
+>>>>>>> 5166f2568e8c6acb26007983da939408557e6f88
 .header {
     padding: 10px; /* some padding */
     text-align:center;
@@ -812,4 +818,36 @@ th{
 	color:#4374D9;
 	border:1px solid #4374D9;
 	padding:10px;
+<<<<<<< HEAD
+=======
+}
+#sales-keyword select{
+	margin:5px 0 5px 0;
+	padding:0;
+	border : 1px solid #ccc;
+}
+#datesel{
+	display:inline-block;
+}
+#datesel button{
+	float:left;
+}
+#monthseldel1, #monthseldel2, #monthseldel3{
+	float:left;
+}
+#monthseldel3{
+	padding:0 0 0 5px;
+}
+.sales-table{
+	width:80%;
+	height:50px;
+	font-size:14px;
+	margin:0 auto;
+}
+.sales-table tr{
+	height:30px;
+}
+#float-top{
+	background-color:#F6F6F6;
+>>>>>>> 5166f2568e8c6acb26007983da939408557e6f88
 }

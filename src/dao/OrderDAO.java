@@ -517,8 +517,11 @@ public class OrderDAO {
 	}
 	public ArrayList<OrderBean> salesOrderList2(String date, int page){
 		ArrayList<OrderBean> salesList = null;
+<<<<<<< HEAD
 		//둘 다 가능.
 		//String sql = "SELECT order_id, user_id, dati, state, pay, payment FROM orders WHERE YEAR(dati) = ? AND MONTH(dati) = ? ORDER BY dati DESC LIMIT ?,10";
+=======
+>>>>>>> 5166f2568e8c6acb26007983da939408557e6f88
 		String sql = "select order_id, user_id, dati, state, pay, payment from orders where dati BETWEEN str_to_date('"+date+"','%Y-%m-%d') AND date_add(str_to_date('"+date+"', '%Y-%m-%d'), interval 1 month) ORDER BY dati DESC LIMIT ?,10";
 		PreparedStatement pstmt = null;
 		ResultSet rs = null;
@@ -611,10 +614,17 @@ public class OrderDAO {
 		PreparedStatement pstmt1 = null;PreparedStatement pstmt2 = null;
 		PreparedStatement pstmt3 = null;PreparedStatement pstmt4 = null;
 		ResultSet rs1 = null;ResultSet rs2 = null;ResultSet rs3 = null;ResultSet rs4 = null;
+<<<<<<< HEAD
 		String sql1 = "select sum(pay), sum(depoint), sum(parcel) from orders where dati BETWEEN "+start+" AND "+end;
 		String sql2 = "select count(*) from order_view a where dati BETWEEN "+start+" AND "+end;
 		String sql3 = "select sum(pay)-sum(parcel) from orders where dati BETWEEN "+start+" AND "+end;
 		String sql4 = "select count(*) from order_view a where dati BETWEEN "+start+" AND "+end;
+=======
+		String sql1 = "select sum(pay), sum(depoint), sum(parcel) from orders where dati BETWEEN '"+start+"' AND '"+end+"'";
+		String sql2 = "select count(*) from order_view a where dati BETWEEN '"+start+"' AND '"+end+"'";
+		String sql3 = "select sum(pay)-sum(parcel) from orders where dati BETWEEN date_add(str_to_date('"+start+"', '%Y-%m-%d'), interval -1 month) AND date_add(str_to_date('"+end+"', '%Y-%m-%d'), interval -1 month)";
+		String sql4 = "select count(*) from order_view a where dati BETWEEN date_add(str_to_date('"+start+"', '%Y-%m-%d'), interval -1 month) AND date_add(str_to_date('"+end+"', '%Y-%m-%d'), interval -1 month)";
+>>>>>>> 5166f2568e8c6acb26007983da939408557e6f88
 		try {
 			pstmt1 = conn.prepareStatement(sql1);
 			rs1 = pstmt1.executeQuery();

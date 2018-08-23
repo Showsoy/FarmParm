@@ -1,7 +1,14 @@
 package item.action;
 
 import java.io.PrintWriter;
+<<<<<<< HEAD
 import java.util.ArrayList;
+=======
+import java.text.SimpleDateFormat;
+import java.util.ArrayList;
+import java.util.Calendar;
+import java.util.Date;
+>>>>>>> 5166f2568e8c6acb26007983da939408557e6f88
 
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
@@ -50,7 +57,17 @@ public class ItemViewAction implements action.Action{
 				i_page = Integer.parseInt(request.getParameter("i_page"));
 			}
 			
+<<<<<<< HEAD
 			int listCount = itemService.itemStockCount(item_code);
+=======
+			Calendar tmpCal = Calendar.getInstance();
+			int iyear = request.getParameter("iyear")==null ? tmpCal.get(Calendar.YEAR) 
+					: Integer.parseInt(request.getParameter("iyear"));
+			int imonth = request.getParameter("imonth")==null ? tmpCal.get(Calendar.MONTH)+1 
+					: Integer.parseInt(request.getParameter("imonth"));
+
+			int listCount = itemService.itemStockCount(item_code, iyear, imonth);
+>>>>>>> 5166f2568e8c6acb26007983da939408557e6f88
 			int i_maxPage = (int)((double)listCount/i_limit+0.95); 
 			int i_startPage = (((int)((double)i_page/i_limitPage+0.9))-1) *i_limitPage +1;
 			int i_endPage = i_startPage+i_limitPage-1;
@@ -65,16 +82,28 @@ public class ItemViewAction implements action.Action{
 			request.setAttribute("i_pageInfo", i_pageInfo);
 			
 			forward = new ActionForward();
+<<<<<<< HEAD
 			ItemBean item = itemService.getItem(item_code);
 			ArrayList<ItemStockBean> itemStockList = itemService.getItemStockList(item_code,i_page);
+=======
+			ItemBean item = itemService.getItemWithStock(item_code);
+			ArrayList<ItemStockBean> itemStockList = itemService.getItemStockList(item_code, iyear, imonth, i_page);
+>>>>>>> 5166f2568e8c6acb26007983da939408557e6f88
 			
 			request.setAttribute("item",item);
 			request.setAttribute("itemStockList", itemStockList);
 			String page = request.getParameter("page");
+<<<<<<< HEAD
 			String stock = request.getParameter("stock");
 			request.setAttribute("page", page);
 			request.setAttribute("i_page", i_page);
 			request.setAttribute("stock", stock);
+=======
+			request.setAttribute("page", page);
+			request.setAttribute("imonth", imonth);
+			request.setAttribute("iyear", iyear);
+			request.setAttribute("i_page", i_page);
+>>>>>>> 5166f2568e8c6acb26007983da939408557e6f88
 			forward= new ActionForward();
 			forward.setPath("./itemView.jsp?page="+page);
 		}

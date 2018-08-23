@@ -57,7 +57,11 @@ td, tr{
 <br><br>
 			<button id="bbutton" onclick="location.href='./pwCheckForm.us?id=${user.user_id}'">수정</button>
 			<button id="bbutton" onclick="location.href='main.im'">홈으로</button> 
+<<<<<<< HEAD
 			<button id="bbutton" onclick="location.href='myQna.us'">내 문의 보기</button>
+=======
+			<button id="bbutton" onclick="location.href='#'">내 문의 보기</button>
+>>>>>>> 5166f2568e8c6acb26007983da939408557e6f88
 	</div>
 </div>
 <jsp:include page="/common/footer.jsp" flush="false"/>

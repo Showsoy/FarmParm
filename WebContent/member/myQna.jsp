@@ -69,7 +69,7 @@ img{
 						[이전]&nbsp;
 					</c:if>
 					<c:if test="${pageInfo.page>1 }">
-						<a href="qnaList.bo?page=${pageInfo.page-1}<c:out value="${keyword !=null ? '&keyword=' : '' }"/>${keyword}">[이전]</a>&nbsp;
+						<a href="myQna.us?page=${pageInfo.page-1}<c:out value="${keyword !=null ? '&keyword=' : '' }"/>${keyword}">[이전]</a>&nbsp;
 					</c:if>
 					
 					<c:forEach var="a" begin="${pageInfo.startPage }" end="${pageInfo.endPage }" step="1">
@@ -78,7 +78,7 @@ img{
 								[${a }]
 							</c:when>
 							<c:otherwise>
-								<a href="qnaList.bo?page=${a }<c:out value="${keyword !=null ? '&keyword=' : '' }"/>${keyword}">[${a }]</a>&nbsp;
+								<a href="myQna.us?page=${a }<c:out value="${keyword !=null ? '&keyword=' : '' }"/>${keyword}">[${a }]</a>&nbsp;
 							</c:otherwise>
 						</c:choose>
 					</c:forEach>
@@ -87,7 +87,7 @@ img{
 							[다음]
 						</c:when>
 						<c:otherwise>
-							<a href="qnaList.bo?page=${pageInfo.page+1 }<c:out value="${keyword !=null ? '&keyword=' : '' }"/>${keyword}">[다음]</a>
+							<a href="myQna.us?page=${pageInfo.page+1 }<c:out value="${keyword !=null ? '&keyword=' : '' }"/>${keyword}">[다음]</a>
 						</c:otherwise>
 					</c:choose>
 				</td>

@@ -67,11 +67,19 @@ public class ItemService {
 		close(conn);
 		return item;
 	}
+<<<<<<< HEAD
 	public ArrayList<ItemStockBean> getItemStockList(String item_code,int i_page) {
 		ItemDAO itemDAO = ItemDAO.getInstance();
 		Connection conn = getConnection();
 		itemDAO.setConnection(conn);
 		ArrayList<ItemStockBean> itemStockList = itemDAO.itemStockList(item_code, i_page);
+=======
+	public ArrayList<ItemStockBean> getItemStockList(String item_code, int iyear, int imonth, int i_page) {
+		ItemDAO itemDAO = ItemDAO.getInstance();
+		Connection conn = getConnection();
+		itemDAO.setConnection(conn);
+		ArrayList<ItemStockBean> itemStockList = itemDAO.itemStockList(item_code, iyear, imonth, i_page);
+>>>>>>> 5166f2568e8c6acb26007983da939408557e6f88
 		
 		close(conn);
 		return itemStockList;
@@ -118,11 +126,19 @@ public class ItemService {
 		close(conn);
 		return listCount;
 	}
+<<<<<<< HEAD
 	public int itemStockCount(String item_code) {
 		ItemDAO itemDAO = ItemDAO.getInstance();
 		Connection conn = getConnection();
 		itemDAO.setConnection(conn);
 		int listCount = itemDAO.itemStockCount(item_code);
+=======
+	public int itemStockCount(String item_code, int iyear, int imonth) {
+		ItemDAO itemDAO = ItemDAO.getInstance();
+		Connection conn = getConnection();
+		itemDAO.setConnection(conn);
+		int listCount = itemDAO.itemStockCount(item_code, iyear, imonth);
+>>>>>>> 5166f2568e8c6acb26007983da939408557e6f88
 		
 		close(conn);
 		return listCount;
@@ -205,6 +221,18 @@ public class ItemService {
 		close(conn);
 		return listCount;
 	}
+<<<<<<< HEAD
+=======
+	public int iSearchStockCount(String startDate, String endDate, String isearch, String keyword) {
+		ItemDAO itemDAO = ItemDAO.getInstance();
+		Connection conn = getConnection();
+		itemDAO.setConnection(conn);
+		int listCount = itemDAO.iSearchStockCount(startDate, endDate, isearch, keyword);
+		
+		close(conn);
+		return listCount;
+	}
+>>>>>>> 5166f2568e8c6acb26007983da939408557e6f88
 	public ArrayList<ItemViewBean> iSearchStockList(String startDate, String endDate, int page) {
 		ItemDAO itemDAO = ItemDAO.getInstance();
 		Connection conn = getConnection();
@@ -214,6 +242,18 @@ public class ItemService {
 		close(conn);
 		return itemList;
 	}
+<<<<<<< HEAD
+=======
+	public ArrayList<ItemViewBean> iSearchStockList(String startDate, String endDate, String isearch, String keyword, int page) {
+		ItemDAO itemDAO = ItemDAO.getInstance();
+		Connection conn = getConnection();
+		itemDAO.setConnection(conn);
+		ArrayList<ItemViewBean> itemList = itemDAO.iSearchStockList(startDate, endDate, isearch, keyword, page);
+		
+		close(conn);
+		return itemList;
+	}
+>>>>>>> 5166f2568e8c6acb26007983da939408557e6f88
 	public int deleteItem(String item_code) {
 		ItemDAO itemDAO = ItemDAO.getInstance();
 		Connection conn = getConnection();

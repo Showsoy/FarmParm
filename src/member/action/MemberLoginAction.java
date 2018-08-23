@@ -50,7 +50,10 @@ public class MemberLoginAction implements Action{
 	   			}
 	   		}else{
 	   			request.setAttribute("type", "passError");
+<<<<<<< HEAD
 	   			request.setAttribute("turn", turn);
+=======
+>>>>>>> 5166f2568e8c6acb26007983da939408557e6f88
 				request.setAttribute("returnURI", returnURI);
 	   			forward = new ActionForward("login.jsp",false);
 		   		

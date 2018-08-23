@@ -17,10 +17,14 @@ public class test {
 		System.out.println(start);
 		
 		Calendar tmpCal = Calendar.getInstance();
+<<<<<<< HEAD
 		tmpCal.set(Calendar.YEAR, 2018);
 		tmpCal.set(Calendar.MONTH, 2-1);
 		tmpCal.set(Calendar.DATE, 1);
 		System.out.println(tmpCal.getActualMaximum(Calendar.DATE));
+=======
+		System.out.println(tmpCal.get(Calendar.MONTH)+","+tmpCal.get(Calendar.YEAR));
+>>>>>>> 5166f2568e8c6acb26007983da939408557e6f88
 	}
 
 }

@@ -255,6 +255,7 @@ public class UserDAO {
 			pstmt.setString(1, user_id);
 			rs=pstmt.executeQuery();
 			if(rs.next()){
+<<<<<<< HEAD
 				ub = new UserBean();
 				ub.setUser_id(rs.getString("user_id"));
 				ub.setPasswd(rs.getString("passwd"));
@@ -267,6 +268,20 @@ public class UserDAO {
 				ub.setPostcode(rs.getString("postcode"));
 				ub.setAddress(rs.getString("address"));
 				ub.setAddress_second(rs.getString("address_second"));
+=======
+				ub = new UserBean(
+						rs.getString("user_id"),
+						rs.getString("passwd"),
+						rs.getString("name"),
+						rs.getString("grade"),
+						rs.getString("phone"),
+						rs.getDate("birth"),
+						rs.getString("gender"),
+						rs.getString("email"),
+						rs.getString("postcode"),
+						rs.getString("address"),
+						rs.getString("address_second"));
+>>>>>>> 5166f2568e8c6acb26007983da939408557e6f88
 			}
 		}catch(Exception e){
 			e.printStackTrace();			
@@ -311,6 +326,7 @@ public class UserDAO {
 			pstmt.setString(1, user_id);
 			rs=pstmt.executeQuery();
 			if(rs.next()){
+<<<<<<< HEAD
 				ub = new UserBean();
 				ub.setUser_id(rs.getString("user_id"));
 				ub.setPasswd(rs.getString("passwd"));
@@ -323,6 +339,20 @@ public class UserDAO {
 				ub.setAddress_second(rs.getString("address_second"));
 				ub.setEmail(rs.getString("email"));
 				ub.setGrade(rs.getString("grade"));
+=======
+				ub = new UserBean(
+						rs.getString("user_id"),
+						rs.getString("passwd"),
+						rs.getString("name"),
+						rs.getString("phone"),
+						rs.getDate("birth"),
+						rs.getString("gender"),
+						rs.getString("postcode"),
+						rs.getString("address"),
+						rs.getString("address_second"),
+						rs.getString("email"),
+						rs.getString("grade"));
+>>>>>>> 5166f2568e8c6acb26007983da939408557e6f88
 			}
 		}catch(Exception e){
 			e.printStackTrace();		
@@ -360,6 +390,7 @@ public class UserDAO {
 			pstmt.setString(1, user_id);
 			rs=pstmt.executeQuery();
 			if(rs.next()){
+<<<<<<< HEAD
 				ub = new UserBean();
 				ub.setUser_id(rs.getString("user_id"));
 				ub.setName(rs.getString("name"));
@@ -370,6 +401,18 @@ public class UserDAO {
 				ub.setPostcode(rs.getString("postcode"));
 				ub.setAddress(rs.getString("address"));
 				ub.setAddress_second(rs.getString("address_second"));
+=======
+				ub = new UserBean(
+						rs.getString("user_id"),
+						rs.getString("name"),
+						rs.getString("phone"),
+						rs.getDate("birth"),
+						rs.getString("gender"),
+						rs.getString("email"),
+						rs.getString("postcode"),
+						rs.getString("address"),
+						rs.getString("address_second"));
+>>>>>>> 5166f2568e8c6acb26007983da939408557e6f88
 			}
 		}catch(Exception e){
 			e.printStackTrace();		

@@ -1,8 +1,13 @@
 package vo;
 
 public class ItemBean {
+<<<<<<< HEAD
 	private String item_code;
 	private String item_name;
+=======
+	private final String item_code;
+	private final String item_name;
+>>>>>>> 5166f2568e8c6acb26007983da939408557e6f88
 	private int price;
 	private String origin;
 	private String category;
@@ -27,6 +32,7 @@ public class ItemBean {
 		this.ihide = ihide;
 	}
 	
+<<<<<<< HEAD
 	
 	
 	public String getItem_code() {
@@ -41,6 +47,14 @@ public class ItemBean {
 	public void setItem_name(String item_name) {
 		this.item_name = item_name;
 	}
+=======
+	public String getItem_code() {
+		return item_code;
+	}
+	public String getItem_name() {
+		return item_name;
+	}
+>>>>>>> 5166f2568e8c6acb26007983da939408557e6f88
 	public int getPrice() {
 		return price;
 	}

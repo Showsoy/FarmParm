@@ -58,11 +58,16 @@ public class SalesListAction implements Action {
 			String start = request.getParameter("start");
 			String end = request.getParameter("end");
 			String orderby = request.getParameter("orderby");
+<<<<<<< HEAD
+=======
+			String monthsel = request.getParameter("monthsel");
+>>>>>>> 5166f2568e8c6acb26007983da939408557e6f88
 			
 			Map<String, Integer> salesMap = new HashMap<String, Integer>();
 			SimpleDateFormat DATE_FORMAT = new SimpleDateFormat("yyyy-MM-dd");
 			Calendar cal = Calendar.getInstance();
 			Date date = cal.getTime();
+<<<<<<< HEAD
 			
 			if(start!=null){
 				if(orderby==null) {
@@ -73,10 +78,15 @@ public class SalesListAction implements Action {
 					salesList2 = orderService.salesItemList1(start, end, orderby, page);
 				}
 			}else if(request.getParameter("monthsel")!=null){
+=======
+			if(start!=null){
+			}else if(monthsel!=null){
+>>>>>>> 5166f2568e8c6acb26007983da939408557e6f88
 				start = request.getParameter("sYear")+"-"+request.getParameter("sMonth")+"-01";
 				cal.set(Calendar.YEAR, Integer.parseInt(request.getParameter("sYear")));
 				cal.set(Calendar.MONTH, Integer.parseInt(request.getParameter("sMonth"))-1);
 				cal.set(Calendar.DATE, 1);
+<<<<<<< HEAD
 				end = request.getParameter("sYear")+"-"+request.getParameter("sMonth")+cal.getActualMaximum(Calendar.DATE);
 				if(orderby==null) {
 					listCount = orderService.salesOrderCount1(start, end);
@@ -85,6 +95,9 @@ public class SalesListAction implements Action {
 					listCount = orderService.salesItemCount1(start, end);
 					salesList2 = orderService.salesItemList1(start, end, orderby, page);
 				}
+=======
+				end = request.getParameter("sYear")+"-"+request.getParameter("sMonth")+"-"+cal.getActualMaximum(Calendar.DATE);
+>>>>>>> 5166f2568e8c6acb26007983da939408557e6f88
 			}else if(request.getParameter("eYear")==null) {
 				String period = request.getParameter("period");
 				end = DATE_FORMAT.format(date);
@@ -94,6 +107,7 @@ public class SalesListAction implements Action {
 				
 				date = cal.getTime(); 
 		        start = DATE_FORMAT.format(date);
+<<<<<<< HEAD
 		        if(orderby==null) {
 					listCount = orderService.salesOrderCount1(start, end);
 					salesList1 = orderService.salesOrderList1(start, end, page);
@@ -114,6 +128,21 @@ public class SalesListAction implements Action {
 			}
 			
 			if(request.getParameter("monthsel")!=null) salesMap = orderService.thisMonthSales(start, end);
+=======
+			}else {
+				start = request.getParameter("sYear")+"-"+request.getParameter("sMonth")+"-"+request.getParameter("sDay");
+				end = request.getParameter("eYear")+"-"+request.getParameter("eMonth")+"-"+request.getParameter("eDay");
+			}
+			
+			if(orderby==null) {
+				listCount = orderService.salesOrderCount1(start, end);
+				salesList1 = orderService.salesOrderList1(start, end, page);
+			}else {
+				listCount = orderService.salesItemCount1(start, end);
+				salesList2 = orderService.salesItemList1(start, end, orderby, page);
+			}
+			if(monthsel!=null) salesMap = orderService.thisMonthSales(start, end);
+>>>>>>> 5166f2568e8c6acb26007983da939408557e6f88
 			else salesMap = orderService.calculateProfit(start, end);
 
 			int maxPage = (int)((double)listCount/limit+0.95); 
@@ -130,6 +159,10 @@ public class SalesListAction implements Action {
 			request.setAttribute("salesMap", salesMap);
 			request.setAttribute("start", start);
 			request.setAttribute("end", end);
+<<<<<<< HEAD
+=======
+			request.setAttribute("monthsel", monthsel);
+>>>>>>> 5166f2568e8c6acb26007983da939408557e6f88
 			request.setAttribute("orderby", orderby);
 			request.setAttribute("pageInfo", pageInfo);
 			request.setAttribute("page", page);
