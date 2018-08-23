@@ -20,12 +20,9 @@ td, tr{
 #td_info{
 	text-align:center;
 }
-<<<<<<< HEAD
 .orderbox{
 	margin: 0 0 0 350px;
 }
-=======
->>>>>>> 5166f2568e8c6acb26007983da939408557e6f88
 </style>
 <script>
 	function deleteCheck(v){
@@ -139,21 +136,14 @@ td, tr{
 			</tr>
 			</c:when>
 			<c:otherwise>
-<<<<<<< HEAD
 				<tr><td colspan="6" style="width:390px;">조회 가능한 주문이 없습니다.</td></tr>
-=======
-				<tr><td colspan="6">조회 가능한 주문이 없습니다.</td></tr>
->>>>>>> 5166f2568e8c6acb26007983da939408557e6f88
 			</c:otherwise>
 		</c:choose>
 		</table>
 	<br><br><br>
 	</div>
 	<button type="button" id="bbutton" onclick="location.href='/FarmParm/admin/adminPage.jsp'" style="width:150px;">관리자페이지</button>
-<<<<<<< HEAD
 	<button type="button" id="bbutton" onclick="location.href='/FarmParm/memberList.us'" style="width:90px;">회원목록</button>
-=======
->>>>>>> 5166f2568e8c6acb26007983da939408557e6f88
 	</div>
 </div>
  <jsp:include page="/common/footer.jsp" flush="false"/>

@@ -24,6 +24,7 @@ import dao.UserDAO;
 import order.action.SMTPAuthenticator;
 import vo.OrderBean;
 import vo.OrderViewBean;
+import vo.PointBean;
 
 public class OrderService {
 	public int selectOrderId() {
@@ -35,7 +36,7 @@ public class OrderService {
 		close(conn);
 		return order_id;
 	}
-	public boolean takeOrder(OrderBean order, ArrayList<OrderViewBean> orderList, String id, int depoint, int plpoint) {
+	public boolean takeOrder(OrderBean order, ArrayList<OrderViewBean> orderList, PointBean point1, PointBean point2) {
 		OrderDAO orderDAO = OrderDAO.getInstance();
 		Connection conn = getConnection();
 		orderDAO.setConnection(conn);
@@ -44,8 +45,8 @@ public class OrderService {
 		int insertCount2 = orderDAO.takeOrderItem(orderList);
 		UserDAO userDAO = UserDAO.getInstance();
 		userDAO.setConnection(conn);
-		int updateCount1 = userDAO.userDeductPoint(id, depoint);
-		int updateCount2 = userDAO.userPlusPoint(id, plpoint);
+		int updateCount1 = userDAO.userPlminusPoint(point1);
+		int updateCount2 = userDAO.userPlminusPoint(point1);
 		ItemDAO itemDAO = ItemDAO.getInstance();
 		itemDAO.setConnection(conn);
 		int insertCount3 = itemDAO.takeOrderItem(orderList);
@@ -132,6 +133,24 @@ public class OrderService {
 		close(conn);
 		return orderList;
 	}
+	public int listCountCanelOrder(){
+		OrderDAO orderDAO = OrderDAO.getInstance();
+		Connection conn = getConnection();
+		orderDAO.setConnection(conn);
+		int listCount = orderDAO.listCountCancelOrder();
+		
+		close(conn);
+		return listCount;
+	}
+	public ArrayList<OrderBean> orderCancelList(int page) {
+		OrderDAO orderDAO = OrderDAO.getInstance();
+		Connection conn = getConnection();
+		orderDAO.setConnection(conn);
+		ArrayList<OrderBean> orderList = orderDAO.orderCancelList(page);
+		
+		close(conn);
+		return orderList;
+	}
 	public ArrayList<OrderViewBean> orderItemList(int order_id) {
 		OrderDAO orderDAO = OrderDAO.getInstance();
 		Connection conn = getConnection();
@@ -194,6 +213,24 @@ public class OrderService {
 		orderDAO.setConnection(conn);
 		int updateCount = orderDAO.changeOrderState(order_id, state);
 		if(updateCount>0) {
+			commit(conn);
+		}else {
+			rollback(conn);
+		}
+		close(conn);
+		return updateCount;
+	}
+	public int cancelOrder(int order_id, PointBean point1, PointBean point2) {
+		OrderDAO orderDAO = OrderDAO.getInstance();
+		Connection conn = getConnection();
+		orderDAO.setConnection(conn);
+		int updateCount = orderDAO.cancelOrder(order_id);
+		UserDAO userDAO = UserDAO.getInstance();
+		userDAO.setConnection(conn);
+		int insertCount1 = userDAO.userPlminusPoint(point1);
+		int insertCount2 = userDAO.userPlminusPoint(point2);
+
+		if(updateCount>0&&insertCount1>0&&insertCount2>0) {
 			commit(conn);
 		}else {
 			rollback(conn);

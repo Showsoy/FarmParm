@@ -106,3 +106,21 @@ body {
 	-webkit-font-smoothing: antialiased;
 	-moz-osx-font-smoothing: grayscale;
 }
+#login-error{
+	background-color:#FFEAEA;
+	border-radius:5px;
+	border:1px solid #FF4848;
+	color:#FF4848;
+	padding:10px;
+	margin:5px;
+	text-align:center;
+}
+#login-join{
+	border-radius:5px;
+	background-color:#EBF7FF;
+	color:#4374D9;
+	border:1px solid #4374D9;
+	padding:10px;
+	margin:5px;
+	text-align:center;
+}

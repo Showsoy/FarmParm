@@ -17,6 +17,7 @@
 <!DOCTYPE html PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN" "http://www.w3.org/TR/html4/loose.dtd">
 <html>
 <head>
+<link rel="stylesheet" type="text/css" href="../style/style.css">
 <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
 <title>Insert title here</title>
 <style>
@@ -89,7 +90,7 @@ a, a:hover, a:active {
 	</tr>
 	<tr>
 		<td>
-		<button id="gbutton" style="width:100%;" type="submit">중복체크</button>
+		<button id="gbutton" style="width:100%;padding:10px;" type="submit">중복체크</button>
 		</td>
 	</tr>
 </table>

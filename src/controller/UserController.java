@@ -29,10 +29,7 @@ import member.action.MemberPwCheckAction;
 import member.action.MemberPwFindAction;
 import member.action.MemberPwModifyAction;
 import member.action.MemberSelectDeleteAction;
-<<<<<<< HEAD
 import member.action.MyQnaListAction;
-=======
->>>>>>> 5166f2568e8c6acb26007983da939408557e6f88
 import vo.ActionForward;
 
 /**
@@ -58,10 +55,7 @@ protected void doProcess(HttpServletRequest request, HttpServletResponse respons
     	String command = RequestURI.substring(contextPath.length());
     	ActionForward forward = null;
     	Action action = null;
-<<<<<<< HEAD
-=======
     	
->>>>>>> 5166f2568e8c6acb26007983da939408557e6f88
     	if(command.equals("/memberLogin.us")){
     		forward=new ActionForward();
 			forward.setRedirect(false);
@@ -72,6 +66,7 @@ protected void doProcess(HttpServletRequest request, HttpServletResponse respons
 			forward.setPath("./login.jsp");
 			if(request.getParameter("turn")!=null) request.setAttribute("turn", request.getParameter("turn"));
 			if(request.getParameter("returnURI")!=null) request.setAttribute("returnURI", request.getParameter("returnURI"));
+			if(request.getParameter("type")!=null) request.setAttribute("type", request.getParameter("type"));
     	}else if(command.equals("/member/memberLoginAction.us")){
 			action = new MemberLoginAction();
 			try{
@@ -229,7 +224,6 @@ protected void doProcess(HttpServletRequest request, HttpServletResponse respons
 			}catch(Exception e){
 				e.printStackTrace();
 			}
-<<<<<<< HEAD
     	}else if(command.equals("/myQna.us")) {
     		action = new MyQnaListAction();
 			try{
@@ -237,8 +231,6 @@ protected void doProcess(HttpServletRequest request, HttpServletResponse respons
 			}catch(Exception e){
 				e.printStackTrace();
 			}
-=======
->>>>>>> 5166f2568e8c6acb26007983da939408557e6f88
     	}
     	
     	if(forward!=null) {

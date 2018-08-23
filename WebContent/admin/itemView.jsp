@@ -1,17 +1,8 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"
     pageEncoding="UTF-8"%>
-<<<<<<< HEAD
-<%@ page import="vo.PageInfo" %>
-<%@ page import="vo.ItemStockBean" %>
-<%@ page import="java.util.*" %>
-<%@ page import="java.text.SimpleDateFormat" %>
-<%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
-=======
 <%@ page import="java.util.HashMap" %>
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
 <%@ taglib prefix="fmt" uri="http://java.sun.com/jsp/jstl/fmt" %>
-
->>>>>>> 5166f2568e8c6acb26007983da939408557e6f88
 <!DOCTYPE html PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN" "http://www.w3.org/TR/html4/loose.dtd">
 <html>
 <head>
@@ -62,11 +53,7 @@ th{
 	</tr>
 	<tr>
 		<td id="td_left">재고</td>
-<<<<<<< HEAD
-		<td>${stock }</td>
-=======
 		<td>${item.readcount }</td>
->>>>>>> 5166f2568e8c6acb26007983da939408557e6f88
 	</tr>
 	<tr>
 		<td id="td_left">원산지</td>
@@ -104,8 +91,6 @@ th{
 </table>
 <br><br>
 <div>
-<<<<<<< HEAD
-=======
 <form method="post" action="itemView.im">
 	<input type="hidden" name="item_code" value="${item.item_code }">
 	<section id="commandCell">
@@ -125,7 +110,6 @@ th{
 		</section>
 </form>
 <br>
->>>>>>> 5166f2568e8c6acb26007983da939408557e6f88
 	<table cellspacing="0" cellpadding="0" id="state_table">
 			<tr id="top_menu">
 				<td style="width:100px;">코드</td>
@@ -151,11 +135,7 @@ th{
 						[이전]&nbsp;
 					</c:if>
 					<c:if test="${i_pageInfo.page>1 }">
-<<<<<<< HEAD
-						<a href="itemView.im?item_code=${item.item_code }&page=${page }&i_page=${i_pageInfo.page-1}">[이전]</a>&nbsp;
-=======
 						<a href="itemView.im?item_code=${item.item_code }&page=${page }&i_page=${i_pageInfo.page-1}&iyear=${iyear}&imonth=${imonth}">[이전]</a>&nbsp;
->>>>>>> 5166f2568e8c6acb26007983da939408557e6f88
 					</c:if>
 					
 					<c:forEach var="a" begin="${i_pageInfo.startPage }" end="${i_pageInfo.endPage }" step="1">
@@ -164,11 +144,7 @@ th{
 								[${a }]
 							</c:when>
 							<c:otherwise>
-<<<<<<< HEAD
-								<a href="itemView.im?item_code=${item.item_code }&page=${page }&i_page=${a }">[${a }]</a>&nbsp;
-=======
 								<a href="itemView.im?item_code=${item.item_code }&page=${page }&i_page=${a }&iyear=${iyear}&imonth=${imonth}">[${a }]</a>&nbsp;
->>>>>>> 5166f2568e8c6acb26007983da939408557e6f88
 							</c:otherwise>
 						</c:choose>
 					</c:forEach>
@@ -177,11 +153,7 @@ th{
 							[다음]
 						</c:when>
 						<c:otherwise>
-<<<<<<< HEAD
-							<a href="itemView.im?item_code=${item.item_code }&page=${page }&i_page=${i_pageInfo.page+1 }">[다음]</a>
-=======
 							<a href="itemView.im?item_code=${item.item_code }&page=${page }&i_page=${i_pageInfo.page+1 }&iyear=${iyear}&imonth=${imonth}">[다음]</a>
->>>>>>> 5166f2568e8c6acb26007983da939408557e6f88
 						</c:otherwise>
 					</c:choose>
 				</td>

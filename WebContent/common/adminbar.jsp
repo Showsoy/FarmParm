@@ -39,11 +39,7 @@
 <div class="admbar">
  <ul>
   <li><a href="/FarmParm/memberList.us" class="dropbtn">&nbsp;&nbsp;회원관리&nbsp;&nbsp;</a></li>
-<<<<<<< HEAD
-  <li><a href="/FarmParm/admin/itemSearch.im" class="dropbtn">&nbsp;&nbsp;입출고등록&nbsp;&nbsp;</a></li>
-=======
   <li><a href="/FarmParm/admin/itemSearch.im" class="dropbtn">&nbsp;&nbsp;입출고관리&nbsp;&nbsp;</a></li>
->>>>>>> 5166f2568e8c6acb26007983da939408557e6f88
   <li><a href="/FarmParm/admin/itemRegistForm.im" class="dropbtn">&nbsp;&nbsp;상품등록&nbsp;&nbsp;</a></li>
   <li><a href="/FarmParm/admin/itemList.im" class="dropbtn">&nbsp;&nbsp;상품목록&nbsp;&nbsp;</a></li>
   <li><a href="/FarmParm/admin/odList.od" class="dropbtn">&nbsp;&nbsp;주문목록&nbsp;&nbsp;</a></li>

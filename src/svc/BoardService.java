@@ -11,6 +11,7 @@ import java.util.ArrayList;
 import dao.BoardDAO;
 import dao.UserDAO;
 import vo.BoardBean;
+import vo.PointBean;
 
 public class BoardService {
 	public int selectNoticeCount() {
@@ -157,7 +158,6 @@ public class BoardService {
 		close(conn);
 		return articleList;
 	}
-<<<<<<< HEAD
 	public int myQnaListCount(String bName, String id) {
 		BoardDAO boardDAO = BoardDAO.getInstance();
 		Connection conn = getConnection();
@@ -175,8 +175,6 @@ public class BoardService {
 		close(conn);
 		return articleList;
 	}
-=======
->>>>>>> 5166f2568e8c6acb26007983da939408557e6f88
 	public ArrayList<BoardBean> searchReviewList(String keyword, int page, String review_search) {
 		BoardDAO boardDAO = BoardDAO.getInstance();
 		Connection conn = getConnection();
@@ -298,7 +296,7 @@ public class BoardService {
 		close(conn);
 		return result;
 	}
-	public boolean writeReview(BoardBean board) {
+	public boolean writeReview(BoardBean board, PointBean point) {
 		BoardDAO boardDAO = BoardDAO.getInstance();
 		Connection conn = getConnection();
 		boardDAO.setConnection(conn);
@@ -306,7 +304,7 @@ public class BoardService {
 		int insertCount = boardDAO.writeReview(board);
 		UserDAO userDAO = UserDAO.getInstance();
 		userDAO.setConnection(conn);
-		int updateCount = userDAO.userPlusPoint(board.getUser_id(), 500);
+		int updateCount = userDAO.userPlminusPoint(point);
 		
 		if(insertCount>0&&updateCount>0) {
 			commit(conn);

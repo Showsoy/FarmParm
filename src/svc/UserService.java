@@ -1,14 +1,19 @@
 package svc;
 
-import vo.UserBean;
-import vo.UserViewBean;
-import static db.JdbcUtil.*;
+import static db.JdbcUtil.close;
+import static db.JdbcUtil.commit;
+import static db.JdbcUtil.getConnection;
+import static db.JdbcUtil.rollback;
+
 import java.sql.Connection;
 import java.sql.Date;
 import java.util.ArrayList;
+import java.util.Map;
 
-import dao.BoardDAO;
 import dao.UserDAO;
+import vo.PointBean;
+import vo.UserBean;
+import vo.UserViewBean;
 
 public class UserService {
 	
@@ -261,11 +266,20 @@ public class UserService {
 		close(conn);
 		return user;
 	}
-	public int userDeductPoint(String id, int depoint) {
+	public int findRecentPoint(String user_id) {
 		Connection conn = getConnection();
 		UserDAO userDAO = UserDAO.getInstance();
 		userDAO.setConnection(conn);
-		int updateCount = userDAO.userDeductPoint(id, depoint);
+		int balance = userDAO.findRecentPoint(user_id);
+		
+		close(conn);
+		return balance;
+	}
+	public int userPlminusPoint(PointBean point) {
+		Connection conn = getConnection();
+		UserDAO userDAO = UserDAO.getInstance();
+		userDAO.setConnection(conn);
+		int updateCount = userDAO.userPlminusPoint(point);
 		if(updateCount > 0){
 			commit(conn);
 		}
@@ -275,18 +289,29 @@ public class UserService {
 		close(conn);
 		return updateCount;
 	}
-	public int userPlusPoint(String id, int point) {
+	public int myPointListCount(String start, String end) {
 		Connection conn = getConnection();
 		UserDAO userDAO = UserDAO.getInstance();
 		userDAO.setConnection(conn);
-		int updateCount = userDAO.userPlusPoint(id, point);
-		if(updateCount > 0){
-			commit(conn);
-		}
-		else{
-			rollback(conn);
-		}
+		int listCount = userDAO.myPointListCount(start, end);
+		
 		close(conn);
-		return updateCount;
+		return listCount;
+	}
+	public ArrayList<PointBean> myPointList(String start, String end, int page) {
+		Connection con = getConnection();
+		UserDAO userDAO = UserDAO.getInstance();
+		userDAO.setConnection(con);
+		ArrayList<PointBean> pointList = userDAO.myPointList(start, end, page);
+		close(con);
+		return pointList;
+	}
+	public Map<String, Integer> orderPointMap(int order_id) {
+		Connection con = getConnection();
+		UserDAO userDAO = UserDAO.getInstance();
+		userDAO.setConnection(con);
+		Map<String, Integer> pointMap = userDAO.orderPointMap(order_id);
+		close(con);
+		return pointMap;
 	}
 }

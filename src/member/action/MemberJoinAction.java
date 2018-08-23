@@ -7,6 +7,7 @@ import javax.servlet.http.HttpServletResponse;
 import action.Action;
 import svc.UserService;
 import vo.ActionForward;
+import vo.PointBean;
 import vo.UserBean;
 import vo.Util;
 
@@ -35,7 +36,6 @@ public class MemberJoinAction  implements Action{
    		
    		UserService userService = new UserService();
    		joinResult = userService.joinUser(users);
-   		
    		ActionForward forward = null;
    		
    		if(joinResult==false){
@@ -47,9 +47,20 @@ public class MemberJoinAction  implements Action{
    			out.println("</script>");
 	   	}
    		else{
-   	    forward = new ActionForward();
-   		forward.setRedirect(true);
-   		forward.setPath("../member/joinAfterLogin.jsp");
+   			PointBean point = new PointBean(request.getParameter("userID"), 0, "리뷰작성", 1, 500);
+   			int insertCount = userService.userPlminusPoint(point);
+   			if(insertCount>0) {
+   				forward = new ActionForward();
+   				forward.setRedirect(true);
+   				forward.setPath("../member/memberLogin.us?type=join");
+   			}else {
+   				response.setContentType("text/html;charset=UTF-8");
+   	   			PrintWriter out = response.getWriter();
+   	   			out.println("<script>");
+   	   			out.println("alert('가입감사 포인트 오류/n고객센터 문의 요망')");
+   	   			out.println("history.back()");
+   	   			out.println("</script>");
+   			}
    		}
    		return forward;
 	}

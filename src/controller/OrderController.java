@@ -12,6 +12,8 @@ import javax.servlet.http.HttpServletResponse;
 import action.Action;
 import order.action.MyOrderListAction;
 import order.action.MyOrderViewAction;
+import order.action.OrderCancelAction;
+import order.action.OrderCancelListAction;
 import order.action.OrderChangeStateAction;
 import order.action.OrderFormAction;
 import order.action.OrderListAction;
@@ -82,6 +84,20 @@ protected void doProcess(HttpServletRequest request, HttpServletResponse respons
     		}catch(Exception e) {
     			e.printStackTrace();
     		}
+    	}else if(command.equals("/odCancelList.od")) {
+    		action = new OrderCancelListAction();
+    		try {
+    			forward = action.execute(request, response);
+    		}catch(Exception e) {
+    			e.printStackTrace();
+    		}
+    	}else if(command.equals("/odCancel.od")) {
+    		action = new OrderCancelAction();
+    		try {
+    			forward = action.execute(request, response);
+    		}catch(Exception e) {
+    			e.printStackTrace();
+    		}
     	}else if(command.equals("/myodList.od")) {
     		action = new MyOrderListAction();
     		try {
@@ -90,6 +106,13 @@ protected void doProcess(HttpServletRequest request, HttpServletResponse respons
     			e.printStackTrace();
     		}
     	}else if(command.equals("/myodView.od")) {
+    		action = new MyOrderViewAction();
+    		try {
+    			forward = action.execute(request, response);
+    		}catch(Exception e) {
+    			e.printStackTrace();
+    		}
+    	}else if(command.equals("/myodChg.od")) {
     		action = new MyOrderViewAction();
     		try {
     			forward = action.execute(request, response);

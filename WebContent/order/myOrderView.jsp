@@ -52,8 +52,10 @@ td, tr{
 		</c:choose>
 	</div>
 	<section id="commandCell">
-		<c:if test="${order.state eq '상품출고' }"><button type="button" id="obutton" style="width:70px;">수취완료</button></c:if>
-		<button type="button" id="obutton" style="width:70px;">주문취소</button>
+		<c:if test="${order.state eq '상품출고' }">
+		<button type="button" id="obutton" style="width:70px;" onclick="location.href='myodChg.od?order_id=${order.order_id}&od_state=배송완료'">수취완료</button>
+		</c:if>
+		<button type="button" id="obutton" style="width:70px;" onclick="location.href='myodChg.od?order_id=${order.order_id}&od_state=취소신청'">주문취소</button>
 	</section>
 	<form action="odChgState.od" name="orderview" method="post">
 	<div id="order_info">

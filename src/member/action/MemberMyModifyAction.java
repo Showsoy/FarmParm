@@ -22,7 +22,6 @@ public class MemberMyModifyAction implements Action{
 		Date birth = util.transformDate(request.getParameter("userBirth"));
 		String email = (request.getParameter("userEmailId") +"@"+ request.getParameter("userEmailAd"));
 		
-<<<<<<< HEAD
 			UserBean user = new UserBean();
 			user.setPhone(request.getParameter("userPhone"));
 			user.setBirth(birth);
@@ -32,18 +31,6 @@ public class MemberMyModifyAction implements Action{
 			user.setAddress_second(request.getParameter("userAddr3"));
 			user.setEmail(email);
 			user.setUser_id(id);
-=======
-			UserBean user = new UserBean(
-					request.getParameter("userPhone"), 
-					birth, 
-					request.getParameter("userGen"),
-					request.getParameter("userAddr1"),
-					request.getParameter("userAddr2"),
-					request.getParameter("userAddr3"),
-					email,
-					id
-					);
->>>>>>> 5166f2568e8c6acb26007983da939408557e6f88
 			
 			ActionForward forward = null;
 			boolean isRegistSuccess = userService.modifyMy(user);

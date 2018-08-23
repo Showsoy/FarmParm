@@ -15,18 +15,13 @@ public class UserBean {
 	private String email;
 	private String grade;
 	private String usalt;
-	private int point;
 	
-<<<<<<< HEAD
 	public UserBean() {
 		// TODO Auto-generated constructor stub
 	}
-	
-=======
 
->>>>>>> 5166f2568e8c6acb26007983da939408557e6f88
 	public UserBean(String user_id, String passwd, String name, String phone, Date birth, String gender,
-			String postcode, String address, String address_second, String email, String grade, String usalt, int point) {
+			String postcode, String address, String address_second, String email, String grade, String usalt) {
 		super();
 		this.user_id = user_id;
 		this.passwd = passwd;
@@ -40,127 +35,8 @@ public class UserBean {
 		this.email = email;
 		this.grade = grade;
 		this.usalt = usalt;
-		this.point = point;
 	}
 
-<<<<<<< HEAD
-=======
-
-	public UserBean() {
-		// TODO Auto-generated constructor stub
-	}
-
-
-	public UserBean(String phone, Date birth, String gender, String postcode, String address,
-			String address_second, String email, String email_ad, String user_id) {
-		// TODO Auto-generated constructor stub
-		this.phone = phone;
-		this.birth = birth;
-		this.gender = gender;
-		this.postcode = postcode;
-		this.address = address;
-		this.address_second = address_second;
-		this.email = email;
-		this.user_id = user_id;
-	}
-
-
-	public UserBean(String passwd, String phone, Date birth, String gender, String postcode, String address,
-			String address_second, String email, String email_ad, String user_id) {
-		// TODO Auto-generated constructor stub
-		this.passwd = passwd;
-		this.phone = phone;
-		this.birth = birth;
-		this.gender = gender;
-		this.postcode = postcode;
-		this.address = address;
-		this.address_second = address_second;
-		this.email = email;
-		this.user_id = user_id;
-	}
-
-	public UserBean(String user_id, String passwd, String name, String grade, String phone, Date birth,
-			String gender, String email, String email_ad, String postcode, String address, String address_second) {
-		// TODO Auto-generated constructor stub
-		this.user_id = user_id;
-		this.passwd = passwd;
-		this.name = name;
-		this.grade = grade;
-		this.phone = phone;
-		this.birth = birth;
-		this.gender = gender;
-		this.email = email;
-		this.postcode = postcode;
-		this.address = address;
-		this.address_second = address_second;
-	}
-
-
-// 회원정보 수정 form 불러오는 빈 (관리자모드)
-	public UserBean(String user_id, String passwd, String name, String grade, String phone, Date birth,
-			String gender, String email, String postcode, String address, String address_second) {
-		// TODO Auto-generated constructor stub
-		this.user_id = user_id;
-		this.passwd = passwd;
-		this.name = name;
-		this.grade = grade;
-		this.phone = phone;
-		this.birth = birth;
-		this.gender = gender;
-		this.email = email;
-		this.postcode = postcode;
-		this.address = address;
-		this.address_second = address_second;
-	}
-
-// 마이페이지 보여주는 빈
-	public UserBean(String user_id, String passwd, String name, String phone, Date birth, String gender,
-			String postcode, String address, String address_second, String email, String grade) {
-		// TODO Auto-generated constructor stub
-		this.user_id = user_id;
-		this.passwd = passwd;
-		this.name = name;
-		this.phone = phone;
-		this.birth = birth;
-		this.gender = gender;
-		this.postcode = postcode;
-		this.address = address;
-		this.address_second = address_second;
-		this.email = email;
-		this.grade = grade;
-	}
-
-// 내정보 수정 불러오는 빈
-	public UserBean(String user_id, String name, String phone, Date birth, String gender, String email,
-			String postcode, String address, String address_second) {
-		// TODO Auto-generated constructor stub
-		this.user_id = user_id;
-		this.name = name;
-		this.phone = phone;
-		this.birth = birth;
-		this.gender = gender;
-		this.email = email;
-		this.postcode = postcode;
-		this.address = address;
-		this.address_second = address_second;
-	}
-
-// 내정보 수정하는 빈
-	public UserBean(String phone, Date birth, String gender, String postcode, String address,
-			String address_second, String email, String user_id) {
-		// TODO Auto-generated constructor stub
-		this.user_id = user_id;
-		this.phone = phone;
-		this.birth = birth;
-		this.gender = gender;
-		this.postcode = postcode;
-		this.address = address;
-		this.address_second = address_second;
-		this.email = email;
-	}
-
-
->>>>>>> 5166f2568e8c6acb26007983da939408557e6f88
 	public String getUser_id() {
 		return user_id;
 	}
@@ -256,16 +132,4 @@ public class UserBean {
 	public void setUsalt(String usalt) {
 		this.usalt = usalt;
 	}
-
-
-	public int getPoint() {
-		return point;
-	}
-
-
-	public void setPoint(int point) {
-		this.point = point;
-	}
-	
-	
 }

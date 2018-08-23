@@ -523,7 +523,6 @@ public class BoardDAO {
 		
 		return articleList;
 	}
-<<<<<<< HEAD
 	public int myQnaListCount(String bName, String id) {
 		int listCount = 0;
 		PreparedStatement pstmt = null;
@@ -575,15 +574,11 @@ public class BoardDAO {
 		
 		return articleList;
 	}
-	
-=======
->>>>>>> 5166f2568e8c6acb26007983da939408557e6f88
 	public ArrayList<BoardBean> searchReviewList(String keyword, int page, String review_search) {
 		PreparedStatement pstmt = null;
 		ResultSet rs = null;
 		String sql = "";
 		if(review_search.equals("제목")) {
-<<<<<<< HEAD
 			sql = "SELECT bnum, a.item_code, substring(user_id,1,3) as user_id, item_name, subject, has_re, rdate FROM review_board a LEFT JOIN items b ON a.item_code = b.item_code"
 					+ " WHERE rstep = 1 AND (a.subject LIKE '%"+keyword+"%') LIMIT ?,10";
 		}else if(review_search.equals("상품")) {
@@ -591,15 +586,6 @@ public class BoardDAO {
 					+ " WHERE rstep = 1 AND (b.item_name LIKE '%"+keyword+"%') LIMIT ?,10";
 		}else if(review_search.equals("내용")) {
 			sql = "SELECT bnum, a.item_code, substring(user_id,1,3) as user_id, item_name, subject, has_re, rdate FROM review_board a LEFT JOIN items b ON a.item_code = b.item_code"
-=======
-			sql = "SELECT bnum, a.item_code, user_id, item_name, subject, has_re, rdate FROM review_board a LEFT JOIN items b ON a.item_code = b.item_code"
-					+ " WHERE rstep = 1 AND (a.subject LIKE '%"+keyword+"%') LIMIT ?,10";
-		}else if(review_search.equals("상품")) {
-			sql = "SELECT bnum, a.item_code, user_id, item_name, subject, has_re, rdate FROM review_board a LEFT JOIN items b ON a.item_code = b.item_code"
-					+ " WHERE rstep = 1 AND (b.item_name LIKE '%"+keyword+"%') LIMIT ?,10";
-		}else if(review_search.equals("내용")) {
-			sql = "SELECT bnum, a.item_code, user_id, item_name, subject, has_re, rdate FROM review_board a LEFT JOIN items b ON a.item_code = b.item_code"
->>>>>>> 5166f2568e8c6acb26007983da939408557e6f88
 					+ " WHERE rstep = 1 AND (a.content LIKE '%"+keyword+"%') LIMIT ?,10";
 		}
 		ArrayList<BoardBean> articleList = new ArrayList<BoardBean>();
@@ -631,7 +617,6 @@ public class BoardDAO {
 		ResultSet rs = null;
 		String sql ="";
 		if(qna_search.equals("상품")) {
-<<<<<<< HEAD
 			sql = "SELECT bnum, a.item_code, substring(user_id,1,3) as user_id, item_name, subject, has_re, qdate, qhide FROM qna_board a LEFT JOIN items b ON a.item_code = b.item_code"
 					+ " WHERE rstep = 1 AND (b.item_name LIKE '%"+keyword+"%') LIMIT ?,10";
 		}else if(qna_search.equals("제목")) {
@@ -639,15 +624,6 @@ public class BoardDAO {
 					+ " WHERE rstep = 1 AND (a.subject LIKE '%"+keyword+"%') LIMIT ?,10";
 		}else if(qna_search.equals("내용")) {
 			sql = "SELECT bnum, a.item_code, substring(user_id,1,3) as user_id, item_name, subject, has_re, qdate, qhide FROM qna_board a LEFT JOIN items b ON a.item_code = b.item_code"
-=======
-			sql = "SELECT bnum, a.item_code, user_id, item_name, subject, has_re, qdate, qhide FROM qna_board a LEFT JOIN items b ON a.item_code = b.item_code"
-					+ " WHERE rstep = 1 AND (b.item_name LIKE '%"+keyword+"%') LIMIT ?,10";
-		}else if(qna_search.equals("제목")) {
-			sql = "SELECT bnum, a.item_code, user_id, item_name, subject, has_re, qdate, qhide FROM qna_board a LEFT JOIN items b ON a.item_code = b.item_code"
-					+ " WHERE rstep = 1 AND (a.subject LIKE '%"+keyword+"%') LIMIT ?,10";
-		}else if(qna_search.equals("내용")) {
-			sql = "SELECT bnum, a.item_code, user_id, item_name, subject, has_re, qdate, qhide FROM qna_board a LEFT JOIN items b ON a.item_code = b.item_code"
->>>>>>> 5166f2568e8c6acb26007983da939408557e6f88
 					+ " WHERE rstep = 1 AND (a.content LIKE '%"+keyword+"%') LIMIT ?,10";
 		}
 		

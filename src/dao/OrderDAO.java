@@ -139,6 +139,25 @@ public class OrderDAO {
 		
 		return listCount;
 	}
+	public int listCountCancelOrder() {
+		String sql = "SELECT COUNT(*) FROM orders WHERE state = '취소' OR state = '취소신청'";
+		PreparedStatement pstmt = null;
+		ResultSet rs = null;
+		int listCount = 0;
+		try {
+			pstmt = conn.prepareStatement(sql);
+			rs = pstmt.executeQuery();
+			if(rs.next()) listCount = rs.getInt(1);
+			
+		}catch(Exception e) {
+			e.printStackTrace();
+		}finally {
+			if(rs!=null) close(rs);
+			if(pstmt!=null) close(pstmt);
+		}
+		
+		return listCount;
+	}
 	public int listCountUserOrder(String user_id) {
 		String sql = "SELECT COUNT(*) FROM orders WHERE user_id = '"+user_id+"' ORDER BY dati DESC";
 		PreparedStatement pstmt = null;
@@ -160,7 +179,7 @@ public class OrderDAO {
 	}
 	public ArrayList<OrderBean> selectOrderList(int page){
 		ArrayList<OrderBean> orderList = null;
-		String sql = "SELECT * FROM orders ORDER BY dati DESC LIMIT ?,10";
+		String sql = "SELECT order_id, user_id, dati, state, pay, payment, receiver FROM orders ORDER BY dati DESC LIMIT ?,10";
 		PreparedStatement pstmt = null;
 		ResultSet rs = null;
 		int startrow = (page-1)*10;
@@ -188,7 +207,35 @@ public class OrderDAO {
 	}
 	public ArrayList<OrderBean> selectOrderList(int page, String state){
 		ArrayList<OrderBean> orderList = null;
-		String sql = "SELECT * FROM orders WHERE state = '"+state+"' ORDER BY order_id DESC LIMIT ?,10";
+		String sql = "SELECT order_id, user_id, dati, state, pay, payment, receiver FROM orders WHERE state = '"+state+"' ORDER BY order_id DESC LIMIT ?,10";
+		PreparedStatement pstmt = null;
+		ResultSet rs = null;
+		int startrow = (page-1)*10;
+		
+		try {
+			pstmt = conn.prepareStatement(sql);
+			pstmt.setInt(1, startrow);
+			rs = pstmt.executeQuery();
+			if(rs.next()) {
+				orderList = new ArrayList<OrderBean>();
+				do {
+					orderList.add(new OrderBean(rs.getInt("order_id"),rs.getString("user_id"),rs.getTimestamp("dati"),
+							"", "","","", 0,rs.getString("state"),
+							rs.getInt("pay"),rs.getString("payment"),rs.getString("receiver"),0));
+				}while(rs.next());
+			}
+		}catch(Exception e) {
+			e.printStackTrace();
+		}finally {
+			if(rs!=null) close(rs);
+			if(pstmt!=null) close(pstmt);
+		}
+		
+		return orderList;
+	}
+	public ArrayList<OrderBean> orderCancelList(int page){
+		ArrayList<OrderBean> orderList = null;
+		String sql = "SELECT order_id, user_id, dati, state, pay, payment, receiver FROM orders WHERE state = '취소' OR state = '취소신청' ORDER BY order_id DESC LIMIT ?,10";
 		PreparedStatement pstmt = null;
 		ResultSet rs = null;
 		int startrow = (page-1)*10;
@@ -319,6 +366,23 @@ public class OrderDAO {
 	public int changeOrderState(int order_id, String state) {
 		int updateCount = 0;
 		String sql = "UPDATE orders SET state= '"+state+"' WHERE order_id = ?";
+		PreparedStatement pstmt = null;
+		
+		try {
+			pstmt = conn.prepareStatement(sql);
+			pstmt.setInt(1, order_id);
+			updateCount = pstmt.executeUpdate();
+		}catch(Exception e) {
+			e.printStackTrace();
+		}finally {
+			if(pstmt!=null) close(pstmt);
+		}
+		
+		return updateCount;
+	}
+	public int cancelOrder(int order_id) {
+		int updateCount = 0;
+		String sql = "UPDATE orders SET state= '취소' WHERE order_id = ?";
 		PreparedStatement pstmt = null;
 		
 		try {
@@ -517,11 +581,6 @@ public class OrderDAO {
 	}
 	public ArrayList<OrderBean> salesOrderList2(String date, int page){
 		ArrayList<OrderBean> salesList = null;
-<<<<<<< HEAD
-		//둘 다 가능.
-		//String sql = "SELECT order_id, user_id, dati, state, pay, payment FROM orders WHERE YEAR(dati) = ? AND MONTH(dati) = ? ORDER BY dati DESC LIMIT ?,10";
-=======
->>>>>>> 5166f2568e8c6acb26007983da939408557e6f88
 		String sql = "select order_id, user_id, dati, state, pay, payment from orders where dati BETWEEN str_to_date('"+date+"','%Y-%m-%d') AND date_add(str_to_date('"+date+"', '%Y-%m-%d'), interval 1 month) ORDER BY dati DESC LIMIT ?,10";
 		PreparedStatement pstmt = null;
 		ResultSet rs = null;
@@ -614,17 +673,11 @@ public class OrderDAO {
 		PreparedStatement pstmt1 = null;PreparedStatement pstmt2 = null;
 		PreparedStatement pstmt3 = null;PreparedStatement pstmt4 = null;
 		ResultSet rs1 = null;ResultSet rs2 = null;ResultSet rs3 = null;ResultSet rs4 = null;
-<<<<<<< HEAD
-		String sql1 = "select sum(pay), sum(depoint), sum(parcel) from orders where dati BETWEEN "+start+" AND "+end;
-		String sql2 = "select count(*) from order_view a where dati BETWEEN "+start+" AND "+end;
-		String sql3 = "select sum(pay)-sum(parcel) from orders where dati BETWEEN "+start+" AND "+end;
-		String sql4 = "select count(*) from order_view a where dati BETWEEN "+start+" AND "+end;
-=======
 		String sql1 = "select sum(pay), sum(depoint), sum(parcel) from orders where dati BETWEEN '"+start+"' AND '"+end+"'";
 		String sql2 = "select count(*) from order_view a where dati BETWEEN '"+start+"' AND '"+end+"'";
 		String sql3 = "select sum(pay)-sum(parcel) from orders where dati BETWEEN date_add(str_to_date('"+start+"', '%Y-%m-%d'), interval -1 month) AND date_add(str_to_date('"+end+"', '%Y-%m-%d'), interval -1 month)";
 		String sql4 = "select count(*) from order_view a where dati BETWEEN date_add(str_to_date('"+start+"', '%Y-%m-%d'), interval -1 month) AND date_add(str_to_date('"+end+"', '%Y-%m-%d'), interval -1 month)";
->>>>>>> 5166f2568e8c6acb26007983da939408557e6f88
+
 		try {
 			pstmt1 = conn.prepareStatement(sql1);
 			rs1 = pstmt1.executeQuery();
