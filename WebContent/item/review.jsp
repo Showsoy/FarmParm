@@ -112,30 +112,30 @@ var count1 = 0;
 				</c:otherwise>
 			</c:choose>
 			<tr>
-				<td colspan="5" id="review_page">
+				<td colspan="5" style="height:50px;">
 					<c:if test="${r_pageInfo.page<=1 }">
-						[이전]&nbsp;
+						
 					</c:if>
 					<c:if test="${r_pageInfo.page>1 }">
-						<a href="uitemView.im?item_code=${item.item_code }&page=${page }&r_page=${r_pageInfo.page-1}&q_page=${q_page }#reboard">[이전]</a>&nbsp;
+						<a href="uitemView.im?item_code=${item.item_code }&page=${page }&r_page=${r_pageInfo.page-1}&q_page=${q_page }#reboard"><span id="pagebn"><</span></a>
 					</c:if>
 					
 					<c:forEach var="a" begin="${r_pageInfo.startPage }" end="${r_pageInfo.endPage }" step="1">
 						<c:choose>
 							<c:when test="${a==r_pageInfo.page }">
-								[${a }]
+								<span id="nowpage">${a }</span>
 							</c:when>
 							<c:otherwise>
-								<a href="uitemView.im?item_code=${item.item_code }&page=${page }&r_page=${a }&q_page=${q_page }#reboard">[${a }]</a>&nbsp;
+								<a href="uitemView.im?item_code=${item.item_code }&page=${page }&r_page=${a }&q_page=${q_page }#reboard">&nbsp;${a }&nbsp;</a>
 							</c:otherwise>
 						</c:choose>
 					</c:forEach>
 					<c:choose>
 						<c:when test="${r_pageInfo.page>=r_pageInfo.maxPage }">
-							[다음]
+							
 						</c:when>
 						<c:otherwise>
-							<a href="uitemView.im?item_code=${item.item_code }&page=${page }&r_page=${r_pageInfo.page+1 }&q_page=${q_page }#reboard">[다음]</a>
+							<a href="uitemView.im?item_code=${item.item_code }&page=${page }&r_page=${r_pageInfo.page+1 }&q_page=${q_page }#reboard"><span id="pagebn">></span></a>
 						</c:otherwise>
 					</c:choose>
 				</td>

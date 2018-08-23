@@ -76,19 +76,6 @@ dd{
 <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.6.3/css/font-awesome.min.css">
 <body>
 <jsp:include page="/common/top_menu.jsp" flush="false"/>
-
-<c:if test="${todayImageMap!=null }">
-<div class="recent_view">
-		<h4>&nbsp;&nbsp;최근 본 상품</h4>
-		<table>
-		<tr>
-			<c:forEach var="todayImage" items="${todayImageMap }" varStatus="status" begin="0" end="5" step="1">
-				<td><a href="uitemView.im?item_code=${todayImage.key }"><img src="images/${todayImage.value }" id="todayImage"/></a></td>
-			</c:forEach>
-		</tr>
-		</table>
-</div>
-</c:if>
 <c:set var="price" value="${item.price }"/>
 <c:set var="sale" value="${item.sale }"/>
 <%
@@ -100,16 +87,21 @@ pageContext.setAttribute("uprice", uprice);
 %>
 
 <div class="goodsform">
-	<h3>&nbsp;&nbsp;상품 페이지</h3>
+<br>
+<h3>&nbsp;&nbsp;상품 페이지</h3>
 	<hr color="#4CAF50" size="5">
 	<div class="mypage">
 	<form method="post" name="itemform">
+	<div id="top_item">
+	<a href="./uitemList.im?category=${item.category }"><b>${item.category }</b></a>
+	| ${item.item_name }</div><br>
 	<div id="idetail">
 	<input type="hidden" name="stock" id="stock" value=${stock }>
 		<div id="id_img">
-			<img src="images/${item.img_path }" width="400px">
+			<img src="images/${item.img_path }" width="450px">
 		</div>
 		<div id="id_text">
+				
 			<dl>
 				<dt>상품이름</dt>
 				<dd><b>${item.item_name }</b></dd>
@@ -162,12 +154,13 @@ pageContext.setAttribute("uprice", uprice);
 <br><br>
 </div>
 <div class="goods_detail">
-	<h3>상품 소개</h3>
-	<h4>${item.item_name }</h4>
-	<img src="images/${item.img_path }">
-	<br><br>
-	<p>
-		${item.content }
+<h3 align="left">&nbsp;&nbsp;상품안내</h3>
+	<hr color="#4CAF50" size="5">
+	<p align="center">
+		${item.item_name }
+		<br><br>
+		
+			${item.content }
 	</p>
 </div>
 <br><br><br>
@@ -175,9 +168,21 @@ pageContext.setAttribute("uprice", uprice);
 	<jsp:include page="review.jsp" flush="false"/>
 	<br><br><br>
 	<jsp:include page="qna.jsp" flush="false"/>
-	<br><br><br>
+	<br>
 	</div>
-	<br><br><br><br>
+	<c:if test="${todayImageMap!=null }">
+<div class="recent_view">
+		<h4>&nbsp;&nbsp;최근 본 상품</h4>
+		<table>
+		<tr>
+			<c:forEach var="todayImage" items="${todayImageMap }" varStatus="status" begin="0" end="5" step="1">
+				<td><a href="uitemView.im?item_code=${todayImage.key }"><img src="images/${todayImage.value }" id="todayImage"/></a></td>
+			</c:forEach>
+		</tr>
+		</table>
+</div>
+</c:if>
+	<br><br>
 	 <jsp:include page="/common/footer.jsp" flush="false"/>
 	</body>
 	</html>

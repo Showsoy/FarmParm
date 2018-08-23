@@ -71,28 +71,28 @@ img{
 			<tr>
 				<td colspan="6" id="td_info"><!-- 페이지 수 넣을 것임 -->
 					<c:if test="${pageInfo.page<=1 }">
-						[이전]&nbsp;
+						
 					</c:if>
 					<c:if test="${pageInfo.page>1 }">
-						<a href="myQna.us?page=${pageInfo.page-1}">[이전]</a>&nbsp;
+						<a href="myQna.us?page=${pageInfo.page-1}"><span id="pagebn"><</span></a>
 					</c:if>
 					
 					<c:forEach var="a" begin="${pageInfo.startPage }" end="${pageInfo.endPage }" step="1">
 						<c:choose>
 							<c:when test="${a==pageInfo.page }">
-								[${a }]
+								<span id="nowpage">${a }</span>
 							</c:when>
 							<c:otherwise>
-								<a href="myQna.us?page=${a }">[${a }]</a>&nbsp;
+								<a href="myQna.us?page=${a }">&nbsp;${a }&nbsp;</a>
 							</c:otherwise>
 						</c:choose>
 					</c:forEach>
 					<c:choose>
 						<c:when test="${pageInfo.page>=pageInfo.maxPage }">
-							[다음]
+							
 						</c:when>
 						<c:otherwise>
-							<a href="myQna.us?page=${pageInfo.page+1 }">[다음]</a>
+							<a href="myQna.us?page=${pageInfo.page+1 }"><span id="pagebn">></span></a>
 						</c:otherwise>
 					</c:choose>
 				</td>

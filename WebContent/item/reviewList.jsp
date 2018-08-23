@@ -71,28 +71,28 @@ img{
 			<tr>
 				<td colspan="6" id="td_info"><!-- 페이지 수 넣을 것임 -->
 					<c:if test="${pageInfo.page<=1 }">
-						[이전]&nbsp;
+						
 					</c:if>
 					<c:if test="${pageInfo.page>1 }">
-						<a href="reList.bo?page=${pageInfo.page-1}<c:out value="${keyword !=null ? '&keyword=' : '' }"/>${keyword}">[이전]</a>&nbsp;
+						<a href="reList.bo?page=${pageInfo.page-1}<c:out value="${std !=null ? '&std=' : '' }"/>${std}<c:out value="${keyword !=null ? '&keyword=' : '' }"/>${keyword}"><span id="pagebn"><</span></a>
 					</c:if>
 					
 					<c:forEach var="a" begin="${pageInfo.startPage }" end="${pageInfo.endPage }" step="1">
 						<c:choose>
 							<c:when test="${a==pageInfo.page }">
-								[${a }]
+								<span id="nowpage">${a }</span>
 							</c:when>
 							<c:otherwise>
-								<a href="reList.bo?page=${a }<c:out value="${keyword !=null ? '&keyword=' : '' }"/>${keyword}">[${a }]</a>&nbsp;
+								<a href="reList.bo?page=${a }<c:out value="${std !=null ? '&std=' : '' }"/>${std}<c:out value="${keyword !=null ? '&keyword=' : '' }"/>${keyword}">&nbsp;${a }&nbsp;</a>
 							</c:otherwise>
 						</c:choose>
 					</c:forEach>
 					<c:choose>
 						<c:when test="${pageInfo.page>=pageInfo.maxPage }">
-							[다음]
+							
 						</c:when>
 						<c:otherwise>
-							<a href="reList.bo?page=${pageInfo.page+1 }<c:out value="${keyword !=null ? '&keyword=' : '' }"/>${keyword}">[다음]</a>
+							<a href="reList.bo?page=${pageInfo.page+1 }<c:out value="${std !=null ? '&std=' : '' }"/>${std}<c:out value="${keyword !=null ? '&keyword=' : '' }"/>${keyword}"><span id="pagebn">></span></a>
 						</c:otherwise>
 					</c:choose>
 				</td>
@@ -106,12 +106,12 @@ img{
 		<br>
 		<section id="commandCellp">
 			<form action="reList.bo" name="research" method="post">
-				<select name="review_search" id="review_search">
-					<option value="제목">제목</option>
-					<option value="내용">내용</option>
-					<option value="상품">상품명</option>
+				<select name="std" id="std">
+					<option value="subject" <c:out value="${std eq 'subject' ? 'selected' : '' }"/>>제목</option>
+					<option value="content" <c:out value="${std eq 'content' ? 'selected' : '' }"/>>제목+내용</option>
+					<option value="item_name" <c:out value="${std eq 'item_name' ? 'selected' : '' }"/>>상품명</option>
 				</select>
-				<input type="text" id="keyword" name="keyword" size="15"/>
+				<input type="text" id="keyword" name="keyword" size="20" value="${keyword }"/>
 				<button type="submit" id="wbutton">검색</button>
 			</form>
 			

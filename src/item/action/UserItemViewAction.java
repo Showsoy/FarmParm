@@ -35,14 +35,10 @@ public class UserItemViewAction implements action.Action{
 
 		ArrayList<BoardBean> qnaList = new ArrayList<BoardBean>();
 		ArrayList<BoardBean> reviewList = new ArrayList<BoardBean>();
-	  	int page=1;
 		int q_page=1;
 	  	int r_page=1;
 		int limit=5;
 		
-		if(request.getParameter("page")!=null){
-			page=Integer.parseInt(request.getParameter("page"));
-		}
 		if(request.getParameter("q_page")!=null){
 			q_page=Integer.parseInt(request.getParameter("q_page"));
 		}
@@ -120,7 +116,6 @@ public class UserItemViewAction implements action.Action{
 		request.setAttribute("todayImageMap", todayImageMap);
 		request.setAttribute("item",item);
 		request.setAttribute("stock",stock);
-		request.setAttribute("page", page);
 		request.setAttribute("q_page", q_page);
 		request.setAttribute("r_page", r_page);
 		forward = new ActionForward();

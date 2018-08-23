@@ -17,7 +17,6 @@ public class MemberListAction implements Action{
 		ActionForward forward = null;
 		HttpSession session = request.getSession();
 		String id = (String)session.getAttribute("id");
-		
 		if(id==null) {
 			response.setContentType("text/html;charset=UTF-8");
 			PrintWriter out = response.getWriter();
@@ -38,32 +37,32 @@ public class MemberListAction implements Action{
 			int page=1;
 			int limit=10;
 			int listCount = 0;
-			String keyword = "";
+			String keyword = null;
+			String std = null;
 			
 			if(request.getParameter("page")!=null){
 				page=Integer.parseInt(request.getParameter("page"));
 			}
 			if(request.getParameter("std")!=null) {
-				keyword = request.getParameter("std");
-				if(keyword.equals("grade")) {
-					keyword = request.getParameter("grade");
+				std = request.getParameter("std");
+				if(std.equals("grade")) {
+					keyword = request.getParameter("keyword");
 					listCount = userService.gradeListCount(keyword);
 					userList = userService.getGradeList(page, keyword);
-				}else if(keyword.equals("purchase")){
-					keyword="구매금액";
+				}else if(std.equals("purchase")){
 					listCount = userService.getListCount();
 					userList = userService.getPurchList(page);
 				}
-			}else {
-				if(request.getParameter("search")!=null) {
-					keyword = request.getParameter("search");
+				else if(std.equals("user_id")){
+					keyword = request.getParameter("keyword");
 					listCount = userService.getSearchList(keyword);
 					userList = userService.searchId(page, keyword);
-				}else {
-					keyword="all";
-					listCount = userService.getListCount();
-					userList = userService.userList(page);
 				}
+				request.setAttribute("std", std);
+				request.setAttribute("keyword", keyword);
+			}else {
+				listCount = userService.getListCount();
+				userList = userService.userList(page);
 			}
 			
 			int maxPage=(int)((double)listCount/limit+0.95);
@@ -78,7 +77,6 @@ public class MemberListAction implements Action{
 			pageInfo.setMaxPage(maxPage);
 			pageInfo.setPage(page);
 			pageInfo.setStartPage(startPage);
-			request.setAttribute("category", keyword);
 			request.setAttribute("pageInfo", pageInfo);
 			request.setAttribute("userList", userList);
 			forward = new ActionForward();

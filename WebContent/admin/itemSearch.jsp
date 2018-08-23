@@ -168,28 +168,28 @@ function selectEDay(sel) {
 		<tr>
 			<td colspan="8" id="td_info">
 				<c:if test="${pageInfo.page<=1 }">
-					[이전]&nbsp;
+					
 				</c:if>
 				<c:if test="${pageInfo.page>1 }">
-					<a href="itemSearch.im?page=${pageInfo.page-1}&start=${start}&end=${end}<c:out value="${isearch !=null ? '&isearch=' : '' }"/>${isearch}<c:out value="${keyword !=null ? '&keyword=' : '' }"/>${keyword}">[이전]</a>&nbsp;
+					<a href="itemSearch.im?page=${pageInfo.page-1}&start=${start}&end=${end}<c:out value="${isearch !=null ? '&isearch=' : '' }"/>${isearch}<c:out value="${keyword !=null ? '&keyword=' : '' }"/>${keyword}"><span id="pagebn"><</span></a>
 				</c:if>
 					
 				<c:forEach var="a" begin="${pageInfo.startPage }" end="${pageInfo.endPage }" step="1">
 					<c:choose>
 						<c:when test="${a==pageInfo.page }">
-							[${a }]
+							<span id="nowpage">${a }</span>
 						</c:when>
 						<c:otherwise>
-							<a href="itemSearch.im?page=${a }&start=${start}&end=${end}<c:out value="${isearch !=null ? '&isearch=' : '' }"/>${isearch}<c:out value="${keyword !=null ? '&keyword=' : '' }"/>${keyword}">[${a }]</a>&nbsp;
+							<a href="itemSearch.im?page=${a }&start=${start}&end=${end}<c:out value="${isearch !=null ? '&isearch=' : '' }"/>${isearch}<c:out value="${keyword !=null ? '&keyword=' : '' }"/>${keyword}">&nbsp;${a }&nbsp;</a>
 						</c:otherwise>
 					</c:choose>
 				</c:forEach>
 				<c:choose>
 					<c:when test="${pageInfo.page>=pageInfo.maxPage }">
-						[다음]
+						
 					</c:when>
 					<c:otherwise>
-						<a href="itemSearch.im?page=${pageInfo.page+1 }&start=${start}&end=${end}<c:out value="${isearch !=null ? '&isearch=' : '' }"/>${isearch}<c:out value="${keyword !=null ? '&keyword=' : '' }"/>${keyword}">[다음]</a>
+						<a href="itemSearch.im?page=${pageInfo.page+1 }&start=${start}&end=${end}<c:out value="${isearch !=null ? '&isearch=' : '' }"/>${isearch}<c:out value="${keyword !=null ? '&keyword=' : '' }"/>${keyword}"><span id="pagebn">></span></a>
 					</c:otherwise>
 				</c:choose>
 			</td>

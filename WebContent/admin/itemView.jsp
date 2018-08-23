@@ -36,14 +36,17 @@ th{
 	<h3>&nbsp;&nbsp;상품 정보</h3>
 	<hr color="#4CAF50" size="5">
 	<div class="mypage">
-	
+	<div id="grade"><b id="grade_deco">|</b>상품정보</div>
 	<table cellspacing="0" cellpadding="0" class="detail_table">
+	<tr id="top_menu">
+		<td colspan="3">${item.category } | ${item.item_name }</td>
+	</tr>
 	<tr>
 		<th rowspan="9"><img src="../images/${item.img_path }" width="300px"></th>
 		<td id="td_left">분류</td>
 		<td>${item.category }</td>
 	</tr>
-		<tr>
+	<tr>
 		<td id="td_left">상품코드</td>
 		<td>${item.item_code }</td>
 	</tr>
@@ -91,6 +94,11 @@ th{
 </table>
 <br><br>
 <div>
+<div id="grade"><b id="grade_deco">|</b>상품내용</div>
+${item.content }
+</div>
+<div>
+	<div id="grade"><b id="grade_deco">|</b>상품입출고</div>
 <form method="post" action="itemView.im">
 	<input type="hidden" name="item_code" value="${item.item_code }">
 	<section id="commandCell">
@@ -132,28 +140,28 @@ th{
 			<tr>
 				<td colspan="6" id="state_info">
 					<c:if test="${i_pageInfo.page<=1 }">
-						[이전]&nbsp;
+						
 					</c:if>
 					<c:if test="${i_pageInfo.page>1 }">
-						<a href="itemView.im?item_code=${item.item_code }&page=${page }&i_page=${i_pageInfo.page-1}&iyear=${iyear}&imonth=${imonth}">[이전]</a>&nbsp;
+						<a href="itemView.im?item_code=${item.item_code }&page=${page }&i_page=${i_pageInfo.page-1}&iyear=${iyear}&imonth=${imonth}"><span id="pagebn"><</span></a>
 					</c:if>
 					
 					<c:forEach var="a" begin="${i_pageInfo.startPage }" end="${i_pageInfo.endPage }" step="1">
 						<c:choose>
 							<c:when test="${a==i_pageInfo.page }">
-								[${a }]
+								<span id="nowpage">${a }</span>
 							</c:when>
 							<c:otherwise>
-								<a href="itemView.im?item_code=${item.item_code }&page=${page }&i_page=${a }&iyear=${iyear}&imonth=${imonth}">[${a }]</a>&nbsp;
+								<a href="itemView.im?item_code=${item.item_code }&page=${page }&i_page=${a }&iyear=${iyear}&imonth=${imonth}">&nbsp;${a }&nbsp;</a>
 							</c:otherwise>
 						</c:choose>
 					</c:forEach>
 					<c:choose>
 						<c:when test="${i_pageInfo.page>=i_pageInfo.maxPage }">
-							[다음]
+							
 						</c:when>
 						<c:otherwise>
-							<a href="itemView.im?item_code=${item.item_code }&page=${page }&i_page=${i_pageInfo.page+1 }&iyear=${iyear}&imonth=${imonth}">[다음]</a>
+							<a href="itemView.im?item_code=${item.item_code }&page=${page }&i_page=${i_pageInfo.page+1 }&iyear=${iyear}&imonth=${imonth}"><span id="pagebn">></span></a>
 						</c:otherwise>
 					</c:choose>
 				</td>

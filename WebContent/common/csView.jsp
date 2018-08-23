@@ -102,7 +102,6 @@ function goto_url(act) {
 						<p>${board.content }</p>
 					</td>
 				</tr>
-				<!-- id eq 'admin' 추가 -->
 			<c:if test="${board.has_re == 1}">
 					<tr>
 						<td id="td_child">
@@ -117,9 +116,9 @@ function goto_url(act) {
 			<br>
 			<section id="commandCell">
 			<c:if test="${board.user_id eq id || id eq 'admin'}">
-				<button type="button" id="wbutton" onclick="goto_url('csRemove.bo?bnum=${board.board_num}&page=${page }<c:out value="${keyword !=null ? '&keyword=' : '' }"/>${keyword}')">삭제</button>
+				<button type="button" id="wbutton" onclick="goto_url('csRemove.bo?bnum=${board.board_num}&page=${page }<c:out value="${std !=null ? '&std=' : '' }"/>${std}<c:out value="${keyword !=null ? '&keyword=' : '' }"/>${keyword}')">삭제</button>
 			</c:if>
-				<button type="button" id="wbutton" onclick="location.href='csList.bo?page=${page}<c:out value="${keyword !=null ? '&keyword=' : '' }"/>${keyword}'">목록</button>
+				<button type="button" id="wbutton" onclick="location.href='csList.bo?page=${page}<c:out value="${std !=null ? '&std=' : '' }"/>${std}<c:out value="${keyword !=null ? '&keyword=' : '' }"/>${keyword}'">목록</button>
 			</section>
 			<br>
 			<c:if test="${board.has_re == 0 && id eq 'admin'}">
@@ -139,7 +138,7 @@ function goto_url(act) {
 					</tr>
 					<tr>
 						<td colspan="2" style="text-align:center;">
-							<button type="button" id="wbutton" onclick="goto_url('csReply.bo?bnum=${board.board_num}&page=${page }<c:out value="${keyword !=null ? '&keyword=' : '' }"/>${keyword}')" style="width:80px;">답변하기</button>
+							<button type="button" id="wbutton" onclick="goto_url('csReply.bo?bnum=${board.board_num}&page=${page }<c:out value="${std !=null ? '&std=' : '' }"/>${std}<c:out value="${keyword !=null ? '&keyword=' : '' }"/>${keyword}')" style="width:80px;">답변하기</button>
 						</td>
 					</tr>
 				</table>

@@ -24,6 +24,7 @@ td p{
 img{
 	padding:0 0 3px 0;
 }
+
 </style>
 </head>
 <link rel="stylesheet" type="text/css" href="../style/style.css">
@@ -59,7 +60,7 @@ img{
 						<td colspan="2">
 							<p><c:if test="${board.code eq 'HIDE' }">
 								<img src="../images/lock.png"></c:if>
-							<a href="csView.bo?bnum=${board.board_num }&page=${pageInfo.page}<c:out value="${keyword !=null ? '&keyword=' : '' }"/>${keyword}">
+							<a href="csView.bo?bnum=${board.board_num }&page=${pageInfo.page}<c:out value="${std !=null ? '&std=' : '' }"/>${std}<c:out value="${keyword !=null ? '&keyword=' : '' }"/>${keyword}">
 							${board.subject }
 							</a></p>
 						</td>
@@ -73,30 +74,30 @@ img{
 					</tr>
 					</c:forEach>
 			<tr>
-				<td colspan="6" id="td_info"><!-- 페이지 수 넣을 것임 -->
+				<td colspan="6" id="td_info">
 					<c:if test="${pageInfo.page<=1 }">
-						[이전]&nbsp;
+						
 					</c:if>
 					<c:if test="${pageInfo.page>1 }">
-						<a href="csList.bo?page=${pageInfo.page-1}<c:out value="${keyword !=null ? '&keyword=' : '' }"/>${keyword}">[이전]</a>&nbsp;
+						<a href="csList.bo?page=${pageInfo.page-1}<c:out value="${std !=null ? '&std=' : '' }"/>${std}<c:out value="${keyword !=null ? '&keyword=' : '' }"/>${keyword}"><span id="pagebn"><</span></a>
 					</c:if>
 					
 					<c:forEach var="a" begin="${pageInfo.startPage }" end="${pageInfo.endPage }" step="1">
 						<c:choose>
 							<c:when test="${a==pageInfo.page }">
-								[${a }]
+								<span id="nowpage">${a }</span>
 							</c:when>
 							<c:otherwise>
-								<a href="csList.bo?page=${a }<c:out value="${keyword !=null ? '&keyword=' : '' }"/>${keyword}">[${a }]</a>&nbsp;
+								<a href="csList.bo?page=${a }<c:out value="${std !=null ? '&std=' : '' }"/>${std}<c:out value="${keyword !=null ? '&keyword=' : '' }"/>${keyword}">&nbsp;${a }&nbsp;</a>
 							</c:otherwise>
 						</c:choose>
 					</c:forEach>
 					<c:choose>
 						<c:when test="${pageInfo.page>=pageInfo.maxPage }">
-							[다음]
+							
 						</c:when>
 						<c:otherwise>
-							<a href="csList.bo?page=${pageInfo.page+1 }<c:out value="${keyword !=null ? '&keyword=' : '' }"/>${keyword}">[다음]</a>
+							<a href="csList.bo?page=${pageInfo.page+1 }<c:out value="${std !=null ? '&std=' : '' }"/>${std}<c:out value="${keyword !=null ? '&keyword=' : '' }"/>${keyword}"><span id="pagebn">></span></a>
 						</c:otherwise>
 					</c:choose>
 				</td>
@@ -110,7 +111,12 @@ img{
 		<br>
 		<section id="commandCellp">
 			<form action="csList.bo" name="csearch" method="post">
-				<input type="text" id="keyword" name="keyword" size="20"/>
+				<select id="std" name="std">
+					<option value="user_id" <c:out value="${std eq 'user_id' ? 'selected' : '' }"/>>작성자</option>
+					<option value="subject" <c:out value="${std eq 'subject' ? 'selected' : '' }"/>>제목</option>
+					<option value="content" <c:out value="${std eq 'content' ? 'selected' : '' }"/>>제목+내용</option>
+				</select>
+				<input type="text" id="keyword" name="keyword" size="10" value="${keyword }"/>
 				<button type="submit" id="wbutton">검색</button>
 				<button type="button" onclick="location.href='csWrite.jsp'" id="wbutton">글쓰기</button>
 			</form>

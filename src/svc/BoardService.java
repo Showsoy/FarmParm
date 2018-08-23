@@ -50,11 +50,11 @@ public class BoardService {
 		close(conn);
 		return listCount;
 	}
-	public int searchListCount(String keyword) {
+	public int searchListCount(String category, String keyword) {
 		BoardDAO boardDAO = BoardDAO.getInstance();
 		Connection conn = getConnection();
 		boardDAO.setConnection(conn);
-		int listCount = boardDAO.searchListCount(keyword);
+		int listCount = boardDAO.searchListCount(category, keyword);
 		
 		close(conn);
 		return listCount;
@@ -113,11 +113,11 @@ public class BoardService {
 		close(conn);
 		return articleList;
 	}
-	public ArrayList<BoardBean> searchCsBoardList(String keyword, int page) {
+	public ArrayList<BoardBean> searchCsBoardList(String category, String keyword, int page) {
 		BoardDAO boardDAO = BoardDAO.getInstance();
 		Connection conn = getConnection();
 		boardDAO.setConnection(conn);
-		ArrayList<BoardBean> articleList = boardDAO.searchCsBoardList(keyword, page);
+		ArrayList<BoardBean> articleList = boardDAO.searchCsBoardList(category, keyword, page);
 		
 		close(conn);
 		return articleList;

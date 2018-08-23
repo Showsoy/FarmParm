@@ -262,7 +262,7 @@ public class ItemDAO {
 		ItemBean item = null;
 		
 		try {
-			pstmt = conn.prepareStatement("SELECT a.item_code, a.item_name, a.price, a.origin, a.category, a.img_path, a.sale, a.ihide, stock FROM items a, item_view b WHERE a.item_code=? AND b.item_code=?");
+			pstmt = conn.prepareStatement("SELECT a.item_code, a.item_name, a.price, a.origin, a.category, a.img_path, a.sale, a.content,a.ihide, stock FROM items a, item_view b WHERE a.item_code=? AND b.item_code=?");
 			pstmt.setString(1, item_code);
 			pstmt.setString(2, item_code);
 			rs = pstmt.executeQuery();
@@ -270,7 +270,7 @@ public class ItemDAO {
 			if(rs.next()) {
 				item = new ItemBean(rs.getString("item_code"),rs.getString("item_name"),rs.getInt("price"),
 						rs.getString("origin"),rs.getString("category"),rs.getString("img_path"),rs.getInt("sale"),
-						null,rs.getInt("stock"), rs.getInt("ihide"));
+						rs.getString("content"),rs.getInt("stock"), rs.getInt("ihide"));
 			}
 			
 		}catch(Exception e) {

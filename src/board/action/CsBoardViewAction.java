@@ -46,6 +46,7 @@ public class CsBoardViewAction implements Action {
 			request.setAttribute("board", board);
 			request.setAttribute("rboard", rboard);
 			String page = request.getParameter("page");
+			if(request.getParameter("sc")!=null) request.setAttribute("sc", request.getParameter("sc"));
 			if(request.getParameter("keyword")!=null) request.setAttribute("keyword", request.getParameter("keyword"));
 			request.setAttribute("page", page);
 			forward = new ActionForward("./csView.jsp", false);

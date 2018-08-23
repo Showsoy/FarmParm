@@ -66,7 +66,7 @@ public class CsBoardReplyAction implements Action {
 			}else {
 				String path = "./csView.bo?bnum="+bnum;
 				if(request.getParameter("keyword")!=null) {
-					path += "&keyword="+request.getParameter("keyword");
+					path += "&sc="+request.getParameter("sc")+"&keyword="+request.getParameter("keyword");
 					response.setContentType("text/html;charset=UTF-8");
 					PrintWriter out = response.getWriter();
 					out.println("<script>");

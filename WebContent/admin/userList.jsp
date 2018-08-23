@@ -78,27 +78,28 @@ function goto_url(act) {
 	<h3>&nbsp;&nbsp;회원관리</h3>
 	<hr color="#4CAF50" size="5">
 	<div class="mypage">
-	<form name="listForm" id="listForm">
+	<form name="listForm">
 	<div id="listmenu">
 	<span id ="seldel">
 	<button type="button" id="wbutton" onclick="goto_url('memberSelectDelete.us')">선택삭제</button>
 	</span>
 	<span id="orderby">
-		<a href="memberList.us"><img src="./images/checked.png"/><c:choose><c:when test="${category eq 'all' }">
+		<a href="memberList.us"><img src="./images/checked.png"/><c:choose><c:when test="${keyword eq null }">
 		<span id="selcategory">전체</span></c:when><c:otherwise> 전체</c:otherwise></c:choose></a>
-		<a href="memberList.us?std=grade&grade=일반회원"><img src="./images/checked.png"/><c:choose><c:when test="${category eq '일반회원' }">
+		<a href="memberList.us?std=grade&keyword=일반회원"><img src="./images/checked.png"/><c:choose><c:when test="${keyword eq '일반회원' }">
 		<span id="selcategory">일반회원</span></c:when><c:otherwise> 일반회원</c:otherwise></c:choose></a>
-		<a href="memberList.us?std=grade&grade=우수회원"><img src="./images/checked.png"/><c:choose><c:when test="${category eq '우수회원' }">
+		<a href="memberList.us?std=grade&keyword=우수회원"><img src="./images/checked.png"/><c:choose><c:when test="${keyword eq '우수회원' }">
 		<span id="selcategory">우수회원</span></c:when><c:otherwise> 우수회원</c:otherwise></c:choose></a>
-		<a href="memberList.us?std=grade&grade=일반셀러"><img src="./images/checked.png"/><c:choose><c:when test="${category eq '일반셀러' }">
+		<a href="memberList.us?std=grade&keyword=일반셀러"><img src="./images/checked.png"/><c:choose><c:when test="${keyword eq '일반셀러' }">
 		<span id="selcategory">일반셀러</span></c:when><c:otherwise> 일반셀러</c:otherwise></c:choose></a>
-		<a href="memberList.us?std=grade&grade=우수셀러"><img src="./images/checked.png"/><c:choose><c:when test="${category eq '우수셀러' }">
+		<a href="memberList.us?std=grade&keyword=우수셀러"><img src="./images/checked.png"/><c:choose><c:when test="${keyword eq '우수셀러' }">
 		<span id="selcategory">우수셀러</span></c:when><c:otherwise> 우수셀러</c:otherwise></c:choose></a>
 		<a href="memberList.us?std=purchase"><img src="./images/checked.png"/><c:choose><c:when test="${category eq '구매금액' }">
 		<span id="selcategory">주문금액순</span></c:when><c:otherwise> 주문금액순</c:otherwise></c:choose></a>
 	</span>
 	<span id="searchbar">
-		<input type="text" name="search" id="search" placeholder="아이디" size="10"/>
+		<input type="hidden" name="std" id="std" value="user_id"/>
+		<input type="text" name="keyword" id="keyword" placeholder="아이디" size="10"/>
 		<button type="button" name="searchbt" id="wbutton" onclick="goto_url('memberList.us')">검색</button>
 	</span>
 	</div>
@@ -135,28 +136,28 @@ function goto_url(act) {
 			<td colspan="6" id="td_info">
 	<section id="pageList">
 		<c:if test="${pageInfo.page<=1 }">
-			[이전]&nbsp;
+			
 		</c:if>
 		<c:if test="${pageInfo.page>1 }">
-			<a href="memberList.us?page=${pageInfo.page-1}">[이전]</a>&nbsp;
+			<a href="memberList.us?page=${pageInfo.page-1}<c:out value="${std !=null ? '&std=' : '' }"/>${std}<c:out value="${keyword !=null ? '&keyword=' : '' }"/>${keyword}"><span id="pagebn"><</span></a>&nbsp;
 		</c:if>
 					
 		<c:forEach var="a" begin="${pageInfo.startPage }" end="${pageInfo.endPage }" step="1">
 			<c:choose>
 				<c:when test="${a==pageInfo.page }">
-					[${a }]
+					<span id="nowpage">${a }</span>
 				</c:when>
 				<c:otherwise>
-					<a href="memberList.us?page=${a }">[${a }]</a>&nbsp;
+					<a href="memberList.us?page=${a }<c:out value="${std !=null ? '&std=' : '' }"/>${std}<c:out value="${keyword !=null ? '&keyword=' : '' }"/>${keyword}">&nbsp;${a }&nbsp;</a>
 				</c:otherwise>
 			</c:choose>
 		</c:forEach>
 			<c:choose>
 				<c:when test="${pageInfo.page>=pageInfo.maxPage }">
-					[다음]
+					
 				</c:when>
 				<c:otherwise>
-					<a href="memberList.us?page=${pageInfo.page+1 }">[다음]</a>
+					<a href="memberList.us?page=${pageInfo.page+1 }<c:out value="${std !=null ? '&std=' : '' }"/>${std}<c:out value="${keyword !=null ? '&keyword=' : '' }"/>${keyword}"><span id="pagebn">></span></a>
 				</c:otherwise>
 			</c:choose>
 	</section>

@@ -20,7 +20,8 @@ public class CsBoardListAction implements Action {
 		ActionForward forward = null;
 		
 		ArrayList<BoardBean> boardList = new ArrayList<BoardBean>();
-		String keyword = "";
+		String keyword = null;
+		String sc = null;
 		int page = 1;
 		int limit = 10;
 		int limitPage = 10;
@@ -34,8 +35,9 @@ public class CsBoardListAction implements Action {
 		
 		if(request.getParameter("keyword")!=null) {
 			keyword = request.getParameter("keyword");
-			listCount = boardService.searchListCount(keyword);
-			boardList = boardService.searchCsBoardList(keyword, page);
+			sc = request.getParameter("sc");
+			listCount = boardService.searchListCount(sc, keyword);
+			boardList = boardService.searchCsBoardList(sc, keyword, page);
 			request.setAttribute("keyword", keyword);
 		}else {
 			listCount = boardService.selectListCount("cs_board");
@@ -52,6 +54,9 @@ public class CsBoardListAction implements Action {
 		pageInfo.setMaxPage(maxPage);
 		pageInfo.setPage(page);
 		pageInfo.setStartPage(startPage);
+		
+		request.setAttribute("sc", sc);
+		request.setAttribute("keyword", keyword);
 		request.setAttribute("pageInfo", pageInfo);
 		request.setAttribute("boardList", boardList);
 		forward= new ActionForward("../common/cs_center.jsp",false);

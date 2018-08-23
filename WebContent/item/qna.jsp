@@ -63,12 +63,12 @@ var count2 = 0;
 						<c:choose>
 							<c:when test="${qna.img_path != null && qna.readcount==0}">
 							<div id="parent_img">
-								<img src="./images/${qna.img_path }" style="width:80px;height:100px;">
+								<img src="./images/${qna.img_path }" style="width:50px;height:50px;">
 								<div id="zoom">
 								<a onclick="doImgPop('./images/${qna.img_path}')" style="cursor:pointer;" title="클릭하시면 원본크기로 보실 수 있습니다."><img src="./images/zoom-inb.png"></a>
 								</div>
 							</div>
-							<div id="parent_cont" style="width:500px;padding:10px;text-align:left">
+							<div id="parent_cont" style="width:470px;padding:10px;text-align:left">
 							${qna.content }
 							</div>
 							</c:when>
@@ -109,30 +109,30 @@ var count2 = 0;
 				</c:otherwise>
 			</c:choose>
 			<tr>
-				<td colspan="5" id="qna_page">
+				<td colspan="5" style="height:50px;">
 					<c:if test="${q_pageInfo.page<=1 }">
-						[이전]&nbsp;
+						
 					</c:if>
 					<c:if test="${q_pageInfo.page>1 }">
-						<a href="uitemView.im?item_code=${item.item_code }&page=${page }&r_page=${r_page}&q_page=${q_page }#qnaboard">[이전]</a>&nbsp;
+						<a href="uitemView.im?item_code=${item.item_code }&page=${page }&r_page=${r_page}&q_page=${q_page }#qnaboard"><span id="pagebn"><</span></a>
 					</c:if>
 					
 					<c:forEach var="a" begin="${q_pageInfo.startPage }" end="${q_pageInfo.endPage }" step="1">
 						<c:choose>
 							<c:when test="${a==q_pageInfo.page }">
-								[${a }]
+								<span id="nowpage">${a }</span>
 							</c:when>
 							<c:otherwise>
-								<a href="uitemView.im?item_code=${item.item_code }&page=${page }&r_page=${r_page }&q_page=${a }#qnaboard">[${a }]</a>&nbsp;
+								<a href="uitemView.im?item_code=${item.item_code }&page=${page }&r_page=${r_page }&q_page=${a }#qnaboard">&nbsp;${a }&nbsp;</a>
 							</c:otherwise>
 						</c:choose>
 					</c:forEach>
 					<c:choose>
 						<c:when test="${q_pageInfo.page>=q_pageInfo.maxPage }">
-							[다음]
+							
 						</c:when>
 						<c:otherwise>
-							<a href="uitemView.im?item_code=${item.item_code }&page=${page }&r_page=${r_page }&q_page=${q_pageInfo.page+1 }#qnaboard">[다음]</a>
+							<a href="uitemView.im?item_code=${item.item_code }&page=${page }&r_page=${r_page }&q_page=${q_pageInfo.page+1 }#qnaboard"><span id="pagebn">></span></a>
 						</c:otherwise>
 					</c:choose>
 				</td>

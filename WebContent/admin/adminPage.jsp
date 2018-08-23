@@ -6,7 +6,7 @@
 	if(id==null) {
 		out.println("<script>");
 		out.println("alert('로그인이 필요한 서비스입니다.');");
-		out.println("location.href='../member/memberLogin.us?turn=ok';");
+		out.println("location.href='../member/memberLogin.us';");
 		out.println("</script>");
 	}else if(!id.equals("admin")){
 		out.println("<script>");

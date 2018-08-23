@@ -34,7 +34,7 @@ public class UserItemListAction implements Action {
 		String category = request.getParameter("category");
 		String standard = request.getParameter("std");
 		
-		if(standard.equals("new"))	standard = "vdate";
+		if(standard==null||standard.equals("new"))	standard = "vdate";
 		else if(standard.equals("high"))  standard = "price";
 		else if(standard.equals("pc"))  standard = "purchase";
 		else if(standard.equals("rc"))  standard = "readcount";

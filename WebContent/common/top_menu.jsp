@@ -21,15 +21,15 @@
 	      <a href="<%=request.getContextPath()%>/item/introduction.jsp">
 	      &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
 			  농원소개</a>
-	      <a href="<%=request.getContextPath()%>/uitemList.im?category=채소&std=new">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+	      <a href="<%=request.getContextPath()%>/uitemList.im?category=채소">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
 			채소</a>
-	      <a href="<%=request.getContextPath()%>/uitemList.im?category=과일&std=new">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+	      <a href="<%=request.getContextPath()%>/uitemList.im?category=과일">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
 	      	과일</a>
-	      <a href="<%=request.getContextPath()%>/uitemList.im?category=곡류&std=new">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+	      <a href="<%=request.getContextPath()%>/uitemList.im?category=곡류">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
 	      	쌀/잡곡</a>
-	      <a href="<%=request.getContextPath()%>/uitemList.im?category=차&std=new">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+	      <a href="<%=request.getContextPath()%>/uitemList.im?category=차">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
 	      	차</a>
-	      <a href="<%=request.getContextPath()%>/uitemList.im?category=가공&std=new">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+	      <a href="<%=request.getContextPath()%>/uitemList.im?category=가공">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
 	      	가공류</a>
 	    </div>
       <a href="<%=request.getContextPath()%>/common/location.jsp">오시는 길</a>

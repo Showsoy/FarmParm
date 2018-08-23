@@ -308,10 +308,8 @@ footer {
 	color : #43A047;
 	font-size:14px;
 }
-
 .goods_detail{
-	text-align:center;
-	width:700px;
+	width:800px;
 	margin:0 auto;
 }
 .qna, .review{
@@ -499,7 +497,6 @@ th{
 	font-size:12px;
 	border-bottom: 1px solid #ddd;
 }
-#detail_board tr:nth-child(even) {background-color: #f2f2f2;}
 #state_table{
 	margin:0 auto;
 	border-collapse: collapse;
@@ -760,6 +757,7 @@ th{
 }
 #idetail{
 	margin:0 auto;
+	text-align:center;
 	display:inline-block;
 }
 #id_img{
@@ -843,4 +841,24 @@ th{
 }
 #float-top{
 	background-color:#F6F6F6;
+}
+#nowpage{
+	background-color:#8DB72A;
+	color:white;
+	padding:2px 4px;
+}
+#pagebn{
+	background-color:#BDBDBD;
+	color:white;
+	font-size:10px;
+	padding:4px;
+}
+#top_item{
+	width:900px;
+	margin:0 auto;
+	background-color:black;
+	font-size:14px;
+	color:white;
+	text-align:left;
+	padding:10px 20px;
 }

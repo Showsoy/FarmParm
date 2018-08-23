@@ -20,8 +20,8 @@ public class ReviewListAction implements Action {
 		ActionForward forward = null;
 		
 		ArrayList<BoardBean> boardList = new ArrayList<BoardBean>();
-		String keyword = "";
-		String review_search = "";
+		String keyword = null;
+		String std = null;
 		int page = 1;
 		int limit = 10;
 		int limitPage = 10;
@@ -35,11 +35,11 @@ public class ReviewListAction implements Action {
 		
 		if(request.getParameter("keyword")!=null) {
 			keyword = request.getParameter("keyword");
-			review_search = request.getParameter("review_search");
-			listCount = boardService.searchReviewCount(keyword,review_search);
-			boardList = boardService.searchReviewList(keyword, page, review_search);
+			std = request.getParameter("std");
+			listCount = boardService.searchReviewCount(keyword, std);
+			boardList = boardService.searchReviewList(keyword, page, std);
 			request.setAttribute("keyword", keyword);
-			request.setAttribute("review_search", review_search);
+			request.setAttribute("std", std);
 		}else {
 			listCount = boardService.selectListCount("review_board");
 			boardList = boardService.selectReviewList(page);
@@ -57,7 +57,7 @@ public class ReviewListAction implements Action {
 		pageInfo.setStartPage(startPage);
 		request.setAttribute("pageInfo", pageInfo);
 		request.setAttribute("boardList", boardList);
-		forward= new ActionForward("../item/reviewboard.jsp",false);
+		forward= new ActionForward("../item/reviewList.jsp",false);
 		return forward;
 	}
 
