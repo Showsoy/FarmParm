@@ -29,6 +29,7 @@ import member.action.MemberPwCheckAction;
 import member.action.MemberPwFindAction;
 import member.action.MemberPwModifyAction;
 import member.action.MemberSelectDeleteAction;
+import member.action.MyQnAViewAction;
 import member.action.MyQnaListAction;
 import vo.ActionForward;
 
@@ -226,6 +227,13 @@ protected void doProcess(HttpServletRequest request, HttpServletResponse respons
 			}
     	}else if(command.equals("/myQna.us")) {
     		action = new MyQnaListAction();
+			try{
+				forward=action.execute(request, response);
+			}catch(Exception e){
+				e.printStackTrace();
+			}
+    	}else if(command.equals("/myQnaView.us")) {
+    		action = new MyQnAViewAction();
 			try{
 				forward=action.execute(request, response);
 			}catch(Exception e){

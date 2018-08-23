@@ -24,6 +24,9 @@ td p{
 img{
 	padding:0 0 3px 0;
 }
+#bbutton{
+	margin:10px 0 0 0;
+}
 </style>
 </head>
 <link rel="stylesheet" type="text/css" href="/FarmParm/style/style.css">
@@ -51,12 +54,14 @@ img{
 					<tr>
 						<td>${num }</td>
 						<c:set var="num" value="${num-1 }"/>
-						<td>${board.content }</td>
+						<td><a href="uitemView.im?item_code=${board.code}">
+						${board.content }</a>
+						</td>
 						<td colspan="2">
 							<p><c:if test="${board.readcount>0 }">
 								<img src="/FarmParm/images/lock.png"></c:if>
-							<a href="#<%-- /FarmParm/qnaView.bo?bnum=${board.board_num }&item_code=${board.code }&page=${pageInfo.page}<c:out value="${keyword !=null ? '&keyword=' : '' }"/>${keyword}<c:out value="${qna_search !=null ? '&qna_search=' : '' }"/>${qna_search} --%>">
-							${board.subject }
+							<a href="myQnaView.us?bnum=${board.board_num }&item_code=${board.code }&page=${pageInfo.page}<c:out value="${keyword !=null ? '&keyword=' : '' }"/>${keyword}<c:out value="${qna_search !=null ? '&qna_search=' : '' }"/>${qna_search}">
+							${board.subject }<c:if test="${board.has_re==1 }"> [1]</c:if>
 							</a></p>
 						</td>
 						<td>${board.user_id }***</td>
@@ -69,7 +74,7 @@ img{
 						[이전]&nbsp;
 					</c:if>
 					<c:if test="${pageInfo.page>1 }">
-						<a href="myQna.us?page=${pageInfo.page-1}<c:out value="${keyword !=null ? '&keyword=' : '' }"/>${keyword}">[이전]</a>&nbsp;
+						<a href="myQna.us?page=${pageInfo.page-1}">[이전]</a>&nbsp;
 					</c:if>
 					
 					<c:forEach var="a" begin="${pageInfo.startPage }" end="${pageInfo.endPage }" step="1">
@@ -78,7 +83,7 @@ img{
 								[${a }]
 							</c:when>
 							<c:otherwise>
-								<a href="myQna.us?page=${a }<c:out value="${keyword !=null ? '&keyword=' : '' }"/>${keyword}">[${a }]</a>&nbsp;
+								<a href="myQna.us?page=${a }">[${a }]</a>&nbsp;
 							</c:otherwise>
 						</c:choose>
 					</c:forEach>
@@ -87,7 +92,7 @@ img{
 							[다음]
 						</c:when>
 						<c:otherwise>
-							<a href="myQna.us?page=${pageInfo.page+1 }<c:out value="${keyword !=null ? '&keyword=' : '' }"/>${keyword}">[다음]</a>
+							<a href="myQna.us?page=${pageInfo.page+1 }">[다음]</a>
 						</c:otherwise>
 					</c:choose>
 				</td>
@@ -98,7 +103,7 @@ img{
 			</c:otherwise>
 		</c:choose>
 		</table>
-			
+			<button id="bbutton" onclick="location.href='myPage.us'">마이페이지</button>
 	</div>
 </div>
  <jsp:include page="/common/footer.jsp" flush="false"/>

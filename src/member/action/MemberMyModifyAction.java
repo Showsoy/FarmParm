@@ -1,4 +1,4 @@
-package member.action;
+﻿package member.action;
 
 import java.io.PrintWriter;
 import java.sql.Date;
@@ -21,7 +21,7 @@ public class MemberMyModifyAction implements Action{
 		String id = (String)session.getAttribute("id");
 		Date birth = util.transformDate(request.getParameter("userBirth"));
 		String email = (request.getParameter("userEmailId") +"@"+ request.getParameter("userEmailAd"));
-		
+
 			UserBean user = new UserBean();
 			user.setPhone(request.getParameter("userPhone"));
 			user.setBirth(birth);

@@ -10,11 +10,8 @@
 <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
 <title>Insert title here</title>
 <style>
-<<<<<<< HEAD
-tr{
-=======
+
 .listtable tr{
->>>>>>> 5166f2568e8c6acb26007983da939408557e6f88
 	height:50px;
 }
 td{

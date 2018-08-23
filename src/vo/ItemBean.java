@@ -26,7 +26,7 @@ public class ItemBean {
 		this.readcount = readcount;
 		this.ihide = ihide;
 	}
-	
+
 	public String getItem_code() {
 		return item_code;
 	}

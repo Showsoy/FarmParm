@@ -36,7 +36,6 @@ public class UserBean {
 		this.grade = grade;
 		this.usalt = usalt;
 	}
-
 	public String getUser_id() {
 		return user_id;
 	}

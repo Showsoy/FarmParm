@@ -1,4 +1,4 @@
-package item.action;
+﻿package item.action;
 
 import java.io.PrintWriter;
 import java.util.ArrayList;
@@ -50,7 +50,7 @@ public class ItemViewAction implements action.Action{
 			if(request.getParameter("i_page")!=null) {
 				i_page = Integer.parseInt(request.getParameter("i_page"));
 			}
-			
+
 			Calendar tmpCal = Calendar.getInstance();
 			int iyear = request.getParameter("iyear")==null ? tmpCal.get(Calendar.YEAR) 
 					: Integer.parseInt(request.getParameter("iyear"));

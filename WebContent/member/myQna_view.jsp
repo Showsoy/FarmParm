@@ -16,67 +16,8 @@
 img{
 	max-width:50%;
 }
-.re{
-	margin: 0 0 0 200px;
-}
 </style>
 <script>
-var doubleSubmitFlag = false;
-function doubleSubmitCheck(){
-    if(doubleSubmitFlag){
-        return doubleSubmitFlag;
-    }else{
-        doubleSubmitFlag = true;
-        return false;
-    }
-}
-function chkForm(f){
-
-	if(f.subject.value.trim()==""){
-		alert("제목을 입력해주세요.");
-		f.subject.focus();
-		return false;
-	}
-	if(f.content.value.trim()==""){
-		alert("내용을 입력해주세요.");
-		f.subject.focus();
-		return false;
-	}
-	if(doubleSubmitCheck()) return;
-	document.qna.submit();
-}
-function fc_chk_byte(memo) { 
-	var ari_max=400;
-	var ls_str = memo.value;
-	var li_str_len = ls_str.length;
-	
-	var li_max = ari_max;
-	var i = 0;
-	var li_byte = 0;
-	var li_len = 0;
-	var ls_one_char = "";
-	var ls_str2 = "";
-	
-	for(i=0; i< li_str_len; i++) { 
-		ls_one_char = ls_str.charAt(i); 
-		
-		if (escape(ls_one_char).length > 4) { 
-		   li_byte += 2; 
-		}else{
-		   li_byte++; 
-		} 
-		if(li_byte <= li_max){ 
-		   li_len = i + 1; 
-		} 
-	} 
-	
-	if(li_byte > li_max){ 
-		alert("200글자 초과. \n 초과된 내용은 삭제 됩니다."); 
-		ls_str2 = ls_str.substr(0, li_len); 
-		memo.value = ls_str2; 
-	} 
-	memo.focus(); 
-}
 
 function fc_chk2() { 
 	if(event.keyCode == 13) 
@@ -113,7 +54,7 @@ function doImgPop(img){
 }
 </script>
 </head>
-<link rel="stylesheet" type="text/css" href="../style/style.css">
+<link rel="stylesheet" type="text/css" href="/FarmParm/style/style.css">
 <link rel="stylesheet" href="https://www.w3schools.com/w3css/3/w3.css">
 <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.6.3/css/font-awesome.min.css">
 <body>
@@ -151,8 +92,7 @@ function doImgPop(img){
 						<p>${board.content }</p>
 					</td>
 				</tr>
-				<!-- id eq 'admin' 추가 -->
-			<c:if test="${board.has_re == 1}">
+							<c:if test="${board.has_re == 1}">
 					<tr>
 						<td id="td_child">
 							<label for="subject">제목</label>
@@ -174,43 +114,11 @@ function doImgPop(img){
 			<br>
 			<section id="commandCell">
 			<c:if test="${board.user_id eq id || id eq 'admin'}">
-				<button type="button" id="wbutton" onclick="goto_url('qnaRemove.bo?item_code=${board.code}&bnum=${board.board_num}&page=${page }<c:out value="${keyword !=null ? '&keyword=' : '' }"/>${keyword}')">삭제</button>
+				<button type="button" id="wbutton" onclick="goto_url('qnaRemove.bo?item_code=${board.code}&bnum=${board.board_num}&page=${page }&myqna=${myQna }')">삭제</button>
 			</c:if>
-				<button type="button" id="wbutton" onclick="location.href='qnaList.bo?page=${page}<c:out value="${keyword !=null ? '&keyword=' : '' }"/>${keyword}<c:out value="${qna_search !=null ? '&qna_search=' : '' }"/>${qna_search}'">목록</button>
+				<button type="button" id="wbutton" onclick="location.href='myQna.us?page=${page}'">목록</button>
 			</section>
 			<br>
-			<div class="re">
-			<c:if test="${board.has_re == 0 && id eq 'admin'}">
-				<table>
-					<tr>
-						<td id="td_left" colspan="2">
-							<label for="subject">답변 글쓰기</label>
-						</td>
-					</tr>
-					<tr>
-						<td id="td_left">
-							<label for="subject">제목</label>
-						</td>	
-						<td>
-							<input type="text" id="subject" name="subject" size="40">
-						</td>
-					</tr>
-					<tr>
-						<td id="td_left">
-							<label for="content">답변</label>
-						</td>	
-						<td>
-							<textarea name="content" id="content" cols="60" rows="7" onkeyup="fc_chk_byte(this);" onkeypress="fc_chk2();"></textarea>
-						</td>
-					</tr>
-					<tr>
-						<td colspan="2">
-							<span style="padding:0 0 0 600px;"><button type="button" id="wbutton" onclick="goto_url('qnaReply.bo?item_code=${board.code}&rgroup=${board.board_num }&page=${page }<c:out value="${keyword !=null ? '&keyword=' : '' }"/>${keyword}')" style="width:80px;">답변하기</button></span>
-						</td>
-					</tr>
-				</table>
-			</c:if>
-			</div>
 			<br>
 		</form>
 	</div>	
