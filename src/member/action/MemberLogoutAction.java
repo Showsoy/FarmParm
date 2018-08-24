@@ -13,7 +13,6 @@ public class MemberLogoutAction implements Action{
 	 	ActionForward forward = null;
 	 	forward = new ActionForward();
 	 	HttpSession session = request.getSession();
-	 	String id =(String)session.getAttribute("id");
 		session.removeAttribute("id");
 		forward.setRedirect(true);
    		forward.setPath("./main.im");

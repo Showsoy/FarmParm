@@ -23,20 +23,22 @@ img{
 	padding : 0 0 0 2px;
 }
 #seldel{
-	width:320px;
+	width:20%;
+	padding : 10px 0px 0 0;
+	text-align:left;
 }
 .search{
 	font-family:"Nanum Gothic";
 	float:right;
-	margin-right: 150px;
-	margin-bottom: 5px;
-	padding: 5px;
 }
 #orderby{
-	padding : 10px 70px 0 80px;
+	padding : 15px 0px 0 0;
+	width:50%;
 }
 #searchbar{
 	padding : 10px 0 0 0;
+	width:30%;
+	text-align:right;
 }
 
 </style>
@@ -78,7 +80,7 @@ function goto_url(act) {
 	<div class="mypage">
 	<form name="listForm" id="listForm">
 	<div id="listmenu">
-	<span>
+	<span id ="seldel">
 	<button type="button" id="wbutton" onclick="goto_url('memberSelectDelete.us')">선택삭제</button>
 	</span>
 	<span id="orderby">

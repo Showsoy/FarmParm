@@ -148,6 +148,7 @@ function monthSelDel(){
 		<b>${start } - ${end }</b> 기간 검색
 		</div>
 		<br>
+		<c:if test="${monthsel != null }"><font color="#4374D9"><b>${dayMap['smonth'] }월 매출</b></font></c:if>
 		<c:if test="${salesMap !=null }">
 			<table class="sales-table" cellpadding="0" cellspacing="0">
 			<tr>
@@ -196,7 +197,7 @@ function monthSelDel(){
 				<td><fmt:formatNumber value="${salesList1.pay }" type="number"/>원</td>
 				<td>${salesList1.payment }</td>
 				<td>${salesList1.state }</td>
-				<td><button type="button" onclick="location.href='odView.od?order_id=${salesList1.order_id}'" id="gbutton">조회</button></td>
+				<td><button type="button" onclick="location.href='odView.od?order_id=${salesList1.order_id}&returnURI='+encodeURIComponent(location);" id="gbutton">조회</button></td>
 			</tr>
 			</c:forEach>
 			<tr>
@@ -238,9 +239,9 @@ function monthSelDel(){
 		<c:otherwise>
 		<div style="width:80%;margin:0 auto;text-align:right;">
 			<span id="orderby2">
-			<a href="salesList.od?&start=${start}&end=${end}&orderby=profit"><img src="../images/checked.png"/><c:choose><c:when test="${orderby eq 'profit' }">
+			<a href="salesList.od?&<c:out value="${monthsel !=null ? 'monthsel=check' : '' }"/>&start=${start}&end=${end}&orderby=profit"><img src="../images/checked.png"/><c:choose><c:when test="${orderby eq 'profit' }">
 			<span id="selcategory">기준 매출</span></c:when><c:otherwise> 기준 매출</c:otherwise></c:choose></a>
-			<a href="salesList.od?start=${start}&end=${end}&orderby=sales">
+			<a href="salesList.od?<c:out value="${monthsel !=null ? 'monthsel=check' : '' }"/>&start=${start}&end=${end}&orderby=sales">
 			<img src="../images/checked.png"/><c:choose><c:when test="${orderby eq 'sales' }">
 			<span id="selcategory">기준 주문량</span></c:when><c:otherwise> 기준 주문량</c:otherwise></c:choose></a>
 			</span>

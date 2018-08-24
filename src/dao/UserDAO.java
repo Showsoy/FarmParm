@@ -123,7 +123,7 @@ public class UserDAO {
 		return loginSalt;
 	}
 	public int insertUser(UserBean users){
-		String sql="INSERT INTO users VALUES (?,?,?,?,?,?,?,?,?,?,?,?,?)";
+		String sql="INSERT INTO users VALUES (?,?,?,?,?,?,?,?,?,?,?,?)";
 		int insertCount=0;
 		try{
 			pstmt=con.prepareStatement(sql);
@@ -139,7 +139,6 @@ public class UserDAO {
 			pstmt.setString(10, users.getEmail());
 			pstmt.setString(11, users.getGrade());
 			pstmt.setString(12, users.getUsalt());
-			pstmt.setInt(13, 1000);
 			insertCount=pstmt.executeUpdate();
 		}catch(Exception e){
 			e.printStackTrace();	
@@ -617,11 +616,11 @@ public class UserDAO {
 		}
 		return updateCount;
 	}
-	public int myPointListCount(String startDate, String endDate) {
+	public int myPointListCount(String user_id, String startDate, String endDate) {
 		int listCount = 0;
 		PreparedStatement pstmt = null;
 		ResultSet rs = null;
-		String sql = "select COUNT(*) from point where pdate between '"+startDate+"' and '"+endDate+"'"; 
+		String sql = "select COUNT(*) from point where user_id = '"+user_id+"' AND pdate between '"+startDate+"' and '"+endDate+"'"; 
 		try {
 			pstmt = con.prepareStatement(sql);
 			rs = pstmt.executeQuery();
@@ -635,12 +634,12 @@ public class UserDAO {
 		
 		return listCount;
 	}
-	public ArrayList<PointBean> myPointList(String startDate, String endDate, int page) {
+	public ArrayList<PointBean> myPointList(String user_id, String startDate, String endDate, int page) {
 		PreparedStatement pstmt = null;
 		ResultSet rs = null;
 		ArrayList<PointBean> myPointList = null;
 		int startrow = (page-1)*10;
-		String sql = "select * from point where pdate between '"+startDate+"' and '"+endDate+"' order by idate desc limit ?,10"; 
+		String sql = "select * from point where user_id = '"+user_id+"' AND pdate between '"+startDate+"' and '"+endDate+"' order by pt_num desc limit ?,10"; 
 		try {
 			pstmt = con.prepareStatement(sql);
 			pstmt.setInt(1, startrow);
@@ -666,7 +665,7 @@ public class UserDAO {
 		PreparedStatement pstmt = null;
 		ResultSet rs = null;
 		Map<String, Integer> orderPointMap = null;
-		String sql = "select plminus, point from point where order_id = ? order by idate desc limit ?,10"; 
+		String sql = "select user_id, plminus, point from point where order_id = ?"; 
 		try {
 			pstmt = con.prepareStatement(sql);
 			pstmt.setInt(1, order_id);
@@ -675,7 +674,7 @@ public class UserDAO {
 				orderPointMap = new HashMap<String, Integer>(); 
 				do {
 					if(rs.getInt("plminus")>0) orderPointMap.put("save", rs.getInt("point"));
-					else orderPointMap.put("user", rs.getInt("point"));
+					else orderPointMap.put("use", rs.getInt("point"));
 				}while(rs.next());
 			}
 			

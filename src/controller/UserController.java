@@ -25,6 +25,7 @@ import member.action.MemberLostPwModifyAction;
 import member.action.MemberModifyFormAction;
 import member.action.MemberMyModifyAction;
 import member.action.MemberMyPageAction;
+import member.action.MemberPointListAction;
 import member.action.MemberPwCheckAction;
 import member.action.MemberPwFindAction;
 import member.action.MemberPwModifyAction;
@@ -234,6 +235,13 @@ protected void doProcess(HttpServletRequest request, HttpServletResponse respons
 			}
     	}else if(command.equals("/myQnaView.us")) {
     		action = new MyQnAViewAction();
+			try{
+				forward=action.execute(request, response);
+			}catch(Exception e){
+				e.printStackTrace();
+			}
+    	}else if(command.equals("/myPoint.us")) {
+    		action = new MemberPointListAction();
 			try{
 				forward=action.execute(request, response);
 			}catch(Exception e){

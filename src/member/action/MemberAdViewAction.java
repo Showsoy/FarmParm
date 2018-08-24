@@ -68,6 +68,7 @@ public class MemberAdViewAction implements Action {
 				pageInfo.setStartPage(startPage);
 				
 				UserBean user = userService.selectUserInfo(user_id);
+				user.setPoint(userService.findRecentPoint(user_id));
 				orderList = orderService.userOrderList(user_id, page, limit);
 				
 				String email = user.getEmail();

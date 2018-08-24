@@ -24,7 +24,13 @@ img{
 	padding : 0 0 0 2px;
 }
 #orderby{
-	padding : 13px 0 0 350px;
+	width:50%;
+	text-align:right;
+	padding : 13px 0 0 0;
+}
+#seldel{
+	width:50%;
+	text-align:left;
 }
 </style>
 <script>
@@ -119,8 +125,8 @@ img{
 				</c:if>
 				<c:if test="${itemList.stock > 30}">
 				<td>${itemList.stock }</td>
-				<td><button type="button" onclick="location.href='itemView.im?item_code=${itemList.item_code}&page=${pageInfo.page }'" id="gbutton">조회</button></td>
 				</c:if>
+				<td><button type="button" onclick="location.href='itemView.im?item_code=${itemList.item_code}&page=${pageInfo.page }'" id="gbutton">조회</button></td>
 			</tr>
 			</c:forEach>
 			<tr>

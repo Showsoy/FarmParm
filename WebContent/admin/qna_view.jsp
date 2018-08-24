@@ -181,9 +181,9 @@ function doImgPop(img){
 			<br>
 			<div class="re">
 			<c:if test="${board.has_re == 0 && id eq 'admin'}">
-				<table>
+				<table class="board_table" cellspacing="0" cellpadding="0">
 					<tr>
-						<td id="td_left" colspan="2">
+						<td id="td_left" colspan="2" style="text-align:center;">
 							<label for="subject">답변 글쓰기</label>
 						</td>
 					</tr>
@@ -204,8 +204,8 @@ function doImgPop(img){
 						</td>
 					</tr>
 					<tr>
-						<td colspan="2">
-							<span style="padding:0 0 0 600px;"><button type="button" id="wbutton" onclick="goto_url('qnaReply.bo?item_code=${board.code}&rgroup=${board.board_num }&page=${page }<c:out value="${keyword !=null ? '&keyword=' : '' }"/>${keyword}')" style="width:80px;">답변하기</button></span>
+						<td colspan="2" style="text-align:center;">
+							<button type="button" id="wbutton" onclick="goto_url('qnaReply.bo?item_code=${board.code}&rgroup=${board.board_num }&page=${page }<c:out value="${keyword !=null ? '&keyword=' : '' }"/>${keyword}')" style="width:80px;">답변하기</button>
 						</td>
 					</tr>
 				</table>

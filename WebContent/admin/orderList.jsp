@@ -11,7 +11,7 @@
 <title>Insert title here</title>
 <style>
 tr{
-	height:100px;
+	height:50px;
 }
 td{
     border-bottom: 1px solid #ddd;
@@ -25,9 +25,12 @@ img{
 	padding : 0 0 0 2px;
 }
 #seldel{
-	padding:0 0 0 250px;
+	width:40%;
+	text-align:right;
 }
 #orderby{
+	width:60%;
+	text-align:left;
 	padding : 13px 0 0 0px;
 }
 </style>
@@ -42,8 +45,17 @@ img{
 		}
 	}
 	function goto_url(act) {
-		document.odList.action = act;
-		document.odList.submit();
+		var od_state = document.getElementById("od_state").options[document.getElementById("od_state").selectedIndex].value
+		if(od_state=='취소완료'){
+			var flag = confirm('주문을 취소하시겠습니까?');
+			if(flag){
+				document.odList.action = "odCancel.od";
+				document.odList.submit();
+			}
+		}else{
+			document.odList.action = act;
+			document.odList.submit();
+		}
 	}
 </script>
 </head>
@@ -70,15 +82,17 @@ img{
 			<span id="selcategory">상품출고</span></c:when><c:otherwise> 상품출고</c:otherwise></c:choose></a>
 			<a href="odList.od?state=배송완료"><img src="../images/checked.png"/><c:choose><c:when test="${state eq '배송완료' }">
 			<span id="selcategory">배송완료</span></c:when><c:otherwise> 배송완료</c:otherwise></c:choose></a>
-			<a href="odList.od?state=취소"><img src="../images/checked.png"/><c:choose><c:when test="${state eq '취소' }">
-			<span id="selcategory">취소</span></c:when><c:otherwise> 취소</c:otherwise></c:choose></a>
+			<a href="odList.od?state=취소신청"><img src="../images/checked.png"/><c:choose><c:when test="${state eq '취소신청' }">
+			<span id="selcategory">취소신청</span></c:when><c:otherwise> 취소신청</c:otherwise></c:choose></a>
+			<a href="odList.od?state=취소완료"><img src="../images/checked.png"/><c:choose><c:when test="${state eq '취소완료' }">
+			<span id="selcategory">취소완료</span></c:when><c:otherwise> 취소완료</c:otherwise></c:choose></a>
 		</span>
 		<span id="seldel">
 		<select name="od_state" id="od_state">
 			<option value="결제완료">결제완료</option>
 			<option value="상품출고">상품출고</option>
 			<option value="배송완료">배송완료</option>
-			<option value="취소">취소</option>
+			<option value="취소완료">취소완료</option>
 		</select>
 		<button type="button" id="wbutton" style="width:100px;" onclick="goto_url('odChgState.od');">주문상태변경</button>
 		</span>
@@ -101,7 +115,7 @@ img{
 				<td>${orderList.order_id }</td>
 				<td><fmt:formatDate pattern="yyyy-MM-dd HH:mm:ss" value="${orderList.dati }" /></td>
 				<td>${orderList.user_id }</td>
-				<td>${orderList.pay }원</td>
+				<td><fmt:formatNumber value="${orderList.pay }" type="number"/>원</td>
 				<td>${orderList.state }</td>
 				<td><button type="button" onclick="location.href='odView.od?order_id=${orderList.order_id}&page=${pageInfo.page }'" id="gbutton">조회</button></td>
 			</tr>

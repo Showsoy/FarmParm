@@ -287,7 +287,7 @@ public class ItemDAO {
 		ResultSet rs = null;
 		ArrayList<ItemStockBean> itemStockList = null;
 		String sql = "SELECT * FROM item_stock WHERE item_code=? AND YEAR(idate) = ? AND MONTH(idate) = ? "
-				+ "ORDER BY idate DESC LIMIT ?,10";
+				+ "ORDER BY inumber DESC LIMIT ?,10";
 		int startrow = (i_page-1)*10;
 		try {
 			pstmt = conn.prepareStatement(sql);
@@ -773,6 +773,29 @@ public class ItemDAO {
 			e.printStackTrace();
 		}finally {
 			close(pstmt);
+		}
+		return insertCount;
+	}
+	public int recoverOrderItem(ArrayList<OrderViewBean> orderList) {
+		PreparedStatement pstmt = null;
+		int insertCount = 0;
+		String sql = "INSERT INTO item_stock VALUES(?,?,now(),?,?,?)";
+		
+		try {
+			for(int i=0;i<orderList.size();i++) {
+				HashMap<String, Integer> imap = findRecentStock(orderList.get(i).getItem_code());
+				pstmt = conn.prepareStatement(sql);
+				pstmt.setString(1, orderList.get(i).getItem_code());
+				pstmt.setString(2, "반품");
+				pstmt.setInt(3, orderList.get(i).getAmount());
+				pstmt.setInt(4, imap.get("stock")+orderList.get(i).getAmount());
+				pstmt.setInt(5, imap.get("inumber")+1);
+				insertCount = pstmt.executeUpdate();
+			}
+		}catch(Exception e) {
+			e.printStackTrace();
+		}finally {
+			if(pstmt!=null) close(pstmt);
 		}
 		return insertCount;
 	}

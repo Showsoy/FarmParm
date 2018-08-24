@@ -47,7 +47,7 @@ public class MemberJoinAction  implements Action{
    			out.println("</script>");
 	   	}
    		else{
-   			PointBean point = new PointBean(request.getParameter("userID"), 0, "리뷰작성", 1, 500);
+   			PointBean point = new PointBean(request.getParameter("userID"), 0, "가입감사", 1, 1000);
    			int insertCount = userService.userPlminusPoint(point);
    			if(insertCount>0) {
    				forward = new ActionForward();

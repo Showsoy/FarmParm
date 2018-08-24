@@ -42,6 +42,8 @@ public class OrderViewAction implements Action {
 			OrderBean order = orderService.selectOrder(order_id);
 			
 			ArrayList<OrderViewBean> odtemList = orderService.orderItemList(order_id);
+			
+			if(request.getParameter("returnURI")!=null) request.setAttribute("returnURI", request.getParameter("returnURI"));
 			String page = request.getParameter("page");
 			request.setAttribute("page", page);
 			request.setAttribute("order", order);

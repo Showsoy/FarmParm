@@ -8,7 +8,7 @@
 <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
 <title>Insert title here</title>
 <style>
-td, tr{
+td{
 	border: 1px solid #ddd;
 }
 #commandLine{
@@ -21,7 +21,7 @@ td, tr{
 	text-align:center;
 }
 .orderbox{
-	margin: 0 0 0 350px;
+	margin:0 auto;
 }
 </style>
 <script>
@@ -85,7 +85,8 @@ td, tr{
 </table>
 <br><br>
 	<div class="orderbox">
-		<table cellspacing="0" cellpadding="0">
+	<div id="grade"><b id="grade_deco">|</b>주문내역</div>
+		<table class="mytable" cellspacing="0" cellpadding="0">
 			<c:choose>
 				<c:when test="${pageInfo.listCount>0 }">	
 			<tr id="top_menu">

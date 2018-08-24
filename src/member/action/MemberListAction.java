@@ -70,19 +70,19 @@ public class MemberListAction implements Action{
 		   	int startPage = (((int) ((double)page / 10 + 0.9)) - 1) * 10 + 1;
 		    int endPage = startPage+10-1;
 		    
-		   	if (endPage> maxPage) endPage= maxPage;
-		   	
-		   		PageInfo pageInfo = new PageInfo();
-		   		pageInfo.setEndPage(endPage);
-		   		pageInfo.setListCount(listCount);
-				pageInfo.setMaxPage(maxPage);
-				pageInfo.setPage(page);
-				pageInfo.setStartPage(startPage);	
-				request.setAttribute("category", keyword);
-				request.setAttribute("pageInfo", pageInfo);
-				request.setAttribute("userList", userList);
-				forward = new ActionForward();
-				forward.setPath("/admin/userList.jsp");
+			if (endPage > maxPage) endPage = maxPage;
+
+			PageInfo pageInfo = new PageInfo();
+			pageInfo.setEndPage(endPage);
+			pageInfo.setListCount(listCount);
+			pageInfo.setMaxPage(maxPage);
+			pageInfo.setPage(page);
+			pageInfo.setStartPage(startPage);
+			request.setAttribute("category", keyword);
+			request.setAttribute("pageInfo", pageInfo);
+			request.setAttribute("userList", userList);
+			forward = new ActionForward();
+			forward.setPath("/admin/userList.jsp");
 		}
 		return forward;
 	}

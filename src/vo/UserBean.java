@@ -15,6 +15,7 @@ public class UserBean {
 	private String email;
 	private String grade;
 	private String usalt;
+	private int point;
 	
 	public UserBean() {
 		// TODO Auto-generated constructor stub
@@ -127,8 +128,16 @@ public class UserBean {
 		return usalt;
 	}
 
-
 	public void setUsalt(String usalt) {
 		this.usalt = usalt;
 	}
+
+	public int getPoint() {
+		return point;
+	}
+
+	public void setPoint(int point) {
+		this.point = point;
+	}
+	
 }

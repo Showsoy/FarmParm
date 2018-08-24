@@ -10,7 +10,7 @@
 <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
 <title>Insert title here</title>
 <style>
-td, tr{
+td{
 	border: 1px solid #ddd;
 }
 #order-state{
@@ -20,16 +20,16 @@ td, tr{
 }
 </style>
 <script>
-function goto_url(act) {
-	int od_state = document.getElementById("od_state").options[document.getElementById("od_state").selectedIndex].value
-	if(od_state=='삭제'){
+function goto_url(id, page) {
+	var od_state = document.getElementById("od_state").options[document.getElementById("od_state").selectedIndex].value
+	if(od_state=='취소완료'){
 		var flag = confirm('주문을 취소하시겠습니까?');
 		if(flag){
-			document.orderview.action = act;
+			document.orderview.action = "odCancel.od?order_id="+id+"&page="+page;
 			document.orderview.submit();
 		}
 	}else{
-		document.orderview.action = act;
+		document.orderview.action = "odChgState.od?order_id="+id+"&page="+page;
 		document.orderview.submit();
 	}
 }
@@ -60,6 +60,9 @@ function goto_url(act) {
 			<c:when test="${order.state eq '배송완료' }">
 				<img src="../images/shipped.png"><span id="message">고객님의 주문 배송을 완료했습니다.</span>
 			</c:when>
+			<c:when test="${order.state eq '취소신청' }">
+				<img src="../images/cancel.png"><span id="message">취소 신청을 접수했습니다.</span>
+			</c:when>
 			<c:otherwise>
 				<img src="../images/cancel.png"><span id="message">주문이 취소되었습니다.</span>
 			</c:otherwise>
@@ -73,38 +76,45 @@ function goto_url(act) {
 				<option value="결제완료">결제완료</option>
 				<option value="상품출고">상품출고</option>
 				<option value="배송완료">배송완료</option>
-				<option value="취소">취소</option>
+				<option value="취소완료">취소완료</option>
 			</c:if>
 			<c:if test="${order.state eq '결제완료'}">
 				<option value="주문완료">주문완료</option>
 				<option value="결제완료" selected>결제완료</option>
 				<option value="상품출고">상품출고</option>
 				<option value="배송완료">배송완료</option>
-				<option value="취소">취소</option>
+				<option value="취소완료">취소완료</option>
 			</c:if>
 				<c:if test="${order.state eq '상품출고'}">
 				<option value="주문완료">주문완료</option>	
 				<option value="결제완료">결제완료</option>
 				<option value="상품출고" selected>상품출고</option>
 				<option value="배송완료">배송완료</option>
-				<option value="취소">취소</option>
+				<option value="취소완료">취소완료</option>
 			</c:if>
 				<c:if test="${order.state eq '배송완료'}">
 				<option value="주문완료">주문완료</option>
 				<option value="결제완료">결제완료</option>
 				<option value="상품출고">상품출고</option>
 				<option value="배송완료" selected>배송완료</option>
-				<option value="취소">취소</option>
+				<option value="취소완료">취소완료</option>
 			</c:if>
-				<c:if test="${order.state eq '취소'}">
+			<c:if test="${order.state eq '취소신청'}">
 				<option value="주문완료">주문완료</option>
 				<option value="결제완료">결제완료</option>
 				<option value="상품출고">상품출고</option>
 				<option value="배송완료">배송완료</option>
-				<option value="취소" selected>취소</option>
+				<option value="취소완료" selected>취소완료</option>
+			</c:if>
+				<c:if test="${order.state eq '취소완료'}">
+				<option value="주문완료">주문완료</option>
+				<option value="결제완료">결제완료</option>
+				<option value="상품출고">상품출고</option>
+				<option value="배송완료">배송완료</option>
+				<option value="취소완료" selected>취소완료</option>
 			</c:if>
 		</select>
-		<button type="button" id="wbutton" style="width:100px;" onclick="goto_url('odChgState.od?order_id=${order.order_id}&page=${page }');">주문상태변경</button>
+		<button type="button" id="wbutton" style="width:100px;" onclick="goto_url(${order.order_id},${page });">주문상태변경</button>
 		</div>
 	<div id="order_info">
 		<div id="grade"><b id="grade_deco">|</b>결제상품</div>
@@ -172,8 +182,9 @@ function goto_url(act) {
 	<font size="4em"><b>총 결제금액 <b id="grade_deco"><span id="allprice">${order.pay }</span></b>원</b></font></p>
 		</div>
 <br><br>
-		<button id="bbutton" type="button" onclick="history.back()">뒤로가기</button>
-		<button id="bbutton" type="button" onclick="location.href='adminPage.jsp'" style="width:150px;">관리자페이지</button> 
+		<c:if test="${returnURI != null }"><button id="bbutton" type="button" onclick="location.href='${returnURI }';">뒤로가기</button></c:if>
+		<button id="bbutton" type="button" onclick="location.href='odList.od?page=${page}'">주문목록</button>
+		<button id="bbutton" type="button" onclick="location.href='adminPage.jsp'" style="width:120px;">관리자페이지</button> 
 </form>	
 	</div>
 	</div>

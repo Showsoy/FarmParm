@@ -23,7 +23,7 @@ td, tr{
 	<hr color="#4CAF50" size="5">
 	<div class="mypage">
 	<div id="grade"><b id="grade_deco">|</b>${user.grade }</div>
-	<p id="point">사용가능 포인트 <b id="grade_deco">${user.point }</b>점</p>
+	<p id="point">사용가능 포인트 <b id="grade_deco">${user.point }</b>점 <button id="wbutton" onclick="location.href='myPoint.us'">내역조회></button></p>
 	<table class="mytable" cellspacing="0" cellpadding="0">
 	<tr>
 		<td id="td_left"><label for="userID">아이디</label> </td>

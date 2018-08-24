@@ -42,6 +42,7 @@ public class OrderFormAction implements Action {
 			ItemService itemService = new ItemService();
 			
 			UserBean user = userService.selectUserInfo(id);
+			user.setPoint(userService.findRecentPoint(id));
 			ArrayList<OrderViewBean> orderList = new ArrayList<OrderViewBean>();
 			ArrayList<Cart> cartList = cartService.getCartList(request);
 			ItemBean item = null;
@@ -55,9 +56,9 @@ public class OrderFormAction implements Action {
 				}
 			}else if(request.getParameter("type").equals("sel")) {
 				codes = request.getParameterValues("icheck");
-				for(int i=0;i<codes.length;i++) {
-					for(int j=0;j<cartList.size();j++) {
-						if(cartList.get(j).getItem_code().equals(codes[i]))
+				for(int i=0;i<cartList.size();i++) {
+					for(int j=0;j<codes.length;j++) {
+						if(cartList.get(i).getItem_code().equals(codes[j]))
 							orderList.add(new OrderViewBean(0, cartList.get(i).getItem_code(),
 									cartList.get(i).getItem_name(), 
 									cartList.get(i).getSprice(),cartList.get(i).getQty(), date));

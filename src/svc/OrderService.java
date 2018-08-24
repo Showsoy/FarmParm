@@ -36,6 +36,15 @@ public class OrderService {
 		close(conn);
 		return order_id;
 	}
+	public String selectUserId(int order_id) {
+		OrderDAO orderDAO = OrderDAO.getInstance();
+		Connection conn = getConnection();
+		orderDAO.setConnection(conn);
+		String user_id = orderDAO.selectUserId(order_id);
+		
+		close(conn);
+		return user_id;
+	}
 	public boolean takeOrder(OrderBean order, ArrayList<OrderViewBean> orderList, PointBean point1, PointBean point2) {
 		OrderDAO orderDAO = OrderDAO.getInstance();
 		Connection conn = getConnection();
@@ -46,7 +55,7 @@ public class OrderService {
 		UserDAO userDAO = UserDAO.getInstance();
 		userDAO.setConnection(conn);
 		int updateCount1 = userDAO.userPlminusPoint(point1);
-		int updateCount2 = userDAO.userPlminusPoint(point1);
+		int updateCount2 = userDAO.userPlminusPoint(point2);
 		ItemDAO itemDAO = ItemDAO.getInstance();
 		itemDAO.setConnection(conn);
 		int insertCount3 = itemDAO.takeOrderItem(orderList);
@@ -220,23 +229,26 @@ public class OrderService {
 		close(conn);
 		return updateCount;
 	}
-	public int cancelOrder(int order_id, PointBean point1, PointBean point2) {
+	public int cancelOrder(int order_id, PointBean point1, PointBean point2, ArrayList<OrderViewBean> orderList) {
 		OrderDAO orderDAO = OrderDAO.getInstance();
 		Connection conn = getConnection();
 		orderDAO.setConnection(conn);
-		int updateCount = orderDAO.cancelOrder(order_id);
+		int updateCount1 = orderDAO.cancelOrder(order_id);
+		ItemDAO itemDAO = ItemDAO.getInstance();
+		itemDAO.setConnection(conn);
+		int updateCount2 = itemDAO.recoverOrderItem(orderList);
 		UserDAO userDAO = UserDAO.getInstance();
 		userDAO.setConnection(conn);
 		int insertCount1 = userDAO.userPlminusPoint(point1);
 		int insertCount2 = userDAO.userPlminusPoint(point2);
 
-		if(updateCount>0&&insertCount1>0&&insertCount2>0) {
+		if(updateCount1>0&&updateCount2>0&&insertCount1>0&&insertCount2>0) {
 			commit(conn);
 		}else {
 			rollback(conn);
 		}
 		close(conn);
-		return updateCount;
+		return updateCount1;
 	}
 	public boolean isBoughtUser(String item_code, String id, int order_id) {
 		OrderDAO orderDAO = OrderDAO.getInstance();
@@ -256,48 +268,38 @@ public class OrderService {
 		close(conn);
 		return result;
 	}
-	public int salesOrderCount1(String start, String end){
+	public int salesOrderCount(String start, String end){
 		OrderDAO orderDAO = OrderDAO.getInstance();
 		Connection conn = getConnection();
 		orderDAO.setConnection(conn);
-		int listCount = orderDAO.salesOrderCount1(start, end);
+		int listCount = orderDAO.salesOrderCount(start, end);
 		
 		close(conn);
 		return listCount;
 	}
-	public int salesOrderCount2(String date){
+	public int salesItemCount(String start, String end){
 		OrderDAO orderDAO = OrderDAO.getInstance();
 		Connection conn = getConnection();
 		orderDAO.setConnection(conn);
-		int listCount = orderDAO.salesOrderCount2(date);
+		int listCount = orderDAO.salesItemCount(start, end);
 		
 		close(conn);
 		return listCount;
 	}
-	public int salesItemCount1(String start, String end){
+	public ArrayList<OrderBean> salesOrderList(String start, String end, int page) {
 		OrderDAO orderDAO = OrderDAO.getInstance();
 		Connection conn = getConnection();
 		orderDAO.setConnection(conn);
-		int listCount = orderDAO.salesItemCount1(start, end);
+		ArrayList<OrderBean> orderList = orderDAO.salesOrderList(start, end, page);
 		
 		close(conn);
-		return listCount;
+		return orderList;
 	}
-	public int salesItemCount2(String date){
+	public ArrayList<OrderViewBean> salesItemList(String start, String end, String order, int page) {
 		OrderDAO orderDAO = OrderDAO.getInstance();
 		Connection conn = getConnection();
 		orderDAO.setConnection(conn);
-		int listCount = orderDAO.salesItemCount2(date);
-		
-		close(conn);
-		return listCount;
-	}
-	
-	public ArrayList<OrderBean> salesOrderList1(String start, String end, int page) {
-		OrderDAO orderDAO = OrderDAO.getInstance();
-		Connection conn = getConnection();
-		orderDAO.setConnection(conn);
-		ArrayList<OrderBean> orderList = orderDAO.salesOrderList1(start, end, page);
+		ArrayList<OrderViewBean> orderList = orderDAO.salesItemList(start, end, order, page);
 		
 		close(conn);
 		return orderList;
@@ -310,33 +312,6 @@ public class OrderService {
 		
 		close(conn);
 		return salesMap;
-	}
-	public ArrayList<OrderBean> salesOrderList2(String date, int page) {
-		OrderDAO orderDAO = OrderDAO.getInstance();
-		Connection conn = getConnection();
-		orderDAO.setConnection(conn);
-		ArrayList<OrderBean> orderList = orderDAO.salesOrderList2(date, page);
-		
-		close(conn);
-		return orderList;
-	}
-	public ArrayList<OrderViewBean> salesItemList1(String start, String end, String order, int page) {
-		OrderDAO orderDAO = OrderDAO.getInstance();
-		Connection conn = getConnection();
-		orderDAO.setConnection(conn);
-		ArrayList<OrderViewBean> orderList = orderDAO.salesItemList1(start, end, order, page);
-		
-		close(conn);
-		return orderList;
-	}
-	public ArrayList<OrderViewBean> salesItemList2(String date, String order, int page) {
-		OrderDAO orderDAO = OrderDAO.getInstance();
-		Connection conn = getConnection();
-		orderDAO.setConnection(conn);
-		ArrayList<OrderViewBean> orderList = orderDAO.salesItemList2(date, order, page);
-		
-		close(conn);
-		return orderList;
 	}
 	public Map<String, Integer> thisMonthSales(String start, String end) {
 		OrderDAO orderDAO = OrderDAO.getInstance();

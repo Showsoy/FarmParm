@@ -18,7 +18,12 @@ td, tr{
 }
 </style>
 <script>
-
+function orderCancel(){
+	var flag = confirm('주문을 취소하시겠습니까?');
+	if(flag){
+		location.href='myodChg.od?order_id=${order.order_id}&page=${page }&od_state=취소신청'
+	}
+}
 </script>
 </head>
 <link rel="stylesheet" type="text/css" href="../style/style.css">
@@ -46,6 +51,9 @@ td, tr{
 			<c:when test="${order.state eq '배송완료' }">
 				<img src="../images/shipped.png"><span id="message">고객님의 주문 배송을 완료했습니다.</span>
 			</c:when>
+			<c:when test="${order.state eq '취소신청' }">
+				<img src="../images/cancel.png"><span id="message">취소 신청을 접수했습니다.</span>
+			</c:when>
 			<c:otherwise>
 				<img src="../images/cancel.png"><span id="message">주문이 취소되었습니다.</span>
 			</c:otherwise>
@@ -53,9 +61,11 @@ td, tr{
 	</div>
 	<section id="commandCell">
 		<c:if test="${order.state eq '상품출고' }">
-		<button type="button" id="obutton" style="width:70px;" onclick="location.href='myodChg.od?order_id=${order.order_id}&od_state=배송완료'">수취완료</button>
+		<button type="button" id="obutton" style="width:70px;" onclick="location.href='myodChg.od?order_id=${order.order_id}&page=${page }&od_state=배송완료'">수취완료</button>
 		</c:if>
-		<button type="button" id="obutton" style="width:70px;" onclick="location.href='myodChg.od?order_id=${order.order_id}&od_state=취소신청'">주문취소</button>
+		<c:if test="${order.state != '취소' && order.state != '취소신청'}">
+		<button type="button" id="obutton" style="width:70px;" onclick="orderCancel();">주문취소</button>
+		</c:if>
 	</section>
 	<form action="odChgState.od" name="orderview" method="post">
 	<div id="order_info">

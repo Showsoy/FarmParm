@@ -41,11 +41,12 @@ td, tr{
 	}
 
 	function chkForm(f){
-	    if(!doubleSubmitCheck()){
-	    	alert("주문완료");
-	    }
+	    if(doubleSubmitCheck()) alert('중복접근!');
+	    	
+	    else document.orderform.submit();
+	    	
 
-	    document.orderform.submit();
+	    
 	}
 </script>
 </head>

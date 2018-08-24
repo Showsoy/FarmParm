@@ -26,12 +26,13 @@ public class MemberMyPageAction implements Action{
 		else {
 			UserService userService = new UserService();
 			UserBean user = userService.selectUserInfo(user_id);
+			user.setPoint(userService.findRecentPoint(user_id));
 			String email = user.getEmail();
 			String emails[] = new String[2];
 			emails = email.split("@");
 			
 			forward = new ActionForward();
-			
+		
 			request.setAttribute("user", user);
 			request.setAttribute("email1", emails[0]);
 			request.setAttribute("email2", emails[1]);

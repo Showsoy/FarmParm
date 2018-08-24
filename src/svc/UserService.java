@@ -289,20 +289,20 @@ public class UserService {
 		close(conn);
 		return updateCount;
 	}
-	public int myPointListCount(String start, String end) {
+	public int myPointListCount(String id, String start, String end) {
 		Connection conn = getConnection();
 		UserDAO userDAO = UserDAO.getInstance();
 		userDAO.setConnection(conn);
-		int listCount = userDAO.myPointListCount(start, end);
+		int listCount = userDAO.myPointListCount(id, start, end);
 		
 		close(conn);
 		return listCount;
 	}
-	public ArrayList<PointBean> myPointList(String start, String end, int page) {
+	public ArrayList<PointBean> myPointList(String id, String start, String end, int page) {
 		Connection con = getConnection();
 		UserDAO userDAO = UserDAO.getInstance();
 		userDAO.setConnection(con);
-		ArrayList<PointBean> pointList = userDAO.myPointList(start, end, page);
+		ArrayList<PointBean> pointList = userDAO.myPointList(id, start, end, page);
 		close(con);
 		return pointList;
 	}

@@ -86,11 +86,11 @@ public class SalesListAction implements Action {
 			}
 			
 			if(orderby==null) {
-				listCount = orderService.salesOrderCount1(start, end);
-				salesList1 = orderService.salesOrderList1(start, end, page);
+				listCount = orderService.salesOrderCount(start, end);
+				salesList1 = orderService.salesOrderList(start, end, page);
 			}else {
-				listCount = orderService.salesItemCount1(start, end);
-				salesList2 = orderService.salesItemList1(start, end, orderby, page);
+				listCount = orderService.salesItemCount(start, end);
+				salesList2 = orderService.salesItemList(start, end, orderby, page);
 			}
 			if(monthsel!=null) salesMap = orderService.thisMonthSales(start, end);
 			else salesMap = orderService.calculateProfit(start, end);
