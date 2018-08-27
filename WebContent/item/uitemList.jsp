@@ -18,7 +18,8 @@ th, td {
 }
 #orderby{
 	font-size:12px;
-	padding:5px 5px 5px 650px;
+	width:1000px;
+	textl-align:right;
 }
 </style>
 </head>

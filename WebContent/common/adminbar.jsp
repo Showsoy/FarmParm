@@ -25,7 +25,7 @@
     float: right;
 }
 .admbar>ul>li>a:hover {
-    color:#333;
+	background-color:#ddd;
     text-decoration: none;
 }
 .admbar ul {
@@ -37,9 +37,9 @@
 }
 #adminbt{
 	background-color: white;
-	border-top:solid 1px #333;
-	border-left:solid 1px #333;
-	border-right:solid 1px #333;
+	border-top:solid 1px #5D5D5D;
+	border-left:solid 1px #5D5D5D;
+	border-right:solid 1px #5D5D5D;
 }
 </style>
 </head>

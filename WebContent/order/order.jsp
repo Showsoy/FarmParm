@@ -30,18 +30,9 @@ td, tr{
 			document.getElementById("allprice").innerHTML = parseInt(f.totalMoney.value)-parseInt(depoint);
 		}
 	}
-	var doubleSubmitFlag = false;
-	function doubleSubmitCheck(){
-	    if(doubleSubmitFlag){
-	        return doubleSubmitFlag;
-	    }else{
-	        doubleSubmitFlag = true;
-	        return false;
-	    }
-	}
-
 	function chkForm(f){
-	    if(doubleSubmitCheck()) alert('중복접근!');
+		if(doubleSubmitCheck()) return;
+		else alert('중복접근!');
 	    	
 	    else document.orderform.submit();
 	    	

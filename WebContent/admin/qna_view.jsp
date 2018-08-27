@@ -16,9 +16,6 @@
 img{
 	max-width:50%;
 }
-.re{
-	margin: 0 0 0 200px;
-}
 </style>
 <script>
 var doubleSubmitFlag = false;

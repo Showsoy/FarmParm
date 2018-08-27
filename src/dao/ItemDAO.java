@@ -51,9 +51,9 @@ public class ItemDAO {
 			if(rs.next()) {
 				itemViewList = new ArrayList<ItemViewBean>();
 				do {
-					itemViewList.add(new ItemViewBean(rs.getDate("vdate"), rs.getString("item_code"),rs.getString("category"),
+					itemViewList.add(new ItemViewBean(rs.getDate("vdate"), rs.getString("item_code"),
 							rs.getString("img_path"),rs.getString("item_name"),rs.getInt("price"),rs.getInt("sale"),
-							rs.getInt("stock"),rs.getInt("readcount"), rs.getInt("purchase"), rs.getInt("ihide")));
+							rs.getInt("stock"),rs.getInt("readcount"), rs.getInt("purchase")));
 				}while(rs.next());
 			}
 		}catch(Exception e) {
@@ -130,9 +130,9 @@ public class ItemDAO {
 			if(rs.next()) {
 				itemViewList = new ArrayList<ItemViewBean>();
 				do {
-					itemViewList.add(new ItemViewBean(rs.getDate("vdate"), rs.getString("item_code"),rs.getString("category"),
+					itemViewList.add(new ItemViewBean(rs.getDate("vdate"), rs.getString("item_code"),
 							rs.getString("img_path"),rs.getString("item_name"),rs.getInt("price"),rs.getInt("sale"),
-							rs.getInt("stock"),rs.getInt("readcount"), rs.getInt("purchase"), rs.getInt("ihide")));
+							rs.getInt("stock"),rs.getInt("readcount"), rs.getInt("purchase")));
 				}while(rs.next());
 			}
 		}catch(Exception e) {
@@ -156,9 +156,9 @@ public class ItemDAO {
 			if(rs.next()) {
 				itemViewList = new ArrayList<ItemViewBean>();
 				do {
-					itemViewList.add(new ItemViewBean(rs.getDate("vdate"), rs.getString("item_code"),rs.getString("category"),
+					itemViewList.add(new ItemViewBean(rs.getDate("vdate"), rs.getString("item_code"),
 							rs.getString("img_path"),rs.getString("item_name"),rs.getInt("price"),rs.getInt("sale"),
-							rs.getInt("stock"),rs.getInt("readcount"), rs.getInt("purchase"), rs.getInt("ihide")));
+							rs.getInt("stock"),rs.getInt("readcount"), rs.getInt("purchase")));
 				}while(rs.next());
 			}
 		}catch(Exception e) {
@@ -510,29 +510,22 @@ public class ItemDAO {
 			while(rs.next()) {
 				arry.add(Integer.parseInt(rs.getString("item_code").substring(1)));
 			}
-			System.out.println(arry.size());
 			if (arry.size() > 0) {
 				for (int i = 1; i <= arry.get(arry.size() - 1); i++) {
 					for (int j = i - 1; j < arry.size(); j++) {
-						System.out.println(i+","+arry.get(j));
 						if (i == arry.get(j)) {
-							System.out.println("같다.b");
 							break;
 						} else if(i != arry.get(j)) {
-							System.out.println("다르다.b");
 							flag = true;
 							break;
 						}
 					}
 					if(i==arry.get(arry.size()-1)) {
-						System.out.println("생성1");
 						item_code = item_code + String.format("%03d", i+1);
 					}else {
 						if (!flag) {
-							System.out.println("다시.C");
 						}
 						else {
-							System.out.println("생성2");
 							item_code = item_code + String.format("%03d", i);
 							break;
 						}

@@ -321,8 +321,8 @@ footer {
 	display:flex;
 	flex-wrap:wrap;
 	margin:0 auto;
-	padding:20px 0px 0px 150px;
-	width:1200px;
+	padding:20px 0px 0px 0px;
+	width:1000px;
 }
 #container ul{
 	list-style:none;
@@ -369,11 +369,11 @@ footer {
 	text-align:center;
 }
 #goods_container{
-		display:flex;
-		flex-wrap:wrap;
-		margin:0 auto;
-		padding:20px;
-		width:1200px;
+	display:flex;
+	flex-wrap:wrap;
+	margin:0 auto;
+	padding:20px;
+	width:1200px;
 }
 #goods_container ul{
 	    list-style:none;
@@ -627,7 +627,14 @@ th{
 	background-color:#333;
 	color:white;
 	height:20px;
-	padding:0;s
+	padding:0;
+}
+#top_menug{
+	background-color:#F6F6F6;
+	color:#747474;
+	font-weight:700;
+	height:30px;
+	border-top:1px solid #ddd;
 }
 #td_parent{
 	background-color:#F6FFCC;
@@ -680,6 +687,9 @@ th{
 	border-radius:5px;
 	border: 1px solid #D9E5FF;
 }
+.board_table td{
+	padding:5px 20px;
+}
 .page{
 	margin:0 auto;
 	text-align:center;
@@ -693,8 +703,17 @@ th{
 .listtable{
 	margin:0 auto;
 	border:0;
-    width: 80% !important;
+    width: 80%;
 	background-color:white;
+}
+.listtablepx{
+	margin:0 auto;
+	border:0;
+    width: 700px;
+	background-color:white;
+}
+.listtablepx tr{
+	height:40px;
 }
 #paymentform{
 	width:700px;
@@ -843,7 +862,7 @@ th{
 	background-color:#F6F6F6;
 }
 #nowpage{
-	background-color:#8DB72A;
+	background-color:#DC3D3D;
 	color:white;
 	padding:2px 4px;
 }
@@ -854,6 +873,7 @@ th{
 	padding:4px;
 }
 #top_item{
+	position: relative;
 	width:900px;
 	margin:0 auto;
 	background-color:black;
@@ -861,4 +881,8 @@ th{
 	color:white;
 	text-align:left;
 	padding:10px 20px;
+}
+#top_item-right{
+	position:absolute;
+	left:800px;
 }

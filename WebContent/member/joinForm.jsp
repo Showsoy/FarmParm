@@ -10,6 +10,15 @@
 </head>
 <link rel="stylesheet" type="text/css" href="../style/style2.css">
 <script>
+var doubleSubmitFlag = false;
+function doubleSubmitCheck(){
+    if(doubleSubmitFlag){
+        return doubleSubmitFlag;
+    }else{
+        doubleSubmitFlag = true;
+        return false;
+    }
+}
 var chkId = false;
 function chkForm(f){
 	
@@ -67,6 +76,8 @@ function chkForm(f){
 		f.userPhone.focus();
 		return false;
 	}
+	if(doubleSubmitCheck()) return;
+	else alert('중복접근!');
 	//if(f.pass.value.trim()!=f.passChk.value.trim()){f.pass.value="";}
 	document.joinform.submit();
 }

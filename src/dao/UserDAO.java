@@ -48,12 +48,9 @@ public class UserDAO {
 			pstmt.setString(1, id);
 			rs = pstmt.executeQuery();
 			if(rs.next()) {
-				user = new UserBean(rs.getString("user_id"), "", 
-						rs.getString("name"), rs.getString("phone"), 
-						rs.getDate("birth"), rs.getString("gender"), 
-						rs.getString("postcode"), rs.getString("address"), 
-						rs.getString("address_second"), rs.getString("email"), 
-						rs.getString("grade"), "");
+				user = new UserBean(rs.getString("user_id"), rs.getString("name"), rs.getString("phone"), 
+						rs.getDate("birth"), rs.getString("gender"), rs.getString("postcode"), rs.getString("address"), 
+						rs.getString("address_second"), rs.getString("email"), rs.getString("grade"));
 			}
 		}catch(Exception e) {
 			e.printStackTrace();
@@ -86,7 +83,6 @@ public class UserDAO {
 		}
 		return flag;
 	}
-	//로그인
 	public boolean selectLoginId(String id, String pass){
 		boolean token = false;
 		String sql="SELECT * FROM users WHERE user_id=? AND passwd=?";
@@ -230,55 +226,6 @@ public class UserDAO {
 		}
 		return articleList;
 	}
-	//삭제
-	public String selectEmail(String id){
-		String email = null;
-		String sql="SELECT email FROM users WHERE user_id=?";
-		try{
-			pstmt=con.prepareStatement(sql);
-			pstmt.setString(1, id);
-			rs = pstmt.executeQuery();
-			if(rs.next()){
-				email = rs.getString("email");
-			}
-		}catch(Exception e){
-			e.printStackTrace();		
-		}finally{
-			close(rs);
-			close(pstmt);
-		}
-		return email;
-	}
-	//중복
-	public UserBean AdSelectUser(String user_id){
-		String sql="SELECT * FROM users WHERE user_id=?";
-		UserBean ub = null;
-		try{
-			pstmt=con.prepareStatement(sql);
-			pstmt.setString(1, user_id);
-			rs=pstmt.executeQuery();
-			if(rs.next()){
-				ub = new UserBean();
-				ub.setUser_id(rs.getString("user_id"));
-				ub.setPasswd(rs.getString("passwd"));
-				ub.setName(rs.getString("name"));
-				ub.setGrade(rs.getString("grade"));
-				ub.setPhone(rs.getString("phone"));
-				ub.setBirth(rs.getDate("birth"));
-				ub.setGender(rs.getString("gender"));
-				ub.setEmail(rs.getString("email"));
-				ub.setPostcode(rs.getString("postcode"));
-				ub.setAddress(rs.getString("address"));
-				ub.setAddress_second(rs.getString("address_second"));
-			}
-		}catch(Exception e){
-			e.printStackTrace();			
-		}finally{
-			close(rs);
-			close(pstmt);
-		}
-		return ub;
-	}
 	public int updateUserModify(UserBean user) {
 		PreparedStatement pstmt = null;
 		int updateCount = 0;
@@ -305,36 +252,6 @@ public class UserDAO {
 		}
 		return updateCount;
 	}
-	//중복
-	public UserBean selectUser(String user_id){
-		String sql="SELECT * FROM users WHERE user_id=?";
-		UserBean ub = null;
-		try{
-			pstmt=con.prepareStatement(sql);
-			pstmt.setString(1, user_id);
-			rs=pstmt.executeQuery();
-			if(rs.next()){
-				ub = new UserBean();
-				ub.setUser_id(rs.getString("user_id"));
-				ub.setPasswd(rs.getString("passwd"));
-				ub.setName(rs.getString("name"));
-				ub.setPhone(rs.getString("phone"));
-				ub.setBirth(rs.getDate("birth"));
-				ub.setGender(rs.getString("gender"));
-				ub.setPostcode(rs.getString("postcode"));
-				ub.setAddress(rs.getString("address"));
-				ub.setAddress_second(rs.getString("address_second"));
-				ub.setEmail(rs.getString("email"));
-				ub.setGrade(rs.getString("grade"));
-			}
-		}catch(Exception e){
-			e.printStackTrace();		
-		}finally{
-			close(rs);
-			close(pstmt);
-		}
-		return ub;
-	}
 	public boolean modifyPwCheck(String users, String pw){
 		boolean modifyPw = false;
 		String sql="SELECT passwd FROM users WHERE user_id=? and passwd=?";
@@ -353,34 +270,6 @@ public class UserDAO {
 			close(pstmt);
 		}
 		return modifyPw;
-	}
-	//중복
-	public UserBean myModForm(String user_id){
-		String sql="SELECT * FROM users WHERE user_id=?";
-		UserBean ub = null;
-		try{
-			pstmt=con.prepareStatement(sql);
-			pstmt.setString(1, user_id);
-			rs=pstmt.executeQuery();
-			if(rs.next()){
-				ub = new UserBean();
-				ub.setUser_id(rs.getString("user_id"));
-				ub.setName(rs.getString("name"));
-				ub.setPhone(rs.getString("phone"));
-				ub.setBirth(rs.getDate("birth"));
-				ub.setGender(rs.getString("gender"));
-				ub.setEmail(rs.getString("email"));
-				ub.setPostcode(rs.getString("postcode"));
-				ub.setAddress(rs.getString("address"));
-				ub.setAddress_second(rs.getString("address_second"));
-			}
-		}catch(Exception e){
-			e.printStackTrace();		
-		}finally{
-			close(rs);
-			close(pstmt);
-		}
-		return ub;
 	}
 	public int updateMyModify(UserBean users) {
 		PreparedStatement pstmt = null;

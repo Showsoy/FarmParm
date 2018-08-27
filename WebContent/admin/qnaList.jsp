@@ -76,7 +76,7 @@ img{
 						
 					</c:if>
 					<c:if test="${pageInfo.page>1 }">
-						<a href="qnaList.bo?page=${pageInfo.page-1}<c:out value="${keyword !=null ? '&keyword=' : '' }"/>${keyword}"><span id="pagebn"><</span></a>
+						<a href="qnaList.bo?page=${pageInfo.page-1}<c:out value="${std !=null ? '&std=' : '' }"/>${std}<c:out value="${keyword !=null ? '&keyword=' : '' }"/>${keyword}"><span id="pagebn"><</span></a>
 					</c:if>
 					
 					<c:forEach var="a" begin="${pageInfo.startPage }" end="${pageInfo.endPage }" step="1">
@@ -85,7 +85,7 @@ img{
 								<span id="nowpage">${a }</span>
 							</c:when>
 							<c:otherwise>
-								<a href="qnaList.bo?page=${a }<c:out value="${keyword !=null ? '&keyword=' : '' }"/>${keyword}">&nbsp;${a }&nbsp;</a>
+								<a href="qnaList.bo?page=${a }<c:out value="${std !=null ? '&std=' : '' }"/>${std}<c:out value="${keyword !=null ? '&keyword=' : '' }"/>${keyword}">&nbsp;${a }&nbsp;</a>
 							</c:otherwise>
 						</c:choose>
 					</c:forEach>
@@ -94,7 +94,7 @@ img{
 							
 						</c:when>
 						<c:otherwise>
-							<a href="qnaList.bo?page=${pageInfo.page+1 }<c:out value="${keyword !=null ? '&keyword=' : '' }"/>${keyword}"><span id="pagebn">></span></a>
+							<a href="qnaList.bo?page=${pageInfo.page+1 }<c:out value="${std !=null ? '&std=' : '' }"/>${std}<c:out value="${keyword !=null ? '&keyword=' : '' }"/>${keyword}"><span id="pagebn">></span></a>
 						</c:otherwise>
 					</c:choose>
 				</td>
@@ -108,10 +108,10 @@ img{
 		<br>
 		<section id="commandCellp">
 			<form action="qnaList.bo" name="qnasearch" method="post">
-				<select name="qna_search" id="qna_search">
-					<option value="제목">제목</option>
-					<option value="내용">내용</option>
-					<option value="상품">상품명</option>
+				<select name="std" id="std">
+					<option value="subject" <c:out value="${std eq 'subject' ? 'selected' : '' }"/>>제목</option>
+					<option value="content" <c:out value="${std eq 'content' ? 'selected' : '' }"/>>제목+내용</option>
+					<option value="item_name" <c:out value="${std eq 'item_name' ? 'selected' : '' }"/>>상품명</option>
 				</select>
 				<input type="text" id="keyword" name="keyword" size="15"/>
 				<button type="submit" id="wbutton">검색</button>

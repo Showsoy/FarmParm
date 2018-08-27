@@ -42,7 +42,7 @@ th{
 		<td colspan="3">${item.category } | ${item.item_name }</td>
 	</tr>
 	<tr>
-		<th rowspan="9"><img src="../images/${item.img_path }" width="300px"></th>
+		<th rowspan="8"><img src="../images/${item.img_path }" width="300px"></th>
 		<td id="td_left">분류</td>
 		<td>${item.category }</td>
 	</tr>
@@ -56,7 +56,7 @@ th{
 	</tr>
 	<tr>
 		<td id="td_left">재고</td>
-		<td>${item.readcount }</td>
+		<td>${item.readcount }개</td>
 	</tr>
 	<tr>
 		<td id="td_left">원산지</td>
@@ -64,11 +64,11 @@ th{
 	</tr>
 	<tr>
 		<td id="td_left">가격</td>
-		<td>${item.price }</td>
+		<td>${item.price }원</td>
 	</tr>
 	<tr>
 		<td id="td_left">할인</td>
-		<td>${item.sale }</td>
+		<td>${item.sale }%</td>
 	</tr>
 	<tr>
 		<td id="td_left">상태</td>
@@ -84,12 +84,11 @@ th{
 		</td>
 	</tr>
 	<tr>
-		<td colspan="3" id="td_info"><button id="bbutton" onclick="location.href='itemEnterForm.im?item_code=${item.item_code}'">입출고등록</button></td>
-	</tr>
-	<tr>
-		<td colspan="3" id="td_info"><button id="bbutton" onclick="location.href='itemModForm.im?item_code=${item.item_code}'">수정하기</button> 
-	
-			<button id="bbutton" onclick="deleteCheck('${item.item_code}');">삭제하기</button></td>
+		<td colspan="3" id="td_info">
+		<button id="bbutton" onclick="location.href='../uitemView.im?item_code=${item.item_code}'">상품페이지</button>
+		<button id="bbutton" onclick="location.href='itemEnterForm.im?item_code=${item.item_code}'">입출고등록</button>
+		<button id="bbutton" onclick="location.href='itemModForm.im?item_code=${item.item_code}'">수정하기</button> 
+		<button id="bbutton" onclick="deleteCheck('${item.item_code}');">삭제하기</button></td>
 	</tr>
 </table>
 <br><br>
@@ -133,8 +132,8 @@ ${item.content }
 				<td>${stock.item_code }</td>
 				<td>${stock.idate }</td>
 				<td>${stock.state }</td>
-				<td>${stock.amount }</td>
-				<td>${stock.stock }</td>
+				<td>${stock.amount }개</td>
+				<td>${stock.stock }개</td>
 			</tr>
 			</c:forEach>
 			<tr>

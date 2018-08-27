@@ -34,12 +34,11 @@ public class MemberAdModifyFormAction implements Action{
 			String uid = request.getParameter("uid");
 
 			UserService userService = new UserService();
-		
-			String email = userService.email(uid); //user.getEmail();
+			forward = new ActionForward();
+			UserBean user = userService.selectUserInfo(uid);
+			String email = user.getEmail();
 			String emails[] = new String[2];
 			emails = email.split("@");
-			forward = new ActionForward();
-			UserBean user = userService.modifyUserForm(uid);
 			request.setAttribute("user", user);
 			request.setAttribute("email1", emails[0]);
 			request.setAttribute("email2", emails[1]);

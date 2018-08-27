@@ -1,8 +1,8 @@
 package vo;
 
 public class OrderItemBean {
-	private String item_code;
-	private int order_id;
+	private final String item_code;
+	private final int order_id;
 	private int amount;
 	private int price;
 	
@@ -17,14 +17,8 @@ public class OrderItemBean {
 	public String getItem_code() {
 		return item_code;
 	}
-	public void setItem_code(String item_code) {
-		this.item_code = item_code;
-	}
 	public int getOrder_id() {
 		return order_id;
-	}
-	public void setOrder_id(int order_id) {
-		this.order_id = order_id;
 	}
 	public int getAmount() {
 		return amount;

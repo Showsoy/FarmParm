@@ -55,7 +55,7 @@ function chkForm(f){
 		}
 	}
 	if(doubleSubmitCheck()) return;
-	alert("등록되었습니다.");
+	else alert('중복접근!');
 	
 	document.joinform.submit();
 }

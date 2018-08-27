@@ -13,7 +13,6 @@ import vo.Util;
 
 public class MemberJoinAction  implements Action{
 	public ActionForward execute(HttpServletRequest request, HttpServletResponse response)throws Exception{
-		UserBean users = new UserBean();
    		boolean joinResult=false;
    		Util util = new Util();
 		Date birth = util.transformDate(request.getParameter("userBirth"));
@@ -21,21 +20,12 @@ public class MemberJoinAction  implements Action{
 		String passwd = Util.getPassword(request.getParameter("userPass"), salt);
 		String email = request.getParameter("userEmailId") +"@"+ request.getParameter("userEmailAd");
    		
-   		users.setUser_id(request.getParameter("userID"));
-   		users.setPasswd(passwd);
-   		users.setName(request.getParameter("userName"));
-   		users.setPhone(request.getParameter("userPhone"));
-   		users.setBirth(birth);
-   		users.setGender(request.getParameter("userGen"));
-   		users.setPostcode(request.getParameter("userAddr1"));
-   		users.setAddress(request.getParameter("userAddr2"));
-   		users.setAddress_second(request.getParameter("userAddr3"));
-   		users.setEmail(email);
-   		users.setGrade("일반회원");
-   		users.setUsalt(salt);
+		UserBean user = new UserBean(request.getParameter("userID"), passwd, request.getParameter("userName"), request.getParameter("userPhone"),
+				birth, request.getParameter("userGen"), request.getParameter("userAddr1"), request.getParameter("userAddr2"),
+				request.getParameter("userAddr3"), email, "일반회원", salt, 1000);
    		
    		UserService userService = new UserService();
-   		joinResult = userService.joinUser(users);
+   		joinResult = userService.joinUser(user);
    		ActionForward forward = null;
    		
    		if(joinResult==false){
@@ -47,7 +37,7 @@ public class MemberJoinAction  implements Action{
    			out.println("</script>");
 	   	}
    		else{
-   			PointBean point = new PointBean(request.getParameter("userID"), 0, "가입감사", 1, 1000);
+   			PointBean point = new PointBean(request.getParameter("userID"), 0, "가입감사", 1, user.getPoint());
    			int insertCount = userService.userPlminusPoint(point);
    			if(insertCount>0) {
    				forward = new ActionForward();

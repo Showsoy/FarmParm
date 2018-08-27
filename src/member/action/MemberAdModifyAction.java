@@ -38,10 +38,10 @@ public class MemberAdModifyAction implements Action {
 			Util util = new Util();
 			Date birth = util.transformDate(request.getParameter("userBirth"));
 			String email = (request.getParameter("userEmailId") + "@" + request.getParameter("userEmailAd"));
-			UserBean user = new UserBean(uid, "", request.getParameter("userName"), request.getParameter("userPhone"),
+			UserBean user = new UserBean(uid, request.getParameter("userName"), request.getParameter("userPhone"),
 					birth, request.getParameter("userGen"), request.getParameter("userAddr1"),
-					request.getParameter("userAddr2"), request.getParameter("userAddr3"), email,
-					request.getParameter("userGrade"), "");
+					request.getParameter("userAddr2"), request.getParameter("userAddr3"), email, 
+					request.getParameter("userGrade"));
 			boolean isRegistSuccess = userService.modifyUsers(user);
 
 			if (isRegistSuccess) {

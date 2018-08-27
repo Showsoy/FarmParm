@@ -48,6 +48,8 @@ function chkForm(f){
 		f.userPhone.focus();
 		return false;
 	}
+	if(doubleSubmitCheck()) return;
+	else alert('중복접근!');
 	//if(f.pass.value.trim()!=f.passChk.value.trim()){f.pass.value="";}
 	document.joinform.submit();
 }

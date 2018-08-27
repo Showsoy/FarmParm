@@ -33,6 +33,8 @@ function chkForm(f){
 			return false;
 		}
 	}
+	if(doubleSubmitCheck()) return;
+	else alert('중복접근!');
 	document.joinform.submit();
 }
 </script>

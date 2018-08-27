@@ -8,14 +8,11 @@
 <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
 <title>Insert title here</title>
 <style>
-td{
+.mytable td{
 	border: 1px solid #ddd;
 }
-#commandLine{
-	margin:0 auto;
-	width:750px;
-	padding:0 0 5px 590px;
-	text-aling:right;
+.listtablepx td{
+    border-bottom: 1px solid #ddd;
 }
 #td_info{
 	text-align:center;
@@ -45,10 +42,10 @@ td{
 	<hr color="#4CAF50" size="5">
 	<div class="mypage">
 	<div id="grade"><b id="grade_deco">|</b>${user.grade }</div>
-	<div id="commandLine">
+	<section id="commandCell">
 		<button id="wbutton" onclick="location.href='./memberModAdForm.us?uid=${user.user_id}'">수정</button> 
 		<button id="wbutton" onclick="deleteCheck('${user.user_id}');">삭제</button> 
-	</div>
+	</section>
 	<table class="mytable" cellspacing="0" cellpadding="0">
 	<tr>
 		<td id="td_left"><label for="userID">아이디</label> </td>
@@ -86,10 +83,10 @@ td{
 <br><br>
 	<div class="orderbox">
 	<div id="grade"><b id="grade_deco">|</b>주문내역</div>
-		<table class="mytable" cellspacing="0" cellpadding="0">
+		<table class="listtablepx" cellspacing="0" cellpadding="0">
 			<c:choose>
 				<c:when test="${pageInfo.listCount>0 }">	
-			<tr id="top_menu">
+			<tr id="top_menug">
 				<td>주문번호</td>
 				<td>주문일시</td>
 				<td>결제금액</td>

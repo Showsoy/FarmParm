@@ -120,8 +120,8 @@ public class BoardDAO {
 		int listCount = 0;
 		PreparedStatement pstmt = null;
 		ResultSet rs = null;
-		String sql = "SELECT COUNT(*) FROM cs_board WHERE rstep=1 AND "+category+" LIKE '%"+keyword+"%'";
-		if(category.equals("content")) sql = "SELECT COUNT(*) FROM cs_board WHERE rstep=1 AND content LIKE '%"+keyword+"%' OR subject LIKE '%"+keyword+"%'";
+		String sql = category.equals("content") ? "SELECT COUNT(*) FROM cs_board WHERE rstep=1 AND content LIKE '%"+keyword+"%' OR subject LIKE '%"+keyword+"%'":
+			"SELECT COUNT(*) FROM cs_board WHERE rstep=1 AND "+category+" LIKE '%"+keyword+"%'";
 		
 		try {
 			pstmt = conn.prepareStatement(sql);
@@ -143,12 +143,10 @@ public class BoardDAO {
 		int listCount = 0;
 		PreparedStatement pstmt = null;
 		ResultSet rs = null;
-		String sql = "SELECT COUNT(*) FROM review_board a LEFT JOIN items b ON a.item_code = b.item_code"
-				+ " WHERE rstep = 1 AND "+standard+" LIKE '%"+keyword+"%'";
-		if(standard.equals("content")) {
-			sql = "SELECT COUNT(*) FROM review_board a LEFT JOIN items b ON a.item_code = b.item_code"
-					+ " WHERE rstep = 1 AND a.subject LIKE '%"+keyword+"%' OR a.content LIKE '%"+keyword+"%'";
-		}
+		String sql = !standard.equals("content") ? "SELECT COUNT(*) FROM review_board a LEFT JOIN items b ON a.item_code = b.item_code"
+				+ " WHERE rstep = 1 AND "+standard+" LIKE '%"+keyword+"%'"
+				: "SELECT COUNT(*) FROM review_board a LEFT JOIN items b ON a.item_code = b.item_code"
+				+ " WHERE rstep = 1 AND a.subject LIKE '%"+keyword+"%' OR a.content LIKE '%"+keyword+"%'";
 		
 		try {
 			pstmt = conn.prepareStatement(sql);
@@ -166,24 +164,14 @@ public class BoardDAO {
 		
 		return listCount;
 	}
-	public int searchQnACount(String keyword, String qna_search) {
+	public int searchQnACount(String keyword, String standard) {
 		int listCount = 0;
 		PreparedStatement pstmt = null;
 		ResultSet rs = null;
-		String sql="";
-		
-		if(qna_search.equals("상품")) {
-			sql = "SELECT COUNT(*) FROM qna_board a LEFT JOIN items b ON a.item_code = b.item_code"
-					+ " WHERE rstep = 1 AND b.item_name LIKE '%"+keyword+"%'";
-		}else if(qna_search.equals("제목")) {
-			sql = "SELECT COUNT(*) FROM qna_board a LEFT JOIN items b ON a.item_code = b.item_code"
-					+ " WHERE rstep = 1 AND a.subject LIKE '%"+keyword+"%'";
-		}else if(qna_search.equals("내용")) {
-			sql = "SELECT COUNT(*) FROM qna_board a LEFT JOIN items b ON a.item_code = b.item_code"
-			+ " WHERE rstep = 1 AND a.content LIKE '%"+keyword+"%'";	
-		}
-		
-	
+		String sql = !standard.equals("content") ? "SELECT COUNT(*) FROM qna_board a LEFT JOIN items b ON a.item_code = b.item_code"
+				+ " WHERE rstep = 1 AND "+standard+" LIKE '%"+keyword+"%'"
+				: "SELECT COUNT(*) FROM qna_board a LEFT JOIN items b ON a.item_code = b.item_code"
+				+ " WHERE rstep = 1 AND a.subject LIKE '%"+keyword+"%' OR a.content LIKE '%"+keyword+"%'";
 		
 		try {
 			pstmt = conn.prepareStatement(sql);
@@ -227,7 +215,7 @@ public class BoardDAO {
 	public ArrayList<BoardBean> selectNoticeList(int page){
 		PreparedStatement pstmt = null;
 		ResultSet rs = null;
-		String sql = "SELECT * FROM notice ORDER BY bnum DESC LIMIT ?,10";
+		String sql = "SELECT bnum, subject, img_path, ndate, readcount FROM notice ORDER BY bnum DESC LIMIT ?,10";
 		ArrayList<BoardBean> articleList = new ArrayList<BoardBean>();
 		BoardBean board = null;
 		int startrow = (page-1)*10;
@@ -238,9 +226,7 @@ public class BoardDAO {
 			rs = pstmt.executeQuery();
 			
 			while(rs.next()) {
-				board = new BoardBean(rs.getInt("bnum"), null, null, 
-						rs.getString("content"), rs.getString("subject"), rs.getString("img_path"), 
-						0, rs.getDate("ndate"), rs.getInt("readcount"), 0, 0);
+				board = new BoardBean(rs.getInt("bnum"), "", rs.getString("subject"), "", rs.getDate("ndate"), rs.getInt("readcount"));
 				articleList.add(board);
 				
 			}
@@ -256,7 +242,7 @@ public class BoardDAO {
 	public ArrayList<BoardBean> searchNoticeList(String keyword, int page){
 		PreparedStatement pstmt = null;
 		ResultSet rs = null;
-		String sql = "SELECT * FROM notice WHERE content LIKE '%"+keyword+"%' OR subject LIKE '%"+keyword+"%' ORDER BY bnum DESC LIMIT ?,10";
+		String sql = "SELECT bnum, content, subject, img_path, ndate, readcount FROM notice WHERE content LIKE '%"+keyword+"%' OR subject LIKE '%"+keyword+"%' ORDER BY bnum DESC LIMIT ?,10";
 		ArrayList<BoardBean> articleList = new ArrayList<BoardBean>();
 		BoardBean board = null;
 		int startrow = (page-1)*10;
@@ -267,9 +253,7 @@ public class BoardDAO {
 			rs = pstmt.executeQuery();
 			
 			while(rs.next()) {
-				board = new BoardBean(rs.getInt("bnum"), null, null, 
-						rs.getString("content"), rs.getString("subject"), rs.getString("img_path"), 
-						0, rs.getDate("ndate"), rs.getInt("readcount"), 0, 0);
+				board = new BoardBean(rs.getInt("bnum"), "", rs.getString("subject"), "", rs.getDate("ndate"), rs.getInt("readcount"));
 				articleList.add(board);
 				
 			}
@@ -314,8 +298,8 @@ public class BoardDAO {
 	public ArrayList<BoardBean> searchCsBoardList(String category, String keyword, int page){
 		PreparedStatement pstmt = null;
 		ResultSet rs = null;
-		String sql = "SELECT bnum, hide, substring(user_id,1,3) as user_id, content, subject, img_path, has_re, cdate, rgroup, rstep FROM cs_board WHERE rstep=1 AND ("+category+" LIKE '%"+keyword+"%') ORDER BY rgroup DESC, rstep ASC LIMIT ?,10";
-		if(category.equals("content")) sql = "SELECT bnum, hide, substring(user_id,1,3) as user_id, content, subject, img_path, has_re, cdate, rgroup, rstep FROM cs_board WHERE rstep=1 AND (content LIKE '%"+keyword+"%' OR subject LIKE '%"+keyword+"%') ORDER BY rgroup DESC, rstep ASC LIMIT ?,10";
+		String sql = category.equals("content") ? "SELECT bnum, hide, substring(user_id,1,3) as user_id, content, subject, img_path, has_re, cdate, rgroup, rstep FROM cs_board WHERE rstep=1 AND (content LIKE '%"+keyword+"%' OR subject LIKE '%"+keyword+"%') ORDER BY rgroup DESC, rstep ASC LIMIT ?,10"
+				: "SELECT bnum, hide, substring(user_id,1,3) as user_id, content, subject, img_path, has_re, cdate, rgroup, rstep FROM cs_board WHERE rstep=1 AND ("+category+" LIKE '%"+keyword+"%') ORDER BY rgroup DESC, rstep ASC LIMIT ?,10";
 		ArrayList<BoardBean> articleList = new ArrayList<BoardBean>();
 		BoardBean board = null;
 		int startrow = (page-1)*10;
@@ -348,7 +332,6 @@ public class BoardDAO {
 		ResultSet rs2 = null;
 		PreparedStatement pstmt3 = null;
 		ResultSet rs3 = null;
-		//10 8 7 7 5 /4 / 2 1  
 		String sql1 = "SELECT has_re FROM review_board WHERE item_code = ? AND rstep=1 ORDER BY rgroup DESC, rstep ASC LIMIT ?,5";
 		String sql2 = "SELECT bnum, item_code, substring(user_id,1,3) as user_id, content, subject, img_path, has_re, rdate, order_id, rgroup, rstep FROM review_board WHERE item_code = ? ORDER BY rgroup DESC, rstep ASC LIMIT ?,?";
 		ArrayList<BoardBean> articleList = new ArrayList<BoardBean>();
@@ -414,7 +397,7 @@ public class BoardDAO {
 			while(rs.next()) {
 				board = new BoardBean(rs.getInt("bnum"), rs.getString("item_code"), 
 						rs.getString("user_id"), rs.getString("item_name"), rs.getString("subject"), 
-						"", rs.getInt("has_re"), rs.getDate("rdate"), 0, 0, 0);
+						rs.getInt("has_re"), rs.getDate("rdate"));
 				articleList.add(board);
 			}
 		}catch(Exception e) {
@@ -504,8 +487,8 @@ public class BoardDAO {
 			
 			while(rs.next()) {
 				board = new BoardBean(rs.getInt("bnum"), rs.getString("item_code"), 
-						rs.getString("user_id"), rs.getString("item_name"), rs.getString("subject"), "", 
-						rs.getInt("has_re"), rs.getDate("qdate"), rs.getInt("qhide"), 0, 0);
+						rs.getString("user_id"), rs.getString("item_name"), rs.getString("subject"), 
+						rs.getInt("has_re"), rs.getDate("qdate"), rs.getInt("qhide"));
 				articleList.add(board);
 			}
 		}catch(Exception e) {
@@ -555,8 +538,8 @@ public class BoardDAO {
 			
 			while(rs.next()) {
 				board = new BoardBean(rs.getInt("bnum"), rs.getString("item_code"), 
-						rs.getString("user_id"), rs.getString("item_name"), rs.getString("subject"), "", 
-						rs.getInt("has_re"), rs.getDate("qdate"), rs.getInt("qhide"), 0, 0);
+						rs.getString("user_id"), rs.getString("item_name"), rs.getString("subject"),
+						rs.getInt("has_re"), rs.getDate("qdate"), rs.getInt("qhide"));
 				articleList.add(board);
 			}
 		}catch(Exception e) {
@@ -571,12 +554,10 @@ public class BoardDAO {
 	public ArrayList<BoardBean> searchReviewList(String keyword, int page, String standard) {
 		PreparedStatement pstmt = null;
 		ResultSet rs = null;
-		String sql = "SELECT bnum, a.item_code, substring(user_id,1,3) as user_id, item_name, subject, has_re, rdate FROM review_board a LEFT JOIN items b ON a.item_code = b.item_code"
-				+ " WHERE rstep = 1 AND "+standard+" LIKE '%"+keyword+"%' ORDER BY rdate DESC LIMIT ?,10";
-		if(standard.equals("content")) {
-			sql = "SELECT bnum, a.item_code, substring(user_id,1,3) as user_id, item_name, subject, has_re, rdate FROM review_board a LEFT JOIN items b ON a.item_code = b.item_code"
+		String sql = !standard.equals("content") ? "SELECT bnum, a.item_code, substring(user_id,1,3) as user_id, item_name, subject, has_re, rdate FROM review_board a LEFT JOIN items b ON a.item_code = b.item_code"
+				+ " WHERE rstep = 1 AND "+standard+" LIKE '%"+keyword+"%' ORDER BY rdate DESC LIMIT ?,10"
+				: "SELECT bnum, a.item_code, substring(user_id,1,3) as user_id, item_name, subject, has_re, rdate FROM review_board a LEFT JOIN items b ON a.item_code = b.item_code"
 					+ " WHERE rstep = 1 AND a.subject LIKE '%"+keyword+"%' OR a.content LIKE '%"+keyword+"%' ORDER BY rdate DESC LIMIT ?,10";
-		}
 		
 		ArrayList<BoardBean> articleList = new ArrayList<BoardBean>();
 		BoardBean board = null;
@@ -590,7 +571,7 @@ public class BoardDAO {
 			while(rs.next()) {
 				board = new BoardBean(rs.getInt("bnum"), rs.getString("a.item_code"), 
 						rs.getString("user_id"), rs.getString("item_name"), rs.getString("subject"), 
-						"", rs.getInt("has_re"), rs.getDate("rdate"), 0, 0, 0);
+						rs.getInt("has_re"), rs.getDate("rdate"));
 				articleList.add(board);
 			}
 		}catch(Exception e) {
@@ -602,20 +583,11 @@ public class BoardDAO {
 		
 		return articleList;
 	}
-	public ArrayList<BoardBean> searchQnAList(String keyword, int page, String qna_search) {
+	public ArrayList<BoardBean> searchQnAList(String keyword, int page, String standard) {
 		PreparedStatement pstmt = null;
 		ResultSet rs = null;
-		String sql ="";
-		if(qna_search.equals("상품")) {
-			sql = "SELECT bnum, a.item_code, substring(user_id,1,3) as user_id, item_name, subject, has_re, qdate, qhide FROM qna_board a LEFT JOIN items b ON a.item_code = b.item_code"
-					+ " WHERE rstep = 1 AND (b.item_name LIKE '%"+keyword+"%') LIMIT ?,10";
-		}else if(qna_search.equals("제목")) {
-			sql = "SELECT bnum, a.item_code, substring(user_id,1,3) as user_id, item_name, subject, has_re, qdate, qhide FROM qna_board a LEFT JOIN items b ON a.item_code = b.item_code"
-					+ " WHERE rstep = 1 AND (a.subject LIKE '%"+keyword+"%') LIMIT ?,10";
-		}else if(qna_search.equals("내용")) {
-			sql = "SELECT bnum, a.item_code, substring(user_id,1,3) as user_id, item_name, subject, has_re, qdate, qhide FROM qna_board a LEFT JOIN items b ON a.item_code = b.item_code"
-					+ " WHERE rstep = 1 AND (a.content LIKE '%"+keyword+"%') LIMIT ?,10";
-		}
+		String sql = !standard.equals("content") ? "SELECT bnum, a.item_code, substring(user_id,1,3) as user_id, item_name, subject, has_re, qdate, qhide FROM qna_board a LEFT JOIN items b ON a.item_code = b.item_code WHERE rstep = 1 AND "+standard+" LIKE '%"+keyword+"%' ORDER BY qdate DESC LIMIT ?,10"
+					: "SELECT bnum, a.item_code, substring(user_id,1,3) as user_id, item_name, subject, has_re, qdate, qhide FROM qna_board a LEFT JOIN items b ON a.item_code = b.item_code WHERE rstep = 1 AND a.subject LIKE '%"+keyword+"%' OR a.content LIKE '%"+keyword+"%' ORDER BY qdate DESC LIMIT ?,10";
 		
 		ArrayList<BoardBean> articleList = new ArrayList<BoardBean>();
 		BoardBean board = null;
@@ -629,7 +601,7 @@ public class BoardDAO {
 			while(rs.next()) {
 				board = new BoardBean(rs.getInt("bnum"), rs.getString("a.item_code"), 
 						rs.getString("user_id"), rs.getString("item_name"), rs.getString("subject"), 
-						"", rs.getInt("has_re"), rs.getDate("qdate"), rs.getInt("qhide"), 0, 0);
+						rs.getInt("has_re"), rs.getDate("qdate"), rs.getInt("qhide"));
 				articleList.add(board);
 			}
 		}catch(Exception e) {
@@ -644,7 +616,7 @@ public class BoardDAO {
 	public BoardBean selectNotice(int board_num) {
 		PreparedStatement pstmt = null;
 		ResultSet rs = null;
-		String sql = "SELECT * FROM notice WHERE bnum = ?";
+		String sql = "SELECT bnum, content, subject, img_path, ndate, readcount FROM notice WHERE bnum = ?";
 		BoardBean board = null;
 		
 		try {
@@ -653,9 +625,7 @@ public class BoardDAO {
 			rs = pstmt.executeQuery();
 			
 			if(rs.next()) {
-				board = new BoardBean(rs.getInt("bnum"), null, null, 
-						rs.getString("content"), rs.getString("subject"), rs.getString("img_path"), 
-						0, rs.getDate("ndate"), rs.getInt("readcount"), 0, 0);
+				board = new BoardBean(rs.getInt("bnum"), rs.getString("content"), rs.getString("subject"), rs.getString("img_path"), rs.getDate("ndate"), rs.getInt("readcount"));
 				
 			}
 		}catch(Exception e) {

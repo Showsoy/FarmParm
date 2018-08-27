@@ -45,6 +45,7 @@ function chkForm(f){
 			return false;
 		}
 	}
+	if(doubleSubmitCheck()) return;
 	document.joinform.submit();
 }
 function selCategory(sel) {

@@ -45,7 +45,7 @@
 		<button id="bbutton" onclick="location.href='./odList.od'">주문목록</button>
 		<button id="bbutton" onclick="location.href='./salesList.od'">매출관리</button><br>
 		<button id="bbutton" onclick="location.href='./qnaList.bo'">상품문의</button>
-		<button id="bbutton" onclick="location.href='#'">주문취소</button>
+		<button id="bbutton" onclick="location.href='#'">#</button>
 	</div>
 </div>
 </div>

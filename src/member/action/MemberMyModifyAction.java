@@ -22,15 +22,8 @@ public class MemberMyModifyAction implements Action{
 		Date birth = util.transformDate(request.getParameter("userBirth"));
 		String email = (request.getParameter("userEmailId") +"@"+ request.getParameter("userEmailAd"));
 
-			UserBean user = new UserBean();
-			user.setPhone(request.getParameter("userPhone"));
-			user.setBirth(birth);
-			user.setGender(request.getParameter("userGen"));
-			user.setPostcode(request.getParameter("userAddr1"));
-			user.setAddress(request.getParameter("userAddr2"));
-			user.setAddress_second(request.getParameter("userAddr3"));
-			user.setEmail(email);
-			user.setUser_id(id);
+			UserBean user = new UserBean(id, request.getParameter("userPhone"), birth, request.getParameter("userGen"), 
+					request.getParameter("userAddr1"), request.getParameter("userAddr2"), request.getParameter("userAddr3"), email);
 			
 			ActionForward forward = null;
 			boolean isRegistSuccess = userService.modifyMy(user);
@@ -40,14 +33,8 @@ public class MemberMyModifyAction implements Action{
 				PrintWriter out = response.getWriter();
 				out.println("<script>");
 				out.println("alert('수정되었습니다.');");
-				/*out.println("document.id.action='/FarmParm/member/myPage.jsp';");
-				out.println("document.id.submit();");*/
 				out.println("location.href='/FarmParm/myPage.us';");
 				out.println("</script>");
-				
-				/*forward = new ActionForward();
-				forward.setRedirect(false);
-				forward.setPath("/myPage.us?id="+id);*/
 			}else{
 				try {
 				response.setContentType("text/html;charset=UTF-8");

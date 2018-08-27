@@ -94,7 +94,12 @@ pageContext.setAttribute("uprice", uprice);
 	<form method="post" name="itemform">
 	<div id="top_item">
 	<a href="./uitemList.im?category=${item.category }"><b>${item.category }</b></a>
-	| ${item.item_name }</div><br>
+	| ${item.item_name }
+	<c:if test="${id eq 'admin' }">
+	<span id="top_item-right">
+	<a href="./admin/itemView.im?item_code=${item.item_code}">상품정보보기</a></span>
+	</c:if>
+	</div><br>
 	<div id="idetail">
 	<input type="hidden" name="stock" id="stock" value=${stock }>
 		<div id="id_img">

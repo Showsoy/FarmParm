@@ -3,12 +3,12 @@ package vo;
 import java.sql.Date;
 
 public class ItemStockBean {
-	private String item_code;
+	private final String item_code;
 	private String state;
 	private Date idate;
 	private int amount;
 	private int stock;
-	private int inumber;
+	private final int inumber;
 	
 	public ItemStockBean(String item_code, String state, Date idate, int amount, int stock, int inumber) {
 		super();
@@ -21,9 +21,6 @@ public class ItemStockBean {
 	}
 	public String getItem_code() {
 		return item_code;
-	}
-	public void setItem_code(String item_code) {
-		this.item_code = item_code;
 	}
 	public String getState() {
 		return state;
@@ -51,9 +48,6 @@ public class ItemStockBean {
 	}
 	public int getInumber() {
 		return inumber;
-	}
-	public void setInumber(int inumber) {
-		this.inumber = inumber;
 	}
 	
 	

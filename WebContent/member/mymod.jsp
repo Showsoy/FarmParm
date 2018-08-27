@@ -48,6 +48,7 @@ function chkForm(f){
 		f.userPhone.focus();
 		return false;
 	}
+	if(doubleSubmitCheck()) return;
 	//if(f.pass.value.trim()!=f.passChk.value.trim()){f.pass.value="";}
 	document.joinform.submit();
 }

@@ -18,13 +18,6 @@ td p{
 	text-height:100%;
 	float:left;
 }
-#orderby{
-	padding : 13px 0 0 380px;
-}
-#orderby2{
-	font-size:13px;
-}
-
 </style>
 <script>
 function selectSDay(sel) {
@@ -130,7 +123,7 @@ function selectEDay(sel) {
 		</div>
 		<br>
 		<br>
-		<table class="mytable" cellspacing="0" cellpadding="0">	
+		<table class="listtablepx" cellspacing="0" cellpadding="0">	
 			<tr id="top_menu">
 				<td>주문번호</td>
 				<td>적립내역</td>

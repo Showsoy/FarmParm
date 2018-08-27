@@ -30,6 +30,8 @@ function chkForm(f){
 		f.idate.focus();
 		return false;
 	}
+	if(doubleSubmitCheck()) return;
+	else alert('중복접근!');
 	document.joinform.submit();
 }
 </script>

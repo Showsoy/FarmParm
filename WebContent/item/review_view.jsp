@@ -13,6 +13,9 @@
 #top_td{
 	font-size:12px;
 }
+img{
+	max-width:50%;
+}
 </style>
 <script>
 var doubleSubmitFlag = false;
@@ -140,7 +143,7 @@ function doImgPop(img){
 					<td id="td_parent">
 						<span id="idnamespan">[구매상품 | ${item_name}]</span><br><br>
 						<c:if test="${board.img_path!=null }">
-						<img src="../images/${board.img_path }" style="width:50%" onclick="doImgPop('../images/${board.img_path}')" style="cursor:pointer;" title="클릭하시면 원본크기로 보실 수 있습니다."/>
+						<img src="../images/${board.img_path }" onclick="doImgPop('../images/${board.img_path}')" style="cursor:pointer;" title="클릭하시면 원본크기로 보실 수 있습니다."/>
 						</c:if>
 						<p>${board.content }</p>
 					</td>

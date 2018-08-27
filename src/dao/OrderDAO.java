@@ -212,8 +212,7 @@ public class OrderDAO {
 				orderList = new ArrayList<OrderBean>();
 				do {
 					orderList.add(new OrderBean(rs.getInt("order_id"),rs.getString("user_id"),rs.getTimestamp("dati"),
-							"", "","","", 0,rs.getString("state"),
-							rs.getInt("pay"),rs.getString("payment"),rs.getString("receiver"),0));
+							rs.getString("state"), rs.getInt("pay"),rs.getString("payment"),rs.getString("receiver")));
 				}while(rs.next());
 			}
 		}catch(Exception e) {
@@ -240,8 +239,7 @@ public class OrderDAO {
 				orderList = new ArrayList<OrderBean>();
 				do {
 					orderList.add(new OrderBean(rs.getInt("order_id"),rs.getString("user_id"),rs.getTimestamp("dati"),
-							"", "","","", 0,rs.getString("state"),
-							rs.getInt("pay"),rs.getString("payment"),rs.getString("receiver"),0));
+							rs.getString("state"), rs.getInt("pay"),rs.getString("payment"),rs.getString("receiver")));
 				}while(rs.next());
 			}
 		}catch(Exception e) {
@@ -268,8 +266,7 @@ public class OrderDAO {
 				orderList = new ArrayList<OrderBean>();
 				do {
 					orderList.add(new OrderBean(rs.getInt("order_id"),rs.getString("user_id"),rs.getTimestamp("dati"),
-							"", "","","", 0,rs.getString("state"),
-							rs.getInt("pay"),rs.getString("payment"),rs.getString("receiver"),0));
+							rs.getString("state"), rs.getInt("pay"),rs.getString("payment"),rs.getString("receiver")));
 				}while(rs.next());
 			}
 		}catch(Exception e) {
@@ -347,7 +344,7 @@ public class OrderDAO {
 				orderList = new ArrayList<OrderBean>();
 				do {
 					orderList.add(new OrderBean(rs.getInt("order_id"),rs.getString("user_id"),rs.getTimestamp("dati"),
-							"", "","","", 0,rs.getString("state"),rs.getInt("pay"),rs.getString("payment"),"",0));
+							rs.getString("state"),rs.getInt("pay"),rs.getString("payment"),""));
 				}while(rs.next());
 			}
 		}catch(Exception e) {
@@ -517,7 +514,7 @@ public class OrderDAO {
 				salesList = new ArrayList<OrderBean>();
 				do {
 					salesList.add(new OrderBean(rs.getInt("order_id"),rs.getString("user_id"),rs.getTimestamp("dati"),
-							"", "","","", 0,rs.getString("state"),rs.getInt("pay"),rs.getString("payment"),"",0));
+							rs.getString("state"),rs.getInt("pay"),rs.getString("payment"),""));
 				}while(rs.next());
 			}
 		}catch(Exception e) {

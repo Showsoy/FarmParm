@@ -25,9 +25,6 @@ img{
 	border: 1px solid #ddd;
 	padding : 0 0 0 2px;
 }
-#orderby{
-	padding : 13px 0 0 380px;
-}
 #orderby2{
 	font-size:13px;
 }

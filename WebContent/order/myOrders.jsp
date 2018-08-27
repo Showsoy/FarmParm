@@ -44,6 +44,7 @@ img{
 				<td>주문번호</td>
 				<td>주문일시</td>
 				<td>결제금액</td>
+				<td>결제방식</td>
 				<td>주문현황</td>
 				<td>조회</td>
 			</tr>
@@ -53,6 +54,7 @@ img{
 				<td>${orderList.order_id }</td>
 				<td><fmt:formatDate pattern="yyyy-MM-dd HH:mm:ss" value="${orderList.dati }" /></td>
 				<td>${orderList.pay }원</td>
+				<td>${orderList.payment }</td>
 				<td>${orderList.state }</td>
 				<td><button type="button" onclick="location.href='myodView.od?order_id=${orderList.order_id}&page=${pageInfo.page }'" id="gbutton">조회</button></td>
 			</tr>

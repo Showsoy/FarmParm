@@ -48,7 +48,7 @@ td, tr{
 				<tr>
 					<td><p id="content">
 						<c:if test="${board.img_path!=null }">
-							<img src="../images/${board.img_path }"/><br><br>
+							<img src="../images/${board.img_path }" style="max-width:100%" onclick="doImgPop('../images/${board.img_path}')" style="cursor:pointer;" title="클릭하시면 원본크기로 보실 수 있습니다."/><br><br>
 						</c:if>
 						${board.content }</p>
 					</td>

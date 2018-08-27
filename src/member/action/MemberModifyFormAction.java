@@ -23,11 +23,6 @@ public class MemberModifyFormAction implements Action{
 			out.println("</script>");
 		}
 		UserService userService = new UserService();
-		
-		String email = userService.email(id);
-		String emails[] = new String[2];
-		emails = email.split("@");
-		
 		ActionForward forward = null;
 
 		if(id==null){
@@ -36,11 +31,13 @@ public class MemberModifyFormAction implements Action{
 			forward.setPath("./memberLogin.us");
    		}else{
 	   		forward = new ActionForward();
-	   		UserBean user = userService.myModForm(id);
+	   		UserBean user = userService.selectUserInfo(id);
+	   		String email = user.getEmail();
+			String emails[] = new String[2];
+			emails = email.split("@");
 	   		request.setAttribute("user", user);
 	   		request.setAttribute("email1", emails[0]);
 	   		request.setAttribute("email2", emails[1]);
-	   		//forward.setRedirect(false);
 	   		forward.setPath("./member/mymod.jsp");
 	   		}
 		 

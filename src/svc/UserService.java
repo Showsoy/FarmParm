@@ -97,24 +97,6 @@ public class UserService {
 		close(con);
 		return userList;
 	}
-	public String email(String id) {
-		Connection con = getConnection();
-		UserDAO userDAO = UserDAO.getInstance();
-		userDAO.setConnection(con);
-		String loginSalt = userDAO.selectEmail(id);
-		
-		close(con);
-		return loginSalt;
-	}
-	public UserBean modifyUserForm(String user_id) {
-		UserDAO userDAO = UserDAO.getInstance();
-		Connection con = getConnection();
-		userDAO.setConnection(con);
-		UserBean user = userDAO.AdSelectUser(user_id);
-		
-		close(con);
-		return user;
-	}
 	public boolean modifyUsers(UserBean user) {
 		UserDAO userDAO = UserDAO.getInstance();
 		Connection con = getConnection();
@@ -130,15 +112,6 @@ public class UserService {
 		close(con);
 		return isModifySuccess;
 	}
-	public UserBean myPage(String user_id) {
-		Connection con = getConnection();
-		UserDAO userDAO = UserDAO.getInstance();
-		userDAO.setConnection(con);
-		UserBean user = userDAO.selectUser(user_id);
-		
-		close(con);
-		return user;
-	}
 	public boolean myPwCheck(String users, String pw) {
 		Connection con = getConnection();
 		UserDAO userDAO = UserDAO.getInstance();
@@ -150,15 +123,6 @@ public class UserService {
 		}
 		close(con);
 		return modifyPw;
-	}
-	public UserBean myModForm(String ub) {
-		UserDAO userDAO = UserDAO.getInstance();
-		Connection con = getConnection();
-		userDAO.setConnection(con);
-		UserBean user = userDAO.myModForm(ub);
-		
-		close(con);
-		return user;
 	}
 	public boolean modifyMy(UserBean users) {
 		UserDAO userDAO = UserDAO.getInstance();

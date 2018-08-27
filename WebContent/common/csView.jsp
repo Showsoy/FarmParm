@@ -97,7 +97,7 @@ function goto_url(act) {
 					</td>	
 					<td id="td_parent">
 						<c:if test="${board.img_path!=null }">
-						<img src="../images/${board.img_path }"/>
+						<img src="../images/${board.img_path }" style="max-width:50%" onclick="doImgPop('../images/${board.img_path}')" style="cursor:pointer;" title="클릭하시면 원본크기로 보실 수 있습니다."/>
 						</c:if>
 						<p>${board.content }</p>
 					</td>
