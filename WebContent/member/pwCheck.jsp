@@ -21,7 +21,7 @@ function chkForm(f){
 		f.userPass.focus();
 		return false;
 	}
-	document.joinform.submit();
+	document.pwcheck.submit();
 }
 </script>
 <link rel="stylesheet" type="text/css" href="/FarmParm/style/style.css">
@@ -34,6 +34,7 @@ function chkForm(f){
 	<hr color="#4CAF50" size="5">
 	<div class="mypage">
 	<form action="./pwCheck.us" name="pwcheck" method="post" onsubmit="return chkForm(this)">
+	<input type="hidden" id="userId" name="userId" value="${id }"/>
 	<table class="mytable" cellspacing="0" cellpadding="0">
 	<tr>
 		<td id="td_left"><label for="userID">아이디</label> </td>

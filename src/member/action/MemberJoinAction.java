@@ -18,7 +18,7 @@ public class MemberJoinAction  implements Action{
 		Date birth = util.transformDate(request.getParameter("userBirth"));
 		String salt = Util.getSalt();
 		String passwd = Util.getPassword(request.getParameter("userPass"), salt);
-		String email = request.getParameter("userEmailId") +"@"+ request.getParameter("userEmailAd");
+		String email = request.getParameter("userEmailId") +"@"+ request.getParameter("userEmailAd");//null이면 email1
    		
 		UserBean user = new UserBean(request.getParameter("userID"), passwd, request.getParameter("userName"), request.getParameter("userPhone"),
 				birth, request.getParameter("userGen"), request.getParameter("userAddr1"), request.getParameter("userAddr2"),

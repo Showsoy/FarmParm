@@ -27,7 +27,6 @@ function chkForm(f){
 	var mail2 = f.userEmailAd.value;
 	var phone = f.userPhone.value;
 	
-	//생년월일 1) 1/2 5) 0/1 7)0/1/2/3  
 	var reg_birth = /^\d{8}$/
 	var reg_email1 = /^[0-9a-zA-Z]([-_\.]?[0-9a-zA-Z])+$/i;
 	var reg_email2 = /^[0-9a-zA-Z]([-_\.]?[0-9a-zA-Z])*\.[a-zA-Z]{2,3}$/i;
@@ -55,7 +54,12 @@ function chkForm(f){
 	    alert("비밀번호는 6자리 이상 입력해주세요.");
 	    f.userPass.focus();
 	    return false;
-	  }
+	}
+	if(f.userName.value.trim()==""){
+		alert("이름은 필수항목입니다.");
+		f.userName.focus();
+		return false;
+	}
 	if (!reg_birth.test(birth)) {
 		alert("올바른 형식이 아닙니다.");
 		f.userBirth.focus();
@@ -76,9 +80,19 @@ function chkForm(f){
 		f.userPhone.focus();
 		return false;
 	}
+	if(f.userAddr1.value.trim()==""){
+		alert("주소는 필수항목입니다.");
+		f.userAddr1.focus();
+		return false;
+	}
+	if(f.userAddr2.value.trim()==""){
+		alert("주소는 필수항목입니다.");
+		f.userAddr2.focus();
+		return false;
+	}
 	if(doubleSubmitCheck()) return;
 	else alert('중복접근!');
-	//if(f.pass.value.trim()!=f.passChk.value.trim()){f.pass.value="";}
+	
 	document.joinform.submit();
 }
 
@@ -86,7 +100,7 @@ function selectEmail(sel) {
 	var choiceText = sel.options[sel.selectedIndex].text;
 
 	if (choiceText == '직접입력') {
-		document.getElementById("emailform").innerHTML = "<td><input type='text' name='email1' id='email1'/></td>";
+		document.getElementById("emailform").innerHTML = "<td><input type='text' name='userEmailAd' id='userEmailAd'/></td>";
 	}
 }
 </script>
@@ -138,8 +152,8 @@ function selectEmail(sel) {
 			<select name="userEmailAd" id="userEmailAd" onchange="selectEmail(this)">
 						<option value="gmail.com">gmail.com</option>
 						<option value="naver.com">naver.com</option>
-						<option value="naver.com">daum.net</option>
-						<option value="naver.com">hotmail.co.kr</option>
+						<option value="daum.net">daum.net</option>
+						<option value="hotmail.co.kr">hotmail.co.kr</option>
 						<option value="null">직접입력</option>
 			</select>
 		</span>

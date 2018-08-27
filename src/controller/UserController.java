@@ -101,7 +101,6 @@ protected void doProcess(HttpServletRequest request, HttpServletResponse respons
 			}
     	}else if(command.equals("/pwCheckForm.us")) {
     		forward=new ActionForward();
-			//forward.setRedirect(true);
 			forward.setPath("./member/pwCheck.jsp");
     	}else if(command.equals("/pwCheck.us")) {
     		action = new MemberPwCheckAction();
@@ -140,7 +139,6 @@ protected void doProcess(HttpServletRequest request, HttpServletResponse respons
 			}
     	}else if(command.equals("/adminPage.us")) {
     		forward=new ActionForward();
-			//forward.setRedirect(true);
 			forward.setPath("./admin/adminPage.jsp");
     	}else if(command.equals("/memberList.us")) {
     		action = new MemberListAction();

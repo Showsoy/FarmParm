@@ -12,6 +12,7 @@
 </style>
 </head>
 <body>
+<!-- http://java.swq.co.kr/FarmParm/ -->
 <a href="main.im"><img src="images/index.png"/></a>
 </body>
 </html>

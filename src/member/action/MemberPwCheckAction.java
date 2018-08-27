@@ -28,7 +28,6 @@ public class MemberPwCheckAction implements Action{
 		
 		if(loginResult){
 			forward = new ActionForward();
-	   		//forward.setRedirect(false);
 	   		forward.setPath("mymod.us");
    		}else{
    			response.setContentType("text/html;charset=UTF-8");
@@ -38,8 +37,6 @@ public class MemberPwCheckAction implements Action{
 			out.println("history.back();");
 			out.println("</script>");
 	   		forward = new ActionForward();
-			//forward.setRedirect(true);
-			//forward.setPath("./member/myPage.jsp");
 	   		}
 		 
 		return forward;
