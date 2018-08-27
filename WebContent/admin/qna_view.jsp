@@ -176,7 +176,6 @@ function doImgPop(img){
 				<button type="button" id="wbutton" onclick="location.href='qnaList.bo?page=${page}<c:out value="${keyword !=null ? '&keyword=' : '' }"/>${keyword}<c:out value="${qna_search !=null ? '&qna_search=' : '' }"/>${qna_search}'">목록</button>
 			</section>
 			<br>
-			<div class="re">
 			<c:if test="${board.has_re == 0 && id eq 'admin'}">
 				<table class="board_table" cellspacing="0" cellpadding="0">
 					<tr>
@@ -207,7 +206,6 @@ function doImgPop(img){
 					</tr>
 				</table>
 			</c:if>
-			</div>
 			<br>
 		</form>
 	</div>	

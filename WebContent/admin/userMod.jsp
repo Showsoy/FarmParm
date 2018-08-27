@@ -79,7 +79,8 @@ function selectEmail(sel) {
 	</tr>
 	<tr>
 		<td id="td_left"><label for="userPass">비밀번호</label></td>
-		<td><button type="button" onclick="location.href='/FarmParm/admin/pwModifyAd.jsp?uid=${user.user_id}'" id="gbutton">비밀번호 변경</button></td>
+		<td><button type="button" onclick="location.href='/FarmParm/admin/pwModifyAd.jsp?uid=${user.user_id}'" id="gbutton"
+		style="width:100px;">비밀번호 변경</button></td>
 	</tr>
 	<tr>
 		<td id="td_left"><label for="userName">이름</label></td>
@@ -191,8 +192,8 @@ function selectEmail(sel) {
 		<td id="td_left"><label for="userID">주소</label></td>
 		<td rowspan="3">
 		<input type="text" name="userAddr1" id="userAddr1"size="7" value="${user.postcode}" />
-		<button type="button" onclick="sample6_execDaumPostcode()" id="gbutton">주소검색</button> <br>
-		<input type="text" name="userAddr2" id="userAddr2" placeholder="주소" size="40" value="${user.address}"/><br>
+		<button type="button" onclick="sample6_execDaumPostcode()" id="gbutton" style="width:70px;margin-bottom:1px;">주소검색</button><br>
+		<input type="text" name="userAddr2" id="userAddr2" placeholder="주소" size="40" value="${user.address}" style="margin-bottom:1px;"/><br>
 		<input type="text" name="userAddr3" id="userAddr3" placeholder="상세주소" size="40" value="${user.address_second}"/>
 		<script src="http://dmaps.daum.net/map_js_init/postcode.v2.js"></script>
 		<script>

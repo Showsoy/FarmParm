@@ -115,22 +115,33 @@ function goto_url(act) {
 			</tr>
 			<c:set var="num" value="${pageInfo.listCount-(pageInfo.page-1)*10 }"/>
 			<c:forEach var="userList" items="${userList }">
-			<tr>
-				<td><c:if test="${userList.grade != '관리자' }">
-						<input type="checkbox" id="ckb" name="ckb" value="${userList.user_id }"/>
-				</c:if></td>
-				<td><c:if test="${userList.grade != '관리자' }">
-					${num }</c:if>
-					<c:if test="${userList.grade == '관리자' }">
-					-</c:if>
+			<c:if test="${userList.grade == '관리자' }">
+				<tr>
+					<td></td>
+					<td><c:if test="${userList.grade == '관리자' }">
+						-</c:if>
+						</td>
+					<td>
+					<img src="images/admin_crown.png" style="width:18px;margin-bottom:0px;"/>&nbsp;${userList.user_id }
+					&nbsp;</td>
+					<td>${userList.grade }</td>
+					<td><fmt:formatNumber value="${userList.tot_price }" type="number"/>원</td>
+					<td></td>
+				</tr>			
+			</c:if>
+			</c:forEach>
+			<c:forEach var="userList" items="${userList }">
+			<c:if test="${userList.grade != '관리자' }">
+ 			<tr>
+				<td><input type="checkbox" id="ckb" name="ckb" value="${userList.user_id }"/></td>
+				<td>${num }
 					</td><c:set var="num" value="${num-1}"/>
 				<td>${userList.user_id }</td>
 				<td>${userList.grade }</td>
 				<td><fmt:formatNumber value="${userList.tot_price }" type="number"/>원</td>
-				<td><c:if test="${userList.grade != '관리자' }">
-					<button type="button" onclick="location.href='userView.us?user_id=${userList.user_id}'" id="gbutton">조회</button>
-				</c:if></td>
+				<td><button type="button" onclick="location.href='userView.us?user_id=${userList.user_id}'" id="gbutton">조회</button></td>
 			</tr>
+			</c:if>
 			</c:forEach>
 			<tr>
 			<td colspan="6" id="td_info">
