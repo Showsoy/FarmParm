@@ -26,7 +26,7 @@ public class MemberPwFindAction implements Action{
 		
 		if(email.equals(email_q)){
 	   		forward = new ActionForward();
-	   		request.setAttribute("user_id", user_id);
+	   		session.setAttribute("user_id_forPw", user_id);
 	   		forward.setPath("/member/pwFindResult.jsp");
    		}else{
    			response.setContentType("text/html;charset=utf-8");

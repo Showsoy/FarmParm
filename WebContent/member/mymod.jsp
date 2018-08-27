@@ -58,6 +58,17 @@ function selectEmail(sel) {
 		document.getElementById("emailform").innerHTML = "<td><input type='text' name='email1' id='email1'/></td>";
 	}
 }
+
+function goto_url(act) {
+	if(act=='myIdDelete.us'){
+		var flag = confirm('탈퇴 후 되돌릴 수 없습니다.\n 그래도 삭제하시겠습니까?');
+		if(flag){
+			location.href = "./myIdDelete.us";
+		}
+		}else{
+			return;
+		}
+}
 </script>
 <link rel="stylesheet" type="text/css" href="/FarmParm/style/style.css">
 <link rel="stylesheet" href="https://www.w3schools.com/w3css/3/w3.css">
@@ -76,8 +87,7 @@ function selectEmail(sel) {
 	</tr>
 	<tr>
 		<td id="td_left"><label for="userID">비밀번호</label> </td>
-		<td><button type="button" onclick="location.href='/FarmParm/member/pwModify.jsp'" id="gbutton" style="width:105px;">비밀번호 변경</button></td>
-		<td><button type="button" onclick="location.href='/FarmParm/member/pwModify.jsp'" id="gbutton">비밀번호 변경</button></td>
+		<td><button type="button" onclick="location.href='/FarmParm/member/pwModify.jsp'" id="gbutton" style="width:100px;">비밀번호 변경</button></td>
 	</tr>
 	<tr>
 		<td id="td_left"><label for="userID">이름</label></td>
@@ -161,8 +171,8 @@ function selectEmail(sel) {
 		<td id="td_left"><label for="userID">주소</label></td>
 		<td rowspan="3">
 		<input type="text" value="${user.postcode}" name="userAddr1" id="userAddr1"size="7"/>
-		<button type="button" onclick="sample6_execDaumPostcode()" id="gbutton" style="width:70px;">주소검색</button> <br>
-		<input type="text" name="userAddr2" id="userAddr2" value="${user.address}" size="30"/><br>
+		<button type="button" onclick="sample6_execDaumPostcode()" id="gbutton" style="width:70px;margin-bottom:1px;">주소검색</button> <br>
+		<input type="text" name="userAddr2" id="userAddr2" value="${user.address}" size="30" style="margin-bottom:1px;"/><br>
 		<input type="text" name="userAddr3" id="userAddr3" value="${user.address_second}" size="30"/>
 		<script src="http://dmaps.daum.net/map_js_init/postcode.v2.js"></script>
 		<script>
@@ -210,9 +220,12 @@ function selectEmail(sel) {
 		</script>
 	</tr>
 </table>
-<br><br>
-			<button id="bbutton" type="submit">수정</button> 
-			<button id="bbutton" type="button" onclick="location.href='./mypage.us'">돌아가기</button> 
+<br><br> 
+			<button id="bbutton" type="button" onclick="location.href='./mypage.us'">돌아가기</button>
+			<button id="bbutton" type="submit">수정</button>
+			<c:if test="${user.user_id != 'admin'}">
+			<button id="bbutton" type="button" onclick="goto_url('myIdDelete.us')" style="width:110px;">회원탈퇴하기</button> 
+			</c:if>
 		</form>
 	</div>
 </div>

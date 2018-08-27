@@ -17,51 +17,24 @@ public class MemberLostPwModifyAction implements Action{
 		UserService userService = new UserService();
 		Util util = new Util();
 		
-		String user_id = request.getParameter("u_id");
-		String salt = userService.salt(user_id);
+		String user_id = (String)session.getAttribute("user_id_forPw");
 		
-		String new_pswd = request.getParameter("userPass");
+		String salt = userService.salt(user_id);
 		String new_pswd_re = request.getParameter("userPassre");
 		
 		String new_pswd_last = Util.getPassword(new_pswd_re, salt);
 		
-		ActionForward forward = null;
-
-			if(new_pswd.equals(new_pswd_re)){
-				
-			   	boolean modifyResult = userService.modifyPw(user_id, new_pswd_last);
+		ActionForward forward = null;	
+		boolean modifyResult = userService.modifyPw(user_id, new_pswd_last);
 			   	
-				if(modifyResult){
-					response.setContentType("text/html;charset=UTF-8");
-					PrintWriter out = response.getWriter();
-					out.println("<script>");
-					out.println("alert('비밀번호가 변경되었습니다.');");
-					out.println("location.href='/FarmParm/memberLogin.us';");
-					out.println("</script>");
-						/*forward = new ActionForward();
-				   		//forward.setRedirect(false);
-				   		forward.setPath("./member/mymod.jsp");*/
-			   	}else{
-			   		response.setContentType("text/html;charset=UTF-8");
-					PrintWriter out = response.getWriter();
-					out.println("<script>");
-					out.println("alert('비밀번호가 맞지 않습니다.');");
-					out.println("history.back();");
-					out.println("</script>");
-				   	forward = new ActionForward();
-						//forward.setRedirect(true);
-						//forward.setPath("./member/myPage.jsp");
-				}
-			}else{
-				response.setContentType("text/html;charset=UTF-8");
-				PrintWriter out = response.getWriter();
-				out.println("<script>");
-				out.println("alert('새 비밀번호를 다시 확인해주세요.');");
-				out.println("history.back();");
-				out.println("</script>");
-		
-			}
-		
+		if(modifyResult){
+			response.setContentType("text/html;charset=UTF-8");
+			PrintWriter out = response.getWriter();
+			out.println("<script>");
+			out.println("alert('비밀번호가 변경되었습니다.');");
+			out.println("location.href='./member/login.jsp';");
+			out.println("</script>");
+	  	}
 		return forward;
 	}
 

@@ -37,9 +37,6 @@ public class MemberPwModifyAction implements Action{
 					out.println("alert('비밀번호가 변경되었습니다.');");
 					out.println("location.href='/FarmParm/mymod.us';");
 					out.println("</script>");
-						/*forward = new ActionForward();
-				   		//forward.setRedirect(false);
-				   		forward.setPath("./member/mymod.jsp");*/
 			   	}else{
 			   		response.setContentType("text/html;charset=UTF-8");
 					PrintWriter out = response.getWriter();
@@ -48,8 +45,6 @@ public class MemberPwModifyAction implements Action{
 					out.println("history.back();");
 					out.println("</script>");
 				   	forward = new ActionForward();
-						//forward.setRedirect(true);
-						//forward.setPath("./member/myPage.jsp");
 				}
 			}else{
 				response.setContentType("text/html;charset=UTF-8");

@@ -1,7 +1,6 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"
     pageEncoding="UTF-8"%>
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
-<c:set var="uid" scope="request" value="${user_id}"/>
 
 <!DOCTYPE html PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN" "http://www.w3.org/TR/html4/loose.dtd">
 <html>
@@ -30,7 +29,12 @@ function chkForm(f){
 			return false;
 		}
 	}
-	document.joinform.submit();
+	if(f.userPass.value.length<6) {
+	    alert("비밀번호는 6자리 이상 입력해주세요.");
+	    f.userPass.focus();
+	    return false;
+	  }
+	document.fwmod.submit();
 }
 </script>
 <link rel="stylesheet" type="text/css" href="../style/style.css">
@@ -42,25 +46,25 @@ function chkForm(f){
 	<h3>&nbsp;&nbsp;비밀번호수정 </h3>
 	<hr color="#4CAF50" size="5">
 	<div class="mypage">
-	<form action="/FarmParm/lostPwModify.us" method="post" onsubmit="return chkForm(this)">
-		<input type="hidden" name="u_id" value="${user_id}"/>
+	<form name="fwmod" action="/FarmParm/lostPwModify.us" method="post" onsubmit="return chkForm(this)">
+		<input type="hidden" name="u_id" value="${user_id_forPw}"/>
 	<table class="mytable" cellspacing="0" cellpadding="0">
 	<tr>
 		<td id="td_left200"><label for="userID">아이디</label> </td>
-		<td>${user_id}</td>
+		<td>${user_id_forPw}</td>
 	</tr>
 	<tr>
-		<td id="td_left200"><label for="userID">변경할 비밀번호</label> </td>
-		<td><input type="password" id="userPass" name="userPass"></td>
+		<td id="td_left200"><label for="userPass">변경할 비밀번호</label> </td>
+		<td><input type="password" id="userPass" placeholder="6자리 이상" name="userPass"></td>
 	</tr>
 	<tr>
-		<td id="td_left200"><label for="userID">비밀번호 확인</label> </td>
+		<td id="td_left200"><label for="userPassre">비밀번호 확인</label> </td>
 		<td><input type="password" id="userPassre" name="userPassre"></td>
 	</tr>
 </table>
 <br><br>
-			<button id="bbutton" onclick="location.href='pwFindResult.jsp'">확인</button> 
-			<button id="bbutton" type="button" onclick="location.href='/FarmParm/common/main.jsp'">돌아가기</button> 
+			<button id="bbutton" onclick="location.href='pwFindResult.jsp?'">확인</button> 
+			<button id="bbutton" type="button" onclick="history.back();">돌아가기</button> 
 		</form>
 	</div>
 </div>
