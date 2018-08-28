@@ -28,7 +28,9 @@ td img{
 	<h3>&nbsp;&nbsp;오시는 길</h3>
 	<hr color="#4CAF50" size="5">
 	<div class="mypage">
-	
+			<section class="w3-container w3-center">
+  			<img class="mySlides" src="../images/map.png" style="width:100%">
+		</section>
 	</div>
 	
 </div>

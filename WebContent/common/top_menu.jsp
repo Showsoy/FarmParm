@@ -31,20 +31,20 @@ function doubleSubmitCheck(){
 	     <div class="list">
 	      <a href="<%=request.getContextPath()%>/item/introduction.jsp">
 	      &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
-			  농원소개</a>
+			<b>농원소개</b></a>
 	      <a href="<%=request.getContextPath()%>/uitemList.im?category=채소">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
-			채소</a>
+			<b>채소</b></a>
 	      <a href="<%=request.getContextPath()%>/uitemList.im?category=과일">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
-	      	과일</a>
+	      	<b>과일</b></a>
 	      <a href="<%=request.getContextPath()%>/uitemList.im?category=곡류">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
-	      	쌀/잡곡</a>
+	      	<b>쌀/잡곡</b></a>
 	      <a href="<%=request.getContextPath()%>/uitemList.im?category=차">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
-	      	차</a>
+	      	<b>차</b></a>
 	      <a href="<%=request.getContextPath()%>/uitemList.im?category=가공">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
-	      	가공류</a>
+	      	<b>가공류</b></a>
 	    </div>
-      <a href="<%=request.getContextPath()%>/common/location.jsp">오시는 길</a>
-      <a href="<%=request.getContextPath()%>/common/noList.bo"> 안내사항</a>
+      <a href="<%=request.getContextPath()%>/common/location.jsp"><b>오시는 길</b></a>
+      <a href="<%=request.getContextPath()%>/common/noList.bo"> <b>안내사항</b></a>
     </div>
   </li>
  </ul>
