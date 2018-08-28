@@ -56,7 +56,7 @@ function selectEmail(sel) {
 	var choiceText = sel.options[sel.selectedIndex].text;
 
 	if (choiceText == '직접입력') {
-		document.getElementById("emailform").innerHTML = "<td><input type='text' name='email1' id='email1'/></td>";
+		document.getElementById("emailform").innerHTML = "<td><input type='text' name='userEmailAd' id='userEmailAd'/></td>";
 	}
 }
 
@@ -124,46 +124,38 @@ function goto_url(act) {
 		<select name="userEmailAd" id="userEmailAd" onchange="selectEmail(this)">
 		
 		<c:choose>
-		<c:when test="${email2 != 'gmail.com' or 'naver.com' or 'daum.net' or 'hotmail.co.kr'}">
-			<option value="${email2}" selected="selected">${email2}</option>
-			<option value="gmail.com">gmail.com</option>
-			<option value="naver.com">naver.com</option>
-			<option value="naver.com">daum.net</option>	
-			<option value="naver.com">hotmail.co.kr</option>
-			<option value="null">직접입력</option>
-		</c:when>
-		<c:otherwise>
-			<c:if test="${email2 == 'gmail.com'}">
+		<c:when test="${email2 == 'gmail.com'}">
 				<option value="gmail.com" selected="selected">gmail.com</option>
 				<option value="naver.com">naver.com</option>
-				<option value="naver.com">daum.net</option>	
-				<option value="naver.com">hotmail.co.kr</option>
+				<option value="daum.net">daum.net</option>	
+				<option value="hotmail.co.kr">hotmail.co.kr</option>
 				<option value="null">직접입력</option>
-			</c:if>
-			<c:if test="${email2 == 'naver.com'}">
+		</c:when>
+		<c:when test="${email2 == 'naver.com'}">
 				<option value="gmail.com">gmail.com</option>
 				<option value="naver.com" selected="selected">naver.com</option>
-				<option value="naver.com">daum.net</option>	
-				<option value="naver.com">hotmail.co.kr</option>
+				<option value="daum.net">daum.net</option>	
+				<option value="hotmail.co.kr">hotmail.co.kr</option>
 				<option value="null">직접입력</option>
-			</c:if>
-			<c:if test="${email2 == 'daum.net'}">
+		</c:when>
+		<c:when test="${email2 == 'daum.net'}">
 				<option value="gmail.com">gmail.com</option>
 				<option value="naver.com">naver.com</option>
-				<option value="naver.com" selected="selected">daum.net</option>	
-				<option value="naver.com">hotmail.co.kr</option>
+				<option value="daum.net" selected="selected">daum.net</option>	
+				<option value="hotmail.co.kr">hotmail.co.kr</option>
 				<option value="null">직접입력</option>
-			</c:if>
-			<c:if test="${email2 == 'hotmail.co.kr'}">
+		</c:when>
+		<c:when test="${email2 == 'hotmail.co.kr'}">
 				<option value="gmail.com">gmail.com</option>
 				<option value="naver.com">naver.com</option>
-				<option value="naver.com">daum.net</option>	
-				<option value="naver.com" selected="selected">hotmail.co.kr</option>
+				<option value="daum.net">daum.net</option>	
+				<option value="hotmail.co.kr" selected="selected">hotmail.co.kr</option>
 				<option value="null">직접입력</option>
-			</c:if>
+		</c:when>
+		<c:otherwise>
+			<input type='text' name='userEmailAd' id='userEmailAd'/>
 		</c:otherwise>
 		</c:choose>
-		
 		</select>
 		</span>
 		</td>
