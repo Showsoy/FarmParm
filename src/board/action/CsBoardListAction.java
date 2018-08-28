@@ -21,7 +21,7 @@ public class CsBoardListAction implements Action {
 		
 		ArrayList<BoardBean> boardList = new ArrayList<BoardBean>();
 		String keyword = null;
-		String sc = null;
+		String std = null;
 		int page = 1;
 		int limit = 10;
 		int limitPage = 10;
@@ -35,9 +35,9 @@ public class CsBoardListAction implements Action {
 		
 		if(request.getParameter("keyword")!=null) {
 			keyword = request.getParameter("keyword");
-			sc = request.getParameter("sc");
-			listCount = boardService.searchListCount(sc, keyword);
-			boardList = boardService.searchCsBoardList(sc, keyword, page);
+			std = request.getParameter("std");
+			listCount = boardService.searchListCount(std, keyword);
+			boardList = boardService.searchCsBoardList(std, keyword, page);
 			request.setAttribute("keyword", keyword);
 		}else {
 			listCount = boardService.selectListCount("cs_board");
@@ -55,7 +55,7 @@ public class CsBoardListAction implements Action {
 		pageInfo.setPage(page);
 		pageInfo.setStartPage(startPage);
 		
-		request.setAttribute("sc", sc);
+		request.setAttribute("std", std);
 		request.setAttribute("keyword", keyword);
 		request.setAttribute("pageInfo", pageInfo);
 		request.setAttribute("boardList", boardList);

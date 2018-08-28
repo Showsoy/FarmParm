@@ -229,7 +229,7 @@ public class OrderService {
 		close(conn);
 		return updateCount;
 	}
-	public int changeOrderState(String user_id) {
+	public int setNullUserId(String user_id) {
 		OrderDAO orderDAO = OrderDAO.getInstance();
 		Connection conn = getConnection();
 		orderDAO.setConnection(conn);

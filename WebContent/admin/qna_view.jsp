@@ -5,7 +5,7 @@
 <html>
 <head>
 <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
-<title>Insert title here</title>
+<title>:::관리자 페이지:::</title>
 <style>
 .mypage td{
     border-bottom: 3px solid #fff;
@@ -171,9 +171,9 @@ function doImgPop(img){
 			<br>
 			<section id="commandCell">
 			<c:if test="${board.user_id eq id || id eq 'admin'}">
-				<button type="button" id="wbutton" onclick="goto_url('qnaRemove.bo?item_code=${board.code}&bnum=${board.board_num}&page=${page }<c:out value="${keyword !=null ? '&keyword=' : '' }"/>${keyword}')">삭제</button>
+				<button type="button" id="wbutton" onclick="goto_url('qnaRemove.bo?item_code=${board.code}&bnum=${board.board_num}&page=${page }<c:out value="${std !=null ? '&std=' : '' }"/>${std}<c:out value="${keyword !=null ? '&keyword=' : '' }"/>${keyword}')">삭제</button>
 			</c:if>
-				<button type="button" id="wbutton" onclick="location.href='qnaList.bo?page=${page}<c:out value="${keyword !=null ? '&keyword=' : '' }"/>${keyword}<c:out value="${qna_search !=null ? '&qna_search=' : '' }"/>${qna_search}'">목록</button>
+				<button type="button" id="wbutton" onclick="location.href='qnaList.bo?page=${page}<c:out value="${std !=null ? '&std=' : '' }"/>${std}<c:out value="${keyword !=null ? '&keyword=' : '' }"/>${keyword}'">목록</button>
 			</section>
 			<br>
 			<c:if test="${board.has_re == 0 && id eq 'admin'}">
@@ -201,7 +201,7 @@ function doImgPop(img){
 					</tr>
 					<tr>
 						<td colspan="2" style="text-align:center;">
-							<button type="button" id="wbutton" onclick="goto_url('qnaReply.bo?item_code=${board.code}&rgroup=${board.board_num }&page=${page }<c:out value="${keyword !=null ? '&keyword=' : '' }"/>${keyword}')" style="width:80px;">답변하기</button>
+							<button type="button" id="wbutton" onclick="goto_url('qnaReply.bo?item_code=${board.code}&rgroup=${board.board_num }&page=${page }<c:out value="${std !=null ? '&std=' : '' }"/>${std}<c:out value="${keyword !=null ? '&keyword=' : '' }"/>${keyword}')" style="width:80px;">답변하기</button>
 						</td>
 					</tr>
 				</table>

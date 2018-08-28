@@ -62,7 +62,7 @@ function doubleSubmitCheck(){
   <li><a href="<%=request.getContextPath()%>/uitemList.im?category=곡류&std=new" class="dropbtn">&nbsp;&nbsp;쌀/잡곡&nbsp;&nbsp;</a></li>
   <li><a href="<%=request.getContextPath()%>/uitemList.im?category=차&std=new" class="dropbtn">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;차&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</a></li>
   <li><a href="<%=request.getContextPath()%>/uitemList.im?category=가공&std=new" class="dropbtn">&nbsp;&nbsp;&nbsp;가공류&nbsp;&nbsp;&nbsp;</a></li>
-  <li><a href="<%=request.getContextPath()%>/uitemList.im?category=채소&std=new" id="market" target="_blank">&nbsp;&nbsp;팜팜마켓&nbsp;&nbsp;</a></li>
+  <li><a href="<%=request.getContextPath()%>/market.jsp" id="market" target="_blank">&nbsp;&nbsp;팜팜마켓&nbsp;&nbsp;</a></li>
 </ul>
 </div>
 </body>
