@@ -217,7 +217,7 @@ function goto_url(act) {
 			<button id="bbutton" type="button" onclick="location.href='./mypage.us'">돌아가기</button>
 			<button id="bbutton" type="submit">수정</button>
 			<c:if test="${user.user_id != 'admin'}">
-			<button id="bbutton" type="button" onclick="goto_url('myIdDelete.us')" style="width:110px;">회원탈퇴하기</button> 
+			<button id="bbutton" type="button" onclick="goto_url('myIdDelete.us')" style="width:110px; text-decoration:none;">회원탈퇴하기</button> 
 			</c:if>
 		</form>
 	</div>

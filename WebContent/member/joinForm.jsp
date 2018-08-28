@@ -95,7 +95,7 @@ function chkForm(f){
 		return false;
 	}
 	if(doubleSubmitCheck()) return;
-	else alert('중복접근!');
+	else alert('회원가입이 완료되었습니다.');
 	
 	document.joinform.submit();
 }
