@@ -62,7 +62,7 @@ function selectEmail(sel) {
 
 function goto_url(act) {
 	if(act=='myIdDelete.us'){
-		var flag = confirm('탈퇴 후 되돌릴 수 없습니다.\n 그래도 삭제하시겠습니까?');
+		var flag = confirm('탈퇴 후 되돌릴 수 없습니다.\n그래도 탈퇴하시겠습니까?');
 		if(flag){
 			location.href = "./myIdDelete.us";
 		}

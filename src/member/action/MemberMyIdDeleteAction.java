@@ -18,30 +18,21 @@ public class MemberMyIdDeleteAction implements Action{
 		
 		if(id==null){
 			forward = new ActionForward();
-			forward.setRedirect(true);
-			forward.setPath("memberLogin.me");
-		}
-		else{
+			//forward.setRedirect(true);
+			forward.setPath("memberLogin.us");
+		}else{
 			UserService userService = new UserService();
 			boolean deleteResult = userService.deleteMember(id);
 
-			if(deleteResult){
+			if(deleteResult){			
 				forward = new ActionForward();
+				forward.setRedirect(true);
 				session.removeAttribute("id");
-				response.setContentType("text/html;charset=UTF-8");
-				PrintWriter out=response.getWriter();
-				out.println("<script>");
-				out.println("alert('탈퇴 완료 \n 이용해 주셔서 감사합니다.');");
-				out.println("location.href='./main.im';");
-				out.println("</script>");
+				forward.setPath("./main.im");
 			}
 			else{
-				response.setContentType("text/html;charset=UTF-8");
-				PrintWriter out=response.getWriter();
-				out.println("<script>");
-				out.println("alert('탈퇴 실패.');");
-				out.println("history.back();");
-				out.println("</script>");
+				forward = new ActionForward();
+				forward.setPath("./memberMod.us");
 			}
 		}
 		return forward;
