@@ -21,7 +21,7 @@ function doubleSubmitCheck(){
 }
 var chkId = false;
 function chkForm(f){
-	
+
 	var birth = f.userBirth.value;
 	var mail1 = f.userEmailId.value;
 	var mail2 = f.userEmailAd.value;
@@ -32,7 +32,6 @@ function chkForm(f){
 	var reg_email2 = /^[0-9a-zA-Z]([-_\.]?[0-9a-zA-Z])*\.[a-zA-Z]{2,3}$/i;
 	var reg_phone = /^[0-9]{10,11}$/
 
-	
 	if(!chkId){
 		alert("아이디 중복 확인이 필요합니다!");
 		return false;
@@ -50,7 +49,7 @@ function chkForm(f){
 			return false;
 		}
 	}
-	if(f.userPass.value.length<6) {
+ 	if(f.userPass.value.length<6) {
 	    alert("비밀번호는 6자리 이상 입력해주세요.");
 	    f.userPass.focus();
 	    return false;
@@ -80,6 +79,16 @@ function chkForm(f){
 		f.userEmailAd.focus();
 		return false;
 	}
+	if (!reg_phone.test(phone)) {
+		alert("올바른 번호가 아닙니다.");
+		f.userPhone.focus();
+		return false;
+	}
+	if(f.userAddr1.value.length!=5){
+		alert("다섯자리 (신)우편번호를 입력해주세요.");
+		f.userAddr1.focus();
+		return false;
+	}
 	if(f.userAddr1.value.trim()==""){
 		alert("주소는 필수항목입니다.");
 		f.userAddr1.focus();
@@ -90,10 +99,8 @@ function chkForm(f){
 		f.userAddr2.focus();
 		return false;
 	}
-	if(doubleSubmitCheck()) {
-		alert('중복접근!');
-		return;
-	}
+	if(doubleSubmitCheck()) return;
+	else alert('회원가입이 완료되었습니다.');
 	
 	document.joinform.submit();
 }
@@ -117,7 +124,7 @@ function selectEmail(sel) {
 				</div>
 		<label for="userID">아이디</label>
 		<input type="text" name="userID" id="userID" 
-		placeholder="중복검사 필수" class="input100">
+		placeholder="6~20자 영문자 또는 영문자+숫자" class="input100">
 		<button class="input100" name="check" id="check" type="button"
 		onclick="window.open('./dulpTest.us?openInit=true','','width=500, height=300')">중복검사</button>
 		<br><br>

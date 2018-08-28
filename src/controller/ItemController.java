@@ -55,6 +55,7 @@ protected void doProcess(HttpServletRequest request, HttpServletResponse respons
     	String[] commands;
 		commands = command.split("/");
 		command = "/"+commands[commands.length-1];
+		System.out.println(command + " :?");
     	
     	ActionForward forward = null;
     	Action action = null;

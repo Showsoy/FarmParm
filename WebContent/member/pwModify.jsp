@@ -68,7 +68,7 @@ function chkForm(f){
 	</tr>
 	<tr>
 		<td id="td_left200"><label for="userID">변경할 비밀번호</label></td>
-		<td><input type="password" id="userPass" name="userPass"><a style="color:gray;font-size:12px"> 6자리 이상</a></td>
+		<td><input type="password" id="userPass" name="userPass"><p style="color:gray;font-size:12px;display:inline;"> 6자리 이상</p></td>
 	</tr>
 	<tr>
 		<td id="td_left200"><label for="userID">비밀번호 확인</label> </td>

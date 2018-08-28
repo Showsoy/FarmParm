@@ -65,9 +65,17 @@ a, a:hover, a:active {
 		window.close();
 	}
 	function chkForm(f){
-
+		
+		var id = f.id.value;
+		var reg_id = /^[a-z]+[a-z0-9]{5,19}$/g;
+		
 		if(f.id.value.trim()==""){
 			alert("아이디를 입력해주세요.");
+			f.id.focus();
+			return false;
+		}
+		if(!reg_id.test(id)){
+			alert("올바른 형식이 아닙니다.");
 			f.id.focus();
 			return false;
 		}

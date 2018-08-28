@@ -349,7 +349,11 @@ public class UserDAO {
 	}
 	public int deleteUser(String uid){
 		String sql="DELETE from users WHERE user_id=?";
+		String sql2="DELETE from point WHERE user_id=?";
+		
 		int deleteCount = 0;
+		int deleteCount2 = 0;
+		
 		try{
 			pstmt=con.prepareStatement(sql);
 			pstmt.setString(1, uid);
@@ -359,8 +363,21 @@ public class UserDAO {
 		}finally{
 			close(pstmt);
 		}
-		return deleteCount;
+			if(deleteCount>0) {
+				try{
+					pstmt=con.prepareStatement(sql2);
+					pstmt.setString(1, uid);
+					deleteCount2 = pstmt.executeUpdate();
+				}catch(Exception e){
+					e.printStackTrace();
+				}finally{
+					close(pstmt);
+				}	
+				
+			}
+			return deleteCount2;
 	}
+	
 	public ArrayList<UserViewBean> searchId(int page, String search_id){
 		PreparedStatement pstmt = null;
 		ResultSet rs = null;
