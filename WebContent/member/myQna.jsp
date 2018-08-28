@@ -24,9 +24,6 @@ td p{
 img{
 	padding:0 0 3px 0;
 }
-#bbutton{
-	margin:10px 0 0 0;
-}
 </style>
 </head>
 <link rel="stylesheet" type="text/css" href="/FarmParm/style/style.css">
@@ -60,7 +57,7 @@ img{
 						<td colspan="2">
 							<p><c:if test="${board.readcount>0 }">
 								<img src="/FarmParm/images/lock.png"></c:if>
-							<a href="myQnaView.us?bnum=${board.board_num }&item_code=${board.code }&page=${pageInfo.page}<c:out value="${keyword !=null ? '&keyword=' : '' }"/>${keyword}<c:out value="${qna_search !=null ? '&qna_search=' : '' }"/>${qna_search}">
+							<a href="myQnaView.bo?bnum=${board.board_num }&item_code=${board.code }&page=${pageInfo.page}<c:out value="${keyword !=null ? '&keyword=' : '' }"/>${keyword}<c:out value="${qna_search !=null ? '&qna_search=' : '' }"/>${qna_search}">
 							${board.subject }<c:if test="${board.has_re==1 }"> [1]</c:if>
 							</a></p>
 						</td>
@@ -69,7 +66,7 @@ img{
 					</tr>
 					</c:forEach>
 			<tr>
-				<td colspan="6" id="td_info"><!-- 페이지 수 넣을 것임 -->
+				<td colspan="6" id="td_info">
 					<c:if test="${pageInfo.page<=1 }">
 						
 					</c:if>
@@ -103,7 +100,8 @@ img{
 			</c:otherwise>
 		</c:choose>
 		</table>
-			<button id="bbutton" onclick="location.href='myPage.us'">마이페이지</button>
+		<br>
+		<button id="bbutton" onclick="location.href='myPage.us'">마이페이지</button>
 	</div>
 </div>
  <jsp:include page="/common/footer.jsp" flush="false"/>

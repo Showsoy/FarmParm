@@ -84,7 +84,7 @@ function goto_url(act) {
 	<button type="button" id="wbutton" onclick="goto_url('memberSelectDelete.us')">선택삭제</button>
 	</span>
 	<span id="orderby">
-		<a href="memberList.us"><img src="./images/checked.png"/><c:choose><c:when test="${keyword eq null }">
+		<a href="memberList.us"><img src="./images/checked.png"/><c:choose><c:when test="${std eq null }">
 		<span id="selcategory">전체</span></c:when><c:otherwise> 전체</c:otherwise></c:choose></a>
 		<a href="memberList.us?std=grade&keyword=일반회원"><img src="./images/checked.png"/><c:choose><c:when test="${keyword eq '일반회원' }">
 		<span id="selcategory">일반회원</span></c:when><c:otherwise> 일반회원</c:otherwise></c:choose></a>
@@ -94,7 +94,7 @@ function goto_url(act) {
 		<span id="selcategory">일반셀러</span></c:when><c:otherwise> 일반셀러</c:otherwise></c:choose></a>
 		<a href="memberList.us?std=grade&keyword=우수셀러"><img src="./images/checked.png"/><c:choose><c:when test="${keyword eq '우수셀러' }">
 		<span id="selcategory">우수셀러</span></c:when><c:otherwise> 우수셀러</c:otherwise></c:choose></a>
-		<a href="memberList.us?std=purchase"><img src="./images/checked.png"/><c:choose><c:when test="${category eq '구매금액' }">
+		<a href="memberList.us?std=purchase"><img src="./images/checked.png"/><c:choose><c:when test="${std eq 'purchase' }">
 		<span id="selcategory">주문금액순</span></c:when><c:otherwise> 주문금액순</c:otherwise></c:choose></a>
 	</span>
 	<span id="searchbar">
@@ -115,33 +115,27 @@ function goto_url(act) {
 			</tr>
 			<c:set var="num" value="${pageInfo.listCount-(pageInfo.page-1)*10 }"/>
 			<c:forEach var="userList" items="${userList }">
-			<c:if test="${userList.grade == '관리자' }">
-				<tr>
-					<td></td>
-					<td><c:if test="${userList.grade == '관리자' }">
-						-</c:if>
-						</td>
-					<td>
-					<img src="images/admin_crown.png" style="width:18px;margin-bottom:0px;"/>&nbsp;${userList.user_id }
-					&nbsp;</td>
-					<td>${userList.grade }</td>
-					<td><fmt:formatNumber value="${userList.tot_price }" type="number"/>원</td>
-					<td></td>
-				</tr>			
-			</c:if>
-			</c:forEach>
-			<c:forEach var="userList" items="${userList }">
-			<c:if test="${userList.grade != '관리자' }">
  			<tr>
-				<td><input type="checkbox" id="ckb" name="ckb" value="${userList.user_id }"/></td>
+				<td>
+				<c:if test="${userList.grade != '관리자' }">
+				<input type="checkbox" id="ckb" name="ckb" value="${userList.user_id }"/>
+				</c:if>
+				</td>
 				<td>${num }
 					</td><c:set var="num" value="${num-1}"/>
-				<td>${userList.user_id }</td>
+				<td>
+				<c:if test="${userList.grade eq '관리자' }">
+				<img src="images/admin_crown.png" style="width:18px;margin-bottom:0px;"/>&nbsp;
+				</c:if>
+				${userList.user_id }</td>
 				<td>${userList.grade }</td>
 				<td><fmt:formatNumber value="${userList.tot_price }" type="number"/>원</td>
-				<td><button type="button" onclick="location.href='userView.us?user_id=${userList.user_id}'" id="gbutton">조회</button></td>
+				<td>
+				<c:if test="${userList.grade != '관리자' }">
+				<button type="button" onclick="location.href='userView.us?user_id=${userList.user_id}<c:out value="${std !=null ? '&std=' : '' }"/>${std}<c:out value="${keyword !=null ? '&keyword=' : '' }"/>${keyword}'" id="gbutton">조회</button>
+				</c:if>
+				</td>
 			</tr>
-			</c:if>
 			</c:forEach>
 			<tr>
 			<td colspan="6" id="td_info">

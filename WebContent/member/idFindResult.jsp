@@ -12,16 +12,14 @@
 <body>
 	<div class="login-page">
 		<div class="form">
-			<form class="login-form" name="idfindform" action="findIdAction.us" method="post" onsubmit="return chkForm(this)">
-				<br/>
-				<h3>회원님의 아이디는 <br/>${user_id} 입니다.</h3>
-				<br>
-				<div id="footer">
-				<a href="login.jsp">로그인</a>&nbsp;&nbsp;|&nbsp;&nbsp;
-				<a href="#">문제발생</a>&nbsp;&nbsp;|&nbsp;&nbsp;
-				<a href="pwFind.jsp">비밀번호 찾기</a>
-				</div>
-			</form>
+			<br/>
+			<h3>회원님의 아이디는 <br/>${user_id} 입니다.</h3>
+			<br>
+			<div id="footer">
+			<a href="login.jsp">로그인</a>&nbsp;&nbsp;|&nbsp;&nbsp;
+			<a href="#">문제발생</a>&nbsp;&nbsp;|&nbsp;&nbsp;
+			<a href="pwFind.jsp">비밀번호 찾기</a>
+			</div>
 		</div>
 	</div>
 </body>

@@ -31,10 +31,14 @@ td, tr{
 		}
 	}
 	function chkForm(f){
-		if(doubleSubmitCheck()) return;
-		else alert('중복접근!');
+		if(doubleSubmitCheck()) {
+			alert('중복접근!');
+			return;
+		}else{
+			alert('주문을 접수 중입니다.')
+		}
 	    	
-	    else document.orderform.submit();
+	   document.orderform.submit();
 	    	
 
 	    
@@ -190,7 +194,7 @@ td, tr{
 <br><br>
 			<button id="bbutton" type="submit">결제</button> 
 	
-			<button id="bbutton" type="button" onclick="location.href='main.im'">돌아가기</button> 
+			<button id="sbutton" type="button" onclick="location.href='main.im'">돌아가기</button> 
 </form>	
 	</div>
 	</div>

@@ -34,7 +34,7 @@ function chkForm(f){
 	    f.userPass.focus();
 	    return false;
 	  }
-	document.fwmod.submit();
+	document.pwmod.submit();
 }
 </script>
 <link rel="stylesheet" type="text/css" href="../style/style.css">
@@ -46,7 +46,7 @@ function chkForm(f){
 	<h3>&nbsp;&nbsp;비밀번호수정 </h3>
 	<hr color="#4CAF50" size="5">
 	<div class="mypage">
-	<form name="fwmod" action="/FarmParm/lostPwModify.us" method="post" onsubmit="return chkForm(this)">
+	<form name="pwmod" action="/FarmParm/lostPwModify.us" method="post" onsubmit="return chkForm(this)">
 		<input type="hidden" name="u_id" value="${user_id_forPw}"/>
 	<table class="mytable" cellspacing="0" cellpadding="0">
 	<tr>

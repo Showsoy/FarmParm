@@ -32,40 +32,34 @@ public class MemberAdPwModifyAction implements Action{
 			out.println("</script>");
 		}else {
 			UserService userService = new UserService();
-			
-			String aid = (String)session.getAttribute("id");
 			String uid = request.getParameter("uid");
-			String salt = userService.salt(aid); //소금값 가져옴
-			String pass = userService.passwd(aid); //비밀번호 값 가져옴
-			String u_salt = userService.salt(uid);
-			String old_pswd_2 = Util.getPassword(request.getParameter("ad_pswd"), salt);
-			String new_pswd = request.getParameter("userPass");
-			String new_pswd_re = request.getParameter("userPassre");
-			String new_pswd_last = Util.getPassword(new_pswd_re, u_salt);
+			String salt = userService.salt(id);
+			String usalt = userService.salt(uid);
+			String ad_pswd = Util.getPassword(request.getParameter("ad_pswd"), salt);
+			
+			boolean pwflag = userService.isPasswdValid(id, ad_pswd);
+			String new_pswd = Util.getPassword(request.getParameter("userPass"), usalt);
 	
-			if(pass.equals(old_pswd_2)&&new_pswd.equals(new_pswd_re)){
-				boolean modifyResult = userService.modifyPw(uid, new_pswd_last);
+			if(pwflag){
+				boolean modifyResult = userService.modifyPw(uid, new_pswd);
+				response.setContentType("text/html;charset=UTF-8");
+				PrintWriter out = response.getWriter();
 				if(modifyResult){
-					response.setContentType("text/html;charset=UTF-8");
-					PrintWriter out = response.getWriter();
 					out.println("<script>");
 					out.println("alert('비밀번호가 변경되었습니다.');");
 					out.println("location.href='/FarmParm/memberList.us';");
 					out.println("</script>");
 				 }else{
-				   	response.setContentType("text/html;charset=UTF-8");
-					PrintWriter out = response.getWriter();
 					out.println("<script>");
-					out.println("alert('비밀번호가 맞지 않습니다.');");
+					out.println("alert('변경실패 문의요망');");
 					out.println("history.back();");
 					out.println("</script>");
-					   forward = new ActionForward();
 				 }
 			}else{
 				response.setContentType("text/html;charset=UTF-8");
 				PrintWriter out = response.getWriter();
 				out.println("<script>");
-				out.println("alert('새 비밀번호를 다시 확인해주세요.');");
+				out.println("alert('관리자 비밀번호가 일치하지 않습니다.');");
 				out.println("history.back();");
 				out.println("</script>");
 			}

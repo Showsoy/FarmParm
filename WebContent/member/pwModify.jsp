@@ -24,8 +24,13 @@ function doubleSubmitCheck(){
 }
 var chkId = false;
 function chkForm(f){
+	if(f.old_pswd.value.trim()==""){
+		alert("현재 비밀번호를 입력해주세요.");
+		f.old_pswd.focus();
+		return false;
+	}
 	if(f.userPass.value.trim()==""){
-		alert("비밀번호는 필수항목입니다.");
+		alert("변경할 비밀번호를 입력해주세요.");
 		f.userPass.focus();
 		return false;
 	}
@@ -41,9 +46,9 @@ function chkForm(f){
 	    alert("비밀번호는 6자리 이상 입력해주세요.");
 	    f.userPass.focus();
 	    return false;
-	  }
+	}
 	if(doubleSubmitCheck()) return;
-	document.joinform.submit();
+	document.pwmod.submit();
 }
 </script>
 <link rel="stylesheet" type="text/css" href="../style/style.css">
@@ -55,7 +60,7 @@ function chkForm(f){
 	<h3>&nbsp;&nbsp;개인정보수정</h3>
 	<hr color="#4CAF50" size="5">
 	<div class="mypage">
-	<form action="/FarmParm/pwModify.us" method="post" onsubmit="return chkForm(this)">
+	<form name="pwmod" action="/FarmParm/pwModify.us" method="post" onsubmit="return chkForm(this)">
 	<table class="mytable" cellspacing="0" cellpadding="0">
 	<tr>
 		<td id="td_left200"><label for="userID">기존 비밀번호</label> </td>
@@ -71,7 +76,7 @@ function chkForm(f){
 	</tr>
 </table>
 <br><br>
-			<button id="bbutton" onclick="location.href='pwModify.jsp'">확인</button> 
+			<button id="bbutton" type="submit">확인</button> 
 			<button id="bbutton" type="button" onclick="history.back();">돌아가기</button> 
 		</form>
 	</div>

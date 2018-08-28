@@ -15,6 +15,8 @@ import board.action.CsBoardRemoveAction;
 import board.action.CsBoardReplyAction;
 import board.action.CsBoardViewAction;
 import board.action.CsBoardWriteAction;
+import board.action.MyQnAViewAction;
+import board.action.MyQnaListAction;
 import board.action.NoticeListAction;
 import board.action.NoticeModFormAction;
 import board.action.NoticeModProAction;
@@ -240,6 +242,20 @@ public class BoardController extends HttpServlet {
     		}catch(Exception e) {
     			e.printStackTrace();
     		}
+    	}else if(command.equals("/myQna.bo")) {
+    		action = new MyQnaListAction();
+			try{
+				forward=action.execute(request, response);
+			}catch(Exception e){
+				e.printStackTrace();
+			}
+    	}else if(command.equals("/myQnaView.bo")) {
+    		action = new MyQnAViewAction();
+			try{
+				forward=action.execute(request, response);
+			}catch(Exception e){
+				e.printStackTrace();
+			}
     	}
     	
     	if(forward!=null) {

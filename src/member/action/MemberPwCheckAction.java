@@ -22,11 +22,11 @@ public class MemberPwCheckAction implements Action{
 		String salt = userService.salt(user_id);
 		String passwd = Util.getPassword(pw,salt);
 		
-   		boolean loginResult = userService.myPwCheck(user_id,passwd);
+   		boolean pwflag = userService.isPasswdValid(user_id,passwd);
    		
 		ActionForward forward = null;
 		
-		if(loginResult){
+		if(pwflag){
 			forward = new ActionForward();
 	   		forward.setPath("mymod.us");
    		}else{

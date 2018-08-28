@@ -10,6 +10,7 @@ import java.sql.Date;
 import java.util.ArrayList;
 import java.util.Map;
 
+import dao.OrderDAO;
 import dao.UserDAO;
 import vo.PointBean;
 import vo.UserBean;
@@ -112,12 +113,12 @@ public class UserService {
 		close(con);
 		return isModifySuccess;
 	}
-	public boolean myPwCheck(String users, String pw) {
+	public boolean isPasswdValid(String users, String pw) {
 		Connection con = getConnection();
 		UserDAO userDAO = UserDAO.getInstance();
 		userDAO.setConnection(con);
 		boolean modifyPw = false;
-		boolean loginPw = userDAO.modifyPwCheck(users,pw);
+		boolean loginPw = userDAO.isPasswdValid(users,pw);
 		if(loginPw){
 			modifyPw = true;
 		}
@@ -152,15 +153,6 @@ public class UserService {
 		close(con);
 		return modifyPw;
 	}
-	public String passwd(String id) {
-		Connection con = getConnection();
-		UserDAO userDAO = UserDAO.getInstance();
-		userDAO.setConnection(con);
-		String pass = userDAO.selectPass(id);
-		
-		close(con);
-		return pass;
-	}
 	public String findId(String name, Date birth){
 		Connection con = getConnection();
 		UserDAO userDAO = UserDAO.getInstance();
@@ -185,7 +177,11 @@ public class UserService {
 		UserDAO userDAO = UserDAO.getInstance();
 		userDAO.setConnection(con);
 		int deleteCount = userDAO.deleteUser(uid);
-		if(deleteCount > 0){
+		OrderDAO orderDAO = OrderDAO.getInstance();
+		orderDAO.setConnection(con);
+		int updateCount = orderDAO.setNullUserId(uid);
+		
+		if(deleteCount > 0 && updateCount > 0){
 			commit(con);
 			deleteResult = true;
 		}

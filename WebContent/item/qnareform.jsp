@@ -72,7 +72,7 @@ function fclose(f){
 </script>
 </head>
 <link rel="stylesheet" type="text/css" href="../style/style.css">
-<body>
+<body class="popup_body">
 <div id="grade"><b id="grade_deco">|</b> 문의답글</div>
 <form action="qnaReply.bo" name="reviewform" method="post" onsubmit="return chkForm(this)">
 <c:choose>

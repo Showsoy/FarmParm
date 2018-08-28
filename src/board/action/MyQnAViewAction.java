@@ -1,4 +1,4 @@
-package member.action;
+package board.action;
 
 import java.io.PrintWriter;
 

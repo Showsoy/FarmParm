@@ -20,10 +20,20 @@ td, tr{
 <script>
 var chkId = false;
 function chkForm(f){
+	if(f.ad_pswd.value.trim()==""){
+		alert("관리자 비밀번호를 입력해주세요.");
+		f.old_pswd.focus();
+		return false;
+	}
 	if(f.userPass.value.trim()==""){
-		alert("비밀번호는 필수항목입니다.");
+		alert("변경할 비밀번호를 입력해주세요.");
 		f.userPass.focus();
 		return false;
+	}
+	if(f.userPass.value.length<6) {
+	    alert("비밀번호는 6자리 이상 입력해주세요.");
+	    f.userPass.focus();
+	    return false;
 	}
 	if(f.userPass.value.trim()!=""){
 		if(f.userPass.value!=f.userPassre.value){
@@ -34,8 +44,7 @@ function chkForm(f){
 		}
 	}
 	if(doubleSubmitCheck()) return;
-	else alert('중복접근!');
-	document.joinform.submit();
+	document.pwmod.submit();
 }
 </script>
 <link rel="stylesheet" type="text/css" href="../style/style.css">
@@ -45,10 +54,10 @@ function chkForm(f){
 <jsp:include page="/common/top_menu.jsp" flush="false"/>
 <jsp:include page="/common/adminbar.jsp" flush="false"/>
 <div class="pageform">
-	<h3>&nbsp;&nbsp;개인정보수정</h3>
+	<h3>&nbsp;&nbsp;회원정보수정</h3>
 	<hr color="#4CAF50" size="5">
 	<div class="mypage">
-	<form action="/FarmParm/pwAdModify.us?uid=${uid}" method="post" onsubmit="return chkForm(this)">
+	<form name="pwmod" action="/FarmParm/pwAdModify.us?uid=${uid}" method="post" onsubmit="return chkForm(this)">
 	<table class="mytable" cellspacing="0" cellpadding="0">
 	<tr>
 		<td id="td_left200"><label for="userID">관리자 비밀번호</label></td>
@@ -64,7 +73,7 @@ function chkForm(f){
 	</tr>
 </table>
 <br><br>
-			<button id="bbutton" onclick="location.href='pwModify.jsp'">확인</button> 
+			<button id="bbutton" type="submit">확인</button> 
 			<button id="bbutton" type="button" onclick="history.back();">돌아가기</button> 
 		</form>
 	</div>

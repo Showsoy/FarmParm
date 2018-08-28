@@ -54,8 +54,10 @@ function chkForm(f){
 			return false;
 		}
 	}
-	if(doubleSubmitCheck()) return;
-	else alert('중복접근!');
+	if(doubleSubmitCheck()) {
+		alert('중복접근!');
+		return;
+	}
 	
 	document.joinform.submit();
 }

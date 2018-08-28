@@ -229,6 +229,19 @@ public class OrderService {
 		close(conn);
 		return updateCount;
 	}
+	public int changeOrderState(String user_id) {
+		OrderDAO orderDAO = OrderDAO.getInstance();
+		Connection conn = getConnection();
+		orderDAO.setConnection(conn);
+		int updateCount = orderDAO.setNullUserId(user_id);
+		if(updateCount>0) {
+			commit(conn);
+		}else {
+			rollback(conn);
+		}
+		close(conn);
+		return updateCount;
+	}
 	public int cancelOrder(int order_id, PointBean point1, PointBean point2, ArrayList<OrderViewBean> orderList) {
 		OrderDAO orderDAO = OrderDAO.getInstance();
 		Connection conn = getConnection();

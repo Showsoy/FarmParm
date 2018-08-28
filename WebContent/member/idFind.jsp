@@ -25,7 +25,7 @@ function chkForm(f){
 		return false;
 	}
 	//if(f.pass.value.trim()!=f.passChk.value.trim()){f.pass.value="";}
-	document.joinform.submit();
+	document.idfindform.submit();
 }
 </script>
 <body>

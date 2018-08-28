@@ -33,8 +33,10 @@ function doubleSubmitCheck(){
 }
 
 function chkForm(f){
-	if(doubleSubmitCheck()) return;
-	else alert('중복접근!');
+	if(doubleSubmitCheck()) {
+		alert('중복접근!');
+		return;
+	}
     document.csboard.submit();
 }
 function fc_chk_byte(memo) { 

@@ -157,7 +157,7 @@ selPrice = "<%=(int)request.getAttribute("totalMoney")%>";
 				<td colspan="6" id="td_info">
 					<button id="bbutton" onclick="goto_url('../order/odForm.od?type=all');">전체주문</button>
 					<button id="bbutton" onclick="goto_url('../order/odForm.od?type=sel');">선택주문</button>
-					<button id="bbutton" type="button" onclick="history.back();" style="width:110px;">쇼핑계속하기</button>
+					<button id="sbutton" type="button" onclick="history.back();" style="width:110px;">쇼핑계속하기</button>
 
 				</td>
 			</tr>

@@ -60,6 +60,11 @@ function chkForm(f){
 		f.userName.focus();
 		return false;
 	}
+	if (!reg_phone.test(phone)) {
+		alert("올바른 번호가 아닙니다.");
+		f.userPhone.focus();
+		return false;
+	}
 	if (!reg_birth.test(birth)) {
 		alert("올바른 형식이 아닙니다.");
 		f.userBirth.focus();
@@ -75,11 +80,6 @@ function chkForm(f){
 		f.userEmailAd.focus();
 		return false;
 	}
-	if (!reg_phone.test(phone)) {
-		alert("올바른 번호가 아닙니다.");
-		f.userPhone.focus();
-		return false;
-	}
 	if(f.userAddr1.value.trim()==""){
 		alert("주소는 필수항목입니다.");
 		f.userAddr1.focus();
@@ -90,8 +90,10 @@ function chkForm(f){
 		f.userAddr2.focus();
 		return false;
 	}
-	if(doubleSubmitCheck()) return;
-	else alert('중복접근!');
+	if(doubleSubmitCheck()) {
+		alert('중복접근!');
+		return;
+	}
 	
 	document.joinform.submit();
 }

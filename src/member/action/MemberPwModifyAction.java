@@ -14,48 +14,49 @@ public class MemberPwModifyAction implements Action{
 		 	throws Exception{
 		
 		HttpSession session = request.getSession();
-		UserService userService = new UserService();
-		
-		String user_id = (String)session.getAttribute("id");
-		String salt = userService.salt(user_id); //소금값 가져옴
-		String pass = userService.passwd(user_id); //비밀번호 값 가져옴
-		
-		String old_pswd_2 = Util.getPassword(request.getParameter("old_pswd"), salt);
-		
-		String new_pswd = request.getParameter("userPass");
-		String new_pswd_re = request.getParameter("userPassre");
-		String new_pswd_last = Util.getPassword(new_pswd_re, salt);
-		
 		ActionForward forward = null;
-
-			if(pass.equals(old_pswd_2)&&new_pswd.equals(new_pswd_re)){
-			   	boolean modifyResult = userService.modifyPw(user_id, new_pswd_last);
-				if(modifyResult){
-					response.setContentType("text/html;charset=UTF-8");
-					PrintWriter out = response.getWriter();
+		String user_id = (String)session.getAttribute("id");
+		
+		if(user_id==null) {
+			response.setContentType("text/html;charset=UTF-8");
+			PrintWriter out = response.getWriter();
+			out.println("<script>");
+			out.println("alert('로그인이 필요합니다.');");
+			out.println("location.href='./member/memberLogin.us?turn=ok';");
+			out.println("</script>");
+		}
+		else {
+			UserService userService = new UserService();
+			String salt = userService.salt(user_id);
+			String old_pswd = Util.getPassword(request.getParameter("old_pswd"), salt);
+			String new_pswd = Util.getPassword(request.getParameter("userPass"), salt);
+			boolean pwflag = userService.isPasswdValid(user_id, old_pswd);
+			
+			if (pwflag) {
+				response.setContentType("text/html;charset=UTF-8");
+				PrintWriter out = response.getWriter();
+				boolean modifyResult = userService.modifyPw(user_id, new_pswd);
+				if(modifyResult) {
 					out.println("<script>");
 					out.println("alert('비밀번호가 변경되었습니다.');");
 					out.println("location.href='/FarmParm/mymod.us';");
 					out.println("</script>");
-			   	}else{
-			   		response.setContentType("text/html;charset=UTF-8");
-					PrintWriter out = response.getWriter();
+				}else {
 					out.println("<script>");
-					out.println("alert('비밀번호가 맞지 않습니다.');");
-					out.println("history.back();");
+					out.println("alert('변경실패 문의요망');");
+					out.println("location.href='/FarmParm/mymod.us';");
 					out.println("</script>");
-				   	forward = new ActionForward();
 				}
-			}else{
+			} else {
 				response.setContentType("text/html;charset=UTF-8");
 				PrintWriter out = response.getWriter();
 				out.println("<script>");
-				out.println("alert('새 비밀번호를 다시 확인해주세요.');");
+				out.println("alert('현재 비밀번호가 일치하지 않습니다.');");
 				out.println("history.back();");
 				out.println("</script>");
-		
+				forward = new ActionForward();
 			}
-		
+		}
 		return forward;
 	}
 
