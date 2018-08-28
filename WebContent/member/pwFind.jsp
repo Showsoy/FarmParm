@@ -32,14 +32,14 @@ function chkForm(f){
 		f.userEmailAd.focus();
 		return false;
 	}
-	//if(f.pass.value.trim()!=f.passChk.value.trim()){f.pass.value="";}
-	document.joinform.submit();
+
+	document.pwfindform.submit();
 }
 function selectEmail(sel) {
 	var choiceText = sel.options[sel.selectedIndex].text;
 
 	if (choiceText == '직접입력') {
-		document.getElementById("emailform").innerHTML = "<td><input type='text' name='email1' id='email1' size='15'/></td>";
+		document.getElementById("emailform").innerHTML = "<td><input type='text' name='userEmailAd' id='userEmailAd' size='15'/></td>";
 	}
 }
 </script>
@@ -55,8 +55,8 @@ function selectEmail(sel) {
 				<select name="userEmailAd" id="userEmailAd" onchange="selectEmail(this)">
 						<option value="gmail.com">gmail.com</option>
 						<option value="naver.com">naver.com</option>
-						<option value="naver.com">daum.net</option>
-						<option value="naver.com">hotmail.co.kr</option>
+						<option value="daum.net">daum.net</option>
+						<option value="hotmail.co.kr">hotmail.co.kr</option>
 						<option value="null">직접입력</option>
 				</select>
 				</span>

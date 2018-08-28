@@ -211,8 +211,26 @@ li.dropdown {
 	transition: all 0.3 ease;
 	cursor: pointer;
 }
-#bbutton button:hover, #bbutton button:active, #bbutton button:focus {
+#bbutton:hover, #bbutton:active, #bbutton:focus {
 	background: #191919;
+}
+#sbutton {
+	font-family:"Nanum Gothic";
+	font-weight: 700;
+	text-transform: uppercase;
+	outline: 0;
+	background: #4C4C4C;
+	width: 100px;
+	border: 0;
+	padding: 10px;
+	color: white;
+	font-size: 14px;
+	-webkit-transition: all 0.3 ease;
+	transition: all 0.3 ease;
+	cursor: pointer;
+}
+#sbutton:hover, #sbutton button:active, #sbutton button:focus {
+	background: #5D5D5D;
 }
 #obutton{
 	font-family:"Nanum Gothic";
@@ -801,14 +819,15 @@ th{
 	width:400px;
 	text-align:left;
 	padding : 15px;
-	border-radius:10px;
 	border-collapse: collapse;
 }
 .popup_body tr{
+	border: 1px solid #ddd;
 	padding-top: 12px;
     padding-bottom: 12px;
 }
 .popup_body td{
+	border: 1px solid #ddd;
 	padding:5px 5px 5px 10px;
 }
 .popup_body table td label{
@@ -816,9 +835,6 @@ th{
 	font-family:"Nanum Gothic";
 	color : #43A047;
 	font-size:14px;
-}
-.popup_body td, tr{
-	border: 1px solid #ddd;
 }
 #hide_check{
 	font-size:13px;

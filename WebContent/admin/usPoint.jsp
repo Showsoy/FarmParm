@@ -54,7 +54,8 @@ function selectEDay(sel) {
 <div class="pageform">
 	<h3>&nbsp;&nbsp;적립금 내역</h3>
 	<hr color="#4CAF50" size="5">
-	<form action="myPoint.us" method="post" name="pointList">
+	<form action="usPoint.us" method="post" name="pointList">
+	<input type="hidden" name="uid" id="uid" value="${user_id }"/>
 	<div class="mypage">
 		<br><br>
 		<div id="sales-keyword" style="width:700px">
@@ -115,9 +116,9 @@ function selectEDay(sel) {
 		</span>
 		</div>
 		<br>
-		<button type="button" id="wbutton" onclick="location.href='myPoint.us?period=1'">1개월</button>
-		<button type="button" id="wbutton" onclick="location.href='myPoint.us?period=3'">3개월</button>
-		<button type="button" id="wbutton" onclick="location.href='myPoint.us?period=6'">6개월</button>
+		<button type="button" id="wbutton" onclick="location.href='usPoint.us?uid=${user_id}&period=1'">1개월</button>
+		<button type="button" id="wbutton" onclick="location.href='usPoint.us?uid=${user_id}&period=3'">3개월</button>
+		<button type="button" id="wbutton" onclick="location.href='usPoint.us?uid=${user_id}&period=6'">6개월</button>
 		<br><br>
 		<b>${start } - ${end }</b> 기간 검색
 		</div>
@@ -154,7 +155,7 @@ function selectEDay(sel) {
 						[이전]&nbsp;
 					</c:if>
 					<c:if test="${pageInfo.page>1 }">
-						<a href="myPoint.us?page=${pageInfo.page-1}&start=${start}&end=${end}">[이전]</a>&nbsp;
+						<a href="usPoint.us?uid=${user_id}&page=${pageInfo.page-1}&start=${start}&end=${end}">[이전]</a>&nbsp;
 					</c:if>
 
 					<c:forEach var="a" begin="${pageInfo.startPage }" end="${pageInfo.endPage }" step="1">
@@ -163,7 +164,7 @@ function selectEDay(sel) {
 								[${a }]
 							</c:when>
 							<c:otherwise>
-								<a href="myPoint.us?page=${a }&start=${start}&end=${end}">[${a }]</a>&nbsp;
+								<a href="usPoint.us?uid=${user_id}&page=${a }&start=${start}&end=${end}">[${a }]</a>&nbsp;
 							</c:otherwise>
 						</c:choose>
 					</c:forEach>
@@ -172,7 +173,7 @@ function selectEDay(sel) {
 							[다음]
 						</c:when>
 						<c:otherwise>
-							<a href="myPoint.us?page=${pageInfo.page+1 }&start=${start}&end=${end}">[다음]</a>&nbsp;
+							<a href="usPoint.us?uid=${user_id}&page=${pageInfo.page+1 }&start=${start}&end=${end}">[다음]</a>&nbsp;
 						</c:otherwise>
 					</c:choose>
 				</td>
@@ -184,7 +185,7 @@ function selectEDay(sel) {
 		</c:choose>
 		</table>
 	<br><br><br>
-	<button type="button" id="bbutton" onclick="location.href='./mypage.us'" style="width:120px;">마이페이지</button>
+	<button type="button" id="bbutton" onclick="location.href='userView.us?user_id=${user_id}'" style="width:100px;">회원정보</button>
 	</div>
 	</form>
 </div>

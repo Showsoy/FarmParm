@@ -75,6 +75,8 @@ public class MemberAdViewAction implements Action {
 				String emails[] = new String[2];
 				emails = email.split("@");
 				
+				if(request.getParameter("std")!=null) request.setAttribute("std", request.getParameter("std"));
+				if(request.getParameter("keyword")!=null) request.setAttribute("keyword", request.getParameter("keyword"));
 				request.setAttribute("email1", emails[0]);
 				request.setAttribute("email2", emails[1]);
 				request.setAttribute("page", page);

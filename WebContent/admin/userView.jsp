@@ -53,7 +53,7 @@
 	</tr>
 	<tr>
 		<td id="td_left"><label for="userID">포인트</label> </td>
-		<td>${user.point}</td>
+		<td>${user.point}점 <button id="gbutton" style="width:80px" onclick="location.href='usPoint.us?uid=${user.user_id}'">내역조회></button></td>
 	</tr>
 	<tr>
 		<td id="td_left"><label for="userID">이름</label></td>
@@ -100,7 +100,7 @@
 				<td><fmt:formatDate pattern="yyyy-MM-dd HH:mm:ss" value="${orderList.dati }" /></td>
 				<td>${orderList.pay }원</td>
 				<td>${orderList.state }</td>
-				<td><button type="button" id="wbutton" onclick="location.href='./admin/odView.od?order_id=${orderList.order_id}&page=${pageInfo.page }'" id="gbutton">조회</button></td>
+				<td><button type="button" id="wbutton" onclick="location.href='./admin/odView.od?order_id=${orderList.order_id}&returnURI='+encodeURIComponent(location);">조회</button></td>
 			</tr>
 			</c:forEach>
 			<tr>
@@ -127,7 +127,7 @@
 							
 						</c:when>
 						<c:otherwise>
-							<a href="userView.us?user_id=${user.user_id }&{pageInfo.page+1 }"><span id="pagebn">></span></a>
+							<a href="userView.us?user_id=${user.user_id }&${pageInfo.page+1 }"><span id="pagebn">></span></a>
 						</c:otherwise>
 					</c:choose>
 				</td>
@@ -141,7 +141,7 @@
 	<br><br><br>
 	</div>
 	<button type="button" id="bbutton" onclick="location.href='/FarmParm/admin/adminPage.jsp'" style="width:150px;">관리자페이지</button>
-	<button type="button" id="bbutton" onclick="location.href='/FarmParm/memberList.us'" style="width:90px;">회원목록</button>
+	<button type="button" id="bbutton" onclick="location.href='/FarmParm/memberList.us?page=${page }<c:out value="${std !=null ? '&std=' : '' }"/>${std}<c:out value="${keyword !=null ? '&keyword=' : '' }"/>${keyword}'" style="width:90px;">회원목록</button>
 	</div>
 </div>
  <jsp:include page="/common/footer.jsp" flush="false"/>

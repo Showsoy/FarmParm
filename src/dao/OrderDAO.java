@@ -397,6 +397,22 @@ public class OrderDAO {
 		
 		return updateCount;
 	}
+	public int setNullUserId(String user_id) {
+		int updateCount = 0;
+		String sql = "UPDATE orders SET user_id is null WHERE user_id = '"+user_id+"'";
+		PreparedStatement pstmt = null;
+		
+		try {
+			pstmt = conn.prepareStatement(sql);
+			updateCount = pstmt.executeUpdate();
+		}catch(Exception e) {
+			e.printStackTrace();
+		}finally {
+			if(pstmt!=null) close(pstmt);
+		}
+		
+		return updateCount;
+	}
 	public int cancelOrder(int order_id) {
 		int updateCount = 0;
 		String sql = "UPDATE orders SET state= '취소완료' WHERE order_id = ?";
@@ -646,4 +662,5 @@ public class OrderDAO {
 		
 		return salesMap;
 	}
+	
 }

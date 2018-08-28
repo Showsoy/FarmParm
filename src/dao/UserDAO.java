@@ -203,7 +203,7 @@ public class UserDAO {
 	public ArrayList<UserViewBean> users(int page){
 		PreparedStatement pstmt = null;
 		ResultSet rs = null;
-		String user_list_sql="select * from user_view order by user_id asc limit ?,10";
+		String user_list_sql="select * from user_view order by grade asc, user_id asc limit ?,10";
 		ArrayList<UserViewBean> articleList = new ArrayList<UserViewBean>();
 		UserViewBean userList = null;
 		int startrow=(page-1)*10;
@@ -252,24 +252,22 @@ public class UserDAO {
 		}
 		return updateCount;
 	}
-	public boolean modifyPwCheck(String users, String pw){
-		boolean modifyPw = false;
-		String sql="SELECT passwd FROM users WHERE user_id=? and passwd=?";
+	public boolean isPasswdValid(String user_id, String passwd){
+		boolean pwflag = false;
+		String sql="SELECT user_id FROM users WHERE user_id=? and passwd=?";
 		try{
 			pstmt=con.prepareStatement(sql);
-			pstmt.setString(1, users);
-			pstmt.setString(2, pw);
+			pstmt.setString(1, user_id);
+			pstmt.setString(2, passwd);
 			rs = pstmt.executeQuery();
-			if(rs.next()){
-				modifyPw = true;
-			}
+			if(rs.next()) pwflag = true;
 		}catch(Exception e){
 			e.printStackTrace();			
 		}finally{
 			close(rs);
 			close(pstmt);
 		}
-		return modifyPw;
+		return pwflag;
 	}
 	public int updateMyModify(UserBean users) {
 		PreparedStatement pstmt = null;
@@ -312,24 +310,6 @@ public class UserDAO {
 		}
 		return updateCount;
 	}
-	public String selectPass(String id){
-	String pass = null;
-	String sql="SELECT passwd FROM users WHERE user_id=?";
-	try{
-		pstmt=con.prepareStatement(sql);
-		pstmt.setString(1, id);
-		rs = pstmt.executeQuery();
-		if(rs.next()){
-			pass = rs.getString("passwd");
-		}
-	}catch(Exception e){
-		e.printStackTrace();		
-	}finally{
-		close(rs);
-		close(pstmt);
-	}
-	return pass;
-}
 	public String findUserId(String name, Date birth){
 		String findId = null;
 		String sql="SELECT user_id FROM users WHERE name=? AND birth=?";

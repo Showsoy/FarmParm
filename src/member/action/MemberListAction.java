@@ -77,6 +77,9 @@ public class MemberListAction implements Action{
 			pageInfo.setMaxPage(maxPage);
 			pageInfo.setPage(page);
 			pageInfo.setStartPage(startPage);
+			
+			if(request.getParameter("std")!=null) request.setAttribute("std", request.getParameter("std"));
+			if(request.getParameter("keyword")!=null) request.setAttribute("keyword", request.getParameter("keyword"));
 			request.setAttribute("pageInfo", pageInfo);
 			request.setAttribute("userList", userList);
 			forward = new ActionForward();

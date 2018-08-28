@@ -59,6 +59,11 @@ function chkForm(f){
 		f.userName.focus();
 		return false;
 	}
+	if (!reg_phone.test(phone)) {
+		alert("올바른 번호가 아닙니다.");
+		f.userPhone.focus();
+		return false;
+	}
 	if (!reg_birth.test(birth)) {
 		alert("올바른 형식이 아닙니다.");
 		f.userBirth.focus();

@@ -10,6 +10,8 @@ import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
 import action.Action;
+import board.action.MyQnAViewAction;
+import board.action.MyQnaListAction;
 import member.action.MemberAdModifyAction;
 import member.action.MemberAdModifyFormAction;
 import member.action.MemberAdPwModifyAction;
@@ -26,13 +28,12 @@ import member.action.MemberModifyFormAction;
 import member.action.MemberMyIdDeleteAction;
 import member.action.MemberMyModifyAction;
 import member.action.MemberMyPageAction;
+import member.action.MemberMyPointAction;
 import member.action.MemberPointListAction;
 import member.action.MemberPwCheckAction;
 import member.action.MemberPwFindAction;
 import member.action.MemberPwModifyAction;
 import member.action.MemberSelectDeleteAction;
-import member.action.MyQnAViewAction;
-import member.action.MyQnaListAction;
 import vo.ActionForward;
 
 /**
@@ -225,21 +226,14 @@ protected void doProcess(HttpServletRequest request, HttpServletResponse respons
 			}catch(Exception e){
 				e.printStackTrace();
 			}
-    	}else if(command.equals("/myQna.us")) {
-    		action = new MyQnaListAction();
-			try{
-				forward=action.execute(request, response);
-			}catch(Exception e){
-				e.printStackTrace();
-			}
-    	}else if(command.equals("/myQnaView.us")) {
-    		action = new MyQnAViewAction();
-			try{
-				forward=action.execute(request, response);
-			}catch(Exception e){
-				e.printStackTrace();
-			}
     	}else if(command.equals("/myPoint.us")) {
+    		action = new MemberMyPointAction();
+			try{
+				forward=action.execute(request, response);
+			}catch(Exception e){
+				e.printStackTrace();
+			}
+    	}else if(command.equals("/usPoint.us")) {
     		action = new MemberPointListAction();
 			try{
 				forward=action.execute(request, response);

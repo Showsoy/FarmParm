@@ -36,8 +36,7 @@ public class QnARemoveAction implements Action {
 			String codes[];
 			int board_num;
 			int deleteCount = 0;
-			
-			//여러개 삭제 미구현
+
 			if (request.getParameter("bnum") == null) {
 				if (!id.equals("admin")) {
 					response.setContentType("text/html;charset=UTF-8");

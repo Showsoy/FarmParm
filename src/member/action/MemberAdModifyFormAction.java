@@ -32,7 +32,6 @@ public class MemberAdModifyFormAction implements Action{
 			out.println("</script>");
 		} else {
 			String uid = request.getParameter("uid");
-
 			UserService userService = new UserService();
 			forward = new ActionForward();
 			UserBean user = userService.selectUserInfo(uid);
@@ -42,7 +41,6 @@ public class MemberAdModifyFormAction implements Action{
 			request.setAttribute("user", user);
 			request.setAttribute("email1", emails[0]);
 			request.setAttribute("email2", emails[1]);
-			request.setAttribute("uid", uid);
 			forward.setPath("./admin/userMod.jsp");
 		}
 		return forward;
