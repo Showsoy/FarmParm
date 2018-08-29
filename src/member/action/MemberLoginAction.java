@@ -1,13 +1,13 @@
 package member.action;
 
 import java.io.PrintWriter;
+
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import javax.servlet.http.HttpSession;
 import action.Action;
 import svc.UserService;
 import vo.ActionForward;
-import vo.UserBean;
 import vo.Util;
 
 public class MemberLoginAction implements Action{

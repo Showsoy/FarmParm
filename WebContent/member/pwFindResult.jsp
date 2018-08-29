@@ -29,7 +29,7 @@ function chkForm(f){
 			return false;
 		}
 	}
-	if(f.userPass.value.length<6) {
+ 	if(f.userPass.value.length<6) {
 	    alert("비밀번호는 6자리 이상 입력해주세요.");
 	    f.userPass.focus();
 	    return false;

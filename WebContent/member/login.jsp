@@ -11,6 +11,38 @@
 </head>
 <link rel="stylesheet" type="text/css" href="../style/style2.css">
 <script type="text/javascript">
+
+window.onload = function() {
+	 
+    if (getCookie("id")) {
+        document.loginform.userID.value = getCookie("id");
+        document.loginform.id_rem.checked = true;
+    }
+
+}
+
+function setCookie(name, value, expiredays)
+{
+    var todayDate = new Date();
+    todayDate.setDate(todayDate.getDate() + expiredays);
+    document.cookie = name + "=" + escape(value) + "; path=/; expires="
+            + todayDate.toGMTString() + ";"
+}
+
+function getCookie(Name) {
+    var search = Name + "=";
+    if (document.cookie.length > 0) {
+        offset = document.cookie.indexOf(search);
+        if (offset != -1) {
+            offset += search.length;
+            end = document.cookie.indexOf(";", offset);
+            if (end == -1)
+                end = document.cookie.length;
+            return unescape(document.cookie.substring(offset, end));
+        }
+    }
+}
+
 function chkForm(f){
 	if(f.userID.value.trim()==""){
 		alert("아이디는 필수항목입니다.");
@@ -22,14 +54,22 @@ function chkForm(f){
 		f.userPass.focus();
 		return false;
 	}
+	if (document.loginform.id_rem.checked == true) {
+        setCookie("id", document.loginform.userID.value, 7);
+    } else {
+        setCookie("id", document.loginform.userID.value, 0);
+    }
+	
 	//if(f.pass.value.trim()!=f.passChk.value.trim()){f.pass.value="";}
-	document.joinform.submit();
+	document.loginform.submit();
 }
+
+
 </script>
 <body>
 	<div class="login-page">
 		<div class="form">
-			<form class="login-form" name="loginform" action="./memberLoginAction.us" method="post" onsubmit="return chkForm(this)">
+			<form class="login-form" id="loginform" name="loginform" action="./memberLoginAction.us" method="post" onsubmit="return chkForm(this)">
 				<a href="<%=request.getContextPath()%>/main.im" id="logo"><img src="../images/farm_logo.png" width="150px"></a><br><br>
 				<c:choose>
 				<c:when test="${type eq 'nullID' }">
@@ -50,7 +90,10 @@ function chkForm(f){
 				</c:if>
 
 				<input type="text" id="userID" name="userID" placeholder="아이디" maxlength="20" class="input100"/> 
-				<input type="password" name="userPass" id="userPass" placeholder="비밀번호" class="input100"/> 
+				<input type="password" name="userPass" id="userPass" placeholder="비밀번호" class="input100"/>
+				<div style="float:right;">
+				<input type="checkbox" name="id_rem"/><p style="display:inline;font-size:12px;">&nbsp;아이디 기억하기</p><br>
+				</div>
 				<button type="submit" class="input100">로그인</button> 
 				<br><br>
 				<div id="footer">

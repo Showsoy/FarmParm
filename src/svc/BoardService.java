@@ -163,7 +163,6 @@ public class BoardService {
 		Connection conn = getConnection();
 		boardDAO.setConnection(conn);
 		ArrayList<BoardBean> articleList = boardDAO.selectQnAList(flag, page);
-		
 		close(conn);
 		return articleList;
 	}

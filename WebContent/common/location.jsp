@@ -29,7 +29,7 @@ td img{
 	<hr color="#4CAF50" size="5">
 	<div class="mypage">
 			<section class="w3-container w3-center">
-  			<img class="mySlides" src="../images/map.png" style="width:100%">
+  			<img class="mySlides" src="../images/map_.png" style="width:600px;">
 		</section>
 	</div>
 	

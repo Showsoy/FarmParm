@@ -64,7 +64,15 @@ public class CsBoardWriteAction implements Action {
 				out.println("history.back();");
 				out.println("</script>");
 			}else {
-				forward= new ActionForward("./csView.bo?bnum="+bnum,true);//리스트로 들어감
+				String nameMod = request.getParameter("nameMod");
+				
+				if(nameMod!=null){
+					request.setAttribute("act", "ok");
+					forward= new ActionForward("../member/nameModForm.jsp",false);
+				}else {
+					forward= new ActionForward("./csView.bo?bnum="+bnum,true);//리스트로 들어감
+				}
+
 			}
 		}
 		return forward;

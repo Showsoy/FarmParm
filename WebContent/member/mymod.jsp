@@ -70,6 +70,8 @@ function goto_url(act) {
 			return;
 		}
 }
+
+
 </script>
 <link rel="stylesheet" type="text/css" href="/FarmParm/style/style.css">
 <link rel="stylesheet" href="https://www.w3schools.com/w3css/3/w3.css">
@@ -92,7 +94,7 @@ function goto_url(act) {
 	</tr>
 	<tr>
 		<td id="td_left"><label for="userID">이름</label></td>
-		<td>${user.name}</td>
+		<td>${user.name}&nbsp;<button type="button" onclick="window.open('./member/nameMod.us','','width=500, height=520')" id="gbutton" style="width:130px;">개명고객 이름변경</button></td>
 	</tr>
 	<tr>
 		<td id="td_left"><label for="userPhone">연락처</label></td>
