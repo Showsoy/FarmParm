@@ -154,7 +154,6 @@ public class BoardService {
 		Connection conn = getConnection();
 		boardDAO.setConnection(conn);
 		ArrayList<BoardBean> articleList = boardDAO.selectQnAList(page);
-		
 		close(conn);
 		return articleList;
 	}

@@ -6,6 +6,10 @@
 <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
 <title>:::회원가입 페이지:::|팜팜농원</title>
 <style>
+textarea{
+	font-size:11px;
+	resize: none;
+}
 </style>
 </head>
 <link rel="stylesheet" type="text/css" href="../style/style2.css">
@@ -26,6 +30,8 @@ function chkForm(f){
 	var mail1 = f.userEmailId.value;
 	var mail2 = f.userEmailAd.value;
 	var phone = f.userPhone.value;
+	var req = document.joinform.req.checked;
+	var num = 0;
 	
 	var reg_birth = /^\d{8}$/
 	var reg_email1 = /^[0-9a-zA-Z]([-_\.]?[0-9a-zA-Z])+$/i;
@@ -99,6 +105,14 @@ function chkForm(f){
 		f.userAddr2.focus();
 		return false;
 	}
+	if(req == true){
+		num = 1;
+	}
+	if(num!=1){
+		alert("개인정보 약관에 동의해주세요.");
+		return false;
+	}
+		
 	if(doubleSubmitCheck()) return;
 	else alert('회원가입이 완료되었습니다.');
 	
@@ -116,7 +130,7 @@ function selectEmail(sel) {
 <body>
 <div class="join-page">
 		<div class="form">
-			<form class="login-form" name="joinform" action="./memberJoinAction.us" method="post" onsubmit="return chkForm(this)">
+			<form class="login-form" id="joinform" name="joinform" action="./memberJoinAction.us" method="post" onsubmit="return chkForm(this)">
 				<div id="header">
 				<a href="<%=request.getContextPath()%>/main.im"><img src="../images/farm_logo.png" width="150px"></a>
 				<hr color="#4CAF50">
@@ -216,6 +230,57 @@ function selectEmail(sel) {
 		        }).open();
 		    }
 		</script>
+		<br>
+		<p style="font-size:12px;">개인정보 수집 및 이용 동의</p>
+		<textarea id="use" rows="10" cols="56" readonly>
+1. 개인정보 수집목적 및 이용목적
+
+가. 서비스 제공에 관한 계약 이행 및 서비스 제공에 따른 
+요금정산 콘텐츠 제공 , 구매 및 요금 결제 , 
+물품배송 또는 청구지 등 발송 , 
+금융거래 본인 인증 및 금융 서비스, 마케팅
+
+나. 회원 관리
+회원제 서비스 이용에 따른 본인확인 , 개인 식별 , 
+불량회원의 부정 이용 방지와 비인가 사용 방지 , 
+가입 의사 확인 , 연령확인 , 만14세 미만 아동의
+개인정보 수집 시 법정 대리인 동의여부 확인, 
+불만처리 등 민원처리 , 고지사항 전달
+
+
+2. 수집하는 개인정보 항목 : 이름 , 생년월일 , 성별 , 
+로그인ID , 비밀번호 , 자택 전화번호 , 휴대전화번호 , 
+이메일 , 14세미만 가입자의 경우 법정대리인의 정보
+
+
+3. 개인정보의 보유기간 및 이용기간
+원칙적으로, 개인정보 수집 및 이용목적이 달성된 후에는 
+해당 정보를 지체 없이 파기합니다. 
+단, 다음의 정보에 대해서는 아래의 이유로 
+명시한 기간 동안 보존합니다.
+
+가. 회사 내부 방침에 의한 정보 보유 사유
+o 부정거래 방지 및 쇼핑몰 운영방침에 따른 보관 : 30년
+나. 관련 법령에 의한 정보보유 사유
+o 계약 또는 청약철회 등에 관한 기록
+-보존이유 : 전자상거래등에서의소비자보호에관한법률
+-보존기간 : 5년
+o 대금 결제 및 재화 등의 공급에 관한 기록
+-보존이유: 전자상거래등에서의소비자보호에관한법률
+-보존기간 : 5년 
+o 소비자 불만 또는 분쟁처리에 관한 기록
+-보존이유 : 전자상거래등에서의소비자보호에관한법률
+-보존기간 : 3년 
+o 로그 기록 
+-보존이유: 통신비밀보호법
+-보존기간 : 3개월
+
+※ 동의는 거부할 수 있으나 거부시 회원 가입이 불가능합니다.
+		</textarea>
+		
+		<input type="checkbox" name="req">
+		<p style="font-size:12px;display:inline;">동의합니다</p>
+	
 		<br><br><br>
 				<button class="input100" type="submit">회원가입</button>
 				<br><br><br><br>

@@ -21,7 +21,7 @@
 	<hr color="#4CAF50" size="5">
 	<div class="mypage">
 		<section class="w3-container w3-center">
-  			<img class="mySlides" src="../images/introduction.png" style="width:100%">
+  			<img class="mySlides" src="../images/introduction_.png" style="width:100%">
 		</section>
 	</div>
 </div>
