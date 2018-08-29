@@ -145,11 +145,11 @@ pageContext.setAttribute("uprice", uprice);
 			<hr color="#4CAF50" size="5">
 			<c:choose>
 				<c:when test="${stock<=0 }">
-					<button id="bbutton" type="button" onclick="#">장바구니</button>
+					<button id="sbutton" type="button" onclick="#">장바구니</button>
 					<button id="bbutton" type="button" onclick="#">바로구매</button>
 				</c:when>
 				<c:otherwise>
-					<button id="bbutton" type="button" onclick="goto_url('./item/addCart.ct?item_code=${item.item_code}');">장바구니</button>
+					<button id="sbutton" type="button" onclick="goto_url('./item/addCart.ct?item_code=${item.item_code}');">장바구니</button>
 					<button id="bbutton" type="button" onclick="goto_url('./order/odForm.od?type=one&item_code=${item.item_code}');">바로구매</button>
 				</c:otherwise>
 			</c:choose>

@@ -10,7 +10,6 @@ import java.util.HashMap;
 import java.util.Map;
 
 import vo.OrderBean;
-import vo.OrderItemBean;
 import vo.OrderViewBean;
 
 public class OrderDAO {
@@ -399,7 +398,7 @@ public class OrderDAO {
 	}
 	public int setNullUserId(String user_id) {
 		int updateCount = 0;
-		String sql = "UPDATE orders SET user_id is null WHERE user_id = '"+user_id+"'";
+		String sql = "UPDATE orders SET user_id = null WHERE user_id = '"+user_id+"'";
 		PreparedStatement pstmt = null;
 		
 		try {
