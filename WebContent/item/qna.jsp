@@ -51,12 +51,12 @@ var count2 = 0;
 					<tr height="30px">
 						<td>${num }</td><c:set var="num" value="${num-1 }"/>
 						<td id="leftalign" colspan="2" onclick="show_content2(${qna.rgroup},${qna.readcount })" style="cursor:pointer;">${qna.subject }<c:if test="${qna.readcount > 0 }">
-								<img src="./images/lock.png" style="width:8px;height:10px;padding:0 0 3px 0;"></c:if><c:if test="${qna.has_re==1 }"> [1]</c:if></td>
+								<img src="./images/lock.png" style="width:12px;padding:0 0 4px 0;"></c:if><c:if test="${qna.has_re==1 }"> [1]</c:if></td>
 						<td>${qna.user_id }***</td>
 						<td>${qna.date }</td>
 					</tr>
 					</c:if>
-					<tr id="qna_content${qna.rgroup }" style="display:none;">
+					<tr id="qna_content${qna.rgroup }" style="display:none;background-color: #f2f2f2;">
 						<td colspan="5" id="parent_content">
 						<div id="parent">
 						<c:if test="${qna.rstep==1 }">
@@ -91,7 +91,7 @@ var count2 = 0;
 						</td>
 						</tr>
 						<c:if test="${qna.rstep==2}">
-						<tr id="qnare_content${qna.rgroup }" style="display:none;">
+						<tr id="qnare_content${qna.rgroup }" style="display:none;background-color: #f2f2f2;">
 							<td colspan="5" id="child_content">
 								<div style="width:600px;padding:10px 10px 10px 50px;text-align:left">
 								<p><b>팜팜농원</b></p>

@@ -38,6 +38,10 @@ public class ItemModFormAction implements Action{
 			String item_code = request.getParameter("item_code");
 			ItemService itemService = new ItemService();
 			ItemBean item = itemService.getItem(item_code);
+			String content = item.getContent();
+			content = content.replace("<br>", "\r\n");
+			item.setContent(content);
+			request.setAttribute("page", request.getParameter("page"));
 			request.setAttribute("item",item);
 			request.setAttribute("old_code", item_code);
 			forward= new ActionForward("./itemMod.jsp",false);

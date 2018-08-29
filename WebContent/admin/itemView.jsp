@@ -18,7 +18,7 @@ th{
 </style>
 <script>
 	function deleteCheck(v){
-		var flag = confirm('한 번 삭제한 상품은 복구할 수 없습니다.\n그래도 삭제하시겠습니까?');
+		var flag = confirm('삭제한 상품은 복구 및 조회가 불가능합니다.\n그래도 삭제하시겠습니까?');
 		if(flag){
 			location.href=("itemDelete.im?item_code="+v);
 		}
@@ -87,8 +87,8 @@ th{
 		<td colspan="3" id="td_info">
 		<button id="bbutton" onclick="location.href='../uitemView.im?item_code=${item.item_code}'">상품페이지</button>
 		<button id="bbutton" onclick="location.href='itemEnterForm.im?item_code=${item.item_code}'">입출고등록</button>
-		<button id="bbutton" onclick="location.href='itemModForm.im?item_code=${item.item_code}'">수정하기</button> 
-		<button id="bbutton" onclick="deleteCheck('${item.item_code}');">삭제하기</button></td>
+		<button id="bbutton" onclick="location.href='itemModForm.im?item_code=${item.item_code}&page=${page }'">수정하기</button> 
+		<button id="sbutton" onclick="deleteCheck('${item.item_code}');">삭제하기</button></td>
 	</tr>
 </table>
 <br><br>
@@ -122,7 +122,7 @@ ${item.content }
 				<td style="width:100px;">코드</td>
 				<td style="width:150px;">날짜</td>
 				<td style="width:100px;">상태</td>
-				<td style="width:100px;">갯수</td>
+				<td style="width:100px;">개수</td>
 				<td style="width:100px;">재고</td>
 			</tr>
 			<c:choose>
@@ -142,7 +142,7 @@ ${item.content }
 						
 					</c:if>
 					<c:if test="${i_pageInfo.page>1 }">
-						<a href="itemView.im?item_code=${item.item_code }&page=${page }&i_page=${i_pageInfo.page-1}&iyear=${iyear}&imonth=${imonth}"><span id="pagebn"><</span></a>
+						<a href="itemView.im?item_code=${item.item_code }&page=${page }&i_page=${i_pageInfo.page-1}&iyear=${iyear}&imonth=${imonth}#state_table"><span id="pagebn"><</span></a>
 					</c:if>
 					
 					<c:forEach var="a" begin="${i_pageInfo.startPage }" end="${i_pageInfo.endPage }" step="1">
@@ -151,7 +151,7 @@ ${item.content }
 								<span id="nowpage">${a }</span>
 							</c:when>
 							<c:otherwise>
-								<a href="itemView.im?item_code=${item.item_code }&page=${page }&i_page=${a }&iyear=${iyear}&imonth=${imonth}">&nbsp;${a }&nbsp;</a>
+								<a href="itemView.im?item_code=${item.item_code }&page=${page }&i_page=${a }&iyear=${iyear}&imonth=${imonth}#state_table">&nbsp;${a }&nbsp;</a>
 							</c:otherwise>
 						</c:choose>
 					</c:forEach>
@@ -160,7 +160,7 @@ ${item.content }
 							
 						</c:when>
 						<c:otherwise>
-							<a href="itemView.im?item_code=${item.item_code }&page=${page }&i_page=${i_pageInfo.page+1 }&iyear=${iyear}&imonth=${imonth}"><span id="pagebn">></span></a>
+							<a href="itemView.im?item_code=${item.item_code }&page=${page }&i_page=${i_pageInfo.page+1 }&iyear=${iyear}&imonth=${imonth}#state_table"><span id="pagebn">></span></a>
 						</c:otherwise>
 					</c:choose>
 				</td>

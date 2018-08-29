@@ -58,8 +58,8 @@ function chkForm(f){
 		alert('중복접근!');
 		return;
 	}
-	
-	document.joinform.submit();
+
+	document.f.submit();
 }
 function selCategory(sel) {
 	chkCode = false;
@@ -123,7 +123,7 @@ function selCategory(sel) {
 						<input type="text" name="origin" id="origin" size="5"/>
 					</td>
 					<td id="td_left">
-						<label for="sale">수량</label>
+						<label for="sale">등록입고</label>
 					</td>
 					<td id="td_right">
 						<input type="text" name="stock" id="stock" value="0" size="5"/>

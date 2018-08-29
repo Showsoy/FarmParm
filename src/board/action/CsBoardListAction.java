@@ -4,6 +4,7 @@ import java.util.ArrayList;
 
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
+import javax.servlet.http.HttpSession;
 
 import action.Action;
 import svc.BoardService;
@@ -19,6 +20,9 @@ public class CsBoardListAction implements Action {
 		request.setCharacterEncoding("UTF-8");
 		ActionForward forward = null;
 		
+		HttpSession session = request.getSession();
+		String id = (String)session.getAttribute("id");
+		
 		ArrayList<BoardBean> boardList = new ArrayList<BoardBean>();
 		String keyword = null;
 		String std = null;
@@ -32,16 +36,24 @@ public class CsBoardListAction implements Action {
 		}
 		
 		BoardService boardService = new BoardService();
-		
-		if(request.getParameter("keyword")!=null) {
-			keyword = request.getParameter("keyword");
+		if(request.getParameter("std")!=null) {
 			std = request.getParameter("std");
-			listCount = boardService.searchListCount(std, keyword);
-			boardList = boardService.searchCsBoardList(std, keyword, page);
-			request.setAttribute("keyword", keyword);
+			request.setAttribute("std", std);
+			if(request.getParameter("keyword")!=null) {
+				keyword = request.getParameter("keyword");
+				listCount = boardService.searchListCount(std, keyword);
+				boardList = boardService.searchCsBoardList(std, keyword, page);
+				request.setAttribute("keyword", keyword);
+			}else if(std.equals("reply")) {
+				listCount = boardService.replyListCount("cs_board");
+				boardList = boardService.selectCsBoardList("reply", page);
+			}else if(std.equals("mycs")) {
+				listCount = boardService.myArticelListCount("cs_board", id);
+				boardList = boardService.selectCsBoardList(id, page);
+			}
 		}else {
 			listCount = boardService.selectListCount("cs_board");
-			boardList = boardService.selectCsBoardList(page);
+			boardList = boardService.selectCsBoardList("not", page);
 		}
 		
 		int maxPage = (int)((double)listCount/limit+0.95);
@@ -55,8 +67,6 @@ public class CsBoardListAction implements Action {
 		pageInfo.setPage(page);
 		pageInfo.setStartPage(startPage);
 		
-		request.setAttribute("std", std);
-		request.setAttribute("keyword", keyword);
 		request.setAttribute("pageInfo", pageInfo);
 		request.setAttribute("boardList", boardList);
 		forward= new ActionForward("../common/cs_center.jsp",false);

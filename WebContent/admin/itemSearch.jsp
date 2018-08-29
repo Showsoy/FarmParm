@@ -157,7 +157,16 @@ function selectEDay(sel) {
 		<tr>
 			<td>${isearch.category }</td>
 			<td>${isearch.item_code }</td>
-			<td>${isearch.item_name }</td>
+			<td>
+			<c:choose>
+			<c:when test="${isearch.item_code eq 'null' }">
+			<del>삭제된상품</del>
+			</c:when>
+			<c:otherwise>
+			${isearch.item_name }
+			</c:otherwise>
+			</c:choose>
+			</td>
 			<td>${isearch.img_path }</td>
 			<td>${isearch.readcount }</td>
 			<td>${isearch.vdate }</td>

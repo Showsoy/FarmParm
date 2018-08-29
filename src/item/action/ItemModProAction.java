@@ -55,6 +55,9 @@ public class ItemModProAction implements action.Action{
 			if(multi.getFilesystemName("img_path")==null) {
 				image = multi.getParameter("oldImage");
 			}
+			String content = multi.getParameter("content");
+			content = content.replace("\r\n", "<br>");
+			
 			ItemBean item = new ItemBean(
 					item_code,
 					multi.getParameter("item_name"),
@@ -63,7 +66,7 @@ public class ItemModProAction implements action.Action{
 					multi.getParameter("category"),
 					image,
 					Integer.parseInt(multi.getParameter("sale")),
-					multi.getParameter("content"),
+					content,
 					0,0);
 			
 			boolean isModifySuccess = itemService.updateItem(item, multi.getParameter("old_code"));
@@ -76,7 +79,7 @@ public class ItemModProAction implements action.Action{
 				out.println("history.back();");
 				out.println("</script>");
 			}else {
-				forward= new ActionForward("./itemView.im?item_code="+item_code,true);
+				forward= new ActionForward("./itemView.im?item_code="+item_code+"&page="+multi.getParameter("page"),true);
 			}
 		}
 		

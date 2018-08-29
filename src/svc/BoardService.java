@@ -41,6 +41,15 @@ public class BoardService {
 		close(conn);
 		return listCount;
 	}
+	public int replyListCount(String bName) {
+		BoardDAO boardDAO = BoardDAO.getInstance();
+		Connection conn = getConnection();
+		boardDAO.setConnection(conn);
+		int listCount = boardDAO.replyListCount(bName);
+		
+		close(conn);
+		return listCount;
+	}
 	public int selectListCount(String bName, String item_code) {
 		BoardDAO boardDAO = BoardDAO.getInstance();
 		Connection conn = getConnection();
@@ -104,11 +113,11 @@ public class BoardService {
 		close(conn);
 		return articleList;
 	}
-	public ArrayList<BoardBean> selectCsBoardList(int page) {
+	public ArrayList<BoardBean> selectCsBoardList(String flag, int page) {
 		BoardDAO boardDAO = BoardDAO.getInstance();
 		Connection conn = getConnection();
 		boardDAO.setConnection(conn);
-		ArrayList<BoardBean> articleList = boardDAO.selectCsBoardList(page);
+		ArrayList<BoardBean> articleList = boardDAO.selectCsBoardList(flag, page);
 		
 		close(conn);
 		return articleList;
@@ -131,11 +140,11 @@ public class BoardService {
 		close(conn);
 		return articleList;
 	}
-	public ArrayList<BoardBean> selectReviewList(int page) {
+	public ArrayList<BoardBean> selectReviewList(String flag, int page) {
 		BoardDAO boardDAO = BoardDAO.getInstance();
 		Connection conn = getConnection();
 		boardDAO.setConnection(conn);
-		ArrayList<BoardBean> articleList = boardDAO.selectReviewList(page);
+		ArrayList<BoardBean> articleList = boardDAO.selectReviewList(flag, page);
 		
 		close(conn);
 		return articleList;
@@ -149,20 +158,20 @@ public class BoardService {
 		close(conn);
 		return articleList;
 	}
-	public ArrayList<BoardBean> selectQnAList(int page) {
+	public ArrayList<BoardBean> selectQnAList(boolean flag, int page) {
 		BoardDAO boardDAO = BoardDAO.getInstance();
 		Connection conn = getConnection();
 		boardDAO.setConnection(conn);
-		ArrayList<BoardBean> articleList = boardDAO.selectQnAList(page);
+		ArrayList<BoardBean> articleList = boardDAO.selectQnAList(flag, page);
 		
 		close(conn);
 		return articleList;
 	}
-	public int myQnaListCount(String bName, String id) {
+	public int myArticelListCount(String bName, String id) {
 		BoardDAO boardDAO = BoardDAO.getInstance();
 		Connection conn = getConnection();
 		boardDAO.setConnection(conn);
-		int listCount = boardDAO.myQnaListCount(bName, id);
+		int listCount = boardDAO.myArticelListCount(bName, id);
 		close(conn);
 		return listCount;
 	}

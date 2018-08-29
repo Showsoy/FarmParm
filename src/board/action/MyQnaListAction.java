@@ -37,7 +37,7 @@ public class MyQnaListAction implements Action{
 				page = Integer.parseInt(request.getParameter("page"));}
 			
 				BoardService boardService = new BoardService();
-				listCount = boardService.myQnaListCount("qna_board", id);
+				listCount = boardService.myArticelListCount("qna_board", id);
 				boardList = boardService.myQnAList(page, id);
 				
 				int maxPage = (int)((double)listCount/limit+0.95);

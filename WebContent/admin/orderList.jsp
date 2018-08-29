@@ -114,7 +114,8 @@ img{
 				<td><input type="checkbox" id="icheck" name="icheck" value="${orderList.order_id }"/></td>
 				<td>${orderList.order_id }</td>
 				<td><fmt:formatDate pattern="yyyy-MM-dd HH:mm:ss" value="${orderList.dati }" /></td>
-				<td>${orderList.user_id }</td>
+				<td><c:if test="${orderList.user_id eq null }">탈퇴회원</c:if>
+				${orderList.user_id }</td>
 				<td><fmt:formatNumber value="${orderList.pay }" type="number"/>원</td>
 				<td>${orderList.state }</td>
 				<td><button type="button" onclick="location.href='odView.od?order_id=${orderList.order_id}&page=${pageInfo.page }'" id="gbutton">조회</button></td>
@@ -126,7 +127,7 @@ img{
 						
 					</c:if>
 					<c:if test="${pageInfo.page>1 }">
-						<a href="odList.od?page=${pageInfo.page-1}"><span id="pagebn"><</span></a>
+						<a href="odList.od?<c:out value="${state !=null ? 'state=' : '' }"/>${state }&page=${pageInfo.page-1}"><span id="pagebn"><</span></a>
 					</c:if>
 					
 					<c:forEach var="a" begin="${pageInfo.startPage }" end="${pageInfo.endPage }" step="1">
@@ -135,7 +136,7 @@ img{
 								<span id="nowpage">${a }</span>
 							</c:when>
 							<c:otherwise>
-								<a href="odList.od?page=${a }">&nbsp;${a }&nbsp;</a>
+								<a href="odList.od?<c:out value="${state !=null ? 'state=' : '' }"/>${state }&page=${a }">&nbsp;${a }&nbsp;</a>
 							</c:otherwise>
 						</c:choose>
 					</c:forEach>
@@ -144,7 +145,7 @@ img{
 							
 						</c:when>
 						<c:otherwise>
-							<a href="odList.od?page=${pageInfo.page+1 }"><span id="pagebn">></span></a>
+							<a href="odList.od?<c:out value="${state !=null ? 'state=' : '' }"/>${state }&page=${pageInfo.page+1 }"><span id="pagebn">></span></a>
 						</c:otherwise>
 					</c:choose>
 				</td>

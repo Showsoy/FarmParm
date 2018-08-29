@@ -29,7 +29,7 @@ function doubleSubmitCheck(){
     <a href="#" id="menu"><img src="<%=request.getContextPath()%>/images/menu.png" width="24px" height="27px"/></a>
     <div class="maindown-content">
 	     <div class="list">
-	      <a href="<%=request.getContextPath()%>/item/introduction.jsp">
+	      <a href="<%=request.getContextPath()%>/common/introduction.jsp">
 	      &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
 			<b>농원소개</b></a>
 	      <a href="<%=request.getContextPath()%>/uitemList.im?category=채소">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
@@ -52,7 +52,7 @@ function doubleSubmitCheck(){
   <li class="dropdown">
     <a href="javascript:void(0)" class="dropbtn">&nbsp;&nbsp;팜팜소개&nbsp;&nbsp;</a>
     <div class="dropdown-content">
-      <a href="<%=request.getContextPath()%>/item/introduction.jsp">농원소개</a>
+      <a href="<%=request.getContextPath()%>/common/introduction.jsp">농원소개</a>
       <a href="<%=request.getContextPath()%>/common/location.jsp">오시는 길</a>
       <a href="<%=request.getContextPath()%>/common/noList.bo">안내사항</a>
     </div>

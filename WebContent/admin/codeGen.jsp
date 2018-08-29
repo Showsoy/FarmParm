@@ -12,12 +12,12 @@
 	if((String)request.getAttribute("item_code")!=null){
 		isGen = "true";
 		item_code = (String)request.getAttribute("item_code");
-		System.out.println(item_code);
 	}
 %>    
 <!DOCTYPE html PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN" "http://www.w3.org/TR/html4/loose.dtd">
 <html>
 <head>
+<link rel="stylesheet" type="text/css" href="../style/style.css">
 <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
 <title>Insert title here</title>
 <style>
@@ -72,12 +72,12 @@ function fclose(f){
 	</tr>
 	<tr>
 		<td>
-		<button id="gbutton" style="width:100%;" type="submit">확인</button>
+		<button id="gbutton" style="width:100%;padding:10px;" type="submit">확인</button>
 		</td>
 	</tr>
 	<tr>
 		<td>
-		<button id="gbutton" style="width:100%;" type="button" onclick="fclose(this)">다시선택</button>
+		<button id="gbutton" style="width:100%;padding:10px;" type="button" onclick="fclose(this)">다시선택</button>
 		</td>
 	</tr>
 </table>

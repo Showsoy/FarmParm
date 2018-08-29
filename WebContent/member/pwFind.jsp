@@ -4,7 +4,7 @@
 <html>
 <head>
 <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
-<title>Insert title here</title>
+<title>:::비밀번호찾기 | 팜팜농원:::</title>
 <style type="text/css">
 </style>
 </head>

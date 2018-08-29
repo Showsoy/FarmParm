@@ -45,7 +45,7 @@ img{
 	}
 	function goto_url(act) {
 		if(act=='itemDelete.im'){
-			var flag = confirm('한 번 삭제한 상품은 복구할 수 없습니다.\n그래도 삭제하시겠습니까?');
+			var flag = confirm('삭제한 상품은 복구 및 조회가 불가능합니다.\n그래도 삭제하시겠습니까?');
 			if(flag){
 				document.itemList.action = act;
 				document.itemList.submit();
@@ -135,7 +135,7 @@ img{
 						
 					</c:if>
 					<c:if test="${pageInfo.page>1 }">
-						<a href="itemList.im?page=${pageInfo.page-1}"><span id="pagebn"><</span></a>
+						<a href="itemList.im?<c:out value="${category !=null ? 'category=' : '' }"/>${category }&page=${pageInfo.page-1}"><span id="pagebn"><</span></a>
 					</c:if>
 					
 					<c:forEach var="a" begin="${pageInfo.startPage }" end="${pageInfo.endPage }" step="1">
@@ -144,7 +144,7 @@ img{
 								<span id="nowpage">${a }</span>
 							</c:when>
 							<c:otherwise>
-								<a href="itemList.im?page=${a }">&nbsp;${a }&nbsp;</a>
+								<a href="itemList.im?<c:out value="${category !=null ? 'category=' : '' }"/>${category }&page=${a }">&nbsp;${a }&nbsp;</a>
 							</c:otherwise>
 						</c:choose>
 					</c:forEach>
@@ -153,7 +153,7 @@ img{
 							
 						</c:when>
 						<c:otherwise>
-							<a href="itemList.im?page=${pageInfo.page+1 }"><span id="pagebn">></span></a>
+							<a href="itemList.im?<c:out value="${category !=null ? 'category=' : '' }"/>${category }&page=${pageInfo.page+1 }"><span id="pagebn">></span></a>
 						</c:otherwise>
 					</c:choose>
 				</td>

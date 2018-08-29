@@ -8,7 +8,7 @@
 <html>
 <head>
 <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
-<title>Insert title here</title>
+<title>:::주문내역 | 팜팜농원:::</title>
 <style>
 .mypage td{
 	padding:5px;
@@ -32,7 +32,7 @@ function orderCancel(){
 <body>
 <jsp:include page="/common/top_menu.jsp" flush="false"/>
 <div class="pageform">
-	<h3>&nbsp;&nbsp;주문조회</h3>
+	<h3>&nbsp;&nbsp;주문내역</h3>
 	<hr color="#4CAF50" size="5">
 	<div class="mypage">
 	<div id="statebox">

@@ -4,7 +4,7 @@
 <html>
 <head>
 <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
-<title>:::회원가입 페이지:::|팜팜농원</title>
+<title>:::회원가입 | 팜팜농원:::</title>
 <style>
 </style>
 </head>

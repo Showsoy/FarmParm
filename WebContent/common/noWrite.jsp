@@ -4,13 +4,14 @@
 <html>
 <head>
 <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
-<title>Insert title here</title>
+<title>:::팜팜농원:::</title>
 <style>
 td, tr{
 	border: 1px solid #ddd;
 }
 </style>
 <script>
+/*
 function fc_chk_byte(memo) { 
 	var ari_max=600;
 	var ls_str = memo.value;
@@ -48,6 +49,7 @@ function fc_chk2() {
 	if(event.keyCode == 13) 
 	event.returnValue=false; 
 }
+*/
 function chkForm(f){
 	if(doubleSubmitCheck()) {
 		alert('중복접근!');
@@ -80,7 +82,7 @@ function chkForm(f){
 						<label for="content">내용</label>
 					</td>	
 					<td>
-						<textarea name="content" id="content" cols="60" rows="15" onkeyup="fc_chk_byte(this);" onkeypress="fc_chk2();"></textarea>
+						<textarea name="content" id="content" cols="60" rows="15" maxlength="60"></textarea>
 					</td>
 				</tr>
 				<tr>

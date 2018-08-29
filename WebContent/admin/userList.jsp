@@ -54,7 +54,7 @@ function checkAll(theForm){
 }
 function goto_url(act) {
 	if(act=='memberSelectDelete.us'){
-		var flag = confirm('한 번 삭제한 아이디는 복구할 수 없습니다.\n그래도 삭제하시겠습니까?');
+		var flag = confirm('한 번 삭제한 회원은 복구할 수 없습니다.\n그래도 삭제하시겠습니까?');
 		if(flag){
 			document.listForm.action = act;
 			document.listForm.submit();
@@ -129,7 +129,11 @@ function goto_url(act) {
 				</c:if>
 				${userList.user_id }</td>
 				<td>${userList.grade }</td>
-				<td><fmt:formatNumber value="${userList.tot_price }" type="number"/>원</td>
+				<td>
+				<c:if test="${userList.tot_price != null }">
+				<fmt:formatNumber value="${userList.tot_price }" type="number"/>원
+				</c:if>
+				</td>
 				<td>
 				<c:if test="${userList.grade != '관리자' }">
 				<button type="button" onclick="location.href='userView.us?user_id=${userList.user_id}<c:out value="${std !=null ? '&std=' : '' }"/>${std}<c:out value="${keyword !=null ? '&keyword=' : '' }"/>${keyword}'" id="gbutton">조회</button>

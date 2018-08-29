@@ -37,6 +37,7 @@ public class BoardBean {
 	public BoardBean(int board_num, String code, String user_id, String content, String subject, int has_re, Date date, int readcount) {
 		this.board_num = board_num;
 		this.code = code;
+		this.user_id = user_id;
 		this.content = content;
 		this.subject = subject;
 		this.has_re = has_re;

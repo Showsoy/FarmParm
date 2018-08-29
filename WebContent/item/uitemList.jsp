@@ -8,7 +8,7 @@
 <html>
 <head>
 <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
-<title>Insert title here</title>
+<title>:::상품목록 | 팜팜농원:::</title>
 <style>
 table{
 	border:0;
@@ -118,7 +118,7 @@ th, td {
 			
 			</c:if>
 			<c:if test="${pageInfo.page>1 }">
-				<a href="itemList.im?page=${pageInfo.page-1}&category=${category }&std=${std}"><span id="pagebn"><</span></a>
+				<a href="uitemList.im?page=${pageInfo.page-1}&category=${category }&std=${std}"><span id="pagebn"><</span></a>
 			</c:if>
 					
 			<c:forEach var="a" begin="${pageInfo.startPage }" end="${pageInfo.endPage }" step="1">
@@ -127,7 +127,7 @@ th, td {
 						<span id="nowpage">${a }</span>
 					</c:when>
 					<c:otherwise>
-						<a href="itemList.im?page=${a }&category=${category }&std=${std}">&nbsp;${a }&nbsp;</a>
+						<a href="uitemList.im?page=${a }&category=${category }&std=${std}">&nbsp;${a }&nbsp;</a>
 					</c:otherwise>
 				</c:choose>
 			</c:forEach>
@@ -136,7 +136,7 @@ th, td {
 						
 					</c:when>
 					<c:otherwise>
-						<a href="itemList.im?page=${pageInfo.page+1 }&category=${category }&std=${std}"><span id="pagebn">></span></a>
+						<a href="uitemList.im?page=${pageInfo.page+1 }&category=${category }&std=${std}"><span id="pagebn">></span></a>
 					</c:otherwise>
 				</c:choose>
 	</div>

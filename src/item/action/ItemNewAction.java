@@ -44,8 +44,6 @@ public class ItemNewAction implements action.Action{
 			out.println("</script>");
 		}else {
 			ItemService itemService = new ItemService();
-		
-			Date date = new Date(0, 0, 0);	
 			
 			String realFolder = "";
 			String saveFolder = "/images";
@@ -56,6 +54,8 @@ public class ItemNewAction implements action.Action{
 			realFolder = context.getRealPath(saveFolder);
 			MultipartRequest multi = new MultipartRequest(request, realFolder, fileSize, encType, new DefaultFileRenamePolicy());
 			String image = multi.getFilesystemName("img_path");
+			String content = multi.getParameter("content");
+			content = content.replace("\r\n", "<br>");
 			
 			ItemBean item = new ItemBean(
 					multi.getParameter("item_code"),
@@ -65,14 +65,13 @@ public class ItemNewAction implements action.Action{
 					multi.getParameter("category"),
 					image,
 					Integer.parseInt(multi.getParameter("sale")),
-					multi.getParameter("content"),
+					content,
 					0,0);
 			
 			ItemStockBean itemS = new ItemStockBean(
-					multi.getParameter("item_code"),
-					"등록",
-					date,
-					0,Integer.parseInt(multi.getParameter("stock")),1);
+					multi.getParameter("item_code"),"등록",
+					Integer.parseInt(multi.getParameter("stock")),
+					Integer.parseInt(multi.getParameter("stock")),1);
 			
 			boolean isRegistSuccess = itemService.registItem(item);
 			

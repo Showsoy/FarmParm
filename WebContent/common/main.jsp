@@ -42,7 +42,7 @@ function carousel() {
 <!-- 베스트 상품 리스트 -->
 <section class="w3-container w3-center" id ="mainicon" style="max-width:500px;">
 	<h2 class="w3-wide">BEST</h2>
-  	<p class="w3-opacity"><i>가장 사랑받은 제품들</i></p>
+  	<p class="w3-opacity"><i>가장 사랑받은 상품</i></p>
   	<a href="./bnlist.im?type=best"><img src="./images/mainicon3.png"></a>
 </section>
 

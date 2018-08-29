@@ -189,7 +189,8 @@ function monthSelDel(){
 			<c:forEach var="salesList1" items="${salesList1 }">
 			<tr>
 				<td>${salesList1.order_id }</td>
-				<td>${salesList1.user_id }</td>
+				<td><c:if test="${salesList1.user_id == null }">탈퇴회원</c:if>
+				${salesList1.user_id }</td>
 				<td><fmt:formatDate pattern="yyyy-MM-dd HH:mm:ss" value="${salesList1.dati }" /></td>
 				<td><fmt:formatNumber value="${salesList1.pay }" type="number"/>원</td>
 				<td>${salesList1.payment }</td>

@@ -242,9 +242,11 @@ public class ItemDAO {
 			rs = pstmt.executeQuery();
 			
 			if(rs.next()) {
+				String content = rs.getString("content");
+				content = content.replace("\r\n", "<br>");
 				item = new ItemBean(rs.getString("item_code"),rs.getString("item_name"),rs.getInt("price"),
 						rs.getString("origin"),rs.getString("category"),rs.getString("img_path"),rs.getInt("sale"),
-						rs.getString("content"),rs.getInt("readcount"), rs.getInt("ihide"));
+						content,rs.getInt("readcount"), rs.getInt("ihide"));
 			}
 			
 		}catch(Exception e) {
@@ -548,8 +550,7 @@ public class ItemDAO {
 		PreparedStatement pstmt = null;
 		ResultSet rs = null;
 		int listCount = 0;
-		String sql = "select count(*) from item_stock "
-				+ "inner join items on item_stock.item_code = items.item_code "
+		String sql = "select count(*) from item_stock left outer join items on item_stock.item_code = items.item_code "
 				+ " where idate between '"+startDate+"' and '"+endDate+"'";
 		try {
 			pstmt = conn.prepareStatement(sql);
@@ -591,8 +592,8 @@ public class ItemDAO {
 		ResultSet rs = null;
 		ArrayList<ItemViewBean> itemStockList = null;
 		int startrow = (page-1)*10;
-		String sql = "select items.item_code, item_name, category,state, amount, idate, stock from item_stock "
-				+ "inner join items on item_stock.item_code = items.item_code "
+		String sql = "select item_stock.item_code, item_name, category,state, amount, idate, stock from item_stock "
+				+ "left outer join items on item_stock.item_code = items.item_code "
 				+ " where idate between '"+startDate+"' and '"+endDate+"' "
 				+ "order by idate desc limit ?,10"; 
 		try {

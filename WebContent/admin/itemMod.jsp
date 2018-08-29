@@ -67,6 +67,7 @@ function selCategory(sel) {
 	<form action="itemModPro.im" method="post" enctype="multipart/form-data" name="modform" onsubmit="return chkForm(this)">
 			<input type="hidden" id="oldImage" name="oldImage" value="${item.img_path}"/>
 			<input type="hidden" id="old_code" name="old_code" value="${old_code }"/>
+			<input type="hidden" id="page" name="page" value="${page }"/>
 			<table class="mytable">
 				<tr>
 					<td id="td_left">

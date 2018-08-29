@@ -5,7 +5,7 @@
 <html>
 <head>
 <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
-<title>Insert title here</title>
+<title></title>
 <style>
 </style>
 <script>
@@ -55,7 +55,7 @@ var count1 = 0;
 						<td>${review.date }</td>
 					</tr>
 					</c:if>
-					<tr id="re_content${review.rgroup }" style="display:none;">
+					<tr id="re_content${review.rgroup }" style="display:none;background-color: #f2f2f2;">
 						<td colspan="5">
 						<div id="parent" style="width:700px;">
 						<c:if test="${review.rstep==1 }">
@@ -94,7 +94,7 @@ var count1 = 0;
 						</td>
 					</tr>
 					<c:if test="${review.rstep==2 }">
-					<tr id="rere_content${review.rgroup }" style="display:none;">
+					<tr id="rere_content${review.rgroup }" style="display:none;background-color: #f2f2f2;">
 						<td colspan="5" id="child_content">
 							<div style="width:600px;padding:10px 10px 10px 50px;text-align:left">
 							<p><b>팜팜농원</b></p>

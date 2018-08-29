@@ -19,6 +19,16 @@ public class ItemStockBean {
 		this.stock = stock;
 		this.inumber = inumber;
 	}
+	
+	public ItemStockBean(String item_code, String state, int amount, int stock, int inumber) {
+		super();
+		this.item_code = item_code;
+		this.state = state;
+		this.amount = amount;
+		this.stock = stock;
+		this.inumber = inumber;
+	}
+	
 	public String getItem_code() {
 		return item_code;
 	}

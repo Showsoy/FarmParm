@@ -9,7 +9,7 @@
 <html>
 <head>
 <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
-<title>Insert title here</title>
+<title>:::상품페이지 | 팜팜농원:::</title>
 <style>
 #td_info{
 	text-align:right;
@@ -33,11 +33,13 @@ dd{
 		var reg_qty = /^[1-9]{1}$|^[1-4]{1}[0-9]{1}$|^50$/;
 		if (!reg_qty.test(qty)) {
 			alert("1~50의 숫자만 가능합니다.");
+			document.qty.value="";
 			document.qty.focus();
 			return false;
 		}
 		if (parseInt(qty)>parseInt(stock)) {
 			alert("주문 가능 개수 초과");
+			document.qty.value="";
 			document.qty.focus();
 			return false;
 		}

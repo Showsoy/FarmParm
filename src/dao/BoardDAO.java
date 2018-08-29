@@ -93,6 +93,28 @@ public class BoardDAO {
 		
 		return listCount;
 	}
+	public int replyListCount(String bName) {
+		int listCount = 0;
+		PreparedStatement pstmt = null;
+		ResultSet rs = null;
+		String sql = "SELECT COUNT(*) FROM "+bName+" WHERE rstep=1 AND has_re = 0";
+		
+		try {
+			pstmt = conn.prepareStatement(sql);
+			rs = pstmt.executeQuery();
+			
+			if(rs.next()) {
+				listCount = rs.getInt(1);
+			}
+		}catch(Exception e) {
+			e.printStackTrace();
+		}finally {
+			close(rs);
+			close(pstmt);
+		}
+		
+		return listCount;
+	}
 	public int selectListCount(String bName, String item_code) {
 		int listCount = 0;
 		PreparedStatement pstmt = null;
@@ -266,10 +288,11 @@ public class BoardDAO {
 		
 		return articleList;
 	}
-	public ArrayList<BoardBean> selectCsBoardList(int page){
+	public ArrayList<BoardBean> selectCsBoardList(String type, int page){
 		PreparedStatement pstmt = null;
 		ResultSet rs = null;
-		String sql = "SELECT bnum, hide, substring(user_id,1,3) as user_id, content, subject, img_path, has_re, cdate, rgroup, rstep FROM cs_board WHERE rstep=1 ORDER BY rgroup DESC, rstep ASC LIMIT ?,10";
+		String insert = type.equals("reply") ? " AND has_re = 0" : (type.equals("not") ? "" : " AND user_id = '"+type+"'");
+		String sql = "SELECT bnum, hide, substring(user_id,1,3) as user_id, content, subject, img_path, has_re, cdate, rgroup, rstep FROM cs_board WHERE rstep=1"+insert+" ORDER BY rgroup DESC, rstep ASC LIMIT ?,10";
 		ArrayList<BoardBean> articleList = new ArrayList<BoardBean>();
 		BoardBean board = null;
 		int startrow = (page-1)*10;
@@ -381,10 +404,11 @@ public class BoardDAO {
 		
 		return articleList;
 	}
-	public ArrayList<BoardBean> selectReviewList(int page){
+	public ArrayList<BoardBean> selectReviewList(String type, int page){
 		PreparedStatement pstmt = null;
 		ResultSet rs = null;
-		String sql1 = "SELECT bnum, item_code, substring(user_id,1,3) as user_id, (select item_name from items b where a.item_code=b.item_code) as item_name, subject, has_re, rdate FROM review_board a WHERE rstep = 1 ORDER BY rdate DESC LIMIT ?,10";
+		String insert = type.equals("reply") ? " AND has_re = 0" : (type.equals("not") ? "" : " AND user_id = '"+type+"'");
+		String sql1 = "SELECT bnum, item_code, substring(user_id,1,3) as user_id, (select item_name from items b where a.item_code=b.item_code) as item_name, subject, has_re, rdate FROM review_board a WHERE rstep = 1"+insert+" ORDER BY rdate DESC LIMIT ?,10";
 		ArrayList<BoardBean> articleList = new ArrayList<BoardBean>();
 		BoardBean board = null;
 		int startrow = (page-1)*10;
@@ -472,10 +496,11 @@ public class BoardDAO {
 		
 		return articleList;
 	}
-	public ArrayList<BoardBean> selectQnAList(int page){
+	public ArrayList<BoardBean> selectQnAList(boolean flag, int page){
 		PreparedStatement pstmt = null;
 		ResultSet rs = null;
-		String sql = "SELECT bnum, item_code, substring(user_id,1,3) as user_id, (select item_name from items b where a.item_code=b.item_code) as item_name, subject, has_re, qdate, qhide FROM qna_board a WHERE rstep = 1 ORDER BY qdate DESC LIMIT ?,10";
+		String insert = flag ? " AND has_re = 0" : "";
+		String sql = "SELECT bnum, item_code, substring(user_id,1,3) as user_id, (select item_name from items b where a.item_code=b.item_code) as item_name, subject, has_re, qdate, qhide FROM qna_board a WHERE rstep = 1"+insert+" ORDER BY qdate DESC LIMIT ?,10";
 		ArrayList<BoardBean> articleList = new ArrayList<BoardBean>();
 		BoardBean board = null;
 		int startrow = (page-1)*10;
@@ -500,7 +525,7 @@ public class BoardDAO {
 		
 		return articleList;
 	}
-	public int myQnaListCount(String bName, String id) {
+	public int myArticelListCount(String bName, String id) {
 		int listCount = 0;
 		PreparedStatement pstmt = null;
 		ResultSet rs = null;

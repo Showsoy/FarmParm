@@ -55,13 +55,10 @@ public class NoticeWriteAction implements Action {
 			realFolder = context.getRealPath(saveFolder);
 			MultipartRequest multi = new MultipartRequest(request, realFolder, fileSize, encType, new DefaultFileRenamePolicy());
 			String image = multi.getFilesystemName("img_path");
-			BoardBean board = new BoardBean(
-					bnum,
-					"",
-					"",
-					multi.getParameter("content"),
-					multi.getParameter("subject"),
-					image,0,date,0,0,0);
+			String content = multi.getParameter("content");
+			content = content.replace("\r\n", "<br>");
+			
+			BoardBean board = new BoardBean(bnum, content, multi.getParameter("subject"), image, date, 0);
 			boolean isWriteSuccess = boardService.writeNotice(board);
 			if(!isWriteSuccess) {
 				response.setContentType("text/html;charset=UTF-8");

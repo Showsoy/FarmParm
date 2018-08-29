@@ -15,7 +15,7 @@
 <html>
 <head>
 <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
-<title>Insert title here</title>
+<title>:::고객센터 | 팜팜농원:::</title>
 <style>
 td, tr{
 	border: 1px solid #ddd;
@@ -121,7 +121,7 @@ function fc_chk2() {
 			<br>
 			<section>
 				<button id="bbutton" type="submit">등록</button>
-				<button id="bbutton" type="button" onclick="location.href='csList.bo?page=${page}'">목록</button>
+				<button id="bbutton" type="button" onclick="location.href='csList.bo'">목록</button>
 			</section>
 		</form>
 	</div>	

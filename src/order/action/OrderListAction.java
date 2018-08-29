@@ -51,7 +51,7 @@ public class OrderListAction implements Action {
 			String state = request.getParameter("state");
 			
 			OrderService orderService = new OrderService();
-			if(state==null){
+			if(state==null || state.equals("all")){
 				state="all";
 				listCount = orderService.listCountOrder();
 				orderList = orderService.selectOrderList(page);

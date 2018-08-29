@@ -52,17 +52,21 @@ public class QnAListAction implements Action {
 			}
 			
 			BoardService boardService = new BoardService();
-			
-			if(request.getParameter("keyword")!=null) {
-				keyword = request.getParameter("keyword");
+			if(request.getParameter("std")!=null) {
 				std = request.getParameter("std");
-				listCount = boardService.searchQnACount(keyword, std);
-				boardList = boardService.searchQnAList(keyword, page, std);
-				request.setAttribute("keyword", keyword);
 				request.setAttribute("std", std);
+				if(request.getParameter("keyword")!=null) {
+					keyword = request.getParameter("keyword");
+					listCount = boardService.searchQnACount(keyword, std);
+					boardList = boardService.searchQnAList(keyword, page, std);
+					request.setAttribute("keyword", keyword);
+				}else if(std.equals("reply")){
+					listCount = boardService.replyListCount("qna_board");
+					boardList = boardService.selectQnAList(true, page);
+				}
 			}else {
 				listCount = boardService.selectListCount("qna_board");
-				boardList = boardService.selectQnAList(page);
+				boardList = boardService.selectQnAList(false, page);
 			}
 			
 			int maxPage = (int)((double)listCount/limit+0.95);

@@ -51,7 +51,7 @@ public class ItemListAction implements Action {
 			String category = request.getParameter("category");
 			
 			ItemService itemService = new ItemService();
-			if(category==null){
+			if(category==null || category.equals("all")){
 				category="all";
 				listCount = itemService.itemListCount();
 				itemList = itemService.adminItemList(page);

@@ -25,6 +25,15 @@ img{
 	padding:0 0 3px 0;
 }
 </style>
+<script>
+function viewnonreply(){
+	if(document.getElementById("nonreply").checked){
+		location.href="qnaList.bo?std=reply";
+	}else{
+		location.href="qnaList.bo";
+	}
+}
+</script>
 </head>
 <link rel="stylesheet" type="text/css" href="../style/style.css">
 <link rel="stylesheet" href="https://www.w3schools.com/w3css/3/w3.css">
@@ -42,6 +51,9 @@ img{
 			</div>
 		</c:if>
 		<br>
+		<div id="leftalign" style="width:75%;margin:0 auto;padding:10px;">
+		<span id="pcheck">&nbsp;<input type="checkbox" id="nonreply" name="nonreply" onchange="viewnonreply()" <c:out value="${std eq 'reply' ? 'checked' : '' }"/>> 미답변글 보기&nbsp;</span>
+		</div>
 		<table class="listtable" cellspacing="0" cellpadding="0">
 			<tr id="top_menu35">
 				<td id="td_check">번호</td>
