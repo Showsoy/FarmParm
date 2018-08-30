@@ -500,7 +500,7 @@ public class BoardDAO {
 		PreparedStatement pstmt = null;
 		ResultSet rs = null;
 		String insert = flag ? " AND has_re = 0" : "";
-		String sql = "SELECT bnum, item_code, substring(user_id,1,3) as user_id, (select item_name from items b where a.item_code=b.item_code) as item_name, subject, has_re, qdate, qhide FROM qna_board a WHERE rstep = 1"+insert+" ORDER BY qdate DESC LIMIT ?,10";
+		String sql = "SELECT bnum, item_code, substring(user_id,1,3) as user_id, (select item_name from items b where a.item_code=b.item_code) as item_name, subject, has_re, qdate, qhide FROM qna_board a WHERE rstep = 1"+insert+" ORDER BY qdate DESC, subject asc  LIMIT ?,10";
 		ArrayList<BoardBean> articleList = new ArrayList<BoardBean>();
 		BoardBean board = null;
 		int startrow = (page-1)*10;
@@ -550,7 +550,7 @@ public class BoardDAO {
 	public ArrayList<BoardBean> myQnAList(int page, String id){
 		PreparedStatement pstmt = null;
 		ResultSet rs = null;
-		String sql = "SELECT bnum, item_code, substring(user_id,1,3) as user_id, (select item_name from items b where a.item_code=b.item_code) as item_name, subject, has_re, qdate, qhide FROM qna_board a WHERE rstep = 1 and user_id=? ORDER BY qdate DESC LIMIT ?,10";
+		String sql = "SELECT bnum, item_code, substring(user_id,1,3) as user_id, (select item_name from items b where a.item_code=b.item_code) as item_name, subject, has_re, qdate, qhide FROM qna_board a WHERE rstep = 1 and user_id=? ORDER BY qdate DESC, subject asc LIMIT ?,10";
 		ArrayList<BoardBean> articleList = new ArrayList<BoardBean>();
 		BoardBean board = null;
 		int startrow = (page-1)*10;
@@ -822,6 +822,7 @@ public class BoardDAO {
 			pstmt.setInt(5, board.getReadcount());
 			
 			insertCount = pstmt.executeUpdate();
+			System.out.println(board.getContent() + " =?");
 			
 		}catch(Exception e) {
 			e.printStackTrace();

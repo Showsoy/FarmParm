@@ -82,7 +82,7 @@ function chkForm(f){
 						<label for="content">내용</label>
 					</td>	
 					<td>
-						<textarea name="content" id="content" cols="60" rows="15" maxlength="60"></textarea>
+						<textarea name="content" id="content" cols="60" rows="15" maxlength="300"></textarea>
 					</td>
 				</tr>
 				<tr>
