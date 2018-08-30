@@ -112,7 +112,7 @@ function fclose(f){
 		<td id="td_left">
 			<label for="content">내용</label>
 		</td>
-		<td>
+		<td colspan="2">
 			<textarea name="content" id="content" cols="40" rows="10" onkeyup="fc_chk_byte(this);" onkeypress="fc_chk2();" placeholder="200자까지 입력하실 수 있습니다."></textarea>
 		</td>
 	</tr>
@@ -120,13 +120,13 @@ function fclose(f){
 		<td id="td_left">
 			<label for="image">사진</label>
 		</td>
-		<td>
+		<td colspan="2">
 			<input type="file" name="image" id="image">
 		</td>
 	</tr>
 </table>
 <br>
-<section id="commandCell">
+<section>
 	<button type="submit" id="wbutton">등록</button>
 	<button type="button" onclick="fclose(this)" id="wbutton">닫기</button>
 </section>

@@ -39,9 +39,6 @@ td, tr{
 		}
 	    	
 	   document.orderform.submit();
-	    	
-
-	    
 	}
 </script>
 </head>
@@ -94,12 +91,12 @@ td, tr{
 	<br>
 	<div id="grade"><b id="grade_deco">|</b>포인트 사용</div>
 	<div id="point" style="background-color:#F6FFCC;padding:10px;">
-		사용 가능 포인트 <b>${user.point }</b> 점 중 <input type="text" id="depoint" name="depoint" size="5"/>
+		사용 가능 포인트 <b>${user.point }</b> 점 중 <input type="text" id="depoint" name="depoint" size="5" value="0"/>
 		<button type="button" onClick="depointf(this.form,${user.point})" id="wbutton">사용</button>
 	</div>
 	<p class="right"><font size="3em">총 &nbsp;${totalMoney }원</font><br>
 	<input type="hidden" id="totalMoney" name="totalMoney" value="${totalMoney }"> 
-	<font size="2em">포인트 사용 <font color="red" id="usepoint"></font>원</font><br><br>
+	<font size="2em">포인트 사용 <font color="red" id="usepoint" ></font>원</font><br><br>
 	<font size="4em"><b>총 결제금액 <b id="grade_deco"><span id="allprice">${totalMoney }</span></b>원</b></font></p>
 	</div>
 	<br>
