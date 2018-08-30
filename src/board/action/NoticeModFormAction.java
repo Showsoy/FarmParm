@@ -39,6 +39,8 @@ public class NoticeModFormAction implements Action {
 			int board_num = Integer.parseInt(request.getParameter("bnum"));
 			BoardService boardService = new BoardService();
 			BoardBean board = boardService.selectNotice(board_num);
+			String content = board.getContent();
+			board.setContent(content.replace("<br>", "\r\n"));
 			if(request.getParameter("keyword")!=null) request.setAttribute("keyword", request.getParameter("keyword"));
 			String page = request.getParameter("page");
 			request.setAttribute("page", page);

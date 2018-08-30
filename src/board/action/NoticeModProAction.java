@@ -1,7 +1,6 @@
 package board.action;
 
 import java.io.PrintWriter;
-import java.sql.Date;
 
 import javax.servlet.ServletContext;
 import javax.servlet.http.HttpServletRequest;
@@ -43,7 +42,6 @@ public class NoticeModProAction implements Action {
 		}else {
 			BoardService boardService = new BoardService();
 			int bnum = Integer.parseInt(request.getParameter("bnum"));
-			Date date = new Date(0, 0, 0);
 			
 			String realFolder = "";
 			String saveFolder = "/images";
@@ -59,13 +57,7 @@ public class NoticeModProAction implements Action {
 				image = multi.getParameter("oldImage");
 			}
 			
-			BoardBean board = new BoardBean(
-					bnum,
-					"",
-					"",
-					multi.getParameter("content"),
-					multi.getParameter("subject"),
-					image,0,date,0,0,0);
+			BoardBean board = new BoardBean(bnum, multi.getParameter("content"), multi.getParameter("subject"),image,null,0);
 			boolean isModSuccess = boardService.modifyNotice(board);
 			if(!isModSuccess) {
 				response.setContentType("text/html;charset=UTF-8");

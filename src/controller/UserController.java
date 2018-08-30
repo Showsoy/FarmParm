@@ -10,8 +10,6 @@ import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
 import action.Action;
-import board.action.MyQnAViewAction;
-import board.action.MyQnaListAction;
 import member.action.MemberAdModifyAction;
 import member.action.MemberAdModifyFormAction;
 import member.action.MemberAdPwModifyAction;

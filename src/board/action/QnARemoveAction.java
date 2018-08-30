@@ -9,7 +9,6 @@ import javax.servlet.http.HttpSession;
 import action.Action;
 import svc.BoardService;
 import vo.ActionForward;
-import vo.Util;
 
 public class QnARemoveAction implements Action {
 
@@ -78,7 +77,7 @@ public class QnARemoveAction implements Action {
 				if(request.getParameter("r_page")==null) {
 					String path = myQna!=null ? "myQna.us" : "./qnaList.bo?page="+page;
 					if(request.getParameter("keyword")!=null) {
-						path += "&keyword="+request.getParameter("keyword");
+						path += "&std="+request.getParameter("std")+"&keyword="+request.getParameter("keyword");
 						response.setContentType("text/html;charset=UTF-8");
 						PrintWriter out = response.getWriter();
 						out.println("<script>");

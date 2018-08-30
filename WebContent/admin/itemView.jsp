@@ -96,6 +96,7 @@ th{
 <div id="grade"><b id="grade_deco">|</b>상품내용</div>
 ${item.content }
 </div>
+<br>
 <div>
 	<div id="grade"><b id="grade_deco">|</b>상품입출고</div>
 <form method="post" action="itemView.im">

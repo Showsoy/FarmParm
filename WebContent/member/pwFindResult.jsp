@@ -37,37 +37,23 @@ function chkForm(f){
 	document.pwmod.submit();
 }
 </script>
-<link rel="stylesheet" type="text/css" href="../style/style.css">
-<link rel="stylesheet" href="https://www.w3schools.com/w3css/3/w3.css">
-<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.6.3/css/font-awesome.min.css">
+<link rel="stylesheet" type="text/css" href="../style/style2.css">
 <body>
-<jsp:include page="/common/top_menu.jsp" flush="false"/>
-<div class="pageform">
-	<h3>&nbsp;&nbsp;비밀번호수정 </h3>
-	<hr color="#4CAF50" size="5">
-	<div class="mypage">
-	<form name="pwmod" action="/FarmParm/lostPwModify.us" method="post" onsubmit="return chkForm(this)">
-		<input type="hidden" name="u_id" value="${user_id_forPw}"/>
-	<table class="mytable" cellspacing="0" cellpadding="0">
-	<tr>
-		<td id="td_left200"><label for="userID">아이디</label> </td>
-		<td>${user_id_forPw}</td>
-	</tr>
-	<tr>
-		<td id="td_left200"><label for="userPass">변경할 비밀번호</label> </td>
-		<td><input type="password" id="userPass" name="userPass"><p style="color:gray;font-size:12px;display:inline;"> 6자리 이상</p></td>
-	</tr>
-	<tr>
-		<td id="td_left200"><label for="userPassre">비밀번호 확인</label> </td>
-		<td><input type="password" id="userPassre" name="userPassre"></td>
-	</tr>
-</table>
-<br><br>
-			<button id="bbutton" onclick="location.href='pwFindResult.jsp?'">확인</button> 
-			<button id="bbutton" type="button" onclick="history.back();">돌아가기</button> 
-		</form>
+<div class="pwfind-page">
+		<div class="form">
+			<form class="login-form" name="pwmod" action="/FarmParm/lostPwModify.us" method="post" onsubmit="return chkForm(this)">
+				<h3>비밀번호 재설정</h3>
+				<input type="password" id="userPass" name="userPass" placeholder="새 비밀번호" maxlength="20" class="input100"/>
+				<input type="password" name="userPassre" id="userPassre" size="8" placeholder="새 비밀번호 확인" maxlength="20" class="input100"/>
+				<button type="submit" class="input100">재설정</button> 
+				<br><br>
+				<div id="footer">
+				<a href="login.jsp">로그인</a>&nbsp;&nbsp;|&nbsp;&nbsp;
+				<a href="#">문제발생</a>&nbsp;&nbsp;|&nbsp;&nbsp;
+				<a href="idFind.jsp">아이디 찾기</a>
+				</div>
+			</form>
+		</div>
 	</div>
-</div>
-<jsp:include page="/common/footer.jsp" flush="false"/>
 </body>
 </html>

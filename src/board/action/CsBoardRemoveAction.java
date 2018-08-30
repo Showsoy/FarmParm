@@ -8,7 +8,6 @@ import javax.servlet.http.HttpSession;
 
 import action.Action;
 import svc.BoardService;
-import svc.ItemService;
 import vo.ActionForward;
 
 public class CsBoardRemoveAction implements Action {
@@ -72,7 +71,7 @@ public class CsBoardRemoveAction implements Action {
 			} else {
 				String path = "./csList.bo?page="+page;
 				if(request.getParameter("keyword")!=null) {
-					path += "&sc="+request.getParameter("sc")+"&keyword="+request.getParameter("keyword");
+					path += "&std="+request.getParameter("std")+"&keyword="+request.getParameter("keyword");
 					response.setContentType("text/html;charset=UTF-8");
 					PrintWriter out = response.getWriter();
 					out.println("<script>");

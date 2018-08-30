@@ -1,7 +1,6 @@
 package board.action;
 
 import java.io.PrintWriter;
-import java.sql.Date;
 
 import javax.servlet.ServletContext;
 import javax.servlet.http.HttpServletRequest;
@@ -32,8 +31,6 @@ public class ReviewWriteAction implements Action {
 			forward= new ActionForward("./reviewform.jsp",false);
 		}else {
 			BoardService boardService = new BoardService();
-		
-			Date date = new Date(0, 0, 0);	
 			
 			String realFolder = "";
 			String saveFolder = "/images";
@@ -51,7 +48,7 @@ public class ReviewWriteAction implements Action {
 					id,
 					multi.getParameter("content"),
 					multi.getParameter("subject"),
-					image,0,date,Integer.parseInt(multi.getParameter("order_id")),bnum,1);
+					image,0,null,Integer.parseInt(multi.getParameter("order_id")),bnum,1);
 			PointBean point = new PointBean(id, 0, "리뷰작성", 1, 500);
 			boolean isWriteSuccess = boardService.writeReview(board, point);
 			if(!isWriteSuccess) {

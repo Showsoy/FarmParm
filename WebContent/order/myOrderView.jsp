@@ -82,9 +82,9 @@ function orderCancel(){
 	<c:forEach var="odtemList" items="${odtemList }" varStatus="status">
 	<tr>
 		<td id="leftalign">${odtemList.item_name }</td>
-		<td>${odtemList.price }원</td>
+		<td><fmt:formatNumber value="${odtemList.price }" type="number"/>원</td>
 		<td>${odtemList.amount }개</td>
-		<td>${odtemList.price*odtemList.amount }원</td>
+		<td><fmt:formatNumber value="${odtemList.price*odtemList.amount }" type="number"/>원</td>
 		<fmt:parseNumber var="point" value="${(odtemList.price*odtemList.amount) div 100 }" integerOnly="true"/>
 		<td>${point }점</td>
 		<td>
@@ -99,10 +99,9 @@ function orderCancel(){
 	<c:if test="${order.parcel>0 }">
 	<tr>
 		<td id="leftalign">배송비</td>
-		<td>3000원</td>
+		<td>3,000원</td>
 		<td>1개</td>
-		<td>3000원</td>
-		<td>-</td>
+		<td>3,000원</td>
 		<td>-</td>
 	</tr>
 	</c:if>
@@ -138,9 +137,9 @@ function orderCancel(){
 		<label for="payment">결제방법</label> | ${order.payment }&nbsp;&nbsp;&nbsp;
 		<label for="state">주문상태</label> | ${order.state }
 		<hr color="#4CAF50">
-		<p class="right"><font size="3em">총 &nbsp;${order.pay+order.depoint }원</font><br> 
+		<p class="right"><font size="3em">총 &nbsp;<fmt:formatNumber value="${order.pay+order.depoint }" type="number"/>원</font><br> 
 	<font size="2em">포인트 사용 <font color="red" id="usepoint">${order.depoint }</font>원</font><br><br>
-	<font size="4em"><b>총 결제금액 <b id="grade_deco"><span id="allprice">${order.pay }</span></b>원</b></font></p>
+	<font size="4em"><b>총 결제금액 <b id="grade_deco"><span id="allprice"><fmt:formatNumber value="${order.pay }" type="number"/></span></b>원</b></font></p>
 		</div>
 <br><br>
 		<button type="button" id="bbutton" onclick="location.href='myodList.od?page=${page}'">목록</button> 

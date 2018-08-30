@@ -1,8 +1,5 @@
 package item.action;
 import java.io.PrintWriter;
-import java.text.DateFormat;
-import java.text.SimpleDateFormat;
-import java.sql.Date;
 
 import javax.servlet.ServletContext;
 import javax.servlet.http.HttpServletRequest;
@@ -54,8 +51,6 @@ public class ItemNewAction implements action.Action{
 			realFolder = context.getRealPath(saveFolder);
 			MultipartRequest multi = new MultipartRequest(request, realFolder, fileSize, encType, new DefaultFileRenamePolicy());
 			String image = multi.getFilesystemName("img_path");
-			String content = multi.getParameter("content");
-			content = content.replace("\r\n", "<br>");
 			
 			ItemBean item = new ItemBean(
 					multi.getParameter("item_code"),
@@ -65,7 +60,7 @@ public class ItemNewAction implements action.Action{
 					multi.getParameter("category"),
 					image,
 					Integer.parseInt(multi.getParameter("sale")),
-					content,
+					multi.getParameter("content"),
 					0,0);
 			
 			ItemStockBean itemS = new ItemStockBean(

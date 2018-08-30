@@ -25,7 +25,12 @@ td, tr{
 }
 </style>
 <script>
-
+function remove(act){
+	var flag = confirm('정말 삭제하시겠습니까?');
+	if(flag){
+		location.href=act;
+	}
+}
 </script>
 </head>
 <link rel="stylesheet" type="text/css" href="../style/style.css">
@@ -59,7 +64,7 @@ td, tr{
 				<button type="button" id="wbutton" onclick="location.href='noList.bo?page=${page }<c:out value="${keyword !=null ? '&keyword=' : '' }"/>${keyword}'">목록</button>
 				<c:if test="${id eq 'admin' }">
 					<button type="button" id="wbutton" onclick="location.href='noModForm.bo?bnum=${board.board_num}&page=${page }<c:out value="${keyword !=null ? '&keyword=' : '' }"/>${keyword}'">수정</button>
-					<button type="button" id="wbutton" onclick="location.href='noRemove.bo?bnum=${board.board_num}&page=${page }<c:out value="${keyword !=null ? '&keyword=' : '' }"/>${keyword}'">삭제</button>
+					<button type="button" id="wbutton" onclick="remove('noRemove.bo?bnum=${board.board_num}&page=${page }<c:out value="${keyword !=null ? '&keyword=' : '' }"/>${keyword}');">삭제</button>
 					<button type="button" style="width:70px;" onclick="location.href='noWrite.jsp'" id="wbutton">글쓰기</button>
 				</c:if>
 			</section>

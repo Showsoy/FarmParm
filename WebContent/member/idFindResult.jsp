@@ -16,7 +16,7 @@
 			<h3>회원님의 아이디는 <br/>${user_id} 입니다.</h3>
 			<br>
 			<div id="footer">
-			<a href="login.jsp">로그인</a>&nbsp;&nbsp;|&nbsp;&nbsp;
+			<a href="login.jsp?findId=${user_id }">로그인</a>&nbsp;&nbsp;|&nbsp;&nbsp;
 			<a href="#">문제발생</a>&nbsp;&nbsp;|&nbsp;&nbsp;
 			<a href="pwFind.jsp">비밀번호 찾기</a>
 			</div>

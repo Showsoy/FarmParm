@@ -1,15 +1,10 @@
 package board.action;
 
 import java.io.PrintWriter;
-import java.sql.Date;
 
-import javax.servlet.ServletContext;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import javax.servlet.http.HttpSession;
-
-import com.oreilly.servlet.MultipartRequest;
-import com.oreilly.servlet.multipart.DefaultFileRenamePolicy;
 
 import action.Action;
 import svc.BoardService;
@@ -31,8 +26,6 @@ public class ReviewReplyAction implements Action {
 			forward= new ActionForward("./rereform.jsp",false);
 		}else {
 			BoardService boardService = new BoardService();
-		
-			Date date = new Date(0, 0, 0);	
 			
 			int bnum = boardService.searchBNum("review_board", request.getParameter("item_code"));
 			BoardBean board = new BoardBean(
@@ -40,8 +33,8 @@ public class ReviewReplyAction implements Action {
 					request.getParameter("item_code"),
 					"admin",
 					request.getParameter("content"),
-					request.getParameter("subject"),
-					"",0,date,0,Integer.parseInt(request.getParameter("rgroup")),2);
+					"답변",
+					"",0,null,0,Integer.parseInt(request.getParameter("rgroup")),2);
 			boolean isWriteSuccess = boardService.replyReview(board);
 			if(!isWriteSuccess) {
 				response.setContentType("text/html;charset=UTF-8");
@@ -57,7 +50,7 @@ public class ReviewReplyAction implements Action {
 					String rgroup = request.getParameter("rgroup");
 					String path = "./reView.bo?bnum="+rgroup+"&item_code="+item_code+"&page="+page;
 					if(request.getParameter("keyword")!=null) {
-						path += "&keyword="+request.getParameter("keyword");
+						path += "&std="+request.getParameter("std")+"&keyword="+request.getParameter("keyword");
 						response.setContentType("text/html;charset=UTF-8");
 						PrintWriter out = response.getWriter();
 						out.println("<script>");

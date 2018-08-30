@@ -152,14 +152,6 @@ function doImgPop(img){
 			<c:if test="${board.has_re == 1}">
 					<tr>
 						<td id="td_child">
-							<label for="subject">제목</label>
-						</td>	
-						<td id="td_child">
-							${rboard.subject }
-						</td>
-					</tr>
-					<tr>
-						<td id="td_child">
 							<label for="content">답변</label>
 						</td>	
 						<td id="td_child">
@@ -181,14 +173,6 @@ function doImgPop(img){
 					<tr>
 						<td id="td_left" colspan="2" style="text-align:center;">
 							<label for="subject">답변 글쓰기</label>
-						</td>
-					</tr>
-					<tr>
-						<td id="td_left">
-							<label for="subject">제목</label>
-						</td>	
-						<td>
-							<input type="text" id="subject" name="subject" size="40">
 						</td>
 					</tr>
 					<tr>

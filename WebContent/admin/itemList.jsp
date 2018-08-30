@@ -26,7 +26,6 @@ img{
 #orderby{
 	width:50%;
 	text-align:right;
-	padding : 13px 0 0 0;
 }
 #seldel{
 	width:50%;
@@ -55,6 +54,13 @@ img{
 			document.itemList.submit();
 		}	
 	}
+	function listrefresh(){
+		var category = document.getElementById("category").options[document.getElementById("category").selectedIndex].value;
+		var std = document.getElementById("std").options[document.getElementById("std").selectedIndex].value;
+		
+		document.itemList.action = "itemList.im?category="+category+"&std="+std;
+		document.itemList.submit();
+	}
 </script>
 </head>
 <link rel="stylesheet" type="text/css" href="../style/style.css">
@@ -75,18 +81,19 @@ img{
 		<button type="button" id="wbutton" style="width:70px;" onclick="goto_url('itemUnhide.im');">숨김취소</button>
 		</span>
 		<span id="orderby">
-			<a href="itemList.im"><img src="../images/checked.png"/><c:choose><c:when test="${category eq 'all' }">
-			<span id="selcategory">전체</span></c:when><c:otherwise> 전체</c:otherwise></c:choose></a>
-			<a href="itemList.im?category=채소"><img src="../images/checked.png"/><c:choose><c:when test="${category eq '채소' }">
-			<span id="selcategory">채소</span></c:when><c:otherwise> 채소</c:otherwise></c:choose></a>
-			<a href="itemList.im?category=과일"><img src="../images/checked.png"/><c:choose><c:when test="${category eq '과일' }">
-			<span id="selcategory">과일</span></c:when><c:otherwise> 과일</c:otherwise></c:choose></a>
-			<a href="itemList.im?category=곡류"><img src="../images/checked.png"/><c:choose><c:when test="${category eq '곡류' }">
-			<span id="selcategory">곡류</span></c:when><c:otherwise> 곡류</c:otherwise></c:choose></a>
-			<a href="itemList.im?category=차"><img src="../images/checked.png"/><c:choose><c:when test="${category eq '차' }">
-			<span id="selcategory">차</span></c:when><c:otherwise> 차</c:otherwise></c:choose></a>
-			<a href="itemList.im?category=가공"><img src="../images/checked.png"/><c:choose><c:when test="${category eq '가공' }">
-			<span id="selcategory">가공</span></c:when><c:otherwise> 가공</c:otherwise></c:choose></a>
+			<select id="category" name="category" onchange="listrefresh()">
+				<option value="all" <c:out value="${category eq 'all' ? 'selected' : '' }"/>>전체</option>
+				<option value="채소" <c:out value="${category eq '채소' ? 'selected' : '' }"/>>채소</option>
+				<option value="과일" <c:out value="${category eq '과일' ? 'selected' : '' }"/>>과일</option>
+				<option value="곡류" <c:out value="${category eq '곡류' ? 'selected' : '' }"/>>곡류</option>
+				<option value="차" <c:out value="${category eq '차' ? 'selected' : '' }"/>>차</option>
+				<option value="가공" <c:out value="${category eq '가공' ? 'selected' : '' }"/>>가공</option>
+			</select>
+			<select id="std" name="std" onchange="listrefresh()">
+				<option value="vdate" <c:out value="${std eq 'vdate' ? 'selected' : '' }"/>>등록순</option>
+				<option value="stock" <c:out value="${std eq 'stock' ? 'selected' : '' }"/>>재고순</option>
+				<option value="purchase" <c:out value="${std eq 'purchase' ? 'selected' : '' }"/>>주문순</option>
+			</select>
 		</span>
 	</div>
 		<table class="listtable" cellspacing="0" cellpadding="0">
@@ -135,7 +142,7 @@ img{
 						
 					</c:if>
 					<c:if test="${pageInfo.page>1 }">
-						<a href="itemList.im?<c:out value="${category !=null ? 'category=' : '' }"/>${category }&page=${pageInfo.page-1}"><span id="pagebn"><</span></a>
+						<a href="itemList.im?category=${category }&std=${std }&page=${pageInfo.page-1}"><span id="pagebn"><</span></a>
 					</c:if>
 					
 					<c:forEach var="a" begin="${pageInfo.startPage }" end="${pageInfo.endPage }" step="1">
@@ -144,7 +151,7 @@ img{
 								<span id="nowpage">${a }</span>
 							</c:when>
 							<c:otherwise>
-								<a href="itemList.im?<c:out value="${category !=null ? 'category=' : '' }"/>${category }&page=${a }">&nbsp;${a }&nbsp;</a>
+								<a href="itemList.im?category=${category }&std=${std }&page=${a }">&nbsp;${a }&nbsp;</a>
 							</c:otherwise>
 						</c:choose>
 					</c:forEach>
@@ -153,7 +160,7 @@ img{
 							
 						</c:when>
 						<c:otherwise>
-							<a href="itemList.im?<c:out value="${category !=null ? 'category=' : '' }"/>${category }&page=${pageInfo.page+1 }"><span id="pagebn">></span></a>
+							<a href="itemList.im?category=${category }&std=${std }&page=${pageInfo.page+1 }"><span id="pagebn">></span></a>
 						</c:otherwise>
 					</c:choose>
 				</td>
@@ -165,6 +172,7 @@ img{
 		</c:choose>
 		</table>
 	<br><br><br>
+	<button type="button" id="sbutton" onclick="location.href='itemNew.jsp'">상품등록</button>
 	<button type="button" id="bbutton" onclick="location.href='adminPage.jsp'" style="width:150px;">관리자페이지</button>
 	</div>
 	</form>

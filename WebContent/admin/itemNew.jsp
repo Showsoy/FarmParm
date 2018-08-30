@@ -65,6 +65,21 @@ function selCategory(sel) {
 	chkCode = false;
 	document.getElementById("item_code").value="";
 }
+function getCon() {
+	var len = 0, j;
+	var str = document.itemnew.content.value;
+	for (i = 0, j = str.length; i < j; i++, len++) {
+		if ((str.charCodeAt(i) < 0) || (str.charCodeAt(i) > 127)) {
+			len = len + 1;
+		}
+		if (len >= 600) {
+			alert('100글자 초과. \n 초과된 내용은 삭제 됩니다.');
+			document.itemnew.content.value = str.substring(0, i);
+			document.itemnew.content.focus();
+			return;
+		}
+	}
+}
 </script>
 </head>
 <link rel="stylesheet" type="text/css" href="style/style.css">
@@ -140,7 +155,7 @@ function selCategory(sel) {
 						<label for="content">내용</label>
 					</td>	
 					<td colspan="5">
-						<textarea name="content" id="content" cols="60" rows="15"></textarea>
+						<textarea name="content" id="content" cols="60" rows="15" onclick="getCon()" onkeyup="getCon()"></textarea>
 					</td>
 				</tr>
 				<tr>

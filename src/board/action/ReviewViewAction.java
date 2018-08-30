@@ -1,10 +1,7 @@
 package board.action;
 
-import java.io.PrintWriter;
-
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
-import javax.servlet.http.HttpSession;
 
 import action.Action;
 import svc.BoardService;
@@ -18,9 +15,6 @@ public class ReviewViewAction implements Action {
 		// TODO Auto-generated method stub
 		request.setCharacterEncoding("UTF-8");
 		ActionForward forward = null;
-		
-		HttpSession session = request.getSession();
-		String id = (String)session.getAttribute("id");
 		
 		int board_num = Integer.parseInt(request.getParameter("bnum"));
 		String item_code = request.getParameter("item_code");

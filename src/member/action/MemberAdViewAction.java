@@ -12,7 +12,6 @@ import svc.OrderService;
 import svc.UserService;
 import vo.ActionForward;
 import vo.OrderBean;
-import vo.OrderViewBean;
 import vo.PageInfo;
 import vo.UserBean;
 

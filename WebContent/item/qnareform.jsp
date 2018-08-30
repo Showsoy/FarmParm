@@ -102,14 +102,6 @@ function fclose(f){
 <table>
 	<tr>
 		<td id="td_left">
-			<label for="subject">제목</label>
-		</td>
-		<td>
-			<input type="text" id="subject" name="subject" size="39">
-		</td>
-	</tr>
-	<tr>
-		<td id="td_left">
 			<label for="content">내용</label>
 		</td>
 		<td>

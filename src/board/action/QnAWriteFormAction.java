@@ -5,7 +5,6 @@ import javax.servlet.http.HttpServletResponse;
 import javax.servlet.http.HttpSession;
 
 import action.Action;
-import svc.BoardService;
 import vo.ActionForward;
 
 public class QnAWriteFormAction implements Action {

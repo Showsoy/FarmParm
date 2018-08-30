@@ -55,8 +55,6 @@ public class ItemModProAction implements action.Action{
 			if(multi.getFilesystemName("img_path")==null) {
 				image = multi.getParameter("oldImage");
 			}
-			String content = multi.getParameter("content");
-			content = content.replace("\r\n", "<br>");
 			
 			ItemBean item = new ItemBean(
 					item_code,
@@ -66,7 +64,7 @@ public class ItemModProAction implements action.Action{
 					multi.getParameter("category"),
 					image,
 					Integer.parseInt(multi.getParameter("sale")),
-					content,
+					multi.getParameter("content"),
 					0,0);
 			
 			boolean isModifySuccess = itemService.updateItem(item, multi.getParameter("old_code"));

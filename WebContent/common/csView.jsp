@@ -53,6 +53,7 @@ function fc_chk2() {
 	event.returnValue=false; 
 }
 function goto_url(act) {
+	alert(act);
 	document.csview.action = act;
 	document.csview.submit();
 }
@@ -88,7 +89,7 @@ function goto_url(act) {
 						<label for="subject">제목</label>
 					</td>
 					<td id="td_parent">
-						${board.subject }
+						<b>${board.subject }</b>
 					</td>
 				</tr>
 				<tr>
@@ -133,7 +134,7 @@ function goto_url(act) {
 							<label for="content">답변</label>
 						</td>	
 						<td>
-							<textarea name="content" id="content" cols="60" rows="15" onkeyup="fc_chk_byte(this);" onkeypress="fc_chk2();"></textarea>
+							<textarea name="content" id="content" cols="60" rows="15" maxlength="400"></textarea>
 						</td>
 					</tr>
 					<tr>

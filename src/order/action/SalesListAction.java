@@ -13,10 +13,8 @@ import javax.servlet.http.HttpServletResponse;
 import javax.servlet.http.HttpSession;
 
 import action.Action;
-import svc.ItemService;
 import svc.OrderService;
 import vo.ActionForward;
-import vo.ItemViewBean;
 import vo.OrderBean;
 import vo.OrderViewBean;
 import vo.PageInfo;

@@ -15,7 +15,6 @@ public class MemberLostPwModifyAction implements Action{
 		
 		HttpSession session = request.getSession();
 		UserService userService = new UserService();
-		Util util = new Util();
 		
 		String user_id = (String)session.getAttribute("user_id_forPw");
 		

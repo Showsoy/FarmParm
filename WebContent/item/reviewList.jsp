@@ -137,7 +137,7 @@ function viewmyre(){
 					<option value="content" <c:out value="${std eq 'content' ? 'selected' : '' }"/>>제목+내용</option>
 					<option value="item_name" <c:out value="${std eq 'item_name' ? 'selected' : '' }"/>>상품명</option>
 				</select>
-				<input type="text" id="keyword" name="keyword" size="20" value="${keyword }"/>
+				<input type="text" id="keyword" name="keyword" size="15" value="${keyword }"/>
 				<button type="submit" id="wbutton">검색</button>
 			</form>
 			

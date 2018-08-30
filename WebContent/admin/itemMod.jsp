@@ -52,6 +52,21 @@ function selCategory(sel) {
 	chkCode = false;
 	document.getElementById("item_code").value="";
 }
+function getCon() {
+	var len = 0, j;
+	var str = document.modform.content.value;
+	for (i = 0, j = str.length; i < j; i++, len++) {
+		if ((str.charCodeAt(i) < 0) || (str.charCodeAt(i) > 127)) {
+			len = len + 1;
+		}
+		if (len >= 600) {
+			alert('100글자 초과. \n 초과된 내용은 삭제 됩니다.');
+			document.modform.content.value = str.substring(0, i);
+			document.modform.content.focus();
+			return;
+		}
+	}
+}
 </script>
 </head>
 <link rel="stylesheet" type="text/css" href="../style/style.css">
@@ -81,46 +96,11 @@ function selCategory(sel) {
 					</td>
 					<td id="td_right">
 						<select name="category" id="category" onchange="selCategory(this)">
-							<c:choose>
-							<c:when test="${item.category eq '채소' }">
-								<option value="채소" selected>채소</option>
-							</c:when>
-							<c:otherwise>
-								<option value="채소">채소</option>
-							</c:otherwise>
-							</c:choose>
-							<c:choose>
-							<c:when test="${item.category eq '과일' }">
-								<option value="과일" selected>과일</option>
-							</c:when>
-							<c:otherwise>
-								<option value="과일">과일</option>
-							</c:otherwise>
-							</c:choose>
-							<c:choose>
-							<c:when test="${item.category eq '곡류' }">
-								<option value="곡류" selected>곡류</option>
-							</c:when>
-							<c:otherwise>
-								<option value="곡류">곡류</option>
-							</c:otherwise>
-							</c:choose>
-							<c:choose>
-							<c:when test="${item.category eq '차' }">
-								<option value="차" selected>차</option>
-							</c:when>
-							<c:otherwise>
-								<option value="차">차</option>
-							</c:otherwise>
-							</c:choose>
-							<c:choose>
-							<c:when test="${item.category eq '가공' }">
-								<option value="가공" selected>가공</option>
-							</c:when>
-							<c:otherwise>
-								<option value="가공">가공</option>
-							</c:otherwise>
-							</c:choose>
+							<option value="채소" <c:out value="${item.category eq '채소' ? 'selected' : '' }"/>>채소</option>
+							<option value="과일" <c:out value="${item.category eq '과일' ? 'selected' : '' }"/>>과일</option>
+							<option value="곡류" <c:out value="${item.category eq '곡류' ? 'selected' : '' }"/>>곡류</option>
+							<option value="차" <c:out value="${item.category eq '차' ? 'selected' : '' }"/>>차</option>
+							<option value="가공" <c:out value="${item.category eq '가공' ? 'selected' : '' }"/>>가공</option>
 						</select>
 					</td>
 				</tr>
@@ -158,7 +138,7 @@ function selCategory(sel) {
 						<label for="content">내용</label>
 					</td>	
 					<td colspan="3">
-						<textarea name="content" id="content" cols="60" rows="15">${item.content }</textarea>
+						<textarea name="content" id="content" cols="60" rows="15" onclick="getCon()" onkeyup="getCon()">${item.content }</textarea>
 					</td>
 				</tr>
 				<tr>

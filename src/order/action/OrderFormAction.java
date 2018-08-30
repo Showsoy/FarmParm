@@ -1,7 +1,6 @@
 package order.action;
 
 import java.io.PrintWriter;
-import java.sql.Date;
 import java.util.ArrayList;
 
 import javax.servlet.http.HttpServletRequest;
@@ -47,29 +46,29 @@ public class OrderFormAction implements Action {
 			ArrayList<Cart> cartList = cartService.getCartList(request);
 			ItemBean item = null;
 			String codes[] = null;
-			Date date = new Date(0, 0, 0);	
+
 			if(request.getParameter("type").equals("all")) {
 				for(int i=0;i<cartList.size();i++) {
-					orderList.add(new OrderViewBean(0, cartList.get(i).getItem_code(),
+					orderList.add(new OrderViewBean(cartList.get(i).getItem_code(),
 							cartList.get(i).getItem_name(),
-							cartList.get(i).getSprice(),cartList.get(i).getQty(), date));
+							cartList.get(i).getSprice(),cartList.get(i).getQty()));
 				}
 			}else if(request.getParameter("type").equals("sel")) {
 				codes = request.getParameterValues("icheck");
 				for(int i=0;i<cartList.size();i++) {
 					for(int j=0;j<codes.length;j++) {
 						if(cartList.get(i).getItem_code().equals(codes[j]))
-							orderList.add(new OrderViewBean(0, cartList.get(i).getItem_code(),
+							orderList.add(new OrderViewBean(cartList.get(i).getItem_code(),
 									cartList.get(i).getItem_name(), 
-									cartList.get(i).getSprice(),cartList.get(i).getQty(), date));
+									cartList.get(i).getSprice(),cartList.get(i).getQty()));
 					}
 				}
 			}else if(request.getParameter("type").equals("one")) {
 				String code = request.getParameter("item_code");
 				int qty = Integer.parseInt(request.getParameter("qty"));
 				item = itemService.getItem(code);
-				orderList.add(new OrderViewBean(0, item.getItem_code(), item.getItem_name(),
-						(int)(item.getPrice()*(1.0-item.getSale()/100.0)), qty, date));
+				orderList.add(new OrderViewBean(item.getItem_code(), item.getItem_name(),
+						(int)(item.getPrice()*(1.0-item.getSale()/100.0)), qty));
 				
 				}
 			int totalMoney = 0;

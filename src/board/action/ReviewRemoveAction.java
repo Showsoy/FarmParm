@@ -77,7 +77,7 @@ public class ReviewRemoveAction implements Action {
 				if(request.getParameter("r_page")==null) {
 					String path = "./reList.bo?page="+page;
 					if(request.getParameter("keyword")!=null) {
-						path += "&keyword="+request.getParameter("keyword");
+						path += "&std="+request.getParameter("std")+"&keyword="+request.getParameter("keyword");
 						response.setContentType("text/html;charset=UTF-8");
 						PrintWriter out = response.getWriter();
 						out.println("<script>");

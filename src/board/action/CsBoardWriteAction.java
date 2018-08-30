@@ -1,7 +1,6 @@
 package board.action;
 
 import java.io.PrintWriter;
-import java.sql.Date;
 
 import javax.servlet.ServletContext;
 import javax.servlet.http.HttpServletRequest;
@@ -36,7 +35,6 @@ public class CsBoardWriteAction implements Action {
 		}else {
 			BoardService boardService = new BoardService();
 		
-			Date date = new Date(0, 0, 0);	
 			int bnum = boardService.searchBNum("cs_board");
 			
 			String realFolder = "";
@@ -48,13 +46,14 @@ public class CsBoardWriteAction implements Action {
 			realFolder = context.getRealPath(saveFolder);
 			MultipartRequest multi = new MultipartRequest(request, realFolder, fileSize, encType, new DefaultFileRenamePolicy());
 			String image = multi.getFilesystemName("img_path");
+			
 			BoardBean board = new BoardBean(
 					bnum,
 					multi.getParameter("hide")==null ? "SHOW" : "HIDE",
 					id,
 					multi.getParameter("content"),
 					multi.getParameter("subject"),
-					image,0,date,0,bnum,1);
+					image,0,null,0,bnum,1);
 			boolean isWriteSuccess = boardService.writeCsBoard(board);
 			if(!isWriteSuccess) {
 				response.setContentType("text/html;charset=UTF-8");

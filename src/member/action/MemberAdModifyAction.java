@@ -9,7 +9,6 @@ import action.Action;
 import svc.UserService;
 import vo.ActionForward;
 import vo.UserBean;
-import vo.UserViewBean;
 import vo.Util;
 
 public class MemberAdModifyAction implements Action {

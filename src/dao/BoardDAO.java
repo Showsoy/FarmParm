@@ -650,7 +650,8 @@ public class BoardDAO {
 			rs = pstmt.executeQuery();
 			
 			if(rs.next()) {
-				board = new BoardBean(rs.getInt("bnum"), rs.getString("content"), rs.getString("subject"), rs.getString("img_path"), rs.getDate("ndate"), rs.getInt("readcount"));
+				board = new BoardBean(rs.getInt("bnum"), rs.getString("content"), rs.getString("subject"), 
+						rs.getString("img_path"), rs.getDate("ndate"), rs.getInt("readcount"));
 				
 			}
 		}catch(Exception e) {

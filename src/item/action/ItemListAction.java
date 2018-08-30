@@ -48,16 +48,16 @@ public class ItemListAction implements Action {
 			if(request.getParameter("page")!=null) {
 				page = Integer.parseInt(request.getParameter("page"));
 			}
-			String category = request.getParameter("category");
+			String category = request.getParameter("category") == null ? "all" : request.getParameter("category");
+			String std = request.getParameter("std") == null ? "vdate" : request.getParameter("std");
 			
 			ItemService itemService = new ItemService();
-			if(category==null || category.equals("all")){
-				category="all";
+			if(category.equals("all")){
 				listCount = itemService.itemListCount();
-				itemList = itemService.adminItemList(page);
+				itemList = itemService.adminItemList(std, page);
 			}else {
 				listCount = itemService.itemListCountIn(category);
-				itemList = itemService.adminItemListIn(category, page);
+				itemList = itemService.adminItemListIn(std, category, page);
 			}
 			int maxPage = (int)((double)listCount/limit+0.95); 
 			int startPage = (((int)((double)page/limitPage+0.9))-1) *limitPage +1;
@@ -70,6 +70,8 @@ public class ItemListAction implements Action {
 			pageInfo.setMaxPage(maxPage);
 			pageInfo.setPage(page);
 			pageInfo.setStartPage(startPage);
+			
+			request.setAttribute("std", std);
 			request.setAttribute("category", category);
 			request.setAttribute("pageInfo", pageInfo);
 			request.setAttribute("itemList", itemList);

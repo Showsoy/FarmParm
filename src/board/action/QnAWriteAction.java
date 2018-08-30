@@ -1,7 +1,6 @@
 package board.action;
 
 import java.io.PrintWriter;
-import java.sql.Date;
 
 import javax.servlet.ServletContext;
 import javax.servlet.http.HttpServletRequest;
@@ -31,8 +30,6 @@ public class QnAWriteAction implements Action {
 			forward= new ActionForward("./qnaform.jsp",false);
 		}else {
 			BoardService boardService = new BoardService();
-		
-			Date date = new Date(0, 0, 0);	
 			
 			String realFolder = "";
 			String saveFolder = "/images";
@@ -52,7 +49,7 @@ public class QnAWriteAction implements Action {
 					id,
 					multi.getParameter("content"),
 					multi.getParameter("subject"),
-					image,0,date,qhide,bnum,1);
+					image,0,null,qhide,bnum,1);
 			boolean isWriteSuccess = boardService.writeQnA(board);
 			if(!isWriteSuccess) {
 				response.setContentType("text/html;charset=UTF-8");

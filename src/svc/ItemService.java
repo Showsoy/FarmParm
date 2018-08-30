@@ -127,20 +127,20 @@ public class ItemService {
 		close(conn);
 		return listCount;
 	}
-	public ArrayList<ItemViewBean> adminItemList(int page) {
+	public ArrayList<ItemViewBean> adminItemList(String std, int page) {
 		ItemDAO itemDAO = ItemDAO.getInstance();
 		Connection conn = getConnection();
 		itemDAO.setConnection(conn);
-		ArrayList<ItemViewBean> itemList = itemDAO.adminItemList(page);
+		ArrayList<ItemViewBean> itemList = itemDAO.adminItemList(std, page);
 		
 		close(conn);
 		return itemList;
 	}
-	public ArrayList<ItemViewBean> adminItemListIn(String category, int page) {
+	public ArrayList<ItemViewBean> adminItemListIn(String std, String category, int page) {
 		ItemDAO itemDAO = ItemDAO.getInstance();
 		Connection conn = getConnection();
 		itemDAO.setConnection(conn);
-		ArrayList<ItemViewBean> itemList = itemDAO.adminItemListIn(category, page);
+		ArrayList<ItemViewBean> itemList = itemDAO.adminItemListIn(std, category, page);
 		
 		close(conn);
 		return itemList;

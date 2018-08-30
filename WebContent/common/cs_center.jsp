@@ -138,9 +138,9 @@ function viewmycs(){
 		<section id="commandCellp">
 			<form action="csList.bo" name="csearch" method="post">
 				<select id="std" name="std">
-					<option value="user_id" <c:out value="${std eq 'user_id' ? 'selected' : '' }"/>>작성자</option>
 					<option value="subject" <c:out value="${std eq 'subject' ? 'selected' : '' }"/>>제목</option>
 					<option value="content" <c:out value="${std eq 'content' ? 'selected' : '' }"/>>제목+내용</option>
+					<option value="user_id" <c:out value="${std eq 'user_id' ? 'selected' : '' }"/>>작성자</option>
 				</select>
 				<input type="text" id="keyword" name="keyword" size="10" value="${keyword }"/>
 				<button type="submit" id="wbutton">검색</button>

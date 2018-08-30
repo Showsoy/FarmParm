@@ -64,14 +64,16 @@ public class ItemDAO {
 		}
 		return itemViewList;
 	}
-	public ArrayList<ItemViewBean> adminItemList(int page){
+	public ArrayList<ItemViewBean> adminItemList(String std, int page){
 		PreparedStatement pstmt = null;
 		ResultSet rs = null;
 		ArrayList<ItemViewBean> itemViewList = null;
+		std = std.equals("stock") ? std+" ASC" : std+" DESC";
+		String sql = "SELECT * FROM item_view ORDER BY "+std+" LIMIT ?,10";
 		int startrow = (page-1)*10;
 		
 		try {
-			pstmt = conn.prepareStatement("SELECT * FROM item_view LIMIT ?,10");
+			pstmt = conn.prepareStatement(sql);
 			pstmt.setInt(1, startrow);
 			rs = pstmt.executeQuery();
 			if(rs.next()) {
@@ -91,13 +93,15 @@ public class ItemDAO {
 		
 		return itemViewList;
 	}
-	public ArrayList<ItemViewBean> adminItemListIn(String category, int page){
+	public ArrayList<ItemViewBean> adminItemListIn(String std, String category, int page){
 		PreparedStatement pstmt = null;
 		ResultSet rs = null;
 		ArrayList<ItemViewBean> itemViewList = null;
+		std = std.equals("stock") ? std+" ASC" : std+" DESC";
+		String sql = "SELECT * FROM item_view WHERE category = ? ORDER BY "+std+" LIMIT ?,10";
 		int startrow = (page-1)*10;
 		try {
-			pstmt = conn.prepareStatement("SELECT * FROM item_view WHERE category = ? LIMIT ?,10");
+			pstmt = conn.prepareStatement(sql);
 			pstmt.setString(1, category);
 			pstmt.setInt(2, startrow);
 			rs = pstmt.executeQuery();
@@ -331,7 +335,7 @@ public class ItemDAO {
 			pstmt.setString(5, item.getCategory());
 			pstmt.setString(6, item.getImg_path());
 			pstmt.setInt(7, item.getSale());
-			pstmt.setString(8, item.getContent());
+			pstmt.setString(8, item.getContent().replaceAll("<", "&lt;").replaceAll(">", "&gt;").replaceAll("\r\n", "<br>"));
 			pstmt.setInt(9, item.getReadcount());
 			pstmt.setString(10, item_code);
 			
@@ -457,7 +461,7 @@ public class ItemDAO {
 			pstmt.setString(5, item.getCategory());
 			pstmt.setString(6, item.getImg_path());
 			pstmt.setInt(7, item.getSale());
-			pstmt.setString(8, item.getContent());
+			pstmt.setString(8, item.getContent().replaceAll("<", "&lt;").replaceAll(">", "&gt;").replaceAll("\r\n", "<br>"));
 			pstmt.setInt(9, item.getReadcount());
 			pstmt.setInt(10, 0);
 			insertCount = pstmt.executeUpdate();

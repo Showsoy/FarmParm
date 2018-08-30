@@ -39,8 +39,7 @@ public class ItemModFormAction implements Action{
 			ItemService itemService = new ItemService();
 			ItemBean item = itemService.getItem(item_code);
 			String content = item.getContent();
-			content = content.replace("<br>", "\r\n");
-			item.setContent(content);
+			item.setContent(content.replace("<br>", "\r\n"));
 			request.setAttribute("page", request.getParameter("page"));
 			request.setAttribute("item",item);
 			request.setAttribute("old_code", item_code);
