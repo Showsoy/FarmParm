@@ -15,6 +15,7 @@ import javax.servlet.http.HttpServletResponse;
 
 import action.Action;
 import vo.ActionForward;
+import vo.SMTPAuthenticator;
 
 public class OrderMailSend implements Action {
 	public ActionForward execute(HttpServletRequest request, HttpServletResponse response) throws Exception{

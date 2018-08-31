@@ -28,8 +28,33 @@ td, tr{
 function remove(act){
 	var flag = confirm('정말 삭제하시겠습니까?');
 	if(flag){
-		location.href=act;
+		location.href=encodeURI(act);
 	}
+}
+function doImgPop(img){ 
+	 img1= new Image(); 
+	 img1.src=(img); 
+	 imgControll(img); 
+} 
+	  
+function imgControll(img){ 
+   if((img1.width!=0)&&(img1.height!=0)){ 
+	   viewImage(img); 
+   } 
+   else{ 
+	    controller="imgControll('"+img+"')"; 
+	    intervalID=setTimeout(controller,20); 
+	} 
+}
+function viewImage(img){ 
+	 W=img1.width; 
+	 H=img1.height; 
+	 O="width="+W+",height="+H+",scrollbars=yes"; 
+	 imgWin=window.open("","",O); 
+	 imgWin.document.write("<html><head><title>::::: 이미지상세보기 :::::</title></head>");
+	 imgWin.document.write("<body topmargin=0 leftmargin=0>");
+	 imgWin.document.write("<img src="+img+" onclick='self.close()' style='cursor:pointer;' title ='클릭하시면 창이 닫힙니다.'>");
+	 imgWin.document.close();
 }
 </script>
 </head>
@@ -61,9 +86,9 @@ function remove(act){
 			</table>
 			<br>
 			<section id="commandCell">
-				<button type="button" id="wbutton" onclick="location.href='noList.bo?page=${page }<c:out value="${keyword !=null ? '&keyword=' : '' }"/>${keyword}'">목록</button>
+				<button type="button" id="wbutton" onclick="location.href=encodeURI('noList.bo?page=${page }<c:out value="${keyword !=null ? '&keyword=' : '' }"/>${keyword}')">목록</button>
 				<c:if test="${id eq 'admin' }">
-					<button type="button" id="wbutton" onclick="location.href='noModForm.bo?bnum=${board.board_num}&page=${page }<c:out value="${keyword !=null ? '&keyword=' : '' }"/>${keyword}'">수정</button>
+					<button type="button" id="wbutton" onclick="location.href=encodeURI('noModForm.bo?bnum=${board.board_num}&page=${page }<c:out value="${keyword !=null ? '&keyword=' : '' }"/>${keyword}')">수정</button>
 					<button type="button" id="wbutton" onclick="remove('noRemove.bo?bnum=${board.board_num}&page=${page }<c:out value="${keyword !=null ? '&keyword=' : '' }"/>${keyword}');">삭제</button>
 					<button type="button" style="width:70px;" onclick="location.href='noWrite.jsp'" id="wbutton">글쓰기</button>
 				</c:if>

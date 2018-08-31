@@ -23,7 +23,15 @@ public class ItemHideAction implements Action {
 		int updateCount=0;
 		item_code = request.getParameter("item_code");
 		
-		if(item_code==null) {
+		if(item_code==null&&request.getParameterValues("icheck")==null) {
+			response.setContentType("text/html;charset=UTF-8");
+			PrintWriter out = response.getWriter();
+			out.println("<script>");
+			out.println("alert('선택된 상품이 없습니다.');");
+			out.println("history.back();");
+			out.println("</script>");
+		}
+		else if(item_code==null) {
 			codes = request.getParameterValues("icheck");
 			for(int i=0;i<codes.length;i++) {
 				updateCount = itemService.hideItem(codes[i]);

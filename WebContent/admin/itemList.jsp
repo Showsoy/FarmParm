@@ -58,8 +58,12 @@ img{
 		var category = document.getElementById("category").options[document.getElementById("category").selectedIndex].value;
 		var std = document.getElementById("std").options[document.getElementById("std").selectedIndex].value;
 		
-		document.itemList.action = "itemList.im?category="+category+"&std="+std;
+		document.itemList.action = "itemList.im?category="+encodeURI(category)+"&std="+std;
 		document.itemList.submit();
+	}
+	function ilist(category, std, page){
+		var uri = "itemList.im?category="+encodeURI(category)+"&std="+std+"&page="+page;
+		location.href=uri;
 	}
 </script>
 </head>
@@ -142,7 +146,7 @@ img{
 						
 					</c:if>
 					<c:if test="${pageInfo.page>1 }">
-						<a href="itemList.im?category=${category }&std=${std }&page=${pageInfo.page-1}"><span id="pagebn"><</span></a>
+						<a href="javascript:void(0);" onclick="ilist('${category }', '${std }', '${pageInfo.page-1}')"><span id="pagebn"><</span></a>
 					</c:if>
 					
 					<c:forEach var="a" begin="${pageInfo.startPage }" end="${pageInfo.endPage }" step="1">
@@ -151,7 +155,7 @@ img{
 								<span id="nowpage">${a }</span>
 							</c:when>
 							<c:otherwise>
-								<a href="itemList.im?category=${category }&std=${std }&page=${a }">&nbsp;${a }&nbsp;</a>
+								<a href="javascript:void(0);" onclick="ilist('${category }', '${std }', '${a}')">&nbsp;${a }&nbsp;</a>
 							</c:otherwise>
 						</c:choose>
 					</c:forEach>
@@ -160,7 +164,7 @@ img{
 							
 						</c:when>
 						<c:otherwise>
-							<a href="itemList.im?category=${category }&std=${std }&page=${pageInfo.page+1 }"><span id="pagebn">></span></a>
+							<a href="javascript:void(0);" onclick="ilist('${category }', '${std }', '${pageInfo.page+1}')"><span id="pagebn">></span></a>
 						</c:otherwise>
 					</c:choose>
 				</td>

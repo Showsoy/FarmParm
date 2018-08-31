@@ -9,10 +9,20 @@ import java.sql.Connection;
 import java.sql.Date;
 import java.util.ArrayList;
 import java.util.Map;
+import java.util.Properties;
+
+import javax.mail.Address;
+import javax.mail.Authenticator;
+import javax.mail.Message;
+import javax.mail.Session;
+import javax.mail.Transport;
+import javax.mail.internet.InternetAddress;
+import javax.mail.internet.MimeMessage;
 
 import dao.OrderDAO;
 import dao.UserDAO;
 import vo.PointBean;
+import vo.SMTPAuthenticator;
 import vo.UserBean;
 import vo.UserViewBean;
 
@@ -209,11 +219,11 @@ public class UserService {
 		close(con);
 		return userList;
 	}
-	public ArrayList<UserViewBean> getPurchList(int page) throws Exception{
+	public ArrayList<UserViewBean> getPurchList(String keyword, int page) throws Exception{
 		Connection con = getConnection();
 		UserDAO userDAO = UserDAO.getInstance();
 		userDAO.setConnection(con);
-		ArrayList<UserViewBean> userList = userDAO.getPurchList(page);
+		ArrayList<UserViewBean> userList = userDAO.getPurchList(keyword, page);
 		close(con);
 		return userList;
 	}
@@ -273,5 +283,34 @@ public class UserService {
 		Map<String, Integer> pointMap = userDAO.orderPointMap(order_id);
 		close(con);
 		return pointMap;
+	}
+	public void sendIssueMail(String email, String mail_subject, String mail_content) {
+		String sender = email;
+		String receiver = "clemado1@gmail.com";
+		String subject = mail_subject;
+		String content = mail_content;
+		try {
+			Properties properties = System.getProperties();
+			properties.put("mail.smtp.starttls.enable", "true");
+			properties.put("mail.smtp.host", "smtp.gmail.com");
+			properties.put("mail.smtp.auth", "true");
+			properties.put("mail.smtp.port", "587");
+			Authenticator auth = (Authenticator) new SMTPAuthenticator();
+			Session s = Session.getDefaultInstance(properties, auth);
+			Message message = new MimeMessage(s);
+			Address sender_address = new InternetAddress(sender);
+			Address receiver_address = new InternetAddress(receiver);
+			message.setHeader("content-type", "text/html;charset=UTF-8");
+			message.setFrom(sender_address);
+			message.addRecipient(Message.RecipientType.TO, receiver_address);
+			message.setSubject(subject);
+			message.setContent(content, "text/html;charset=UTF-8");
+			message.setSentDate(new java.util.Date());
+			Transport.send(message);
+			System.out.println("<h3>메일이 정상적으로 전송되었습니다.</h3>");
+		}catch (Exception e){
+			System.out.println("SMTP 서버가 잘못 설정되었거나 서비스에 문제가 있습니다.");
+			e.printStackTrace();
+		}
 	}
 }

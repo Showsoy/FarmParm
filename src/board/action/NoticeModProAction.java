@@ -75,7 +75,7 @@ public class NoticeModProAction implements Action {
 					response.setContentType("text/html;charset=UTF-8");
 					PrintWriter out = response.getWriter();
 					out.println("<script>");
-					out.println("location.href='"+path+"';");
+					out.println("location.href=encodeURI('"+path+"');");
 					out.println("</script>");
 				}else {
 					forward= new ActionForward(path,true);

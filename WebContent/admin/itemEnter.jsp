@@ -80,7 +80,7 @@ function chkForm(f){
 					<td colspan="2"><input type="text" id="idate" name="idate" placeholder="ex)20171212" size="10"/></td>
 					<td id="td_left">수량</td>
 					<td><input type="text" id="amount" name="amount" size="4"/></td>
-					<td><button type="submit" id="gbutton" onclick="location.href='itemEnterPro.im?item_code=${item.item_code}'">등록</button></td>
+					<td colspan="2"><button type="submit" id="gbutton" onclick="location.href='itemEnterPro.im?item_code=${item.item_code}'">등록</button></td>
 				</tr>
 			</table>
 			<br>

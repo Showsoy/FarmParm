@@ -64,7 +64,7 @@ function selectEmail(sel) {
 				<br><br>
 				<div id="footer">
 				<a href="login.jsp">로그인</a>&nbsp;&nbsp;|&nbsp;&nbsp;
-				<a href="#">문제발생</a>&nbsp;&nbsp;|&nbsp;&nbsp;
+				<a href="issue.jsp">문제발생</a>&nbsp;&nbsp;|&nbsp;&nbsp;
 				<a href="idFind.jsp">아이디 찾기</a>
 				</div>
 			</form>

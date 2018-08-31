@@ -53,7 +53,7 @@ img{
 				document.odList.submit();
 			}
 		}else{
-			document.odList.action = act;
+			document.odList.action = encodeURI(act);
 			document.odList.submit();
 		}
 	}
@@ -74,17 +74,17 @@ img{
 		<span id="orderby">
 			<a href="odList.od"><img src="../images/checked.png"/><c:choose><c:when test="${state eq 'all' }">
 			<span id="selcategory">전체</span></c:when><c:otherwise> 전체</c:otherwise></c:choose></a>
-			<a href="odList.od?state=주문완료"><img src="../images/checked.png"/><c:choose><c:when test="${state eq '주문완료' }">
+			<a href="javascript:void(0);" onclick="location.href=encodeURI('odList.od?state=주문완료')"><img src="../images/checked.png"/><c:choose><c:when test="${state eq '주문완료' }">
 			<span id="selcategory">주문완료</span></c:when><c:otherwise> 주문완료</c:otherwise></c:choose></a>
-			<a href="odList.od?state=결제완료"><img src="../images/checked.png"/><c:choose><c:when test="${state eq '결제완료' }">
+			<a href="javascript:void(0);" onclick="location.href=encodeURI('odList.od?state=결제완료')"><img src="../images/checked.png"/><c:choose><c:when test="${state eq '결제완료' }">
 			<span id="selcategory">결제완료</span></c:when><c:otherwise> 결제완료</c:otherwise></c:choose></a>
-			<a href="odList.od?state=상품출고"><img src="../images/checked.png"/><c:choose><c:when test="${state eq '상품출고' }">
+			<a href="javascript:void(0);" onclick="location.href=encodeURI('odList.od?state=상품출고')"><img src="../images/checked.png"/><c:choose><c:when test="${state eq '상품출고' }">
 			<span id="selcategory">상품출고</span></c:when><c:otherwise> 상품출고</c:otherwise></c:choose></a>
-			<a href="odList.od?state=배송완료"><img src="../images/checked.png"/><c:choose><c:when test="${state eq '배송완료' }">
+			<a href="javascript:void(0);" onclick="location.href=encodeURI('odList.od?state=배송완료')"><img src="../images/checked.png"/><c:choose><c:when test="${state eq '배송완료' }">
 			<span id="selcategory">배송완료</span></c:when><c:otherwise> 배송완료</c:otherwise></c:choose></a>
-			<a href="odList.od?state=취소신청"><img src="../images/checked.png"/><c:choose><c:when test="${state eq '취소신청' }">
+			<a href="javascript:void(0);" onclick="location.href=encodeURI('odList.od?state=취소신청')"><img src="../images/checked.png"/><c:choose><c:when test="${state eq '취소신청' }">
 			<span id="selcategory">취소신청</span></c:when><c:otherwise> 취소신청</c:otherwise></c:choose></a>
-			<a href="odList.od?state=취소완료"><img src="../images/checked.png"/><c:choose><c:when test="${state eq '취소완료' }">
+			<a href="javascript:void(0);" onclick="location.href=encodeURI('odList.od?state=취소완료')"><img src="../images/checked.png"/><c:choose><c:when test="${state eq '취소완료' }">
 			<span id="selcategory">취소완료</span></c:when><c:otherwise> 취소완료</c:otherwise></c:choose></a>
 		</span>
 		<span id="seldel">
@@ -118,7 +118,7 @@ img{
 				${orderList.user_id }</td>
 				<td><fmt:formatNumber value="${orderList.pay }" type="number"/>원</td>
 				<td>${orderList.state }</td>
-				<td><button type="button" onclick="location.href='odView.od?order_id=${orderList.order_id}&page=${pageInfo.page }'" id="gbutton">조회</button></td>
+				<td><button type="button" onclick="location.href=encodeURI('odView.od?order_id=${orderList.order_id}&page=${pageInfo.page }<c:out value="${state !=null ? '&state=' : '' }"/>${state }')" id="gbutton">조회</button></td>
 			</tr>
 			</c:forEach>
 			<tr>
@@ -127,7 +127,7 @@ img{
 						
 					</c:if>
 					<c:if test="${pageInfo.page>1 }">
-						<a href="odList.od?<c:out value="${state !=null ? 'state=' : '' }"/>${state }&page=${pageInfo.page-1}"><span id="pagebn"><</span></a>
+						<a href="javascript:void(0);" onclick="location.href=encodeURI('odList.od?<c:out value="${state !=null ? 'state=' : '' }"/>${state }&page=${pageInfo.page-1}')"><span id="pagebn"><</span></a>
 					</c:if>
 					
 					<c:forEach var="a" begin="${pageInfo.startPage }" end="${pageInfo.endPage }" step="1">
@@ -136,7 +136,7 @@ img{
 								<span id="nowpage">${a }</span>
 							</c:when>
 							<c:otherwise>
-								<a href="odList.od?<c:out value="${state !=null ? 'state=' : '' }"/>${state }&page=${a }">&nbsp;${a }&nbsp;</a>
+								<a href="javascript:void(0);" onclick="location.href=encodeURI('odList.od?<c:out value="${state !=null ? 'state=' : '' }"/>${state }&page=${a }')">&nbsp;${a }&nbsp;</a>
 							</c:otherwise>
 						</c:choose>
 					</c:forEach>
@@ -145,7 +145,7 @@ img{
 							
 						</c:when>
 						<c:otherwise>
-							<a href="odList.od?<c:out value="${state !=null ? 'state=' : '' }"/>${state }&page=${pageInfo.page+1 }"><span id="pagebn">></span></a>
+							<a href="javascript:void(0);" onclick="location.href=encodeURI('odList.od?<c:out value="${state !=null ? 'state=' : '' }"/>${state }&page=${pageInfo.page+1 }')"><span id="pagebn">></span></a>
 						</c:otherwise>
 					</c:choose>
 				</td>

@@ -31,15 +31,24 @@ img{
 </style>
 <script>
 selPrice = "<%=(int)request.getAttribute("totalMoney")%>";
+var tot = "<%=(int)request.getAttribute("totalMoney")%>";
 
 
 	function checkAll(theForm) {
+		
 		if (theForm.icheck.length == undefined) {
 			theForm.icheck.checked = theForm.allCheck.checked;
 		} else {
 			for (var i = 0; i < theForm.icheck.length; i++) {
-				theForm.icheck[i].checked = theForm.allCheck.checked;
+				theForm.icheck[i].checked = theForm.allCheck.checked;//dd
 			}
+		}
+		if(theForm.allCheck.checked){
+			selPrice = tot;
+			document.getElementById("selArea").innerHTML = "선택 상품 가격 <b>"+tot+"</b> 원";
+		}else{
+			selPrice = 0;
+			document.getElementById("selArea").innerHTML = "선택 상품 가격 <b>0</b> 원";
 		}
 	}
 	
@@ -68,7 +77,8 @@ selPrice = "<%=(int)request.getAttribute("totalMoney")%>";
 		var reg_qty = /^[1-9]{1}$|^[1-4]{1}[0-9]{1}$|^50$/;
 		if (!reg_qty.test(qty)) {
 			alert("1~50의 숫자만 가능합니다.");
-			document.qty.focus();
+			document.getElementById("qty").value= "";
+			document.getElementById("qty").focus();
 			return false;
 		}
 		document.cartform.submit();
@@ -157,7 +167,7 @@ selPrice = "<%=(int)request.getAttribute("totalMoney")%>";
 				<td colspan="6" id="td_info">
 					<button id="bbutton" onclick="goto_url('../order/odForm.od?type=all');">전체주문</button>
 					<button id="bbutton" onclick="goto_url('../order/odForm.od?type=sel');">선택주문</button>
-					<button id="sbutton" type="button" onclick="history.back();" style="width:110px;">쇼핑계속하기</button>
+					<button id="sbutton" type="button" onclick="history.back();" style="width:120px;">쇼핑계속하기</button>
 
 				</td>
 			</tr>

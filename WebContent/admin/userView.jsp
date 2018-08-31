@@ -141,7 +141,7 @@
 	<br><br><br>
 	</div>
 	<button type="button" id="bbutton" onclick="location.href='/FarmParm/admin/adminPage.jsp'" style="width:150px;">관리자페이지</button>
-	<button type="button" id="bbutton" onclick="location.href='/FarmParm/memberList.us?page=${page }<c:out value="${std !=null ? '&std=' : '' }"/>${std}<c:out value="${keyword !=null ? '&keyword=' : '' }"/>${keyword}'" style="width:90px;">회원목록</button>
+	<button type="button" id="bbutton" onclick="location.href=encodeURI('/FarmParm/memberList.us?page=${page }<c:out value="${std !=null ? '&std=' : '' }"/>${std}<c:out value="${keyword !=null ? '&keyword=' : '' }"/>${keyword}')" style="width:90px;">회원목록</button>
 	</div>
 </div>
  <jsp:include page="/common/footer.jsp" flush="false"/>

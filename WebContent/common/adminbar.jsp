@@ -9,33 +9,38 @@
 <style>
 .admbar {
     overflow: hidden;
-    background-color: #4CAF50;
+    background: #4CAF50;
     display: flex;
     justify-content: center;
-   	margin:10px 0;
+    margin:10px 0;
 }
 .admbar a {
     display: block;
-    color: #191919;
+    color: white;
     text-align: center;
-    padding: 5px 10px;
+    padding: 5px 20px;
     text-decoration: none;
 }
 .admbar a.right {
     float: right;
 }
 .admbar>ul>li>a:hover {
-	background-color:#ddd;
+	background-color: #ddd;
+    color:black;
     text-decoration: none;
 }
 .admbar ul {
     list-style-type: none;
-    margin: 0 auto;
+    margin: 0;
     padding: 0;
     overflow: hidden;
-    background-color: #4CAF50;
+    background: #4CAF50;
+}
+li {
+    float: left;
 }
 #adminbt{
+	color:black;
 	background-color: white;
 	border-top:solid 1px #5D5D5D;
 	border-left:solid 1px #5D5D5D;

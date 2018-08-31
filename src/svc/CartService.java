@@ -62,12 +62,9 @@ public class CartService {
 	public void changeCartQty(HttpServletRequest request, String item_code, int qty) {
 		HttpSession session = request.getSession();
 		ArrayList<Cart> cartList = (ArrayList<Cart>)session.getAttribute("cartList");
-		System.out.println(item_code);
 		for(int i=0;i<cartList.size();i++) {
 			if(cartList.get(i).getItem_code().equals(item_code)) {
-				System.out.println("일치");
 				cartList.get(i).setQty(qty);
-				System.out.println(cartList.get(i).getQty());
 			}
 		}
 	}

@@ -76,7 +76,7 @@ public class UserItemViewAction implements action.Action{
 		forward = new ActionForward();
 		ItemBean item = itemService.getItem(item_code);
 		int stock = itemService.findItemStock(item_code);
-		if(id!=null&&!id.equals("admin")) {
+		if(id==null||!id.equals("admin")) {
 			itemService.updateReadCount(item_code);
 		}
 		//Cookie add

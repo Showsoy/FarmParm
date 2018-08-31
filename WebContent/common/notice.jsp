@@ -58,7 +58,7 @@ a:hover{
 					<tr>
 						<td>${board.board_num }</td>
 						<td colspan="2">
-						<p><a href="noView.bo?bnum=${board.board_num }&page=${pageInfo.page}<c:out value="${keyword !=null ? '&keyword=' : '' }"/>${keyword}">${board.subject }</a></p></td>
+						<p><a href="javascript:void(0);" onclick="location.href=encodeURI('noView.bo?bnum=${board.board_num }&page=${pageInfo.page}<c:out value="${keyword !=null ? '&keyword=' : '' }"/>${keyword}')">${board.subject }</a></p></td>
 						<td>관리자</td>
 						<td>${board.date }</td>
 						<td>${board.readcount }</td>
@@ -70,7 +70,7 @@ a:hover{
 						
 					</c:if>
 					<c:if test="${pageInfo.page>1 }">
-						<a href="noList.bo?page=${pageInfo.page-1}<c:out value="${keyword !=null ? '&keyword=' : '' }"/>${keyword}"><span id="pagebn"><</span></a>
+						<a href="javascript:void(0);" onclick="location.href=encodeURI('noList.bo?page=${pageInfo.page-1}<c:out value="${keyword !=null ? '&keyword=' : '' }"/>${keyword}')"><span id="pagebn"><</span></a>
 					</c:if>
 					
 					<c:forEach var="a" begin="${pageInfo.startPage }" end="${pageInfo.endPage }" step="1">
@@ -79,7 +79,7 @@ a:hover{
 								<span id="nowpage">${a }</span>
 							</c:when>
 							<c:otherwise>
-								<a href="noList.bo?page=${a }<c:out value="${keyword !=null ? '&keyword=' : '' }"/>${keyword}">&nbsp;${a }&nbsp;</a>
+								<a href="javascript:void(0);" onclick="location.href=encodeURI('noList.bo?page=${a }<c:out value="${keyword !=null ? '&keyword=' : '' }"/>${keyword}')">&nbsp;${a }&nbsp;</a>
 							</c:otherwise>
 						</c:choose>
 					</c:forEach>
@@ -88,7 +88,7 @@ a:hover{
 							
 						</c:when>
 						<c:otherwise>
-							<a href="noList.bo?page=${pageInfo.page+1 }<c:out value="${keyword !=null ? '&keyword=' : '' }"/>${keyword}"><span id="pagebn">></span></a>
+							<a href="javascript:void(0);" onclick="location.href=encodeURI('noList.bo?page=${pageInfo.page+1 }<c:out value="${keyword !=null ? '&keyword=' : '' }"/>${keyword}')"><span id="pagebn">></span></a>
 						</c:otherwise>
 					</c:choose>
 				</td>

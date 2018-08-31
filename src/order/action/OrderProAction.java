@@ -87,7 +87,6 @@ public class OrderProAction implements Action {
 				forward= new ActionForward("./odComplete.jsp",false);//리스트로 들어감
 			}
 		}
-		//장바구니 지우기
 		return forward;
 	}
 

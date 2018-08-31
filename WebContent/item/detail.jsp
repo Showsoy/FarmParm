@@ -21,7 +21,7 @@ dt{
 }
 dd{
 	display:inline-block;
-	width:80px;
+	width:100px;
 	text-align:center;
 }
 </style>
@@ -95,7 +95,7 @@ pageContext.setAttribute("uprice", uprice);
 	<div class="mypage">
 	<form method="post" name="itemform">
 	<div id="top_item">
-	<a href="./uitemList.im?category=${item.category }"><b>${item.category }</b></a>
+	<a href="javascript:void(0);" onclick="location.href='./uitemList.im?category='+encodeURI('${item.category }')"><b>${item.category }</b></a>
 	| ${item.item_name }
 	<c:if test="${id eq 'admin' }">
 	<span id="top_item-right">

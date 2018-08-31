@@ -40,14 +40,22 @@ public class OrderChangeStateAction implements Action {
 			String order_id;
 			int updateCount=0;
 			order_id = request.getParameter("order_id");
-			String state = request.getParameter("od_state");
-			if(order_id==null) {
+			String od_state = request.getParameter("od_state");
+			if(request.getParameterValues("icheck")==null&&order_id==null) {
+				response.setContentType("text/html;charset=UTF-8");
+				PrintWriter out = response.getWriter();
+				out.println("<script>");
+				out.println("alert('선택된 주문이 없습니다.');");
+				out.println("history.back();");
+				out.println("</script>");
+			}
+			else if(order_id==null) {
 				ids = request.getParameterValues("icheck");
 				for(int i=0;i<ids.length;i++) {
-					updateCount = orderService.changeOrderState(Integer.parseInt(ids[i]), state);
+					updateCount = orderService.changeOrderState(Integer.parseInt(ids[i]), od_state);
 				}
 			}else {
-				updateCount = orderService.changeOrderState(Integer.parseInt(order_id), state);
+				updateCount = orderService.changeOrderState(Integer.parseInt(order_id), od_state);
 			}
 			if(updateCount==0) {
 				response.setContentType("text/html;charset=UTF-8");
@@ -58,10 +66,17 @@ public class OrderChangeStateAction implements Action {
 				out.println("</script>");
 			}else {
 				if(order_id==null) {
+					
 					forward= new ActionForward("./odList.od",true);
 				}else {
 					String page = request.getParameter("page");
-					forward= new ActionForward("./odView.od?order_id="+order_id+"&page="+page,true);
+					String state = request.getParameter("state");
+					String path = "./odView.od?order_id="+order_id+"&page="+page+"&state="+state;
+					response.setContentType("text/html;charset=UTF-8");
+					PrintWriter out = response.getWriter();
+					out.println("<script>");
+					out.println("location.href=encodeURI('"+path+"');");
+					out.println("</script>");
 				}
 			}
 		}

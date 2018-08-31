@@ -433,10 +433,11 @@ public class UserDAO {
 		}
 		return userList;
 	}
-	public ArrayList<UserViewBean> getPurchList(int page){
+	public ArrayList<UserViewBean> getPurchList(String keyword, int page){
 		PreparedStatement pstmt = null;
 		ResultSet rs = null;
-		String user_list_sql="select * from user_view order by userpay DESC limit ?,10 ";
+		keyword = keyword.equals("") ? "" : "where grade = '"+keyword+"' ";
+		String user_list_sql="select * from user_view "+keyword+"order by userpay DESC limit ?,10 ";
 		ArrayList<UserViewBean> userList = new ArrayList<UserViewBean>();
 		UserViewBean user = null;
 		int startrow=(page-1)*10;

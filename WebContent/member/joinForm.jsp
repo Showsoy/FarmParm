@@ -286,7 +286,7 @@ o 로그 기록
 				<br><br><br><br>
 			<div id="footer">
 				&nbsp;&nbsp;<a href="#">이용약관</a>&nbsp;&nbsp;|&nbsp;&nbsp;<a href="#">개인정보처리방침</a>
-				&nbsp;&nbsp;|&nbsp;&nbsp;<a href="#">고객센터</a>&nbsp;&nbsp;
+				&nbsp;&nbsp;|&nbsp;&nbsp;<a href="issue.jsp">문제발생</a>&nbsp;&nbsp;
 			</div>
 			</form>
 		</div>

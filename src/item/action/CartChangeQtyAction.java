@@ -24,7 +24,8 @@ public class CartChangeQtyAction implements Action {
 			response.setContentType("text/html;charset=UTF-8");
 			PrintWriter out = response.getWriter();
 			out.println("<script>");
-			out.println("alert('주문 가능 개수 초과');");
+			out.println("var stock = "+stock);
+			out.println("alert(\"재고부족으로 \"+stock+\"개 이하만 가능합니다.\");");
 			out.println("history.back();");
 			out.println("</script>");
 		}else {

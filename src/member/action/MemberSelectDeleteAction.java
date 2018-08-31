@@ -27,6 +27,13 @@ public class MemberSelectDeleteAction implements Action{
 			out.println("alert('관리자가 아닙니다.');");
 			out.println("location.href='memberLogin.me';");
 			out.println("</script>");
+		}else if(request.getParameterValues("ckb") ==null) {
+			response.setContentType("text/html;charset=UTF-8");
+			PrintWriter out = response.getWriter();
+			out.println("<script>");
+			out.println("alert('선택된 회원이 없습니다.');");
+			out.println("history.back();");
+			out.println("</script>");
 		}
 		else{
 			String uid[] = request.getParameterValues("ckb");

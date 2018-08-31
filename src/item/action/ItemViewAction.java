@@ -42,14 +42,10 @@ public class ItemViewAction implements action.Action{
 			String item_code = request.getParameter("item_code");
 			ItemService itemService = new ItemService();
 			
-			//재고 페이지
-			int i_page = 1;
+			int page = request.getParameter("page")==null ? 1 : Integer.parseInt(request.getParameter("page"));
+			int i_page = request.getParameter("i_page")==null ? 1 : Integer.parseInt(request.getParameter("i_page"));
 			int i_limit = 10;
 			int i_limitPage = 10;
-			
-			if(request.getParameter("i_page")!=null) {
-				i_page = Integer.parseInt(request.getParameter("i_page"));
-			}
 
 			Calendar tmpCal = Calendar.getInstance();
 			int iyear = request.getParameter("iyear")==null ? tmpCal.get(Calendar.YEAR) 
@@ -77,7 +73,6 @@ public class ItemViewAction implements action.Action{
 			
 			request.setAttribute("item",item);
 			request.setAttribute("itemStockList", itemStockList);
-			String page = request.getParameter("page");
 			request.setAttribute("page", page);
 			request.setAttribute("imonth", imonth);
 			request.setAttribute("iyear", iyear);

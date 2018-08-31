@@ -1,4 +1,4 @@
-package order.action;
+package vo;
 import javax.mail.Authenticator;
 import javax.mail.PasswordAuthentication;
 

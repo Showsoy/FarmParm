@@ -47,7 +47,15 @@ public class OrderCancelAction implements Action {
 			String order_id;
 			int updateCount=0;
 			order_id = request.getParameter("order_id");
-			if(order_id==null) {
+			if(request.getParameterValues("icheck")==null&&order_id==null) {
+				response.setContentType("text/html;charset=UTF-8");
+				PrintWriter out = response.getWriter();
+				out.println("<script>");
+				out.println("alert('선택된 주문이 없습니다.');");
+				out.println("history.back();");
+				out.println("</script>");
+			}
+			else if(order_id==null) {
 				ids = request.getParameterValues("icheck");
 				for(int i=0;i<ids.length;i++) {
 					int tmpid = Integer.parseInt(ids[i]);
@@ -79,7 +87,13 @@ public class OrderCancelAction implements Action {
 					forward= new ActionForward("./odList.od",true);
 				}else {
 					String page = request.getParameter("page");
-					forward= new ActionForward("./odView.od?order_id="+order_id+"&page="+page,true);
+					String state = request.getParameter("state");
+					String path = "./odList.od?state="+state+"&page="+page;
+					response.setContentType("text/html;charset=UTF-8");
+					PrintWriter out = response.getWriter();
+					out.println("<script>");
+					out.println("location.href=encodeURI('"+path+"');");
+					out.println("</script>");
 				}
 			}
 		}

@@ -32,15 +32,15 @@ function doubleSubmitCheck(){
 	      <a href="<%=request.getContextPath()%>/common/introduction.jsp">
 	      &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
 			<b>농원소개</b></a>
-	      <a href="<%=request.getContextPath()%>/uitemList.im?category=채소">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+	      <a href="javascript:void(0);" onclick="location.href='<%=request.getContextPath()%>/uitemList.im?category='+encodeURI('채소')">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
 			<b>채소</b></a>
-	      <a href="<%=request.getContextPath()%>/uitemList.im?category=과일">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+	      <a href="javascript:void(0);" onclick="location.href='<%=request.getContextPath()%>/uitemList.im?category='+encodeURI('과일')">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
 	      	<b>과일</b></a>
-	      <a href="<%=request.getContextPath()%>/uitemList.im?category=곡류">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+	      <a href="javascript:void(0);" onclick="location.href='<%=request.getContextPath()%>/uitemList.im?category='+encodeURI('곡류')">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
 	      	<b>쌀/잡곡</b></a>
-	      <a href="<%=request.getContextPath()%>/uitemList.im?category=차">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+	      <a href="javascript:void(0);" onclick="location.href='<%=request.getContextPath()%>/uitemList.im?category='+encodeURI('차')">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
 	      	<b>차</b></a>
-	      <a href="<%=request.getContextPath()%>/uitemList.im?category=가공">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+	      <a href="javascript:void(0);" onclick="location.href='<%=request.getContextPath()%>/uitemList.im?category='+encodeURI('가공')">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
 	      	<b>가공류</b></a>
 	    </div>
       <a href="<%=request.getContextPath()%>/common/location.jsp"><b>오시는 길</b></a>
@@ -57,11 +57,11 @@ function doubleSubmitCheck(){
       <a href="<%=request.getContextPath()%>/common/noList.bo">안내사항</a>
     </div>
   </li>
-  <li><a href="<%=request.getContextPath()%>/uitemList.im?category=채소&std=new" class="dropbtn">&nbsp;&nbsp;&nbsp;&nbsp;채소&nbsp;&nbsp;&nbsp;&nbsp;</a></li>
-  <li><a href="<%=request.getContextPath()%>/uitemList.im?category=과일&std=new" class="dropbtn">&nbsp;&nbsp;&nbsp;&nbsp;과일&nbsp;&nbsp;&nbsp;&nbsp;</a></li>
-  <li><a href="<%=request.getContextPath()%>/uitemList.im?category=곡류&std=new" class="dropbtn">&nbsp;&nbsp;쌀/잡곡&nbsp;&nbsp;</a></li>
-  <li><a href="<%=request.getContextPath()%>/uitemList.im?category=차&std=new" class="dropbtn">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;차&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</a></li>
-  <li><a href="<%=request.getContextPath()%>/uitemList.im?category=가공&std=new" class="dropbtn">&nbsp;&nbsp;&nbsp;가공류&nbsp;&nbsp;&nbsp;</a></li>
+  <li><a href="javascript:void(0);" onclick="location.href='<%=request.getContextPath()%>/uitemList.im?category='+encodeURI('채소')" class="dropbtn">&nbsp;&nbsp;&nbsp;&nbsp;채소&nbsp;&nbsp;&nbsp;&nbsp;</a></li>
+  <li><a href="javascript:void(0);" onclick="location.href='<%=request.getContextPath()%>/uitemList.im?category='+encodeURI('과일')" class="dropbtn">&nbsp;&nbsp;&nbsp;&nbsp;과일&nbsp;&nbsp;&nbsp;&nbsp;</a></li>
+  <li><a href="javascript:void(0);" onclick="location.href='<%=request.getContextPath()%>/uitemList.im?category='+encodeURI('곡류')" class="dropbtn">&nbsp;&nbsp;쌀/잡곡&nbsp;&nbsp;</a></li>
+  <li><a href="javascript:void(0);" onclick="location.href='<%=request.getContextPath()%>/uitemList.im?category='+encodeURI('차')" class="dropbtn">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;차&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</a></li>
+  <li><a href="javascript:void(0);" onclick="location.href='<%=request.getContextPath()%>/uitemList.im?category='+encodeURI('가공')" class="dropbtn">&nbsp;&nbsp;&nbsp;가공류&nbsp;&nbsp;&nbsp;</a></li>
   <li><a href="<%=request.getContextPath()%>/market.jsp" id="market" target="_blank">&nbsp;&nbsp;팜팜마켓&nbsp;&nbsp;</a></li>
 </ul>
 </div>

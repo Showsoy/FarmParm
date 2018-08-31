@@ -66,7 +66,7 @@ function chkForm(f){
 						<input type="text" name="subject" id="subject" size="40" required/>
 					</td>
 					<td id="td_left">
-						<input type="radio" name="hide" value="HIDE">&nbsp;숨김글
+						<input type="checkbox" id="hide" name="hide" value="HIDE">&nbsp;<label for="hide">숨김글</label>
 					</td>
 				</tr>
 				<tr>

@@ -823,7 +823,6 @@ public class BoardDAO {
 			pstmt.setInt(5, board.getReadcount());
 			
 			insertCount = pstmt.executeUpdate();
-			System.out.println(board.getContent() + " =?");
 			
 		}catch(Exception e) {
 			e.printStackTrace();

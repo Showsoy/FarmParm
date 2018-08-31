@@ -61,11 +61,11 @@ function viewmycs(){
 		<div id="leftalign" style="width:75%;margin:0 auto;padding:10px;">
 		<c:choose>
 		<c:when test="${id eq 'admin' }">
-		<span id="pcheck">&nbsp;<input type="checkbox" id="nonreply" name="nonreply" onchange="viewnonreply()" <c:out value="${std eq 'reply' ? 'checked' : '' }"/>> 미답변글 보기&nbsp;</span>
+		<span id="pcheck">&nbsp;<input type="checkbox" id="nonreply" name="nonreply" onchange="viewnonreply()" <c:out value="${std eq 'reply' ? 'checked' : '' }"/>> <label for="nonreply">미답변글 보기</label>&nbsp;</span>
 		</c:when>
-		<c:otherwise>
-		<span id="pcheck">&nbsp;<input type="checkbox" id="mycs" name="mycs" onchange="viewmycs()" <c:out value="${std eq 'mycs' ? 'checked' : '' }"/>> 내가 쓴 글 보기&nbsp;</span>
-		</c:otherwise>
+		<c:when test="${id != null }">
+		<span id="pcheck">&nbsp;<input type="checkbox" id="mycs" name="mycs" onchange="viewmycs()" <c:out value="${std eq 'mycs' ? 'checked' : '' }"/>> <label for="mycs">내가 쓴 글 보기</label>&nbsp;</span>
+		</c:when>
 		</c:choose>
 		</div>
 		<table class="listtable" cellspacing="0" cellpadding="0">
@@ -86,7 +86,7 @@ function viewmycs(){
 						<td colspan="2">
 							<p><c:if test="${board.code eq 'HIDE' }">
 								<img src="../images/lock.png"></c:if>
-							<a href="csView.bo?bnum=${board.board_num }&page=${pageInfo.page}<c:out value="${std !=null ? '&std=' : '' }"/>${std}<c:out value="${keyword !=null ? '&keyword=' : '' }"/>${keyword}">
+							<a href="javascript:void(0);" onclick="location.href=encodeURI('csView.bo?bnum=${board.board_num }&page=${pageInfo.page}<c:out value="${std !=null ? '&std=' : '' }"/>${std}<c:out value="${keyword !=null ? '&keyword=' : '' }"/>${keyword}')">
 							${board.subject }
 							</a></p>
 						</td>
@@ -105,7 +105,7 @@ function viewmycs(){
 						
 					</c:if>
 					<c:if test="${pageInfo.page>1 }">
-						<a href="csList.bo?page=${pageInfo.page-1}<c:out value="${std !=null ? '&std=' : '' }"/>${std}<c:out value="${keyword !=null ? '&keyword=' : '' }"/>${keyword}"><span id="pagebn"><</span></a>
+						<a href="javascript:void(0);" onclick="location.href=encodeURI('csList.bo?page=${pageInfo.page-1}<c:out value="${std !=null ? '&std=' : '' }"/>${std}<c:out value="${keyword !=null ? '&keyword=' : '' }"/>${keyword}')"><span id="pagebn"><</span></a>
 					</c:if>
 					
 					<c:forEach var="a" begin="${pageInfo.startPage }" end="${pageInfo.endPage }" step="1">
@@ -114,7 +114,7 @@ function viewmycs(){
 								<span id="nowpage">${a }</span>
 							</c:when>
 							<c:otherwise>
-								<a href="csList.bo?page=${a }<c:out value="${std !=null ? '&std=' : '' }"/>${std}<c:out value="${keyword !=null ? '&keyword=' : '' }"/>${keyword}">&nbsp;${a }&nbsp;</a>
+								<a href="javascript:void(0);" onclick="location.href=encodeURI('csList.bo?page=${a }<c:out value="${std !=null ? '&std=' : '' }"/>${std}<c:out value="${keyword !=null ? '&keyword=' : '' }"/>${keyword}')">&nbsp;${a }&nbsp;</a>
 							</c:otherwise>
 						</c:choose>
 					</c:forEach>
@@ -123,7 +123,7 @@ function viewmycs(){
 							
 						</c:when>
 						<c:otherwise>
-							<a href="csList.bo?page=${pageInfo.page+1 }<c:out value="${std !=null ? '&std=' : '' }"/>${std}<c:out value="${keyword !=null ? '&keyword=' : '' }"/>${keyword}"><span id="pagebn">></span></a>
+							<a href="javascript:void(0);" onclick="location.href=encodeURI('csList.bo?page=${pageInfo.page+1 }<c:out value="${std !=null ? '&std=' : '' }"/>${std}<c:out value="${keyword !=null ? '&keyword=' : '' }"/>${keyword}')"><span id="pagebn">></span></a>
 						</c:otherwise>
 					</c:choose>
 				</td>

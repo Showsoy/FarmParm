@@ -21,7 +21,7 @@ td, tr{
 function orderCancel(){
 	var flag = confirm('주문을 취소하시겠습니까?');
 	if(flag){
-		location.href='myodChg.od?order_id=${order.order_id}&page=${page }&od_state=취소신청'
+		location.href=encodeURI('myodChg.od?order_id=${order.order_id}&page=${page }&od_state=취소신청');
 	}
 }
 </script>
@@ -61,7 +61,7 @@ function orderCancel(){
 	</div>
 	<section id="commandCell">
 		<c:if test="${order.state eq '상품출고' }">
-		<button type="button" id="obutton" style="width:70px;" onclick="location.href='myodChg.od?order_id=${order.order_id}&page=${page }&od_state=배송완료'">수취완료</button>
+		<button type="button" id="obutton" style="width:70px;" onclick="location.href=encodeURI('myodChg.od?order_id=${order.order_id}&page=${page }&od_state=배송완료')">수취완료</button>
 		</c:if>
 		<c:if test="${order.state != '취소' && order.state != '취소신청'}">
 		<button type="button" id="obutton" style="width:70px;" onclick="orderCancel();">주문취소</button>

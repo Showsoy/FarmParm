@@ -22,6 +22,16 @@ th, td {
 	textl-align:right;
 }
 </style>
+<script>
+function ulist(category, std){
+	var uri = "uitemList.im?category="+encodeURI(category)+"&std="+std;
+	location.href=uri;
+}
+function ilist(category, std, page){
+	var uri = "uitemList.im?category="+encodeURI(category)+"&std="+std+"&page="+page;
+	location.href=uri;
+}
+</script>
 </head>
 <link rel="stylesheet" type="text/css" href="style/style.css">
 <link rel="stylesheet" href="https://www.w3schools.com/w3css/3/w3.css">
@@ -49,23 +59,23 @@ th, td {
 		<c:when test="${pageInfo.listCount>0 }">
 		<span id="orderby">
 			<img src="./images/checked.png"/>
-			<a href="uitemList.im?category=${category }&std=new">
+			<a href="javascript:void(0);" onclick="ulist('${category}','vdate')">
 			<c:choose><c:when test="${std eq 'vdate' }"><span id="selcategory">신상품순</span></c:when>
 			<c:otherwise>신상품순</c:otherwise></c:choose></a>
 			<img src="./images/checked.png"/>
-			<a href="uitemList.im?category=${category }&std=high">
+			<a href="javascript:void(0);" onclick="ulist('${category}','high')">
 			<c:choose><c:when test="${std eq 'price' }"><span id="selcategory">가격높은순</span></c:when>
 			<c:otherwise>가격높은순</c:otherwise></c:choose></a>
 			<img src="./images/checked.png"/>
-			<a href="uitemList.im?category=${category }&std=low">
+			<a href="javascript:void(0);" onclick="ulist('${category}','low')">
 			<c:choose><c:when test="${std eq 'low' }"><span id="selcategory">가격낮은순</span></c:when>
 			<c:otherwise>가격낮은순</c:otherwise></c:choose></a>
 			<img src="./images/checked.png"/>
-			<a href="uitemList.im?category=${category }&std=pc">
+			<a href="javascript:void(0);" onclick="ulist('${category}','pc')">
 			<c:choose><c:when test="${std eq 'purchase' }"><span id="selcategory">판매량순</span></c:when>
 			<c:otherwise>판매량순</c:otherwise></c:choose></a>
 			<img src="./images/checked.png"/>
-			<a href="uitemList.im?category=${category }&std=rc">
+			<a href="javascript:void(0);" onclick="ulist('${category}','rc')">
 			<c:choose><c:when test="${std eq 'readcount' }"><span id="selcategory">인기순</span></c:when>
 			<c:otherwise>인기순</c:otherwise></c:choose></a>
 
@@ -118,7 +128,7 @@ th, td {
 			
 			</c:if>
 			<c:if test="${pageInfo.page>1 }">
-				<a href="uitemList.im?page=${pageInfo.page-1}&category=${category }&std=${std}"><span id="pagebn"><</span></a>
+				<a href="javascript:void(0);" onclick="ilist('${category }', '${std }', '${pageInfo.page-1}')"><span id="pagebn"><</span></a>
 			</c:if>
 					
 			<c:forEach var="a" begin="${pageInfo.startPage }" end="${pageInfo.endPage }" step="1">
@@ -127,7 +137,7 @@ th, td {
 						<span id="nowpage">${a }</span>
 					</c:when>
 					<c:otherwise>
-						<a href="uitemList.im?page=${a }&category=${category }&std=${std}">&nbsp;${a }&nbsp;</a>
+						<a href="javascript:void(0);" onclick="ilist('${category }', '${std }', '${a}')">&nbsp;${a }&nbsp;</a>
 					</c:otherwise>
 				</c:choose>
 			</c:forEach>
@@ -136,7 +146,7 @@ th, td {
 						
 					</c:when>
 					<c:otherwise>
-						<a href="uitemList.im?page=${pageInfo.page+1 }&category=${category }&std=${std}"><span id="pagebn">></span></a>
+						<a href="javascript:void(0);" onclick="ilist('${category }', '${std }', '${pageInfo.page+1}')"><span id="pagebn">></span></a>
 					</c:otherwise>
 				</c:choose>
 	</div>

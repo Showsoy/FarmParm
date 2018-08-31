@@ -26,6 +26,7 @@ img{
 }
 </style>
 <script>
+
 function viewnonreply(){
 	if(document.getElementById("nonreply").checked){
 		location.href="reList.bo?std=reply";
@@ -60,11 +61,11 @@ function viewmyre(){
 		<div id="leftalign" style="width:75%;margin:0 auto;padding:10px;">
 		<c:choose>
 		<c:when test="${id eq 'admin' }">
-		<span id="pcheck">&nbsp;<input type="checkbox" id="nonreply" name="nonreply" onchange="viewnonreply()" <c:out value="${std eq 'reply' ? 'checked' : '' }"/>> 미답변글 보기&nbsp;</span>
+		<span id="pcheck">&nbsp;<input type="checkbox" id="nonreply" name="nonreply" onchange="viewnonreply()" <c:out value="${std eq 'reply' ? 'checked' : '' }"/>> <label for="nonreply">미답변글 보기</label>&nbsp;</span>
 		</c:when>
-		<c:otherwise>
-		<span id="pcheck">&nbsp;<input type="checkbox" id="myre" name="myre" onchange="viewmyre()" <c:out value="${std eq 'myre' ? 'checked' : '' }"/>> 내가 쓴 글 보기&nbsp;</span>
-		</c:otherwise>
+		<c:when test="${id != null}">
+		<span id="pcheck">&nbsp;<input type="checkbox" id="myre" name="myre" onchange="viewmyre()" <c:out value="${std eq 'myre' ? 'checked' : '' }"/>> <label for="myre">내가 쓴 글 보기</label>&nbsp;</span>
+		</c:when>
 		</c:choose>
 		</div>
 		<table class="listtable" cellspacing="0" cellpadding="0">
@@ -85,7 +86,7 @@ function viewmyre(){
 						<td>${board.content }</td>
 						<td colspan="2">
 							<p>
-							<a href="reView.bo?bnum=${board.board_num }&item_code=${board.code }&page=${pageInfo.page}<c:out value="${std !=null ? '&std=' : '' }"/>${std}<c:out value="${keyword !=null ? '&keyword=' : '' }"/>${keyword}">
+							<a href="javascript:void(0);" onclick="location.href=encodeURI('reView.bo?bnum=${board.board_num }&item_code=${board.code }&page=${pageInfo.page}<c:out value="${std !=null ? '&std=' : '' }"/>${std}<c:out value="${keyword !=null ? '&keyword=' : '' }"/>${keyword}')">
 							${board.subject }
 							<c:if test="${board.has_re>0 }">[1]</c:if>
 							</a></p>
@@ -95,12 +96,12 @@ function viewmyre(){
 					</tr>
 					</c:forEach>
 			<tr>
-				<td colspan="6" id="td_info"><!-- 페이지 수 넣을 것임 -->
+				<td colspan="6" id="td_info">
 					<c:if test="${pageInfo.page<=1 }">
 						
 					</c:if>
 					<c:if test="${pageInfo.page>1 }">
-						<a href="reList.bo?page=${pageInfo.page-1}<c:out value="${std !=null ? '&std=' : '' }"/>${std}<c:out value="${keyword !=null ? '&keyword=' : '' }"/>${keyword}"><span id="pagebn"><</span></a>
+						<a href="javascript:void(0);" onclick="location.href=encodeURI('reList.bo?page=${pageInfo.page-1}<c:out value="${std !=null ? '&std=' : '' }"/>${std}<c:out value="${keyword !=null ? '&keyword=' : '' }"/>${keyword}')"><span id="pagebn"><</span></a>
 					</c:if>
 					
 					<c:forEach var="a" begin="${pageInfo.startPage }" end="${pageInfo.endPage }" step="1">
@@ -109,7 +110,7 @@ function viewmyre(){
 								<span id="nowpage">${a }</span>
 							</c:when>
 							<c:otherwise>
-								<a href="reList.bo?page=${a }<c:out value="${std !=null ? '&std=' : '' }"/>${std}<c:out value="${keyword !=null ? '&keyword=' : '' }"/>${keyword}">&nbsp;${a }&nbsp;</a>
+								<a href="javascript:void(0);" onclick="location.href=encodeURI('reList.bo?page=${a}<c:out value="${std !=null ? '&std=' : '' }"/>${std}<c:out value="${keyword !=null ? '&keyword=' : '' }"/>${keyword}')">&nbsp;${a }&nbsp;</a>
 							</c:otherwise>
 						</c:choose>
 					</c:forEach>
@@ -118,7 +119,7 @@ function viewmyre(){
 							
 						</c:when>
 						<c:otherwise>
-							<a href="reList.bo?page=${pageInfo.page+1 }<c:out value="${std !=null ? '&std=' : '' }"/>${std}<c:out value="${keyword !=null ? '&keyword=' : '' }"/>${keyword}"><span id="pagebn">></span></a>
+							<a href="javascript:void(0);" onclick="location.href=encodeURI('reList.bo?page=${pageInfo.page+1}<c:out value="${std !=null ? '&std=' : '' }"/>${std}<c:out value="${keyword !=null ? '&keyword=' : '' }"/>${keyword}')"><span id="pagebn">></span></a>
 						</c:otherwise>
 					</c:choose>
 				</td>

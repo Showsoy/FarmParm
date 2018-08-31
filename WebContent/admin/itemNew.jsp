@@ -168,7 +168,7 @@ function getCon() {
 				</tr>
 			</table>
 			<br>
-			<section>
+			<section id="text-center">
 				<button id="bbutton" type="submit">등록</button>
 				<button id="bbutton" type="button" onclick="location.href='/FarmParm/admin/adminPage.jsp'" style="width:120px;">관리자 페이지</button>
 			</section>

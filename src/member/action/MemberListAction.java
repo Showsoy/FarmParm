@@ -45,16 +45,15 @@ public class MemberListAction implements Action{
 			}
 			if(request.getParameter("std")!=null) {
 				std = request.getParameter("std");
+				keyword = request.getParameter("keyword");
 				if(std.equals("grade")) {
-					keyword = request.getParameter("keyword");
 					listCount = userService.gradeListCount(keyword);
 					userList = userService.getGradeList(page, keyword);
 				}else if(std.equals("purchase")){
-					listCount = userService.getListCount();
-					userList = userService.getPurchList(page);
+					listCount = keyword.equals("") ? userService.getListCount() : userService.gradeListCount(keyword);
+					userList = userService.getPurchList(keyword, page);
 				}
 				else if(std.equals("user_id")){
-					keyword = request.getParameter("keyword");
 					listCount = userService.getSearchList(keyword);
 					userList = userService.searchId(page, keyword);
 				}

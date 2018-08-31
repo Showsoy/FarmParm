@@ -6,10 +6,20 @@
 <html>
 <head>
 <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
-<title>:::비밀번호찾기 | 팜팜농원:::</title>
+<title>:::문제발생 | 팜팜농원:::</title>
 <style>
 td, tr{
 	border: 1px solid #ddd;
+}
+textarea{
+	background: #f2f2f2;
+	border: 0;
+	margin: 0 0 15px;
+	padding: 15px;
+	box-sizing: border-box;
+	font-size: 14px;
+	color:#5D5D5D;
+	font-family:"Nanum Gothic";
 }
 </style>
 </head>
@@ -39,18 +49,19 @@ function chkForm(f){
 </script>
 <link rel="stylesheet" type="text/css" href="../style/style2.css">
 <body>
-<div class="pwfind-page">
+<div class="login-page">
 		<div class="form">
-			<form class="login-form" name="pwmod" action="/FarmParm/lostPwModify.us" method="post" onsubmit="return chkForm(this)">
-				<h3>비밀번호 재설정</h3>
-				<input type="password" id="userPass" name="userPass" placeholder="새 비밀번호" maxlength="20" class="input100"/>
-				<input type="password" name="userPassre" id="userPassre" size="8" placeholder="새 비밀번호 확인" maxlength="20" class="input100"/>
-				<button type="submit" class="input100">재설정</button> 
+			<form class="login-form" name="issuemail" action="loginIssue.us" method="post" onsubmit="return chkForm(this)">
+				<h3>문제발생</h3>
+				문제가 발생하셨습니까?<br>
+				자세한 경위 혹은 이미지파일과 함께<br>
+				<b>clemado1@gmail.com</b><br>
+				로 메일을 보내주세요.
 				<br><br>
 				<div id="footer">
-				<a href="login.jsp">로그인</a>&nbsp;&nbsp;|&nbsp;&nbsp;
-				<a href="issue.jsp">문제발생</a>&nbsp;&nbsp;|&nbsp;&nbsp;
-				<a href="idFind.jsp">아이디 찾기</a>
+				<a href="login.jsp">로그인</a>&nbsp;|&nbsp;
+				<a href="idFind.jsp">아이디 찾기</a>&nbsp;|&nbsp;
+				<a href="pwFind.jsp">비밀번호 찾기</a>
 				</div>
 			</form>
 		</div>

@@ -84,17 +84,17 @@ function goto_url(act) {
 	<button type="button" id="wbutton" onclick="goto_url('memberSelectDelete.us')">선택삭제</button>
 	</span>
 	<span id="orderby">
-		<a href="memberList.us"><img src="./images/checked.png"/><c:choose><c:when test="${std eq null }">
+		<a href="memberList.us"><img src="./images/checked.png"/><c:choose><c:when test="${keyword == null || keyword eq '' }">
 		<span id="selcategory">전체</span></c:when><c:otherwise> 전체</c:otherwise></c:choose></a>
-		<a href="memberList.us?std=grade&keyword=일반회원"><img src="./images/checked.png"/><c:choose><c:when test="${keyword eq '일반회원' }">
+		<a href="javascript:void(0);" onclick="location.href=encodeURI('memberList.us?std=grade&keyword=일반회원')"><img src="./images/checked.png"/><c:choose><c:when test="${keyword eq '일반회원' }">
 		<span id="selcategory">일반회원</span></c:when><c:otherwise> 일반회원</c:otherwise></c:choose></a>
-		<a href="memberList.us?std=grade&keyword=우수회원"><img src="./images/checked.png"/><c:choose><c:when test="${keyword eq '우수회원' }">
+		<a href="javascript:void(0);" onclick="location.href=encodeURI('memberList.us?std=grade&keyword=우수회원')"><img src="./images/checked.png"/><c:choose><c:when test="${keyword eq '우수회원' }">
 		<span id="selcategory">우수회원</span></c:when><c:otherwise> 우수회원</c:otherwise></c:choose></a>
-		<a href="memberList.us?std=grade&keyword=일반셀러"><img src="./images/checked.png"/><c:choose><c:when test="${keyword eq '일반셀러' }">
+		<a href="javascript:void(0);" onclick="location.href=encodeURI('memberList.us?std=grade&keyword=일반셀러')"><img src="./images/checked.png"/><c:choose><c:when test="${keyword eq '일반셀러' }">
 		<span id="selcategory">일반셀러</span></c:when><c:otherwise> 일반셀러</c:otherwise></c:choose></a>
-		<a href="memberList.us?std=grade&keyword=우수셀러"><img src="./images/checked.png"/><c:choose><c:when test="${keyword eq '우수셀러' }">
+		<a href="javascript:void(0);" onclick="location.href=encodeURI('memberList.us?std=grade&keyword=우수셀러')"><img src="./images/checked.png"/><c:choose><c:when test="${keyword eq '우수셀러' }">
 		<span id="selcategory">우수셀러</span></c:when><c:otherwise> 우수셀러</c:otherwise></c:choose></a>
-		<a href="memberList.us?std=purchase"><img src="./images/checked.png"/><c:choose><c:when test="${std eq 'purchase' }">
+		<a href="javascript:void(0);" onclick="location.href=encodeURI('memberList.us?std=purchase&keyword=${keyword}')"><img src="./images/checked.png"/><c:choose><c:when test="${std eq 'purchase' }">
 		<span id="selcategory">주문금액순</span></c:when><c:otherwise> 주문금액순</c:otherwise></c:choose></a>
 	</span>
 	<span id="searchbar">
@@ -136,7 +136,7 @@ function goto_url(act) {
 				</td>
 				<td>
 				<c:if test="${userList.grade != '관리자' }">
-				<button type="button" onclick="location.href='userView.us?user_id=${userList.user_id}<c:out value="${std !=null ? '&std=' : '' }"/>${std}<c:out value="${keyword !=null ? '&keyword=' : '' }"/>${keyword}'" id="gbutton">조회</button>
+				<button type="button" onclick="location.href=encodeURI('userView.us?user_id=${userList.user_id}<c:out value="${std !=null ? '&std=' : '' }"/>${std}<c:out value="${keyword !=null ? '&keyword=' : '' }"/>${keyword}')" id="gbutton">조회</button>
 				</c:if>
 				</td>
 			</tr>
@@ -148,7 +148,7 @@ function goto_url(act) {
 			
 		</c:if>
 		<c:if test="${pageInfo.page>1 }">
-			<a href="memberList.us?page=${pageInfo.page-1}<c:out value="${std !=null ? '&std=' : '' }"/>${std}<c:out value="${keyword !=null ? '&keyword=' : '' }"/>${keyword}"><span id="pagebn"><</span></a>&nbsp;
+			<a href="memberList.us?page=${pageInfo.page-1}<c:out value="${std !=null ? '&std=' : '' }"/>${std}<c:out value="${keyword !=null ? '&keyword=' : '' }"/>${keyword}')"><span id="pagebn"><</span></a>&nbsp;
 		</c:if>
 					
 		<c:forEach var="a" begin="${pageInfo.startPage }" end="${pageInfo.endPage }" step="1">
@@ -157,7 +157,7 @@ function goto_url(act) {
 					<span id="nowpage">${a }</span>
 				</c:when>
 				<c:otherwise>
-					<a href="memberList.us?page=${a }<c:out value="${std !=null ? '&std=' : '' }"/>${std}<c:out value="${keyword !=null ? '&keyword=' : '' }"/>${keyword}">&nbsp;${a }&nbsp;</a>
+					<a href="javascript:void(0);" onclick="location.href=encodeURI('memberList.us?page=${a }<c:out value="${std !=null ? '&std=' : '' }"/>${std}<c:out value="${keyword !=null ? '&keyword=' : '' }"/>${keyword}')">&nbsp;${a }&nbsp;</a>
 				</c:otherwise>
 			</c:choose>
 		</c:forEach>
@@ -166,7 +166,7 @@ function goto_url(act) {
 					
 				</c:when>
 				<c:otherwise>
-					<a href="memberList.us?page=${pageInfo.page+1 }<c:out value="${std !=null ? '&std=' : '' }"/>${std}<c:out value="${keyword !=null ? '&keyword=' : '' }"/>${keyword}"><span id="pagebn">></span></a>
+					<a href="javascript:void(0);" onclick="location.href=encodeURI('memberList.us?page=${pageInfo.page+1 }<c:out value="${std !=null ? '&std=' : '' }"/>${std}<c:out value="${keyword !=null ? '&keyword=' : '' }"/>${keyword}')"><span id="pagebn">></span></a>
 				</c:otherwise>
 			</c:choose>
 	</section>

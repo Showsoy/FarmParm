@@ -39,7 +39,7 @@ function chkForm(f){
 				<br><br>
 				<div id="footer">
 				<a href="login.jsp">로그인</a>&nbsp;&nbsp;|&nbsp;&nbsp;
-				<a href="#">문제발생</a>&nbsp;&nbsp;|&nbsp;&nbsp;
+				<a href="issue.jsp">문제발생</a>&nbsp;&nbsp;|&nbsp;&nbsp;
 				<a href="pwFind.jsp">비밀번호 찾기</a>
 				</div>
 			</form>

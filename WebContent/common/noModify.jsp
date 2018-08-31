@@ -73,7 +73,7 @@ function chkForm(f){
 				</tr>
 			</table>
 			<br>
-			<section id="commandCell">
+			<section>
 				<button id="bbutton" type="submit">등록</button>
 				<button id="bbutton" type="button" onclick="location.href='noList.bo'">목록</button>
 			</section>

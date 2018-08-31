@@ -21,10 +21,10 @@ import javax.mail.internet.MimeMessage;
 import dao.ItemDAO;
 import dao.OrderDAO;
 import dao.UserDAO;
-import order.action.SMTPAuthenticator;
 import vo.OrderBean;
 import vo.OrderViewBean;
 import vo.PointBean;
+import vo.SMTPAuthenticator;
 
 public class OrderService {
 	public int selectOrderId() {

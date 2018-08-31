@@ -52,7 +52,7 @@ function viewnonreply(){
 		</c:if>
 		<br>
 		<div id="leftalign" style="width:75%;margin:0 auto;padding:10px;">
-		<span id="pcheck">&nbsp;<input type="checkbox" id="nonreply" name="nonreply" onchange="viewnonreply()" <c:out value="${std eq 'reply' ? 'checked' : '' }"/>> 미답변글 보기&nbsp;</span>
+		<span id="pcheck">&nbsp;<input type="checkbox" id="nonreply" name="nonreply" onchange="viewnonreply()" <c:out value="${std eq 'reply' ? 'checked' : '' }"/>> <label for="nonreply">미답변글 보기</label>&nbsp;</span>
 		</div>
 		<table class="listtable" cellspacing="0" cellpadding="0">
 			<tr id="top_menu35">
@@ -74,7 +74,7 @@ function viewnonreply(){
 						<td colspan="2">
 							<p><c:if test="${board.readcount>0 }">
 								<img src="../images/lock.png"></c:if>
-							<a href="qnaView.bo?bnum=${board.board_num }&item_code=${board.code }&page=${pageInfo.page}<c:out value="${keyword !=null ? '&keyword=' : '' }"/>${keyword}<c:out value="${qna_search !=null ? '&qna_search=' : '' }"/>${qna_search}">
+							<a href="javascript:void(0);" onclick="location.href=encodeURI('qnaView.bo?bnum=${board.board_num }&item_code=${board.code }&page=${pageInfo.page}<c:out value="${std !=null ? '&std=' : '' }"/>${std}<c:out value="${keyword !=null ? '&keyword=' : '' }"/>${keyword}')">
 							${board.subject }<c:if test="${board.has_re==1 }"> [1]</c:if>
 							</a></p>
 						</td>
@@ -88,7 +88,7 @@ function viewnonreply(){
 						
 					</c:if>
 					<c:if test="${pageInfo.page>1 }">
-						<a href="qnaList.bo?page=${pageInfo.page-1}<c:out value="${std !=null ? '&std=' : '' }"/>${std}<c:out value="${keyword !=null ? '&keyword=' : '' }"/>${keyword}"><span id="pagebn"></span></a>
+						<a href="javascript:void(0);" onclick="location.href=encodeURI('qnaList.bo?page=${pageInfo.page-1}<c:out value="${std !=null ? '&std=' : '' }"/>${std}<c:out value="${keyword !=null ? '&keyword=' : '' }"/>${keyword}')"><span id="pagebn"><</span></a>
 					</c:if>
 					
 					<c:forEach var="a" begin="${pageInfo.startPage }" end="${pageInfo.endPage }" step="1">
@@ -97,7 +97,7 @@ function viewnonreply(){
 								<span id="nowpage">${a }</span>
 							</c:when>
 							<c:otherwise>
-								<a href="qnaList.bo?page=${a }<c:out value="${std !=null ? '&std=' : '' }"/>${std}<c:out value="${keyword !=null ? '&keyword=' : '' }"/>${keyword}">&nbsp;${a }&nbsp;</a>
+								<a href="javascript:void(0);" onclick="location.href=encodeURI('qnaList.bo?page=${a}<c:out value="${std !=null ? '&std=' : '' }"/>${std}<c:out value="${keyword !=null ? '&keyword=' : '' }"/>${keyword}')">&nbsp;${a }&nbsp;</a>
 							</c:otherwise>
 						</c:choose>
 					</c:forEach>
@@ -106,7 +106,7 @@ function viewnonreply(){
 							
 						</c:when>
 						<c:otherwise>
-							<a href="qnaList.bo?page=${pageInfo.page+1 }<c:out value="${std !=null ? '&std=' : '' }"/>${std}<c:out value="${keyword !=null ? '&keyword=' : '' }"/>${keyword}"><span id="pagebn">></span></a>
+							<a href="javascript:void(0);" onclick="location.href=encodeURI('qnaList.bo?page=${pageInfo.page+1}<c:out value="${std !=null ? '&std=' : '' }"/>${std}<c:out value="${keyword !=null ? '&keyword=' : '' }"/>${keyword}')"><span id="pagebn">></span></a>
 						</c:otherwise>
 					</c:choose>
 				</td>

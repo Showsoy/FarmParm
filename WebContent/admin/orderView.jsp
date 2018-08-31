@@ -20,16 +20,16 @@ td{
 }
 </style>
 <script>
-function goto_url(id, page) {
+function goto_url(id, page, state) {
 	var od_state = document.getElementById("od_state").options[document.getElementById("od_state").selectedIndex].value
 	if(od_state=='취소완료'){
 		var flag = confirm('주문을 취소하시겠습니까?');
 		if(flag){
-			document.orderview.action = "odCancel.od?order_id="+id+"&page="+page;
+			document.orderview.action = "odCancel.od?order_id="+id+"&page="+page+"&state="+encodeURI(state);
 			document.orderview.submit();
 		}
 	}else{
-		document.orderview.action = "odChgState.od?order_id="+id+"&page="+page;
+		document.orderview.action = "odChgState.od?order_id="+id+"&page="+page+"&state="+encodeURI(state);
 		document.orderview.submit();
 	}
 }
@@ -114,7 +114,7 @@ function goto_url(id, page) {
 				<option value="취소완료" selected>취소완료</option>
 			</c:if>
 		</select>
-		<button type="button" id="wbutton" style="width:100px;" onclick="goto_url(${order.order_id},${page });">주문상태변경</button>
+		<button type="button" id="wbutton" style="width:100px;" onclick="goto_url('${order.order_id}','${page }','${state }');">주문상태변경</button>
 		</div>
 	<div id="order_info">
 		<div id="grade"><b id="grade_deco">|</b>결제상품</div>
@@ -183,7 +183,7 @@ function goto_url(id, page) {
 		</div>
 <br><br>
 		<c:if test="${returnURI != null }"><button id="bbutton" type="button" onclick="location.href='${returnURI }';">뒤로가기</button></c:if>
-		<button id="bbutton" type="button" onclick="location.href='odList.od?page=${page}'">주문목록</button>
+		<button id="bbutton" type="button" onclick="location.href=encodeURI('odList.od?<c:out value="${state !=null ? 'state=' : '' }"/>${state }&page=${page}')">주문목록</button>
 		<button id="bbutton" type="button" onclick="location.href='adminPage.jsp'" style="width:120px;">관리자페이지</button> 
 </form>	
 	</div>

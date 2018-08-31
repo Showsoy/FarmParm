@@ -99,7 +99,7 @@ function fclose(f){
 			<input type="text" id="subject" name="subject" size="25">
 		</td>
 		<td id="hide_check">
-			<input type="radio" id="hide" name="hide" value="가나다">&nbsp;숨김
+			<input type="checkbox" id="hide" name="hide" value="가나다">&nbsp;<label for="hide">숨김</label>
 		</td>
 	</tr>
 	<tr>

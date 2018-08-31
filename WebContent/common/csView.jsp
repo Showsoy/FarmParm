@@ -15,47 +15,49 @@
 }=
 </style>
 <script>
-function fc_chk_byte(memo) { 
-	var ari_max=600;
-	var ls_str = memo.value;
-	var li_str_len = ls_str.length;
-	
-	var li_max = ari_max;
-	var i = 0;
-	var li_byte = 0;
-	var li_len = 0;
-	var ls_one_char = "";
-	var ls_str2 = "";
-	
-	for(i=0; i< li_str_len; i++) { 
-		ls_one_char = ls_str.charAt(i); 
-		
-		if (escape(ls_one_char).length > 4) { 
-		   li_byte += 2; 
-		}else{
-		   li_byte++; 
-		} 
-		if(li_byte <= li_max){ 
-		   li_len = i + 1; 
-		} 
-	} 
-	
-	if(li_byte > li_max){ 
-		alert("300글자 초과. \n 초과된 내용은 삭제 됩니다."); 
-		ls_str2 = ls_str.substr(0, li_len); 
-		memo.value = ls_str2; 
-	} 
-	memo.focus(); 
-}
-
-function fc_chk2() { 
-	if(event.keyCode == 13) 
-	event.returnValue=false; 
+function getCon() {
+	var len = 0, j;
+	var str = document.notice.content.value;
+	for (i = 0, j = str.length; i < j; i++, len++) {
+		if ((str.charCodeAt(i) < 0) || (str.charCodeAt(i) > 127)) {
+			len = len + 1;
+		}
+		if (len >= 600) {
+			alert('300글자 초과. \n 초과된 내용은 삭제 됩니다.');
+			document.notice.content.value = str.substring(0, i);
+			document.notice.content.focus();
+			return;
+		}
+	}
 }
 function goto_url(act) {
-	alert(act);
-	document.csview.action = act;
+	document.csview.action = encodeURI(act);
 	document.csview.submit();
+}
+function doImgPop(img){ 
+	 img1= new Image(); 
+	 img1.src=(img); 
+	 imgControll(img); 
+	} 
+	  
+	function imgControll(img){ 
+	 if((img1.width!=0)&&(img1.height!=0)){ 
+	    viewImage(img); 
+	  } 
+	  else{ 
+	     controller="imgControll('"+img+"')"; 
+	     intervalID=setTimeout(controller,20); 
+	  } 
+	}
+	function viewImage(img){ 
+	 W=img1.width; 
+	 H=img1.height; 
+	 O="width="+W+",height="+H+",scrollbars=yes"; 
+	 imgWin=window.open("","",O); 
+	 imgWin.document.write("<html><head><title>::::: 이미지상세보기 :::::</title></head>");
+	 imgWin.document.write("<body topmargin=0 leftmargin=0>");
+	 imgWin.document.write("<img src="+img+" onclick='self.close()' style='cursor:pointer;' title ='클릭하시면 창이 닫힙니다.'>");
+	 imgWin.document.close();
 }
 </script>
 </head>
@@ -119,7 +121,7 @@ function goto_url(act) {
 			<c:if test="${board.user_id eq id || id eq 'admin'}">
 				<button type="button" id="wbutton" onclick="goto_url('csRemove.bo?bnum=${board.board_num}&page=${page }<c:out value="${std !=null ? '&std=' : '' }"/>${std}<c:out value="${keyword !=null ? '&keyword=' : '' }"/>${keyword}')">삭제</button>
 			</c:if>
-				<button type="button" id="wbutton" onclick="location.href='csList.bo?page=${page}<c:out value="${std !=null ? '&std=' : '' }"/>${std}<c:out value="${keyword !=null ? '&keyword=' : '' }"/>${keyword}'">목록</button>
+				<button type="button" id="wbutton" onclick="location.href=encodeURI('csList.bo?page=${page}<c:out value="${std !=null ? '&std=' : '' }"/>${std}<c:out value="${keyword !=null ? '&keyword=' : '' }"/>${keyword}')">목록</button>
 			</section>
 			<br>
 			<c:if test="${board.has_re == 0 && id eq 'admin'}">
