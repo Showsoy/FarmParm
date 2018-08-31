@@ -41,6 +41,7 @@ th, td {
 </div>
 </c:if>
 <div class="pageform">
+	<p style="float:right;font-size:12px;margin-right:110px;">홈><c:if test="${type eq 'best' }">인기상품</c:if><c:if test="${type eq 'new' }">새로나온상품</c:if></p>
 	<h3>&nbsp;&nbsp;<c:if test="${type eq 'best' }">BEST</c:if><c:if test="${type eq 'new' }">NEW</c:if></h3>
 	<hr color="#4CAF50" size="5">
 	<div class="mypage">

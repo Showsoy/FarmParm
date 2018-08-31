@@ -82,6 +82,7 @@ selPrice = "<%=(int)request.getAttribute("totalMoney")%>";
 
 <jsp:include page="/common/top_menu.jsp" flush="false"/>
 <div class="pageform">
+	<p style="float:right;font-size:12px;margin-right:110px;">홈>장바구니</p>
 	<h3>&nbsp;&nbsp;장바구니</h3>
 	<hr color="#4CAF50" size="5">
 	<form method="post" name="cartform">

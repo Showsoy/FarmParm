@@ -116,7 +116,7 @@ function doImgPop(img){
 			<c:if test="${board.user_id eq id || id eq 'admin'}">
 				<button type="button" id="wbutton" onclick="goto_url('qnaRemove.bo?item_code=${board.code}&bnum=${board.board_num}&page=${page }&myqna=${myQna }')">삭제</button>
 			</c:if>
-				<button type="button" id="wbutton" onclick="location.href='myQna.us?page=${page}'">목록</button>
+				<button type="button" id="wbutton" onclick="history.back();">돌아가기</button>
 			</section>
 			<br>
 			<br>

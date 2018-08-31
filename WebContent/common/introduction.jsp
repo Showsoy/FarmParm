@@ -17,11 +17,12 @@
 <script>
 </script>
 <div class="pageform">
+	<p style="float:right;font-size:12px;margin-right:80px;">홈>농원소개</p>
 	<h3>&nbsp;&nbsp;농원소개</h3>
 	<hr color="#4CAF50" size="5">
 	<div class="mypage">
 		<section class="w3-container w3-center">
-  			<img class="mySlides" src="../images/introduction_.png" style="width:100%">
+  			<img class="mySlides" src="../images/introduction.png" style="width:100%">
 		</section>
 	</div>
 </div>

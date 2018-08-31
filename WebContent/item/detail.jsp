@@ -90,6 +90,7 @@ pageContext.setAttribute("uprice", uprice);
 
 <div class="goodsform">
 <br>
+<p style="float:right;font-size:12px;margin-right:110px;">홈>${item.category }>${item.item_name }</p>
 <h3>&nbsp;&nbsp;상품 페이지</h3>
 	<hr color="#4CAF50" size="5">
 	<div class="mypage">
@@ -163,14 +164,27 @@ pageContext.setAttribute("uprice", uprice);
 <div class="goods_detail">
 <h3 align="left">&nbsp;&nbsp;상품안내</h3>
 	<hr color="#4CAF50" size="5">
+	<img src="images/detail.png" style="opacity:0.9;"/>
 	<p align="center">
 		${item.item_name }
 		<br><br>
 		
 			${item.content }
+	</p><br><br>
+	<img src="images/detail_footer.png" style="opacity:0.9;"/><br>
+	<br><br><br><br><br><br><br>
+	<h3 align="left">&nbsp;&nbsp;배송정책</h3>
+	<hr color="#4CAF50" size="5">
+	<p style="margin-left:50px;font-size:12px;">
+		배송 방법 : 택배<br>
+		배송 지역 : 전국지역<br>
+		배송 비용 : 3,000원<br>
+		배송 기간 : 2일 ~ 3일<br>
+		배송 안내 : 최종결제금액 30,000원 이상 무료배송.<br>
+		산간벽지나 도서지방은 별도의 추가금액을 지불하셔야 하는 경우가 있습니다.<br>
+		고객님께서 주문하신 상품은 입금 확인후 배송해 드립니다. 다만, 상품종류에 따라서 상품의 배송이 다소 지연될 수 있습니다.<br>
 	</p>
 </div>
-<br><br><br>
 	<br><br><br>
 	<jsp:include page="review.jsp" flush="false"/>
 	<br><br><br>

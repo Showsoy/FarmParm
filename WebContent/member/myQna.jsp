@@ -71,7 +71,7 @@ img{
 						
 					</c:if>
 					<c:if test="${pageInfo.page>1 }">
-						<a href="myQna.us?page=${pageInfo.page-1}"><span id="pagebn"><</span></a>
+						<a href="myQna.bo?page=${pageInfo.page-1}"><span id="pagebn"><</span></a>
 					</c:if>
 					
 					<c:forEach var="a" begin="${pageInfo.startPage }" end="${pageInfo.endPage }" step="1">
@@ -80,7 +80,7 @@ img{
 								<span id="nowpage">${a }</span>
 							</c:when>
 							<c:otherwise>
-								<a href="myQna.us?page=${a }">&nbsp;${a }&nbsp;</a>
+								<a href="myQna.bo?page=${a }">&nbsp;${a }&nbsp;</a>
 							</c:otherwise>
 						</c:choose>
 					</c:forEach>
@@ -89,7 +89,7 @@ img{
 							
 						</c:when>
 						<c:otherwise>
-							<a href="myQna.us?page=${pageInfo.page+1 }"><span id="pagebn">></span></a>
+							<a href="myQna.bo?page=${pageInfo.page+1 }<c:out value="${std !=null ? '&std=' : '' }"/>${std}<c:out value="${keyword !=null ? '&keyword=' : '' }"/>${keyword}""><span id="pagebn">></span></a>
 						</c:otherwise>
 					</c:choose>
 				</td>
