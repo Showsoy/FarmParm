@@ -25,6 +25,7 @@ td img{
 <body>
 <jsp:include page="/common/top_menu.jsp" flush="false"/>
 <div class="pageform">
+	<p style="float:right;font-size:12px;margin-right:80px;">홈>오시는 길</p>
 	<h3>&nbsp;&nbsp;오시는 길</h3>
 	<hr color="#4CAF50" size="5">
 	<div class="mypage">

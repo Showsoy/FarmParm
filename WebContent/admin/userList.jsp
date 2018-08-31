@@ -133,6 +133,9 @@ function goto_url(act) {
 				<c:if test="${userList.tot_price != null }">
 				<fmt:formatNumber value="${userList.tot_price }" type="number"/>원
 				</c:if>
+				<c:if test="${userList.tot_price == null }">
+				0원
+				</c:if>
 				</td>
 				<td>
 				<c:if test="${userList.grade != '관리자' }">

@@ -140,6 +140,69 @@
 		</table>
 	<br><br><br>
 	</div>
+	
+	<div class="orderbox">
+	<table class="listtablepx" cellspacing="0" cellpadding="0">
+	<div id="grade"><b id="grade_deco">|</b>문의내역</div>
+			<tr id="top_menug">
+				<td style="width:150px;">상품</td>
+				<td colspan="2" style="width:200px;">제목</td>
+				<td style="width:150px;">작성일</td>
+			</tr>
+			<c:choose>
+				<c:when test="${q_pageInfo.listCount>0 }">
+					<c:forEach var="board" items="${boardList }">
+					<tr><td><a href="uitemView.im?item_code=${board.code}">
+						${board.content }</a>
+						</td>
+						<td colspan="2">
+							<p><c:if test="${board.readcount>0 }">
+								<img src="/FarmParm/images/lock.png"></c:if>
+							<a href="myQnaView.bo?bnum=${board.board_num }&item_code=${board.code }">
+							${board.subject }<c:if test="${board.has_re==1 }"> [1]</c:if>
+							</a></p>
+						</td>
+						<td>${board.date }</td>
+					</tr>
+					</c:forEach>
+			<tr>
+				<td colspan="6" id="td_info">
+					<c:if test="${q_pageInfo.page<=1 }">
+						
+					</c:if>
+					<c:if test="${q_pageInfo.page>1 }">
+						<a href="userView.us?q_page=${q_pageInfo.page-1}&user_id=${user.user_id}"><span id="pagebn"><</span></a>
+					</c:if>
+					
+					<c:forEach var="a" begin="${q_pageInfo.startPage }" end="${q_pageInfo.endPage }" step="1">
+						<c:choose>
+							<c:when test="${a==q_pageInfo.page }">
+								<span id="nowpage">${a }</span>
+							</c:when>
+							<c:otherwise>
+								<a href="userView.us?q_page=${a }&user_id=${user.user_id}">&nbsp;${a }&nbsp;</a>
+							</c:otherwise>
+						</c:choose>
+					</c:forEach>
+					<c:choose>
+						<c:when test="${q_pageInfo.page>=q_pageInfo.maxPage }">
+							
+						</c:when>
+						<c:otherwise>
+							<a href="userView.us?q_page=${q_pageInfo.page+1 }&user_id=${user.user_id}"><span id="pagebn">></span></a>
+						</c:otherwise>
+					</c:choose>
+				</td>
+			</tr>
+			</c:when>
+			<c:otherwise>
+				<tr><td colspan="6">등록된 글이 없습니다.</td></tr>
+			</c:otherwise>
+		</c:choose>
+		</table>
+	<br><br><br>
+	</div>
+	
 	<button type="button" id="bbutton" onclick="location.href='/FarmParm/admin/adminPage.jsp'" style="width:150px;">관리자페이지</button>
 	<button type="button" id="bbutton" onclick="location.href=encodeURI('/FarmParm/memberList.us?page=${page }<c:out value="${std !=null ? '&std=' : '' }"/>${std}<c:out value="${keyword !=null ? '&keyword=' : '' }"/>${keyword}')" style="width:90px;">회원목록</button>
 	</div>

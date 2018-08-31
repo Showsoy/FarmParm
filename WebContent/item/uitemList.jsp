@@ -52,6 +52,7 @@ function ilist(category, std, page){
 </div>
 </c:if>
 <div class="pageform">
+	<p style="float:right;font-size:12px;margin-right:110px;">홈>${category }</p>
 	<h3>&nbsp;&nbsp;${category }</h3>
 	<hr color="#4CAF50" size="5">
 	<div class="mypage">
