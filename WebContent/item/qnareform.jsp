@@ -81,24 +81,28 @@ function fclose(f){
 		<p>답글이 정상적으로 등록되었습니다.</p>
 		<button type="button" onclick="fclose(this)" id="wbutton">닫기</button>
 	</c:when>
-	<c:when test="${act != null && act eq 'login' }">
+	<c:when test="${id == null || (act != null && act eq 'login')}">
 		<script>
 			alert('로그인이 필요합니다.');
-			opener.location.reload();
+			opener.location.href="/FarmParm/member/memberLogin.us?returnURI="+encodeURIComponent(opener.location);
 			window.close();
 		</script>
 	</c:when>
-	<c:when test="${act != null && act eq 'user' }">
+	<c:when test="${id != null && id != 'admin' }">
 		<p>권한이 없습니다.</p>
-		<button type="button" onclick="fclose(this)" id="wbutton">닫기</button>=
+		<button type="button" onclick="fclose(this)" id="wbutton">닫기</button>
 	</c:when>
 	<c:when test="${act != null && act eq 'dupl' }">
 		<p>이미 작성하셨습니다.</p>
-		<button type="button" onclick="fclose(this)" id="wbutton">닫기</button>=
+		<button type="button" onclick="fclose(this)" id="wbutton">닫기</button>
 	</c:when>
 	<c:otherwise>
-<input type="hidden" name="item_code" id="item_code" value="${item_code }">
-<input type="hidden" name="rgroup" id="rgroup" value="${rgroup }">
+<% 
+	String code = request.getParameter("item_code");
+    String bnum = request.getParameter("bnum");
+%>
+<input type="hidden" name="item_code" id="item_code" value="<%=code%>">
+<input type="hidden" name="rgroup" id="rgroup" value="<%=bnum%>">
 <table>
 	<tr>
 		<td id="td_left">

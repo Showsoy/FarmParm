@@ -103,6 +103,7 @@ function orderCancel(){
 		<td>1개</td>
 		<td>3,000원</td>
 		<td>-</td>
+		<td>-</td>
 	</tr>
 	</c:if>
 	</table>

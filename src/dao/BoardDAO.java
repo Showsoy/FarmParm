@@ -441,7 +441,7 @@ public class BoardDAO {
 		PreparedStatement pstmt3 = null;
 		ResultSet rs3 = null;
 		//10 8 7 7 5 /4 / 2 1  
-		String sql1 = "SELECT has_re FROM qna_board WHERE item_code = ? AND rstep=1 ORDER BY rgroup DESC, rstep ASC LIMIT ?,5";
+		String sql1 = "SELECT sum(has_re) FROM qna_board WHERE item_code = ? AND rstep=1 ORDER BY rgroup DESC, rstep ASC LIMIT ?,5";
 		String sql2 = "SELECT * FROM qna_board WHERE item_code = ? ORDER BY rgroup DESC, rstep ASC LIMIT ?,?";
 		ArrayList<BoardBean> articleList = new ArrayList<BoardBean>();
 		BoardBean board = null;
@@ -456,33 +456,33 @@ public class BoardDAO {
 				pstmt1.setInt(2, before);
 				rs1 = pstmt1.executeQuery();
 				
-				while(rs1.next()) startrow += rs1.getInt(1);
+				if(rs1.next()) startrow += rs1.getInt(1);
 			}
 			pstmt2 = conn.prepareStatement(sql1);
 			pstmt2.setString(1, item_code);
 			pstmt2.setInt(2, startrow);
 			rs2 = pstmt2.executeQuery();
-			while(rs2.next()) limit += rs2.getInt(1);
+			if(rs2.next()) limit += rs2.getInt(1);
 			
 			pstmt3 = conn.prepareStatement(sql2);
 			pstmt3.setString(1, item_code);
 			pstmt3.setInt(2, startrow);
 			pstmt3.setInt(3, limit);
 			rs3 = pstmt3.executeQuery();
-			
-				while(rs3.next()) {
-					if((user_id!=null&&(user_id.equals("admin")||(user_id.equals(rs3.getString("user_id")))))||rs3.getInt(11)==0) {
-						board = new BoardBean(rs3.getInt(1), rs3.getString(2), rs3.getString(3).substring(0, 3), 
-								rs3.getString(4), rs3.getString(5), rs3.getString(6), 
-								rs3.getInt(7), rs3.getDate(8),0, rs3.getInt(9), rs3.getInt(10));
-					}else{
-						board = new BoardBean(rs3.getInt(1), rs3.getString(2), rs3.getString(3).substring(0, 3), 
-								"숨김 글입니다.", rs3.getString(5), rs3.getString(6), 
-								rs3.getInt(7), rs3.getDate(8), 1, rs3.getInt(9), rs3.getInt(10));
-					}
-					articleList.add(board);
+
+			while (rs3.next()) {
+				if ((user_id != null && (user_id.equals("admin") || (user_id.equals(rs3.getString("user_id")))))
+						|| rs3.getInt(11) == 0) {
+					board = new BoardBean(rs3.getInt(1), rs3.getString(2), rs3.getString(3).substring(0, 3),
+							rs3.getString(4), rs3.getString(5), rs3.getString(6), rs3.getInt(7), rs3.getDate(8),
+							rs3.getInt(11), rs3.getInt(9), rs3.getInt(10));
+				} else {
+					board = new BoardBean(rs3.getInt(1), rs3.getString(2), rs3.getString(3).substring(0, 3), "숨김 글입니다.",
+							rs3.getString(5), rs3.getString(6), rs3.getInt(7), rs3.getDate(8), 1, rs3.getInt(9),
+							rs3.getInt(10));
 				}
-			
+				articleList.add(board);
+			}
 		}catch(Exception e) {
 			e.printStackTrace();
 		}finally {
@@ -500,7 +500,7 @@ public class BoardDAO {
 		PreparedStatement pstmt = null;
 		ResultSet rs = null;
 		String insert = flag ? " AND has_re = 0" : "";
-		String sql = "SELECT bnum, item_code, substring(user_id,1,3) as user_id, (select item_name from items b where a.item_code=b.item_code) as item_name, subject, has_re, qdate, qhide FROM qna_board a WHERE rstep = 1"+insert+" ORDER BY qdate DESC, subject asc  LIMIT ?,10";
+		String sql = "SELECT bnum, item_code, substring(user_id,1,3) as user_id, (select item_name from items b where a.item_code=b.item_code) as item_name, subject, has_re, qdate, qhide FROM qna_board a WHERE rstep = 1"+insert+" ORDER BY qdate DESC LIMIT ?,10";
 		ArrayList<BoardBean> articleList = new ArrayList<BoardBean>();
 		BoardBean board = null;
 		int startrow = (page-1)*10;

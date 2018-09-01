@@ -26,6 +26,12 @@ public class QnAReplyAction implements Action {
 			forward= new ActionForward("./qnareform.jsp",false);
 		}else {
 			BoardService boardService = new BoardService();
+			boolean has_re = boardService.hasReply("qna_board", request.getParameter("item_code"), Integer.parseInt(request.getParameter("rgroup")));
+			if(has_re) {
+				request.setAttribute("act", "dupl");
+				forward= new ActionForward("./rereform.jsp",false);
+				return forward;
+			}
 			
 			int bnum = boardService.searchBNum("qna_board", request.getParameter("item_code"));
 			BoardBean board = new BoardBean(

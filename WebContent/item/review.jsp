@@ -83,7 +83,7 @@ var count1 = 0;
 							
 							<div id="parent_command" style="width:80px;">
 							<c:if test="${review.has_re==0 && id eq 'admin'}">
-								<a href="javascript:void(0);" onclick="window.open('./item/rereForm.bo?item_code=${review.code}&bnum=${review.board_num}','','width=500, height=400')" style="cursor:pointer;">답글</a>
+								<a href="javascript:void(0);" onclick="window.open('./item/rereForm.jsp?item_code=${review.code}&bnum=${review.board_num}','','width=500, height=400')" style="cursor:pointer;">답글</a>
 							</c:if>
 							<c:if test="${id eq review.user_id || id eq 'admin' }">
 								<a href="./reRemove.bo?item_code=${review.code}&bnum=${review.board_num}&page=${page }&r_page=${r_page}&q_page=${q_page }">삭제</a>

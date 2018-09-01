@@ -74,6 +74,8 @@ function fclose(f){
 <link rel="stylesheet" type="text/css" href="../style/style.css">
 <body class="popup_body">
 <div id="grade"><b id="grade_deco">|</b> 상품문의</div>
+<% String code = request.getParameter("item_code"); %>
+<c:set var="code" value="<%=code %>" />
 <form action="qnaWrite.bo" name="qnaform" method="post" enctype="multipart/form-data" onsubmit="return chkForm(this)">
 <c:choose>
 	<c:when test="${act != null && act eq 'ok' }">
@@ -81,15 +83,15 @@ function fclose(f){
 		<p>문의가 정상적으로 등록되었습니다.</p>
 		<button type="button" onclick="fclose(this)" id="wbutton">닫기</button>
 	</c:when>
-	<c:when test="${act != null && act eq 'login' }">
+	<c:when test="${id == null || (act != null && act eq 'login')}">
 		<script>
 			alert('로그인이 필요합니다.');
-			opener.location.reload();
+			opener.location.href="/FarmParm/member/memberLogin.us?returnURI="+encodeURIComponent(opener.location);
 			window.close();
 		</script>
 	</c:when>
 	<c:otherwise>
-<input type="hidden" name="item_code" id="item_code" value="${item_code }">
+<input type="hidden" name="item_code" id="item_code" value="${code }">
 <table>
 	<tr>
 		<td id="td_left">
@@ -120,10 +122,8 @@ function fclose(f){
 	</tr>
 </table>
 <br>
-<section>
 	<button type="submit" id="wbutton">등록</button>
 	<button type="button" onclick="fclose(this)" id="wbutton">닫기</button>
-</section>
 </c:otherwise>
 </c:choose>
 </form>

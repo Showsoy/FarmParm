@@ -26,14 +26,11 @@ import board.action.NoticeWriteAction;
 import board.action.QnAListAction;
 import board.action.QnARemoveAction;
 import board.action.QnAReplyAction;
-import board.action.QnAReplyFormAction;
 import board.action.QnAViewAction;
 import board.action.QnAWriteAction;
-import board.action.QnAWriteFormAction;
 import board.action.ReviewListAction;
 import board.action.ReviewRemoveAction;
 import board.action.ReviewReplyAction;
-import board.action.ReviewReplyFormAction;
 import board.action.ReviewViewAction;
 import board.action.ReviewWriteAction;
 import board.action.ReviewWriteFormAction;
@@ -186,13 +183,6 @@ public class BoardController extends HttpServlet {
     		}catch(Exception e) {
     			e.printStackTrace();
     		}
-    	}else if(command.equals("/qnaForm.bo")) {
-    		action = new QnAWriteFormAction();
-    		try {
-    			forward = action.execute(request, response);
-    		}catch(Exception e) {
-    			e.printStackTrace();
-    		}
     	}else if(command.equals("/qnaWrite.bo")) {
     		action = new QnAWriteAction();
     		try {
@@ -207,22 +197,8 @@ public class BoardController extends HttpServlet {
     		}catch(Exception e) {
     			e.printStackTrace();
     		}
-    	}else if(command.equals("/rereForm.bo")) {
-    		action = new ReviewReplyFormAction();
-    		try {
-    			forward = action.execute(request, response);
-    		}catch(Exception e) {
-    			e.printStackTrace();
-    		}
     	}else if(command.equals("/qnaReply.bo")) {
     		action = new QnAReplyAction();
-    		try {
-    			forward = action.execute(request, response);
-    		}catch(Exception e) {
-    			e.printStackTrace();
-    		}
-    	}else if(command.equals("/qnareForm.bo")) {
-    		action = new QnAReplyFormAction();
     		try {
     			forward = action.execute(request, response);
     		}catch(Exception e) {

@@ -88,7 +88,7 @@ function fclose(f){
 		<p>문의가 정상적으로 등록되었습니다.</p>
 		<button type="button" onclick="fclose(this)" id="wbutton">닫기</button>
 	</c:when>
-	<c:when test="${act != null && act eq 'login' }">
+	<c:when test="${id == null }">
 		<script>
 			alert('로그인이 필요합니다.');
 			opener.location.reload();

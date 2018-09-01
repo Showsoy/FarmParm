@@ -84,8 +84,6 @@
 	<div class="orderbox">
 	<div id="grade"><b id="grade_deco">|</b>주문내역</div>
 		<table class="listtablepx" cellspacing="0" cellpadding="0">
-			<c:choose>
-				<c:when test="${pageInfo.listCount>0 }">	
 			<tr id="top_menug">
 				<td>주문번호</td>
 				<td>주문일시</td>
@@ -93,7 +91,8 @@
 				<td>주문현황</td>
 				<td>조회</td>
 			</tr>
-
+			<c:choose>
+				<c:when test="${pageInfo.listCount>0 }">	
 			<c:forEach var="orderList" items="${orderList }">
 				<tr>
 				<td>${orderList.order_id }</td>
@@ -142,8 +141,8 @@
 	</div>
 	
 	<div class="orderbox">
-	<table class="listtablepx" cellspacing="0" cellpadding="0">
 	<div id="grade"><b id="grade_deco">|</b>문의내역</div>
+	<table class="listtablepx" cellspacing="0" cellpadding="0">
 			<tr id="top_menug">
 				<td style="width:150px;">상품</td>
 				<td colspan="2" style="width:200px;">제목</td>

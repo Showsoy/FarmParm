@@ -11,12 +11,12 @@
 <script>
 var count2 = 0;
 	
-	function show_content2(v, r){
+	function show_content2(v){
 		var name = "qna_content"+v;
 		var name2 = "qnare_content"+v;
 		if(document.getElementById(name).style.display=="none"){
 			document.getElementById(name).style.display = "table-row";
-			if(document.getElementById(name2)!=null&&r==0) document.getElementById(name2).style.display = "table-row";
+			if(document.getElementById(name2)!=null) document.getElementById(name2).style.display = "table-row";
 			count2++;
 			return;
 		}else if(document.getElementById(name).style.display=="table-row"){
@@ -34,7 +34,7 @@ var count2 = 0;
 <h3>&nbsp;&nbsp;상품문의</h3>
 	<hr color="#4CAF50" size="5">
 	<div id="commandCell">
-	<button type="button" id="wbutton" onclick="window.open('./item/qnaForm.bo?item_code=${item.item_code}','','width=500, height=400')">문의하기</button>
+	<button type="button" id="wbutton" onclick="window.open('./item/qnaform.jsp?item_code=${item.item_code}','','width=500, height=400')">문의하기</button>
 	</div>
 		<table cellspacing="0" cellpadding="0" id="detail_board">
 			<tr id="top_menu20" height="20px">
@@ -50,8 +50,9 @@ var count2 = 0;
 					<c:if test="${qna.rstep==1 }">
 					<tr height="30px">
 						<td>${num }</td><c:set var="num" value="${num-1 }"/>
-						<td id="leftalign" colspan="2" onclick="show_content2(${qna.rgroup},${qna.readcount })" style="cursor:pointer;">${qna.subject }<c:if test="${qna.readcount > 0 }">
-								<img src="./images/lock.png" style="width:12px;padding:0 0 4px 0;"></c:if><c:if test="${qna.has_re==1 }"> [1]</c:if></td>
+						<td id="leftalign" colspan="2" onclick="show_content2(${qna.rgroup})" style="cursor:pointer;">${qna.subject }
+						<c:if test="${qna.readcount > 0 }"><img src="./images/lock.png" style="width:12px;padding:0 0 4px 0;"></c:if>
+						<c:if test="${qna.has_re==1 }"> [1]</c:if></td>
 						<td>${qna.user_id }***</td>
 						<td>${qna.date }</td>
 					</tr>
@@ -80,7 +81,7 @@ var count2 = 0;
 							</c:choose>
 							<div id="parent_command" style="width:80px;">
 							<c:if test="${qna.has_re==0 && id eq 'admin'}">
-								<a onclick="window.open('./item/qnareForm.bo?item_code=${qna.code}&bnum=${qna.board_num}','','width=500, height=400')" style="cursor:pointer;">답글</a>
+								<a onclick="window.open('./item/qnareform.jsp?item_code=${qna.code}&bnum=${qna.board_num}','','width=500, height=400')" style="cursor:pointer;">답글</a>
 							</c:if>
 							<c:if test="${id eq qna.user_id || id eq 'admin' }">
 								<a href="./qnaRemove.bo?item_code=${qna.code}&bnum=${qna.board_num}&page=${page }&r_page=${r_page}&q_page=${q_page }#qnaboard">삭제</a>

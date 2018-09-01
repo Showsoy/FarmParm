@@ -96,7 +96,7 @@ pageContext.setAttribute("uprice", uprice);
 	<div class="mypage">
 	<form method="post" name="itemform">
 	<div id="top_item">
-	<a href="javascript:void(0);" onclick="location.href='./uitemList.im?category='+encodeURI('${item.category }')"><b>${item.category }</b></a>
+	<a href="javascript:void(0);" onclick="location.href=encodeURI('./uitemList.im?category=${item.category }&page=${page }')"><b>${item.category }</b></a>
 	| ${item.item_name }
 	<c:if test="${id eq 'admin' }">
 	<span id="top_item-right">
@@ -148,8 +148,8 @@ pageContext.setAttribute("uprice", uprice);
 			<hr color="#4CAF50" size="5">
 			<c:choose>
 				<c:when test="${stock<=0 }">
-					<button id="sbutton" type="button" onclick="#">장바구니</button>
-					<button id="bbutton" type="button" onclick="#">바로구매</button>
+					<button id="sbutton" type="button" onclick="javascript:alert('품절입니다!')">장바구니</button>
+					<button id="bbutton" type="button" onclick="javascript:alert('품절입니다!')">바로구매</button>
 				</c:when>
 				<c:otherwise>
 					<button id="sbutton" type="button" onclick="goto_url('./item/addCart.ct?item_code=${item.item_code}');">장바구니</button>
@@ -164,15 +164,19 @@ pageContext.setAttribute("uprice", uprice);
 <div class="goods_detail">
 <h3 align="left">&nbsp;&nbsp;상품안내</h3>
 	<hr color="#4CAF50" size="5">
-	<img src="images/detail.png" style="opacity:0.9;"/>
+	<img src="images/detail-logo.png"/>
+	<br>
 	<p align="center">
-		${item.item_name }
+		<font size="5em">${item.item_name }</font>
+		<br><br>
+		<img src="images/${item.img_path }">
 		<br><br>
 		
 			${item.content }
-	</p><br><br>
-	<img src="images/detail_footer.png" style="opacity:0.9;"/><br>
-	<br><br><br><br><br><br><br>
+	</p>
+	<br><br><br><br>
+	<img src="images/detail-footer.png"/>
+	<br><br><br><br>
 	<h3 align="left">&nbsp;&nbsp;배송정책</h3>
 	<hr color="#4CAF50" size="5">
 	<p style="margin-left:50px;font-size:12px;">

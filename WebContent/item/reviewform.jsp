@@ -84,7 +84,7 @@ function fclose(f){
 	<c:when test="${act != null && act eq 'login' }">
 		<script>
 			alert('로그인이 필요합니다.');
-			opener.location.reload();
+			opener.location.href="/FarmParm/member/memberLogin.us?returnURI="+encodeURIComponent(opener.location);
 			window.close();
 		</script>
 	</c:when>
