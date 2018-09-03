@@ -57,7 +57,7 @@ img{
 						<td colspan="2">
 							<p><c:if test="${board.readcount>0 }">
 								<img src="/FarmParm/images/lock.png"></c:if>
-							<a href="myQnaView.bo?bnum=${board.board_num }&item_code=${board.code }&page=${pageInfo.page}<c:out value="${keyword !=null ? '&keyword=' : '' }"/>${keyword}<c:out value="${qna_search !=null ? '&qna_search=' : '' }"/>${qna_search}">
+							<a href="myQnaView.bo?bnum=${board.board_num }&item_code=${board.code }&page=${pageInfo.page}&myQna=${myQna }<c:out value="${keyword !=null ? '&keyword=' : '' }"/>${keyword}<c:out value="${qna_search !=null ? '&qna_search=' : '' }"/>${qna_search}">
 							${board.subject }<c:if test="${board.has_re==1 }"> [1]</c:if>
 							</a></p>
 						</td>

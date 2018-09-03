@@ -27,6 +27,7 @@ public class MemberAdViewAction implements Action {
 		
 		HttpSession session = request.getSession();
 		String id = (String)session.getAttribute("id");
+		String user_id = request.getParameter("user_id");
 		
 			if(id==null) {
 				response.setContentType("text/html;charset=UTF-8");
@@ -46,7 +47,6 @@ public class MemberAdViewAction implements Action {
 				UserService userService = new UserService();
 				BoardService boardService = new BoardService();
 				OrderService orderService = new OrderService();
-				String user_id = request.getParameter("user_id");
 				ArrayList<OrderBean> orderList = new ArrayList<OrderBean>();
 				ArrayList<BoardBean> boardList = new ArrayList<BoardBean>();
 				
@@ -114,6 +114,7 @@ public class MemberAdViewAction implements Action {
 				request.setAttribute("pageInfo", pageInfo);
 				request.setAttribute("q_pageInfo", q_pageInfo);
 				request.setAttribute("boardList", boardList);
+				request.setAttribute("user_id", user_id);
 				request.setAttribute("user", user);
 				request.setAttribute("orderList", orderList);
 				forward= new ActionForward("/admin/userView.jsp",false);

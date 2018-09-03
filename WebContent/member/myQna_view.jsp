@@ -114,9 +114,9 @@ function doImgPop(img){
 			<br>
 			<section id="commandCell">
 			<c:if test="${board.user_id eq id || id eq 'admin'}">
-				<button type="button" id="wbutton" onclick="goto_url('qnaRemove.bo?item_code=${board.code}&bnum=${board.board_num}&page=${page }&myqna=${myQna }')">삭제</button>
+				<button type="button" id="wbutton" onclick="goto_url('qnaRemove.bo?item_code=${board.code}&bnum=${board.board_num}&page=${page }&myQna=${myQna }&user_id=${user_id }')">삭제</button>
 			</c:if>
-				<button type="button" id="wbutton" onclick="history.back();">돌아가기</button>
+				<button type="button" id="wbutton" onclick="history.back();">돌아가기${myQna }${user_id }</button>
 			</section>
 			<br>
 			<br>
