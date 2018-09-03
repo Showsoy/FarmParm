@@ -52,6 +52,7 @@ public class MyQnaListAction implements Action{
 				pageInfo.setStartPage(startPage);
 				request.setAttribute("pageInfo", pageInfo);
 				request.setAttribute("boardList", boardList);
+				request.setAttribute("myQna", "myQna");
 				forward= new ActionForward();
 				forward.setPath("/member/myQna.jsp");
 			}

@@ -17,9 +17,16 @@ public class QnARemoveAction implements Action {
 		// TODO Auto-generated method stub
 		request.setCharacterEncoding("UTF-8");
 		ActionForward forward = null;
+		String myQna = null;
+		String user_id = null;
+		
 		HttpSession session = request.getSession();
 		String id = (String) session.getAttribute("id");
-		String myQna = request.getParameter("myqna");
+		myQna = request.getParameter("myQna");
+		user_id = request.getParameter("user_id");
+		String std = request.getParameter("std");
+		System.out.println(myQna + " :?");
+		
 		if (id == null) {
 			response.setContentType("text/html;charset=UTF-8");
 			PrintWriter out = response.getWriter();
@@ -75,15 +82,36 @@ public class QnARemoveAction implements Action {
 				out.println("</script>");
 			} else {
 				if(request.getParameter("r_page")==null) {
-					String path = myQna!=null ? "myQna.us" : "./qnaList.bo?page="+page;
-					if(request.getParameter("keyword")!=null) {
+					String path = myQna!=null ? "myQna.bo?" : "./qnaList.bo?page="+page;
+					String path2 = user_id!=null ? "userView.us?" : "./qnaList.bo?page="+page;
+					if(request.getParameter("keyword")!=null && user_id==null) {
+						System.out.println("1");
 						path += "&std="+request.getParameter("std")+"&keyword="+request.getParameter("keyword");
 						response.setContentType("text/html;charset=UTF-8");
 						PrintWriter out = response.getWriter();
 						out.println("<script>");
 						out.println("location.href=encodeURI('"+path+"');");
 						out.println("</script>");
-					}else forward= new ActionForward(path,true);
+					}else if(request.getParameter("keyword")==null && user_id==null) {
+						System.out.println("2");
+						forward= new ActionForward(path,true);
+					}else if(myQna.equals("myQna")) {
+							System.out.println("3");
+							path += "&std="+std+"&keyword="+request.getParameter("keyword");
+							response.setContentType("text/html;charset=UTF-8");
+							PrintWriter out = response.getWriter();
+							out.println("<script>");
+							out.println("location.href=encodeURI('"+path+"');");
+							out.println("</script>");
+					}else if(user_id!=null&&!myQna.equals("myQna")) { 
+							System.out.println("4");
+							path2 += "&user_id="+user_id;
+							response.setContentType("text/html;charset=UTF-8");
+							PrintWriter out = response.getWriter();
+							out.println("<script>");
+							out.println("location.href=encodeURI('"+path2+"');");
+							out.println("</script>");
+					}
 				}else {
 					String r_page = request.getParameter("r_page");
 					String q_page = request.getParameter("q_page");

@@ -18,9 +18,14 @@ public class MyQnAViewAction implements Action {
 		// TODO Auto-generated method stub
 		request.setCharacterEncoding("UTF-8");
 		ActionForward forward = null;
+		String user_id = null;
+		String myQna = null;
 		
 		HttpSession session = request.getSession();
 		String id = (String)session.getAttribute("id");
+		user_id = request.getParameter("user_id");
+		myQna = request.getParameter("myQna");
+		
 		if(id==null) {
 			response.setContentType("text/html;charset=UTF-8");
 			PrintWriter out = response.getWriter();
@@ -36,12 +41,13 @@ public class MyQnAViewAction implements Action {
 			BoardBean rboard = boardService.selectReply("qna_board", board.getRgroup(), item_code);
 			String item_name = boardService.findItemName(item_code);
 			
+			if(user_id!=null) request.setAttribute("user_id", user_id);
+			if(myQna != null) request.setAttribute("myQna", myQna);
 			request.setAttribute("board", board);
 			request.setAttribute("rboard", rboard);
 			String page = request.getParameter("page");
 			request.setAttribute("page", page);
 			request.setAttribute("item_name", item_name);
-			request.setAttribute("myQna", "myQna");
 			forward = new ActionForward("./member/myQna_view.jsp", false);
 		}
 		
