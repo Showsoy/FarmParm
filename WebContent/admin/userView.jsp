@@ -52,6 +52,10 @@
 		<td>${user.user_id}</td>
 	</tr>
 	<tr>
+		<td id="td_left"><label for="userID">가입일</label> </td>
+		<td><fmt:formatDate pattern="yyyy-MM-dd HH:mm:ss" value="${user.edate }" /></td>
+	</tr>
+	<tr>
 		<td id="td_left"><label for="userID">포인트</label> </td>
 		<td>${user.point}점 <button id="gbutton" style="width:80px" onclick="location.href='usPoint.us?uid=${user.user_id}'">내역조회></button></td>
 	</tr>

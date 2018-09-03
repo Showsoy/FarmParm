@@ -1,6 +1,7 @@
 ﻿<%@ page language="java" contentType="text/html; charset=UTF-8"
     pageEncoding="UTF-8"%>
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
+<%@ taglib prefix="fmt" uri="http://java.sun.com/jsp/jstl/fmt" %>
 <%@page import="vo.UserBean"%>
 <!DOCTYPE html PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN" "http://www.w3.org/TR/html4/loose.dtd">
 <html>
@@ -29,6 +30,10 @@ td, tr{
 	<tr>
 		<td id="td_left"><label for="userID">아이디</label> </td>
 		<td>${user.user_id}</td>
+	</tr>
+	<tr>
+		<td id="td_left"><label for="userID">가입일</label> </td>
+		<td><fmt:formatDate pattern="yyyy-MM-dd HH:mm:ss" value="${user.edate }" /></td>
 	</tr>
 	<tr>
 		<td id="td_left"><label for="userID">이름</label></td>

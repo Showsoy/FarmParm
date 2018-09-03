@@ -40,7 +40,7 @@ public class MemberAdModifyAction implements Action {
 			UserBean user = new UserBean(uid, request.getParameter("userName"), request.getParameter("userPhone"),
 					birth, request.getParameter("userGen"), request.getParameter("userAddr1"),
 					request.getParameter("userAddr2"), request.getParameter("userAddr3"), email, 
-					request.getParameter("userGrade"));
+					request.getParameter("userGrade"), null);
 			boolean isRegistSuccess = userService.modifyUsers(user);
 
 			if (isRegistSuccess) {

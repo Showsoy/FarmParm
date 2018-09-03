@@ -107,30 +107,29 @@ function goto_url(act) {
 			<tr id="top_menu">
 				<td id="td_check">
 				<input type="checkbox" id="allCheck" name="allCheck" onClick="checkAll(this.form)"/></td>
-				<td>번호</td>
+				<td>가입일</td>
 				<td>아이디</td>
 				<td>등급</td>
 				<td>주문금액</td>
 				<td>수정/삭제</td>
 			</tr>
-			<c:set var="num" value="${pageInfo.listCount-(pageInfo.page-1)*10 }"/>
+			<tr>
+				<td></td>
+				<td></td>
+				<td><img src="images/admin_crown.png" style="width:18px;margin-bottom:0px;"/>&nbsp;admin</td>
+				<td>관리자</td>
+				<td></td>
+				<td></td>
+			</tr>
 			<c:forEach var="userList" items="${userList }">
  			<tr>
 				<td>
-				<c:if test="${userList.grade != '관리자' }">
 				<input type="checkbox" id="ckb" name="ckb" value="${userList.user_id }"/>
-				</c:if>
 				</td>
-				<td>${num }
-					</td><c:set var="num" value="${num-1}"/>
-				<td>
-				<c:if test="${userList.grade eq '관리자' }">
-				<img src="images/admin_crown.png" style="width:18px;margin-bottom:0px;"/>&nbsp;
-				</c:if>
-				${userList.user_id }</td>
+				<td><fmt:formatDate pattern="yyyy-MM-dd" value="${userList.edate }" /></td>
+				<td>${userList.user_id }</td>
 				<td>${userList.grade }</td>
-				<td>
-				<c:if test="${userList.tot_price != null }">
+				<td><c:if test="${userList.tot_price != null }">
 				<fmt:formatNumber value="${userList.tot_price }" type="number"/>원
 				</c:if>
 				<c:if test="${userList.tot_price == null }">
@@ -138,9 +137,7 @@ function goto_url(act) {
 				</c:if>
 				</td>
 				<td>
-				<c:if test="${userList.grade != '관리자' }">
 				<button type="button" onclick="location.href=encodeURI('userView.us?user_id=${userList.user_id}<c:out value="${std !=null ? '&std=' : '' }"/>${std}<c:out value="${keyword !=null ? '&keyword=' : '' }"/>${keyword}')" id="gbutton">조회</button>
-				</c:if>
 				</td>
 			</tr>
 			</c:forEach>

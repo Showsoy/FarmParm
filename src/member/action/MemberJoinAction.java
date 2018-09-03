@@ -22,8 +22,8 @@ public class MemberJoinAction  implements Action{
    		
 		UserBean user = new UserBean(request.getParameter("userID"), passwd, request.getParameter("userName"), request.getParameter("userPhone"),
 				birth, request.getParameter("userGen"), request.getParameter("userAddr1"), request.getParameter("userAddr2"),
-				request.getParameter("userAddr3"), email, "일반회원", salt, 1000);
-   		
+				request.getParameter("userAddr3"), email, "일반회원", null, salt, 1000);
+   		 
    		UserService userService = new UserService();
    		joinResult = userService.joinUser(user);
    		ActionForward forward = null;

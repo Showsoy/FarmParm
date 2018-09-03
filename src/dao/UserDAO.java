@@ -50,7 +50,7 @@ public class UserDAO {
 			if(rs.next()) {
 				user = new UserBean(rs.getString("user_id"), rs.getString("name"), rs.getString("phone"), 
 						rs.getDate("birth"), rs.getString("gender"), rs.getString("postcode"), rs.getString("address"), 
-						rs.getString("address_second"), rs.getString("email"), rs.getString("grade"));
+						rs.getString("address_second"), rs.getString("email"), rs.getString("grade"), rs.getTimestamp("edate"));
 			}
 		}catch(Exception e) {
 			e.printStackTrace();
@@ -119,7 +119,7 @@ public class UserDAO {
 		return loginSalt;
 	}
 	public int insertUser(UserBean users){
-		String sql="INSERT INTO users VALUES (?,?,?,?,?,?,?,?,?,?,?,?)";
+		String sql="INSERT INTO users VALUES (?,?,?,?,?,?,?,?,?,?,?,now(),?)";
 		int insertCount=0;
 		try{
 			pstmt=con.prepareStatement(sql);
@@ -203,7 +203,7 @@ public class UserDAO {
 	public ArrayList<UserViewBean> users(int page){
 		PreparedStatement pstmt = null;
 		ResultSet rs = null;
-		String user_list_sql="select * from user_view order by grade asc, user_id asc limit ?,10";
+		String user_list_sql="select * from user_view where user_id != 'admin' order by edate desc limit ?,10";
 		ArrayList<UserViewBean> articleList = new ArrayList<UserViewBean>();
 		UserViewBean userList = null;
 		int startrow=(page-1)*10;
@@ -215,7 +215,8 @@ public class UserDAO {
 				userList = new UserViewBean(
 				rs.getString("user_id"),
 				rs.getString("grade"),
-				rs.getString("userpay"));
+				rs.getString("userpay"),
+				rs.getTimestamp("edate"));
 				articleList.add(userList);	
 			}
 		}catch(Exception e){
@@ -393,7 +394,8 @@ public class UserDAO {
 				userList = new UserViewBean(
 				rs.getString("user_id"),
 				rs.getString("grade"),
-				rs.getString("userpay"));
+				rs.getString("userpay"),
+				rs.getTimestamp("edate"));
 				articleList.add(userList);
 			}
 		}catch(Exception e){
@@ -421,7 +423,8 @@ public class UserDAO {
 					userList.add(new UserViewBean(
 							rs.getString("user_id"),
 							rs.getString("grade"),
-							rs.getString("userpay")
+							rs.getString("userpay"),
+							rs.getTimestamp("edate")
 							));
 				}while(rs.next());
 			}
@@ -449,7 +452,7 @@ public class UserDAO {
 				user = new UserViewBean(
 				rs.getString("user_id"),
 				rs.getString("grade"),
-				rs.getString("userpay"));
+				rs.getString("userpay"),rs.getTimestamp("edate"));
 				userList.add(user);	
 			}
 		}catch(Exception e){
