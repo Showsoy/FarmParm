@@ -74,7 +74,7 @@ img{
 <jsp:include page="/common/top_menu.jsp" flush="false"/>
 <jsp:include page="/common/adminbar.jsp" flush="false"/>
 <div class="pageform">
-	<h3>&nbsp;&nbsp;상품관리</h3>
+	<h3>&nbsp;&nbsp;상품목록</h3>
 	<hr color="#4CAF50" size="5">
 	<form method="post" name="itemList">
 	<div class="mypage">

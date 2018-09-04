@@ -135,9 +135,9 @@ function viewmyre(){
 		<section id="commandCellp">
 			<form action="reList.bo" name="research" method="post">
 				<select name="std" id="std">
+					<option value="item_name" <c:out value="${std eq 'item_name' ? 'selected' : '' }"/>>상품명</option>
 					<option value="subject" <c:out value="${std eq 'subject' ? 'selected' : '' }"/>>제목</option>
 					<option value="content" <c:out value="${std eq 'content' ? 'selected' : '' }"/>>제목+내용</option>
-					<option value="item_name" <c:out value="${std eq 'item_name' ? 'selected' : '' }"/>>상품명</option>
 				</select>
 				<input type="text" id="keyword" name="keyword" size="15" value="${keyword }"/>
 				<button type="submit" id="wbutton">검색</button>

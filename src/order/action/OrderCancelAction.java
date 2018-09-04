@@ -2,7 +2,6 @@ package order.action;
 
 import java.io.PrintWriter;
 import java.util.ArrayList;
-import java.util.Map;
 
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
@@ -10,10 +9,8 @@ import javax.servlet.http.HttpSession;
 
 import action.Action;
 import svc.OrderService;
-import svc.UserService;
 import vo.ActionForward;
 import vo.OrderViewBean;
-import vo.PointBean;
 
 public class OrderCancelAction implements Action {
 
@@ -41,7 +38,6 @@ public class OrderCancelAction implements Action {
 			out.println("</script>");
 		}else {
 			OrderService orderService = new OrderService();
-			UserService userService = new UserService();
 			ArrayList<OrderViewBean> orderList = new ArrayList<OrderViewBean>();
 			String ids[];
 			String order_id;
@@ -59,21 +55,13 @@ public class OrderCancelAction implements Action {
 				ids = request.getParameterValues("icheck");
 				for(int i=0;i<ids.length;i++) {
 					int tmpid = Integer.parseInt(ids[i]);
-					String user_id = orderService.selectUserId(tmpid);
 					orderList = orderService.orderItemList(tmpid);
-					Map<String, Integer> pointMap = userService.orderPointMap(tmpid);
-					PointBean point1 = new PointBean(user_id, tmpid, "결제취소반환", 1, pointMap.get("use"));
-					PointBean point2 = new PointBean(user_id, tmpid, "결제취소회수", -1, pointMap.get("save"));
-					updateCount = orderService.cancelOrder(tmpid, point1, point2, orderList);
+					updateCount = orderService.cancelOrder(tmpid, orderList);
 				}
 			}else {
 				int tmpid = Integer.parseInt(order_id);
-				String user_id = orderService.selectUserId(tmpid);
 				orderList = orderService.orderItemList(tmpid);
-				Map<String, Integer> pointMap = userService.orderPointMap(tmpid);
-				PointBean point1 = new PointBean(user_id, tmpid, "결제취소반환", 1, pointMap.get("use"));
-				PointBean point2 = new PointBean(user_id, tmpid, "결제취소회수", -1, pointMap.get("save"));
-				updateCount = orderService.cancelOrder(tmpid, point1, point2, orderList);
+				updateCount = orderService.cancelOrder(tmpid, orderList);
 			}
 			if(updateCount==0) {
 				response.setContentType("text/html;charset=UTF-8");

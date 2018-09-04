@@ -23,7 +23,7 @@ img{
 	padding : 0 0 0 2px;
 }
 #seldel{
-	width:20%;
+	width:30%;
 	padding : 10px 0px 0 0;
 	text-align:left;
 }
@@ -32,12 +32,12 @@ img{
 	float:right;
 }
 #orderby{
-	padding : 15px 0px 0 0;
-	width:50%;
+	padding : 10px 0px 0 0;
+	width:20%;
 }
 #searchbar{
 	padding : 10px 0 0 0;
-	width:30%;
+	width:50%;
 	text-align:right;
 }
 
@@ -64,7 +64,12 @@ function goto_url(act) {
 		document.listForm.submit();
 	}	
 }
-
+function listrefresh(){
+	var grade = document.getElementById("keywords").options[document.getElementById("keywords").selectedIndex].value;
+	var std = document.getElementById("stds").options[document.getElementById("stds").selectedIndex].value;
+	var uri = "memberList.us?std="+std+"&keyword="+grade;
+	location.href=encodeURI(uri);
+}
 </script>
 </head>
 <link rel="stylesheet" type="text/css" href="/FarmParm/style/style.css">
@@ -78,24 +83,23 @@ function goto_url(act) {
 	<h3>&nbsp;&nbsp;회원관리</h3>
 	<hr color="#4CAF50" size="5">
 	<div class="mypage">
-	<form name="listForm">
+	<form name="listForm" method="post">
 	<div id="listmenu">
 	<span id ="seldel">
 	<button type="button" id="wbutton" onclick="goto_url('memberSelectDelete.us')">선택삭제</button>
 	</span>
 	<span id="orderby">
-		<a href="memberList.us"><img src="./images/checked.png"/><c:choose><c:when test="${keyword == null || keyword eq '' }">
-		<span id="selcategory">전체</span></c:when><c:otherwise> 전체</c:otherwise></c:choose></a>
-		<a href="javascript:void(0);" onclick="location.href=encodeURI('memberList.us?std=grade&keyword=일반회원')"><img src="./images/checked.png"/><c:choose><c:when test="${keyword eq '일반회원' }">
-		<span id="selcategory">일반회원</span></c:when><c:otherwise> 일반회원</c:otherwise></c:choose></a>
-		<a href="javascript:void(0);" onclick="location.href=encodeURI('memberList.us?std=grade&keyword=우수회원')"><img src="./images/checked.png"/><c:choose><c:when test="${keyword eq '우수회원' }">
-		<span id="selcategory">우수회원</span></c:when><c:otherwise> 우수회원</c:otherwise></c:choose></a>
-		<a href="javascript:void(0);" onclick="location.href=encodeURI('memberList.us?std=grade&keyword=일반셀러')"><img src="./images/checked.png"/><c:choose><c:when test="${keyword eq '일반셀러' }">
-		<span id="selcategory">일반셀러</span></c:when><c:otherwise> 일반셀러</c:otherwise></c:choose></a>
-		<a href="javascript:void(0);" onclick="location.href=encodeURI('memberList.us?std=grade&keyword=우수셀러')"><img src="./images/checked.png"/><c:choose><c:when test="${keyword eq '우수셀러' }">
-		<span id="selcategory">우수셀러</span></c:when><c:otherwise> 우수셀러</c:otherwise></c:choose></a>
-		<a href="javascript:void(0);" onclick="location.href=encodeURI('memberList.us?std=purchase&keyword=${keyword}')"><img src="./images/checked.png"/><c:choose><c:when test="${std eq 'purchase' }">
-		<span id="selcategory">주문금액순</span></c:when><c:otherwise> 주문금액순</c:otherwise></c:choose></a>
+		<select id="keywords" name="keywords" onchange="listrefresh()">
+				<option value="all" <c:out value="${keyword eq 'all' ? 'selected' : '' }"/>>전체</option>
+				<option value="일반회원" <c:out value="${keyword eq '일반회원' ? 'selected' : '' }"/>>일반회원</option>
+				<option value="우수회원" <c:out value="${keyword eq '우수회원' ? 'selected' : '' }"/>>우수회원</option>
+				<option value="일반셀러" <c:out value="${keyword eq '일반셀러' ? 'selected' : '' }"/>>일반셀러</option>
+				<option value="우수셀러" <c:out value="${keyword eq '우수셀러' ? 'selected' : '' }"/>>우수셀러</option>
+			</select>
+			<select id="stds" name="stds" onchange="listrefresh()">
+				<option value="edate" <c:out value="${std eq 'edate' ? 'selected' : '' }"/>>가입일순</option>
+				<option value="userpay" <c:out value="${std eq 'userpay' ? 'selected' : '' }"/>>주문금액순</option>
+		</select>
 	</span>
 	<span id="searchbar">
 		<input type="hidden" name="std" id="std" value="user_id"/>

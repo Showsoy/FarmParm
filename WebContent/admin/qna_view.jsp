@@ -115,6 +115,7 @@ function doImgPop(img){
 <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.6.3/css/font-awesome.min.css">
 <body>
 <jsp:include page="/common/top_menu.jsp" flush="false"/>
+<jsp:include page="/common/adminbar.jsp" flush="false"/>
 <div class="pageform">
 	<h3>&nbsp;&nbsp;상품문의</h3>
 	<hr color="#4CAF50" size="5">
@@ -124,8 +125,7 @@ function doImgPop(img){
 				<tr>
 					<td id="td_left" colspan="2" style="text-align:right;">
 						<label>작성일</label> <span id="top_td">${board.date }</span>
-						&nbsp;&nbsp;<label>주문번호</label>
-						<span id="top_td">${board.readcount }</span>&nbsp;&nbsp;
+						&nbsp;&nbsp;<c:if test="${board.readcount>0 }"><label>비밀글</label>&nbsp;&nbsp;</c:if>
 					</td>
 				</tr>
 				<tr>
@@ -141,7 +141,7 @@ function doImgPop(img){
 						<label for="content">내용</label>
 					</td>	
 					<td id="td_parent">
-					<span id="idnamespan">[구매상품 | ${item_name}]</span><br><br>
+					<span id="idnamespan">[문의상품 | ${item_name}]</span><br><br>
 						<c:if test="${board.img_path!=null }">
 						<img src="../images/${board.img_path }" onclick="doImgPop('../images/${board.img_path}')" style="cursor:pointer;" title="클릭하시면 원본크기로 보실 수 있습니다."/>
 						</c:if>

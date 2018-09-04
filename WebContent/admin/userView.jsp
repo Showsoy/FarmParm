@@ -85,7 +85,7 @@
 	</tr>
 </table>
 <br><br>
-	<div class="orderbox">
+	<div class="orderbox" id="order">
 	<div id="grade"><b id="grade_deco">|</b>주문내역</div>
 		<table class="listtablepx" cellspacing="0" cellpadding="0">
 			<tr id="top_menug">
@@ -112,7 +112,7 @@
 						
 					</c:if>
 					<c:if test="${pageInfo.page>1 }">
-						<a href="userView.us?user_id=${user.user_id }&page=${pageInfo.page-1}"><span id="pagebn"><</span></a>
+						<a href="userView.us?user_id=${user.user_id }&page=${pageInfo.page-1}#order"><span id="pagebn"><</span></a>
 					</c:if>
 					
 					<c:forEach var="a" begin="${pageInfo.startPage }" end="${pageInfo.endPage }" step="1">
@@ -121,7 +121,7 @@
 								<span id="nowpage">${a }</span>
 							</c:when>
 							<c:otherwise>
-								<a href="userView.us?user_id=${user.user_id }&page=${a }">&nbsp;${a }&nbsp;</a>
+								<a href="userView.us?user_id=${user.user_id }&page=${a }#order">&nbsp;${a }&nbsp;</a>
 							</c:otherwise>
 						</c:choose>
 					</c:forEach>
@@ -130,7 +130,7 @@
 							
 						</c:when>
 						<c:otherwise>
-							<a href="userView.us?user_id=${user.user_id }&${pageInfo.page+1 }"><span id="pagebn">></span></a>
+							<a href="userView.us?user_id=${user.user_id }&page=${pageInfo.page+1 }#order"><span id="pagebn">></span></a>
 						</c:otherwise>
 					</c:choose>
 				</td>

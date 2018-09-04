@@ -11,7 +11,7 @@
 	}else if(!id.equals("admin")){
 		out.println("<script>");
 		out.println("alert('권한이 없습니다.');");
-		out.println("location.href='../common/main.im';");
+		out.println("location.href='../main.im';");
 		out.println("</script>");
 	}
 %>

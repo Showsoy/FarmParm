@@ -36,7 +36,7 @@ public class QnARemoveAction implements Action {
 			out.println("</script>");
 		} else {
 			String item_code = request.getParameter("item_code");
-			int page = Integer.parseInt(request.getParameter("page"));
+			int page = request.getParameter("page")==null ? 1 : Integer.parseInt(request.getParameter("page"));
 			BoardService boardService = new BoardService();
 			String nums[];
 			String codes[];

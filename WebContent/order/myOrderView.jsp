@@ -35,6 +35,9 @@ function orderCancel(){
 	<h3>&nbsp;&nbsp;주문내역</h3>
 	<hr color="#4CAF50" size="5">
 	<div class="mypage">
+	<section id="commandCell">
+		<b>주문번호 : ${order.order_id }</b>
+	</section>
 	<div id="statebox">
 		<span id="state">${order.state }</span><br>
 		<c:choose>
@@ -63,9 +66,12 @@ function orderCancel(){
 		<c:if test="${order.state eq '상품출고' }">
 		<button type="button" id="obutton" style="width:70px;" onclick="location.href=encodeURI('myodChg.od?order_id=${order.order_id}&page=${page }&od_state=배송완료')">수취완료</button>
 		</c:if>
-		<c:if test="${order.state != '취소' && order.state != '취소신청'}">
-		<button type="button" id="obutton" style="width:70px;" onclick="orderCancel();">주문취소</button>
-		</c:if>
+		<c:choose>
+		<c:when test="${order.state eq '취소완료' || order.state eq '취소신청'}"><br></c:when>
+		<c:otherwise>
+			<button type="button" id="obutton" style="width:70px;" onclick="orderCancel();">주문취소</button>
+		</c:otherwise>
+		</c:choose>
 	</section>
 	<form action="odChgState.od" name="orderview" method="post">
 	<div id="order_info">
@@ -81,18 +87,18 @@ function orderCancel(){
 	</tr>
 	<c:forEach var="odtemList" items="${odtemList }" varStatus="status">
 	<tr>
-		<td id="leftalign">${odtemList.item_name }</td>
+		<td id="leftalign"><a href="../uitemView.im?item_code=${odtemList.item_code }">${odtemList.item_name }</a></td>
 		<td><fmt:formatNumber value="${odtemList.price }" type="number"/>원</td>
 		<td>${odtemList.amount }개</td>
 		<td><fmt:formatNumber value="${odtemList.price*odtemList.amount }" type="number"/>원</td>
 		<fmt:parseNumber var="point" value="${(odtemList.price*odtemList.amount) div 100 }" integerOnly="true"/>
 		<td>${point }점</td>
 		<td>
-			<c:if test="${order.state eq '배송완료' || order.state eq '상품출고'}">
+			<c:if test="${order.state eq '배송완료'}">
 				<button type="button" id="gbutton" onclick="window.open('../item/reForm.bo?order_id=${order.order_id }&item_code=${odtemList.item_code}','','width=500, height=400')">리뷰</button>
 			</c:if>
 			
-				<button type="button" id="gbutton" onclick="window.open('../item/qnaForm.bo?order_id=${order.order_id }&item_code=${odtemList.item_code}','','width=500, height=400')">문의</button>
+				<button type="button" id="gbutton" onclick="window.open('../item/qnaform.jsp?item_code=${odtemList.item_code}','','width=500, height=400')">문의</button>
 		</td>
 	</tr>
 	</c:forEach>

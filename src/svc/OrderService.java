@@ -242,7 +242,7 @@ public class OrderService {
 		close(conn);
 		return updateCount;
 	}
-	public int cancelOrder(int order_id, PointBean point1, PointBean point2, ArrayList<OrderViewBean> orderList) {
+	public int cancelOrder(int order_id, ArrayList<OrderViewBean> orderList) {
 		OrderDAO orderDAO = OrderDAO.getInstance();
 		Connection conn = getConnection();
 		orderDAO.setConnection(conn);
@@ -252,10 +252,9 @@ public class OrderService {
 		int updateCount2 = itemDAO.recoverOrderItem(orderList);
 		UserDAO userDAO = UserDAO.getInstance();
 		userDAO.setConnection(conn);
-		int insertCount1 = userDAO.userPlminusPoint(point1);
-		int insertCount2 = userDAO.userPlminusPoint(point2);
-
-		if(updateCount1>0&&updateCount2>0&&insertCount1>0&&insertCount2>0) {
+		int updateCount3 = userDAO.orderPointMap(order_id);
+		
+		if(updateCount1>0&&updateCount2>0&&updateCount3>0) {
 			commit(conn);
 		}else {
 			rollback(conn);

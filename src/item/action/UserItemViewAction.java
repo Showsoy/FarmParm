@@ -37,7 +37,7 @@ public class UserItemViewAction implements action.Action{
 		ArrayList<BoardBean> reviewList = new ArrayList<BoardBean>();
 		int page = request.getParameter("page")==null ? 1 : Integer.parseInt(request.getParameter("page"));
 		int q_page = request.getParameter("q_page")==null ? 1 : Integer.parseInt(request.getParameter("q_page"));
-	  	int r_page = request.getParameter("q_page")==null ? 1 : Integer.parseInt(request.getParameter("q_page"));
+	  	int r_page = request.getParameter("r_page")==null ? 1 : Integer.parseInt(request.getParameter("r_page"));
 		int limit=5;
 		
 		int qlistCount = boardService.selectListCount("qna_board", item_code);

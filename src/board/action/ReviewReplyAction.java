@@ -18,55 +18,71 @@ public class ReviewReplyAction implements Action {
 		// TODO Auto-generated method stub
 		request.setCharacterEncoding("UTF-8");
 		ActionForward forward = null;
-		
+
 		HttpSession session = request.getSession();
-		String id = (String)session.getAttribute("id");
-		if(id==null) {
-			request.setAttribute("act", "login");
-			forward= new ActionForward("./rereform.jsp",false);
-		}else {
-			BoardService boardService = new BoardService();
-			boolean has_re = boardService.hasReply("review_board", request.getParameter("item_code"), Integer.parseInt(request.getParameter("rgroup")));
-			if(has_re) {
-				request.setAttribute("act", "dupl");
-				forward= new ActionForward("./rereform.jsp",false);
-				return forward;
+		String id = (String) session.getAttribute("id");
+		BoardService boardService = new BoardService();
+		boolean has_re = boardService.hasReply("review_board", request.getParameter("item_code"),
+				Integer.parseInt(request.getParameter("rgroup")));
+
+		if (id == null) {
+			if (request.getParameter("page") == null) {
+				request.setAttribute("act", "login");
+				forward = new ActionForward("./rereform.jsp", false);
+			} else {
+				response.setContentType("text/html;charset=UTF-8");
+				PrintWriter out = response.getWriter();
+				out.println("<script>");
+				out.println("alert('로그인이 필요합니다.');");
+				out.println("location.href='../member/memberLogin.us?turn=ok';");
+				out.println("</script>");
 			}
-			
-			int bnum = boardService.searchBNum("review_board", request.getParameter("item_code"));		
-			
-			BoardBean board = new BoardBean(
-					bnum,
-					request.getParameter("item_code"),
-					"admin",
-					request.getParameter("content"),
-					"답변",
-					"",0,null,0,Integer.parseInt(request.getParameter("rgroup")),2);
+		}else if(has_re) {
+			if (request.getParameter("page") == null) {
+				request.setAttribute("act", "dupl");
+				forward = new ActionForward("./rereform.jsp", false);
+				return forward;
+			} else {
+				response.setContentType("text/html;charset=UTF-8");
+				PrintWriter out = response.getWriter();
+				out.println("<script>");
+				out.println("alert('이미 작성한 답글이 있습니다.');");
+				out.println("history.back();");
+				out.println("</script>");
+			}
+		}else {
+			int bnum = boardService.searchBNum("review_board", request.getParameter("item_code"));
+
+			BoardBean board = new BoardBean(bnum, request.getParameter("item_code"), "admin",
+					request.getParameter("content"), "답변", "", 0, null, 0, Integer.parseInt(request.getParameter("rgroup")),
+					2);
 			boolean isWriteSuccess = boardService.replyReview(board);
-			if(!isWriteSuccess) {
+			if (!isWriteSuccess) {
 				response.setContentType("text/html;charset=UTF-8");
 				PrintWriter out = response.getWriter();
 				out.println("<script>");
 				out.println("alert('등록실패');");
 				out.println("history.back();");
 				out.println("</script>");
-			}else {
-				if(request.getParameter("page")!=null) {
+			} else {
+				if (request.getParameter("page") != null) {
 					String page = request.getParameter("page");
 					String item_code = request.getParameter("item_code");
 					String rgroup = request.getParameter("rgroup");
-					String path = "./reView.bo?bnum="+rgroup+"&item_code="+item_code+"&page="+page;
-					if(request.getParameter("keyword")!=null) {
-						path += "&std="+request.getParameter("std")+"&keyword="+request.getParameter("keyword");
-						response.setContentType("text/html;charset=UTF-8");
-						PrintWriter out = response.getWriter();
-						out.println("<script>");
-						out.println("location.href=encodeURI('"+path+"');");
-						out.println("</script>");
-					}else forward= new ActionForward(path,true);
-				}else {
+					String path = "./reView.bo?bnum=" + rgroup + "&item_code=" + item_code + "&page=" + page;
+					
+					path = (request.getParameter("std") == null) ? path : path + "&std=" + request.getParameter("std");
+					path = (request.getParameter("keyword") == null) ? path
+							: path + "&keyword=" + request.getParameter("keyword");
+
+					response.setContentType("text/html;charset=UTF-8");
+					PrintWriter out = response.getWriter();
+					out.println("<script>");
+					out.println("location.href=encodeURI('" + path + "');");
+					out.println("</script>");
+				} else {
 					request.setAttribute("act", "ok");
-					forward= new ActionForward("./rereform.jsp",false);//리스트로 들어감
+					forward = new ActionForward("./rereform.jsp", false);
 				}
 			}
 		}

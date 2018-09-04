@@ -151,28 +151,28 @@ function selectEDay(sel) {
 			<tr>
 				<td colspan="8" id="td_info">
 					<c:if test="${pageInfo.page<=1 }">
-						[이전]&nbsp;
+						
 					</c:if>
 					<c:if test="${pageInfo.page>1 }">
-						<a href="myPoint.us?page=${pageInfo.page-1}&start=${start}&end=${end}">[이전]</a>&nbsp;
+						<a href="myPoint.us?page=${pageInfo.page-1}&start=${start}&end=${end}"><span id="pagebn"><</span></a>&nbsp;
 					</c:if>
 
 					<c:forEach var="a" begin="${pageInfo.startPage }" end="${pageInfo.endPage }" step="1">
 						<c:choose>
 							<c:when test="${a==pageInfo.page }">
-								[${a }]
+								<span id="nowpage">${a }</span>
 							</c:when>
 							<c:otherwise>
-								<a href="myPoint.us?page=${a }&start=${start}&end=${end}">[${a }]</a>&nbsp;
+								<a href="myPoint.us?page=${a }&start=${start}&end=${end}">&nbsp;${a }&nbsp;</a>&nbsp;
 							</c:otherwise>
 						</c:choose>
 					</c:forEach>
 					<c:choose>
 						<c:when test="${pageInfo.page>=pageInfo.maxPage }">
-							[다음]
+							
 						</c:when>
 						<c:otherwise>
-							<a href="myPoint.us?page=${pageInfo.page+1 }&start=${start}&end=${end}">[다음]</a>&nbsp;
+							<a href="myPoint.us?page=${pageInfo.page+1 }&start=${start}&end=${end}"><span id="pagebn">></span></a>&nbsp;
 						</c:otherwise>
 					</c:choose>
 				</td>

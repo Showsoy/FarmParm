@@ -41,7 +41,7 @@ public class ReviewWriteFormAction implements Action {
 				
 			}
 			else result = boardService.testReviewBoard(item_code, id);
-			System.out.println(result);
+			
 			if(result==-1) {
 				request.setAttribute("act", "no");
 			}else if(result==0) {

@@ -8,7 +8,6 @@ import static db.JdbcUtil.rollback;
 import java.sql.Connection;
 import java.sql.Date;
 import java.util.ArrayList;
-import java.util.Map;
 import java.util.Properties;
 
 import javax.mail.Address;
@@ -99,11 +98,11 @@ public class UserService {
 		close(con);
 		return listCount;
 	}
-	public ArrayList<UserViewBean> userList(int page) throws Exception{
+	public ArrayList<UserViewBean> userList(int page, String std) throws Exception{
 		Connection con = getConnection();
 		UserDAO userDAO = UserDAO.getInstance();
 		userDAO.setConnection(con);
-		ArrayList<UserViewBean> userList = userDAO.users(page);
+		ArrayList<UserViewBean> userList = userDAO.users(page, std);
 		
 		close(con);
 		return userList;
@@ -210,20 +209,12 @@ public class UserService {
 		close(con);
 		return userList;
 	}
-	public ArrayList<UserViewBean> getGradeList(int page, String grade) throws Exception{
+	public ArrayList<UserViewBean> getGradeList(int page, String grade, String std) {
 		Connection con = getConnection();
 		UserDAO userDAO = UserDAO.getInstance();
 		userDAO.setConnection(con);
-		ArrayList<UserViewBean> userList = userDAO.getGradeList(page, grade);
+		ArrayList<UserViewBean> userList = userDAO.getGradeList(page, grade, std);
 		
-		close(con);
-		return userList;
-	}
-	public ArrayList<UserViewBean> getPurchList(String keyword, int page) throws Exception{
-		Connection con = getConnection();
-		UserDAO userDAO = UserDAO.getInstance();
-		userDAO.setConnection(con);
-		ArrayList<UserViewBean> userList = userDAO.getPurchList(keyword, page);
 		close(con);
 		return userList;
 	}
@@ -276,13 +267,13 @@ public class UserService {
 		close(con);
 		return pointList;
 	}
-	public Map<String, Integer> orderPointMap(int order_id) {
+	public int orderPointMap(int order_id) {
 		Connection con = getConnection();
 		UserDAO userDAO = UserDAO.getInstance();
 		userDAO.setConnection(con);
-		Map<String, Integer> pointMap = userDAO.orderPointMap(order_id);
+		int updateCount = userDAO.orderPointMap(order_id);
 		close(con);
-		return pointMap;
+		return updateCount;
 	}
 	public void sendIssueMail(String email, String mail_subject, String mail_content) {
 		String sender = email;
