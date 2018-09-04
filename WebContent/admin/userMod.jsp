@@ -50,7 +50,7 @@ function chkForm(f){
 	}
 	if(doubleSubmitCheck()) {
 		alert('중복접근!');
-		return;
+		return false;
 	}
 	//if(f.pass.value.trim()!=f.passChk.value.trim()){f.pass.value="";}
 	document.usermod.submit();

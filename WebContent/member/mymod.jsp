@@ -48,8 +48,7 @@ function chkForm(f){
 		f.userPhone.focus();
 		return false;
 	}
-	if(doubleSubmitCheck()) return;
-	//if(f.pass.value.trim()!=f.passChk.value.trim()){f.pass.value="";}
+	if(doubleSubmitCheck()) return false;
 	document.modform.submit();
 }
 function selectEmail(sel) {

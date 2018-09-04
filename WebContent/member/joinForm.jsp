@@ -113,7 +113,7 @@ function chkForm(f){
 		return false;
 	}
 		
-	if(doubleSubmitCheck()) return;
+	if(doubleSubmitCheck()) return false;
 	else alert('회원가입이 완료되었습니다.');
 	
 	document.joinform.submit();

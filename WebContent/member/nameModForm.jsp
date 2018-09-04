@@ -62,7 +62,7 @@ function chkForm(f){
 		f.subject.focus();
 		return false;
 	}
-	if(doubleSubmitCheck()) return;
+	if(doubleSubmitCheck()) return false;
 	document.qnaform.submit();
 }
 function fclose(f){

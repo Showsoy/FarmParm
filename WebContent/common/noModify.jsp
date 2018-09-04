@@ -27,9 +27,8 @@ function getCon() {
 	}
 }
 function chkForm(f){
-    if(doubleSubmitCheck()) return;
+    if(doubleSubmitCheck()) return false;
     
-	alert("등록되었습니다.");
     document.notice.submit();
 }
 </script>

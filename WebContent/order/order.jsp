@@ -33,7 +33,7 @@ td, tr{
 	function chkForm(f){
 		if(doubleSubmitCheck()) {
 			alert('중복접근!');
-			return;
+			return false;
 		}else{
 			alert('주문을 접수 중입니다.')
 		}
