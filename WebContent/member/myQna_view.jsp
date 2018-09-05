@@ -18,11 +18,6 @@ img{
 }
 </style>
 <script>
-
-function fc_chk2() { 
-	if(event.keyCode == 13) 
-	event.returnValue=false; 
-}
 function doImgPop(img){ 
 	 img1= new Image(); 
 	 img1.src=(img); 
