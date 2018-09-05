@@ -441,7 +441,7 @@ public class BoardDAO {
 		PreparedStatement pstmt3 = null;
 		ResultSet rs3 = null;
 		//10 8 7 7 5 /4 / 2 1  
-		String sql1 = "SELECT sum(has_re) FROM qna_board WHERE item_code = ? AND rstep=1 ORDER BY rgroup DESC, rstep ASC LIMIT ?,5";
+		String sql1 = "SELECT has_re FROM qna_board WHERE item_code = ? AND rstep=1 ORDER BY rgroup DESC, rstep ASC LIMIT ?,5";
 		String sql2 = "SELECT * FROM qna_board WHERE item_code = ? ORDER BY rgroup DESC, rstep ASC LIMIT ?,?";
 		ArrayList<BoardBean> articleList = new ArrayList<BoardBean>();
 		BoardBean board = null;
@@ -456,13 +456,13 @@ public class BoardDAO {
 				pstmt1.setInt(2, before);
 				rs1 = pstmt1.executeQuery();
 				
-				if(rs1.next()) startrow += rs1.getInt(1);
+				while(rs1.next()) startrow += rs1.getInt(1);
 			}
 			pstmt2 = conn.prepareStatement(sql1);
 			pstmt2.setString(1, item_code);
 			pstmt2.setInt(2, startrow);
 			rs2 = pstmt2.executeQuery();
-			if(rs2.next()) limit += rs2.getInt(1);
+			while(rs2.next()) limit += rs2.getInt(1);
 			
 			pstmt3 = conn.prepareStatement(sql2);
 			pstmt3.setString(1, item_code);

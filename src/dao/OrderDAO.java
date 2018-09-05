@@ -529,7 +529,7 @@ public class OrderDAO {
 				salesList = new ArrayList<OrderBean>();
 				do {
 					salesList.add(new OrderBean(rs.getInt("order_id"),rs.getString("user_id"),rs.getTimestamp("dati"),
-							rs.getString("state"),rs.getInt("pay"),rs.getString("payment"),""));
+							rs.getString("state"),rs.getInt("pay"),rs.getString("payment"), null));
 				}while(rs.next());
 			}
 		}catch(Exception e) {

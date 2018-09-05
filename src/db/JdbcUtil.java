@@ -16,7 +16,6 @@ public class JdbcUtil {
 			Context initCtx = new InitialContext();
 			Context envCtx = (Context)initCtx.lookup("java:comp/env");
 			DataSource ds = (DataSource)envCtx.lookup("jdbc/MySQLDB");
-			//DataSource ds = (DataSource)initCtx.lookup("java:comp/env/jdbc/MySQLDB")
 			con = ds.getConnection();
 			con.setAutoCommit(false);
 		}catch(Exception e) {
@@ -33,7 +32,6 @@ public class JdbcUtil {
 			e.printStackTrace();
 		}
 	}
-	//pstmt의 상위 호환 가능. 
 	public static void close(Statement stmt) {
 		try {
 			stmt.close();
@@ -53,7 +51,6 @@ public class JdbcUtil {
 	public static void commit(Connection con) {
 		try {
 			con.commit();
-			System.out.println("commit success");
 		}catch(Exception e) {
 			e.printStackTrace();
 		}

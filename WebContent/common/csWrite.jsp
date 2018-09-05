@@ -40,7 +40,7 @@ function getCon() {
 function chkForm(f){
 	if(doubleSubmitCheck()) {
 		alert('중복접근!');
-		return;
+		return false;
 	}
     document.csboard.submit();
 }

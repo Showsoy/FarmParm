@@ -28,7 +28,7 @@ public class ReviewRemoveAction implements Action {
 			out.println("</script>");
 		} else {
 			String item_code = request.getParameter("item_code");
-			int page = Integer.parseInt(request.getParameter("page"));
+			int page = request.getParameter("page")==null ? 1 : Integer.parseInt(request.getParameter("page"));
 			BoardService boardService = new BoardService();
 			String nums[];
 			String codes[];
@@ -54,15 +54,15 @@ public class ReviewRemoveAction implements Action {
 			} else {
 				board_num = Integer.parseInt(request.getParameter("bnum"));
 				String writer = boardService.selectWriter("review_board", board_num);
-				if (!id.equals("admin") || !id.equals(writer)) {
+				if (id.equals("admin") || id.equals(writer)) {
+					deleteCount = boardService.removeArticle("review_board", board_num, item_code);
+				} else {
 					response.setContentType("text/html;charset=UTF-8");
 					PrintWriter out = response.getWriter();
 					out.println("<script>");
 					out.println("alert('권한이 없습니다.');");
 					out.println("history.back();");
 					out.println("</script>");
-				} else {
-					deleteCount = boardService.removeArticle("review_board", board_num, item_code);
 				}
 			}
 	

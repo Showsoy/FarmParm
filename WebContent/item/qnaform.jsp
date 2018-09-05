@@ -74,8 +74,9 @@ function fclose(f){
 <link rel="stylesheet" type="text/css" href="../style/style.css">
 <body class="popup_body">
 <div id="grade"><b id="grade_deco">|</b> 상품문의</div>
-<% String code = request.getParameter("item_code"); %>
-<c:set var="code" value="<%=code %>" />
+<% String code = request.getParameter("item_code"); 
+	pageContext.setAttribute("code", code);
+%>
 <form action="qnaWrite.bo" name="qnaform" method="post" enctype="multipart/form-data" onsubmit="return chkForm(this)">
 <c:choose>
 	<c:when test="${act != null && act eq 'ok' }">
@@ -109,7 +110,7 @@ function fclose(f){
 			<label for="content">내용</label>
 		</td>
 		<td colspan="2">
-			<textarea name="content" id="content" cols="40" rows="10" onkeyup="fc_chk_byte(this);" onkeypress="fc_chk2();" placeholder="200자까지 입력하실 수 있습니다."></textarea>
+			<textarea name="content" id="content" cols="40" rows="10" onkeyup="fc_chk_byte(this);" onkeypress="fc_chk2();" placeholder="200자까지 입력하실 수 있습니다. &#13;&#10;주문 관련 문의는 주문번호를 입력해주시면 빨리 처리됩니다."></textarea>
 		</td>
 	</tr>
 	<tr>

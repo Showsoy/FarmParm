@@ -1,6 +1,7 @@
 package vo;
 
 import java.sql.Date;
+import java.sql.Timestamp;
 
 public class UserBean {
 	private final String user_id;
@@ -14,12 +15,13 @@ public class UserBean {
 	private String address_second;
 	private String email;
 	private String grade;
+	private Timestamp edate;
 	private String usalt;
 	private int point;
 	
 	public UserBean(String user_id, String passwd, String name, String phone, Date birth, String gender,
-			String postcode, String address, String address_second, String email, String grade, String usalt,
-			int point) {
+			String postcode, String address, String address_second, String email, String grade, Timestamp edate,
+			String usalt, int point) {
 		super();
 		this.user_id = user_id;
 		this.passwd = passwd;
@@ -32,12 +34,13 @@ public class UserBean {
 		this.address_second = address_second;
 		this.email = email;
 		this.grade = grade;
+		this.edate = edate;
 		this.usalt = usalt;
 		this.point = point;
 	}
 	
 	public UserBean(String user_id, String name, String phone, Date birth, String gender,
-			String postcode, String address, String address_second, String email, String grade) {
+			String postcode, String address, String address_second, String email, String grade, Timestamp edate) {
 		super();
 		this.user_id = user_id;
 		this.name = name;
@@ -49,6 +52,7 @@ public class UserBean {
 		this.address_second = address_second;
 		this.email = email;
 		this.grade = grade;
+		this.edate = edate;
 	}
 	
 	public UserBean(String user_id, String phone, Date birth, String gender,
@@ -148,6 +152,10 @@ public class UserBean {
 	}
 	public String getUsalt() {
 		return usalt;
+	}
+	
+	public Timestamp getEdate() {
+		return edate;
 	}
 
 	public void setUsalt(String usalt) {

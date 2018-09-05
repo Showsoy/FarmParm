@@ -31,7 +31,7 @@ public class CsBoardRemoveAction implements Action {
 			String nums[];
 			int board_num;
 			int deleteCount = 0;
-			int page = Integer.parseInt(request.getParameter("page"));
+			int page = request.getParameter("page")==null ? 1 : Integer.parseInt(request.getParameter("page"));
 			if (request.getParameter("bnum") == null) {
 				if (!id.equals("admin")) {
 					response.setContentType("text/html;charset=UTF-8");
@@ -49,15 +49,15 @@ public class CsBoardRemoveAction implements Action {
 			} else {
 				board_num = Integer.parseInt(request.getParameter("bnum"));
 				String writer = boardService.selectWriter("cs_board", board_num);
-				if (!id.equals("admin") || !id.equals(writer)) {
+				if (id.equals("admin") || id.equals(writer)) {
+					deleteCount = boardService.removeCsBoard(board_num);
+				} else {
 					response.setContentType("text/html;charset=UTF-8");
 					PrintWriter out = response.getWriter();
 					out.println("<script>");
 					out.println("alert('권한이 없습니다.');");
 					out.println("history.back();");
 					out.println("</script>");
-				} else {
-					deleteCount = boardService.removeCsBoard(board_num);
 				}
 			}
 	

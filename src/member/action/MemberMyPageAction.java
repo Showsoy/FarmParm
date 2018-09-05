@@ -36,7 +36,6 @@ public class MemberMyPageAction implements Action{
 			request.setAttribute("user", user);
 			request.setAttribute("email1", emails[0]);
 			request.setAttribute("email2", emails[1]);
-			// forward.setRedirect(false);
 			forward.setPath("/member/myPage.jsp");
 		}
 		 

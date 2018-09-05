@@ -128,8 +128,10 @@ function viewnonreply(){
 				<input type="text" id="keyword" name="keyword" size="15"/>
 				<button type="submit" id="wbutton">검색</button>
 			</form>
-			
 		</section>
+		<br><br><br>
+		<button id="bbutton" type="button" onclick="location.href='adminPage.jsp'" style="width:150px;">관리자페이지</button>
+		<br><br>
 	</div>
 </div>
  <jsp:include page="/common/footer.jsp" flush="false"/>

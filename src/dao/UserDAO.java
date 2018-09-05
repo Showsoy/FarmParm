@@ -8,8 +8,6 @@ import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.util.ArrayList;
-import java.util.HashMap;
-import java.util.Map;
 
 import javax.sql.DataSource;
 
@@ -50,7 +48,7 @@ public class UserDAO {
 			if(rs.next()) {
 				user = new UserBean(rs.getString("user_id"), rs.getString("name"), rs.getString("phone"), 
 						rs.getDate("birth"), rs.getString("gender"), rs.getString("postcode"), rs.getString("address"), 
-						rs.getString("address_second"), rs.getString("email"), rs.getString("grade"));
+						rs.getString("address_second"), rs.getString("email"), rs.getString("grade"), rs.getTimestamp("edate"));
 			}
 		}catch(Exception e) {
 			e.printStackTrace();
@@ -119,7 +117,7 @@ public class UserDAO {
 		return loginSalt;
 	}
 	public int insertUser(UserBean users){
-		String sql="INSERT INTO users VALUES (?,?,?,?,?,?,?,?,?,?,?,?)";
+		String sql="INSERT INTO users VALUES (?,?,?,?,?,?,?,?,?,?,?,now(),?)";
 		int insertCount=0;
 		try{
 			pstmt=con.prepareStatement(sql);
@@ -200,10 +198,10 @@ public class UserDAO {
 		}
 		return listCount;
 	}
-	public ArrayList<UserViewBean> users(int page){
+	public ArrayList<UserViewBean> users(int page, String std){
 		PreparedStatement pstmt = null;
 		ResultSet rs = null;
-		String user_list_sql="select * from user_view order by grade asc, user_id asc limit ?,10";
+		String user_list_sql="select * from user_view where user_id != 'admin' order by "+std+" desc limit ?,10";
 		ArrayList<UserViewBean> articleList = new ArrayList<UserViewBean>();
 		UserViewBean userList = null;
 		int startrow=(page-1)*10;
@@ -215,7 +213,8 @@ public class UserDAO {
 				userList = new UserViewBean(
 				rs.getString("user_id"),
 				rs.getString("grade"),
-				rs.getString("userpay"));
+				rs.getString("userpay"),
+				rs.getTimestamp("edate"));
 				articleList.add(userList);	
 			}
 		}catch(Exception e){
@@ -393,7 +392,8 @@ public class UserDAO {
 				userList = new UserViewBean(
 				rs.getString("user_id"),
 				rs.getString("grade"),
-				rs.getString("userpay"));
+				rs.getString("userpay"),
+				rs.getTimestamp("edate"));
 				articleList.add(userList);
 			}
 		}catch(Exception e){
@@ -404,16 +404,15 @@ public class UserDAO {
 		}
 		return articleList;
 	}
-	public ArrayList<UserViewBean> getGradeList(int page, String grade){
+	public ArrayList<UserViewBean> getGradeList(int page, String grade, String std){
 		PreparedStatement pstmt = null;
 		ResultSet rs = null;
-		String user_list_sql="select * from user_view where grade=? limit ?,10 ";
+		String user_list_sql="select * from user_view where grade = '"+grade+"' order by "+std+" desc limit ?,10 ";
 		ArrayList<UserViewBean> userList = null;
 		int startrow=(page-1)*10;
 		try{
 			pstmt = con.prepareStatement(user_list_sql);
-			pstmt.setString(1, grade);
-			pstmt.setInt(2, startrow);
+			pstmt.setInt(1, startrow);
 			rs = pstmt.executeQuery();
 			if(rs.next()) {
 				userList = new ArrayList<UserViewBean>();
@@ -421,7 +420,8 @@ public class UserDAO {
 					userList.add(new UserViewBean(
 							rs.getString("user_id"),
 							rs.getString("grade"),
-							rs.getString("userpay")
+							rs.getString("userpay"),
+							rs.getTimestamp("edate")
 							));
 				}while(rs.next());
 			}
@@ -430,33 +430,6 @@ public class UserDAO {
 		}finally{
 			close(rs);
 			close(pstmt);
-		}
-		return userList;
-	}
-	public ArrayList<UserViewBean> getPurchList(String keyword, int page){
-		PreparedStatement pstmt = null;
-		ResultSet rs = null;
-		keyword = keyword.equals("") ? "" : "where grade = '"+keyword+"' ";
-		String user_list_sql="select * from user_view "+keyword+"order by userpay DESC limit ?,10 ";
-		ArrayList<UserViewBean> userList = new ArrayList<UserViewBean>();
-		UserViewBean user = null;
-		int startrow=(page-1)*10;
-		try{
-			pstmt = con.prepareStatement(user_list_sql);
-			pstmt.setInt(1, startrow);
-			rs = pstmt.executeQuery();
-			while(rs.next()){
-				user = new UserViewBean(
-				rs.getString("user_id"),
-				rs.getString("grade"),
-				rs.getString("userpay"));
-				userList.add(user);	
-			}
-		}catch(Exception e){
-			e.printStackTrace();
-		}finally{
-			if(rs!=null) close(rs);
-			if(pstmt!=null) close(pstmt);
 		}
 		return userList;
 	}
@@ -482,24 +455,28 @@ public class UserDAO {
 	}
 	public int userPlminusPoint(PointBean point) {
 		int updateCount = 0;
-		PreparedStatement pstmt = null;
-		int balance = findRecentPoint(point.getUser_id());
-		balance += point.getPlminus()*point.getPoint();
-		String sql = "INSERT INTO point VALUES(null,?,?,?,?,?,?,now())";
-		try {
-			pstmt = con.prepareStatement(sql);
-			pstmt.setString(1, point.getUser_id());
-			pstmt.setInt(2, point.getOrder_id());
-			pstmt.setString(3, point.getState());
-			pstmt.setInt(4, point.getPlminus());
-			pstmt.setInt(5, point.getPoint());
-			pstmt.setInt(6, balance);
-			
-			updateCount = pstmt.executeUpdate();
-		}catch(Exception e) {
-			e.printStackTrace();
-		}finally {
-			if(pstmt!=null) close(pstmt);
+		if(point.getPoint()>0) {
+			PreparedStatement pstmt = null;
+			int balance = findRecentPoint(point.getUser_id());
+			balance += point.getPlminus()*point.getPoint();
+			String sql = "INSERT INTO point VALUES(null,?,?,?,?,?,?,now())";
+			try {
+				pstmt = con.prepareStatement(sql);
+				pstmt.setString(1, point.getUser_id());
+				pstmt.setInt(2, point.getOrder_id());
+				pstmt.setString(3, point.getState());
+				pstmt.setInt(4, point.getPlminus());
+				pstmt.setInt(5, point.getPoint());
+				pstmt.setInt(6, balance);
+				
+				updateCount = pstmt.executeUpdate();
+			}catch(Exception e) {
+				e.printStackTrace();
+			}finally {
+				if(pstmt!=null) close(pstmt);
+			}
+		}else {
+			updateCount++;
 		}
 		return updateCount;
 	}
@@ -548,20 +525,21 @@ public class UserDAO {
 		
 		return myPointList;
 	}
-	public Map<String, Integer> orderPointMap(int order_id) {
+	public int orderPointMap(int order_id) {
+		int updateCount = 1;
 		PreparedStatement pstmt = null;
 		ResultSet rs = null;
-		Map<String, Integer> orderPointMap = null;
+		ArrayList<PointBean> canclePtList = new ArrayList<PointBean>();
 		String sql = "select user_id, plminus, point from point where order_id = ?"; 
 		try {
 			pstmt = con.prepareStatement(sql);
 			pstmt.setInt(1, order_id);
 			rs = pstmt.executeQuery();
 			if(rs.next()) {
-				orderPointMap = new HashMap<String, Integer>(); 
 				do {
-					if(rs.getInt("plminus")>0) orderPointMap.put("save", rs.getInt("point"));
-					else orderPointMap.put("use", rs.getInt("point"));
+					String state = rs.getInt("plminus")>0 ? "결제취소회수" : "결제취소반환" ;
+					canclePtList.add(new PointBean(rs.getString("user_id"), order_id,
+							state, rs.getInt("plminus")*(-1), rs.getInt("point")));
 				}while(rs.next());
 			}
 			
@@ -571,7 +549,8 @@ public class UserDAO {
 			close(pstmt);
 			close(rs);
 		}
-		
-		return orderPointMap;
+		for(int i=0; i<canclePtList.size(); i++) 
+			updateCount *= userPlminusPoint(canclePtList.get(i));
+		return updateCount;
 	}
 }
