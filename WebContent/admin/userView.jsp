@@ -161,7 +161,7 @@
 						<td colspan="2">
 							<p><c:if test="${board.readcount>0 }">
 								<img src="/FarmParm/images/lock.png"></c:if>
-							<a href="myQnaView.bo?bnum=${board.board_num }&item_code=${board.code }&page=${page }&user_id=${user_id}">
+							<a href="./admin/qnaView.bo?bnum=${board.board_num }&item_code=${board.code }&page=${page }&turn=user&user_id=${user.user_id}">
 							${board.subject }<c:if test="${board.has_re==1 }"> [1]</c:if>
 							</a></p>
 						</td>

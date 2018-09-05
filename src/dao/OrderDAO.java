@@ -496,7 +496,7 @@ public class OrderDAO {
 		return listCount;
 	}
 	public int salesItemCount(String start, String end){
-		String sql = "SELECT count(*) FROM order_view WHERE dati between '"+start+"' and str_to_date('"+end+" 23:59:59', '%Y-%m-%d %H:%i:%s')";
+		String sql = "SELECT count(*) FROM order_view WHERE dati between '"+start+"' and '"+end+" 23:59:59'";
 		PreparedStatement pstmt = null;
 		ResultSet rs = null;
 		int listCount = 0;
@@ -516,7 +516,7 @@ public class OrderDAO {
 	}
 	public ArrayList<OrderBean> salesOrderList(String start, String end, int page){
 		ArrayList<OrderBean> salesList = null;
-		String sql = "SELECT order_id, user_id, dati, state, pay, payment FROM orders WHERE state!= '취소완료' AND dati between '"+start+"' and str_to_date('"+end+" 23:59:59', '%Y-%m-%d %H:%i:%s') ORDER BY dati DESC LIMIT ?,10";
+		String sql = "SELECT order_id, user_id, dati, state, pay, payment FROM orders WHERE state!= '취소완료' AND dati between '"+start+"' and '"+end+" 23:59:59' ORDER BY dati DESC LIMIT ?,10";
 		PreparedStatement pstmt = null;
 		ResultSet rs = null;
 		int startrow = (page-1)*10;
@@ -545,11 +545,11 @@ public class OrderDAO {
 		ArrayList<OrderViewBean> orderList = null;
 		String sql = "SELECT order_id, item_code, item_name, price, amount, dati, "
 				+ "(select sum(price*amount) from order_view b where dati between '"+start+"' and "
-				+ "str_to_date('"+end+" 23:59:59', '%Y-%m-%d %H:%i:%s') and a.item_code=b.item_code group by item_code) as profit, "
+				+ "'"+end+" 23:59:59' and a.item_code=b.item_code group by item_code) as profit, "
 				+ "(select sum(amount) from order_view c where order_id not in (select order_id from orders "
-				+ "where state = '취소완료') AND dati between '"+start+"' and str_to_date('"+end+" 23:59:59', '%Y-%m-%d %H:%i:%s') "
+				+ "where state = '취소완료') AND dati between '"+start+"' and '"+end+" 23:59:59' "
 				+ "and a.item_code=c.item_code group by item_code) as sales FROM order_view a WHERE dati between '"+start+"' "
-				+ "and str_to_date('"+end+" 23:59:59', '%Y-%m-%d %H:%i:%s') and order_id not in "
+				+ "and '"+end+" 23:59:59' and order_id not in "
 				+ "(select order_id from orders where state = '취소완료') ORDER BY "+order+" DESC LIMIT ?,10";
 		PreparedStatement pstmt = null;
 		ResultSet rs = null;
@@ -582,8 +582,8 @@ public class OrderDAO {
 		ResultSet rs1 = null;
 		PreparedStatement pstmt2 = null;
 		ResultSet rs2 = null;
-		String sql1 = "SELECT sum(pay), sum(depoint), sum(parcel) FROM orders WHERE state != '취소완료' AND dati between '"+start+"' and str_to_date('"+end+" 23:59:59', '%Y-%m-%d %H:%i:%s')";
-		String sql2 = "SELECT sum(amount) FROM order_view WHERE order_id not in (select order_id from orders where state = '취소완료') AND dati between '"+start+"' and str_to_date('"+end+" 23:59:59', '%Y-%m-%d %H:%i:%s')";
+		String sql1 = "SELECT sum(pay), sum(depoint), sum(parcel) FROM orders WHERE state != '취소완료' AND dati between '"+start+"' and '"+end+" 23:59:59'";
+		String sql2 = "SELECT sum(amount) FROM order_view WHERE order_id not in (select order_id from orders where state = '취소완료') AND dati between '"+start+"' and '"+end+" 23:59:59'";
 		try {
 			pstmt1 = conn.prepareStatement(sql1);
 			rs1 = pstmt1.executeQuery();
@@ -612,8 +612,8 @@ public class OrderDAO {
 		PreparedStatement pstmt1 = null;PreparedStatement pstmt2 = null;
 		PreparedStatement pstmt3 = null;PreparedStatement pstmt4 = null;
 		ResultSet rs1 = null;ResultSet rs2 = null;ResultSet rs3 = null;ResultSet rs4 = null;
-		String sql1 = "select sum(pay), sum(depoint), sum(parcel) from orders where state != '취소완료' AND dati BETWEEN '"+start+"' AND str_to_date('"+end+" 23:59:59', '%Y-%m-%d %H:%i:%s')";
-		String sql2 = "select sum(amount) from order_view a where order_id not in (select order_id from orders where state = '취소완료') AND dati BETWEEN '"+start+"' AND str_to_date('"+end+" 23:59:59', '%Y-%m-%d %H:%i:%s')";
+		String sql1 = "select sum(pay), sum(depoint), sum(parcel) from orders where state != '취소완료' AND dati BETWEEN '"+start+"' AND '"+end+" 23:59:59'";
+		String sql2 = "select sum(amount) from order_view a where order_id not in (select order_id from orders where state = '취소완료') AND dati BETWEEN '"+start+"' AND '"+end+" 23:59:59'";
 		String sql3 = "select sum(pay)-sum(parcel) from orders where state != '취소완료' AND dati BETWEEN date_add(str_to_date('"+start+"', '%Y-%m-%d'), interval -1 month) AND date_add(str_to_date('"+end+" 23:59:59', '%Y-%m-%d %H:%i:%s'), interval -1 month)";
 		String sql4 = "select sum(amount) from order_view a where order_id not in (select order_id from orders where state = '취소완료') AND dati BETWEEN date_add(str_to_date('"+start+"', '%Y-%m-%d'), interval -1 month) AND date_add(str_to_date('"+end+" 23:59:59', '%Y-%m-%d %H:%i:%s'), interval -1 month)";
 

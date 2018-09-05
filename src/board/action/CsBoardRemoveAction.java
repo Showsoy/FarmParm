@@ -48,7 +48,7 @@ public class CsBoardRemoveAction implements Action {
 			}
 			} else {
 				board_num = Integer.parseInt(request.getParameter("bnum"));
-				String writer = boardService.selectWriter("cs_board", board_num);
+				String writer = boardService.selectWriter(board_num);
 				if (id.equals("admin") || id.equals(writer)) {
 					deleteCount = boardService.removeCsBoard(board_num);
 				} else {
@@ -70,14 +70,15 @@ public class CsBoardRemoveAction implements Action {
 				out.println("</script>");
 			} else {
 				String path = "./csList.bo?page="+page;
-				if(request.getParameter("keyword")!=null) {
-					path += "&std="+request.getParameter("std")+"&keyword="+request.getParameter("keyword");
-					response.setContentType("text/html;charset=UTF-8");
-					PrintWriter out = response.getWriter();
-					out.println("<script>");
-					out.println("location.href=encodeURI('"+path+"');");
-					out.println("</script>");
-				}else forward= new ActionForward(path,true);
+				path = (request.getParameter("std") == null) ? path : path + "&std=" + request.getParameter("std");
+				path = (request.getParameter("keyword") == null) ? path
+						: path + "&keyword=" + request.getParameter("keyword");
+				
+				response.setContentType("text/html;charset=UTF-8");
+				PrintWriter out = response.getWriter();
+				out.println("<script>");
+				out.println("location.href=encodeURI('"+path+"');");
+				out.println("</script>");
 			}
 		}
 		return forward;

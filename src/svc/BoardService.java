@@ -86,11 +86,20 @@ public class BoardService {
 		close(conn);
 		return listCount;
 	}
-	public String selectWriter(String bName, int board_num) {
+	public String selectWriter(int board_num) {
 		BoardDAO boardDAO = BoardDAO.getInstance();
 		Connection conn = getConnection();
 		boardDAO.setConnection(conn);
-		String writer = boardDAO.selectWriter(bName, board_num);
+		String writer = boardDAO.selectWriter(board_num);
+		
+		close(conn);
+		return writer;
+	}
+	public String selectWriter(String bName, int board_num, String item_code) {
+		BoardDAO boardDAO = BoardDAO.getInstance();
+		Connection conn = getConnection();
+		boardDAO.setConnection(conn);
+		String writer = boardDAO.selectWriter(bName, board_num, item_code);
 		
 		close(conn);
 		return writer;

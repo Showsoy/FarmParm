@@ -211,15 +211,39 @@ public class BoardDAO {
 		
 		return listCount;
 	}
-	public String selectWriter(String bName, int board_num) {
+	public String selectWriter(int board_num) {
 		String user_id = "";
 		PreparedStatement pstmt = null;
 		ResultSet rs = null;
-		String sql = "SELECT user_id FROM "+bName+" WHERE bnum = ?";
+		String sql = "SELECT user_id FROM cs_board WHERE bnum = ?";
 		
 		try {
 			pstmt = conn.prepareStatement(sql);
 			pstmt.setInt(1, board_num);
+			rs = pstmt.executeQuery();
+			
+			if(rs.next()) {
+				user_id = rs.getString(1);
+			}
+		}catch(Exception e) {
+			e.printStackTrace();
+		}finally {
+			close(rs);
+			close(pstmt);
+		}
+		
+		return user_id;
+	}
+	public String selectWriter(String bName, int board_num, String item_code) {
+		String user_id = "";
+		PreparedStatement pstmt = null;
+		ResultSet rs = null;
+		String sql = "SELECT user_id FROM "+bName+" WHERE bnum = ? AND item_code = ?";
+		
+		try {
+			pstmt = conn.prepareStatement(sql);
+			pstmt.setInt(1, board_num);
+			pstmt.setString(2, item_code);
 			rs = pstmt.executeQuery();
 			
 			if(rs.next()) {

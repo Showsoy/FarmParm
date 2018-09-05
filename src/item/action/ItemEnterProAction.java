@@ -64,7 +64,8 @@ public class ItemEnterProAction implements Action {
 				out.println("history.back();");
 				out.println("</script>");
 			}else {
-				forward= new ActionForward("./itemList.im",true);//리스트로 들어감
+				String path = request.getParameter("turn").equals("item") ? "./itemList.im" : "./itemSearch.im";
+				forward= new ActionForward(path, true);//리스트로 들어감
 			}
 		}
 		return forward;

@@ -53,7 +53,7 @@ public class ReviewRemoveAction implements Action {
 			}
 			} else {
 				board_num = Integer.parseInt(request.getParameter("bnum"));
-				String writer = boardService.selectWriter("review_board", board_num);
+				String writer = boardService.selectWriter("review_board", board_num, item_code);
 				if (id.equals("admin") || id.equals(writer)) {
 					deleteCount = boardService.removeArticle("review_board", board_num, item_code);
 				} else {
@@ -76,14 +76,14 @@ public class ReviewRemoveAction implements Action {
 			} else {
 				if(request.getParameter("r_page")==null) {
 					String path = "./reList.bo?page="+page;
-					if(request.getParameter("keyword")!=null) {
-						path += "&std="+request.getParameter("std")+"&keyword="+request.getParameter("keyword");
-						response.setContentType("text/html;charset=UTF-8");
-						PrintWriter out = response.getWriter();
-						out.println("<script>");
-						out.println("location.href=encodeURI('"+path+"');");
-						out.println("</script>");
-					}else forward= new ActionForward(path,true);
+					path = (request.getParameter("std") == null) ? path : path + "&std=" + request.getParameter("std");
+					path = (request.getParameter("keyword") == null) ? path
+							: path + "&keyword=" + request.getParameter("keyword");
+					response.setContentType("text/html;charset=UTF-8");
+					PrintWriter out = response.getWriter();
+					out.println("<script>");
+					out.println("location.href=encodeURI('"+path+"');");
+					out.println("</script>");
 				}else {
 					String r_page = request.getParameter("r_page");
 					String q_page = request.getParameter("q_page");

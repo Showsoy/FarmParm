@@ -23,10 +23,6 @@ function fc_chk2() {
 	if(event.keyCode == 13) 
 	event.returnValue=false; 
 }
-function goto_url(act) {
-	document.qna.action = act;
-	document.qna.submit();
-}
 function doImgPop(img){ 
 	 img1= new Image(); 
 	 img1.src=(img); 
@@ -114,9 +110,9 @@ function doImgPop(img){
 			<br>
 			<section id="commandCell">
 			<c:if test="${board.user_id eq id || id eq 'admin'}">
-				<button type="button" id="wbutton" onclick="goto_url('qnaRemove.bo?item_code=${board.code}&bnum=${board.board_num}&page=${page }&myQna=${myQna }&user_id=${user_id }')">삭제</button>
+				<button type="button" id="wbutton" onclick="location.href='qnaRemove.bo?bnum=${board.board_num}&item_code=${board.code }&turn=my'">삭제</button>
 			</c:if>
-				<button type="button" id="wbutton" onclick="history.back();">돌아가기${myQna }${user_id }</button>
+				<button type="button" id="wbutton" onclick="location.href='myQna.bo?page=${page }'">목록</button>
 			</section>
 			<br>
 			<br>

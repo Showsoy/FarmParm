@@ -163,9 +163,15 @@ function doImgPop(img){
 			<br>
 			<section id="commandCell">
 			<c:if test="${board.user_id eq id || id eq 'admin'}">
-				<button type="button" id="wbutton" onclick="goto_url('qnaRemove.bo?item_code=${board.code}&bnum=${board.board_num}&page=${page }<c:out value="${std !=null ? '&std=' : '' }"/>${std}<c:out value="${keyword !=null ? '&keyword=' : '' }"/>${keyword}')">삭제</button>
+				<button type="button" id="wbutton" onclick="goto_url('qnaRemove.bo?item_code=${board.code}&bnum=${board.board_num}&page=${page }<c:out value="${std !=null ? '&std=' : '' }"/>${std}<c:out value="${keyword !=null ? '&keyword=' : '' }"/>${keyword}<c:out value="${turn !=null ? '&turn=user&user_id=' : '' }"/>${user_id}')">삭제</button>
 			</c:if>
+				<c:choose>
+				<c:when test="${turn != null }">
+				<button type="button" id="wbutton" onclick="location.href='../userView.us?user_id=${user_id }&page=${page }'">돌아가기</button>
+				</c:when>
+				<c:otherwise>
 				<button type="button" id="wbutton" onclick="location.href=encodeURI('qnaList.bo?page=${page}<c:out value="${std !=null ? '&std=' : '' }"/>${std}<c:out value="${keyword !=null ? '&keyword=' : '' }"/>${keyword}')">목록</button>
+				</c:otherwise></c:choose>
 			</section>
 			<br>
 			<c:if test="${board.has_re == 0 && id eq 'admin'}">

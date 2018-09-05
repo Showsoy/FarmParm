@@ -48,7 +48,8 @@ function chkForm(f){
 	<h3>&nbsp;&nbsp;입출고등록</h3>
 	<hr color="#4CAF50" size="5">
 	<div class="mypage">
-	<form action="itemEnterPro.im?item_code=${item.item_code }" method="post" name="enterform" onsubmit="return chkForm(this)">
+		<form action="itemEnterPro.im?item_code=${item.item_code }" method="post" name="enterform" onsubmit="return chkForm(this)">
+			<input type="hidden" id="turn" name="turn" value="${turn }">
 			<table class="mytable">
 				<tr>
 					<th colspan="3"></th>
@@ -83,7 +84,7 @@ function chkForm(f){
 					<td colspan="2"><button type="submit" id="gbutton" onclick="location.href='itemEnterPro.im?item_code=${item.item_code}'">등록</button></td>
 				</tr>
 			</table>
-			<br>
+			<br><br><br>
 			<section>
 				<button type="button" id="bbutton" onclick="location.href='adminPage.jsp'" style="width:150px;">관리자페이지</button> 
 			</section>

@@ -17,15 +17,9 @@ public class QnARemoveAction implements Action {
 		// TODO Auto-generated method stub
 		request.setCharacterEncoding("UTF-8");
 		ActionForward forward = null;
-		String myQna = null;
-		String user_id = null;
 		
 		HttpSession session = request.getSession();
 		String id = (String) session.getAttribute("id");
-		myQna = request.getParameter("myQna");
-		user_id = request.getParameter("user_id");
-		String std = request.getParameter("std");
-		System.out.println(myQna + " :?");
 		
 		if (id == null) {
 			response.setContentType("text/html;charset=UTF-8");
@@ -60,16 +54,16 @@ public class QnARemoveAction implements Action {
 			}
 			} else {
 				board_num = Integer.parseInt(request.getParameter("bnum"));
-				String writer = boardService.selectWriter("qna_board", board_num);
-				if (!id.equals("admin") && !id.equals(writer) && myQna.equals("MYQNA")) {
+				String writer = boardService.selectWriter("qna_board", board_num, item_code);
+				if (id.equals("admin") || id.equals(writer)) {
+					deleteCount = boardService.removeArticle("qna_board", board_num, item_code);
+				} else {
 					response.setContentType("text/html;charset=UTF-8");
 					PrintWriter out = response.getWriter();
 					out.println("<script>");
 					out.println("alert('권한이 없습니다.');");
 					out.println("history.back();");
 					out.println("</script>");
-				} else {
-					deleteCount = boardService.removeArticle("qna_board", board_num, item_code);
 				}
 			}
 	
@@ -82,36 +76,20 @@ public class QnARemoveAction implements Action {
 				out.println("</script>");
 			} else {
 				if(request.getParameter("r_page")==null) {
-					String path = myQna!=null ? "myQna.bo?" : "./qnaList.bo?page="+page;
-					String path2 = user_id!=null ? "userView.us?" : "./qnaList.bo?page="+page;
-					if(request.getParameter("keyword")!=null && user_id==null) {
-						System.out.println("1");
-						path += "&std="+request.getParameter("std")+"&keyword="+request.getParameter("keyword");
-						response.setContentType("text/html;charset=UTF-8");
-						PrintWriter out = response.getWriter();
-						out.println("<script>");
-						out.println("location.href=encodeURI('"+path+"');");
-						out.println("</script>");
-					}else if(request.getParameter("keyword")==null && user_id==null) {
-						System.out.println("2");
-						forward= new ActionForward(path,true);
-					}else if(myQna.equals("myQna")) {
-							System.out.println("3");
-							path += "&std="+std+"&keyword="+request.getParameter("keyword");
-							response.setContentType("text/html;charset=UTF-8");
-							PrintWriter out = response.getWriter();
-							out.println("<script>");
-							out.println("location.href=encodeURI('"+path+"');");
-							out.println("</script>");
-					}else if(user_id!=null&&!myQna.equals("myQna")) { 
-							System.out.println("4");
-							path2 += "&user_id="+user_id;
-							response.setContentType("text/html;charset=UTF-8");
-							PrintWriter out = response.getWriter();
-							out.println("<script>");
-							out.println("location.href=encodeURI('"+path2+"');");
-							out.println("</script>");
+					String turn = request.getParameter("turn");
+					String path = "./qnaList.bo?page="+page;
+					if(turn != null && turn.equals("my")) path = "./myQna.bo?page="+page;
+					else if(turn != null && turn.equals("user")) path = "../userView.us?user_id="+request.getParameter("user_id")+"&page="+page;
+					else {
+						path = (request.getParameter("std") == null) ? path : path + "&std=" + request.getParameter("std");
+						path = (request.getParameter("keyword") == null) ? path
+								: path + "&keyword=" + request.getParameter("keyword");
 					}
+					response.setContentType("text/html;charset=UTF-8");
+					PrintWriter out = response.getWriter();
+					out.println("<script>");
+					out.println("location.href=encodeURI('" + path + "');");
+					out.println("</script>");
 				}else {
 					String r_page = request.getParameter("r_page");
 					String q_page = request.getParameter("q_page");

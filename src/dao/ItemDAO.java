@@ -555,7 +555,7 @@ public class ItemDAO {
 		ResultSet rs = null;
 		int listCount = 0;
 		String sql = "select count(*) from item_stock left outer join items on item_stock.item_code = items.item_code "
-				+ " where idate between '"+startDate+"' and '"+endDate+"'";
+				+ " where idate between '"+startDate+"' and '"+endDate+" 23:59:59'";
 		try {
 			pstmt = conn.prepareStatement(sql);
 			rs = pstmt.executeQuery();
@@ -576,7 +576,7 @@ public class ItemDAO {
 		int listCount = 0;
 		String sql = "select count(*) from item_stock "
 				+ "inner join items on item_stock.item_code = items.item_code "
-				+ " where idate between '"+startDate+"' and '"+endDate+"' AND items."+isearch+" LIKE '%"+keyword+"%'";
+				+ " where idate between '"+startDate+"' and '"+endDate+" 23:59:59' AND items."+isearch+" LIKE '%"+keyword+"%'";
 		try {
 			pstmt = conn.prepareStatement(sql);
 			rs = pstmt.executeQuery();
@@ -598,8 +598,8 @@ public class ItemDAO {
 		int startrow = (page-1)*10;
 		String sql = "select item_stock.item_code, item_name, category,state, amount, idate, stock from item_stock "
 				+ "left outer join items on item_stock.item_code = items.item_code "
-				+ " where idate between '"+startDate+"' and '"+endDate+"' "
-				+ "order by idate desc limit ?,10"; 
+				+ " where idate between '"+startDate+"' and '"+endDate+" 23:59:59'"
+				+ "order by idate desc, inumber desc limit ?,10"; 
 		try {
 			pstmt = conn.prepareStatement(sql);
 			pstmt.setInt(1, startrow);
@@ -630,7 +630,7 @@ public class ItemDAO {
 
 		String sql = "select items.item_code, item_name, category,state, amount, idate, stock from item_stock "
 				+ "inner join items on item_stock.item_code = items.item_code "
-				+ " where idate between '"+startDate+"' and '"+endDate+"' AND items."+isearch+" LIKE '%"+keyword+"%'"
+				+ " where idate between '"+startDate+"' and '"+endDate+" 23:59:59' AND items."+isearch+" LIKE '%"+keyword+"%'"
 				+ "order by idate desc limit ?,10"; 
 		try {
 			pstmt = conn.prepareStatement(sql);

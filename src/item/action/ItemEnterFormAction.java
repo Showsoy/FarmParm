@@ -42,6 +42,7 @@ public class ItemEnterFormAction implements Action {
 			ItemService itemService = new ItemService();
 			ItemBean item = itemService.getItemWithStock(item_code);
 			request.setAttribute("item",item);
+			request.setAttribute("turn",request.getParameter("turn"));
 			forward= new ActionForward("./itemEnter.jsp",false);
 		}
 		return forward;

@@ -167,11 +167,16 @@ function selectEDay(sel) {
 			</c:otherwise>
 			</c:choose>
 			</td>
-			<td>${isearch.img_path }</td>
+			<td>
+			<c:choose>
+			<c:when test="${isearch.img_path eq '주문' || isearch.img_path eq '출고'}"><font color="red">${isearch.img_path }</font></c:when>
+			<c:otherwise><font color="green">${isearch.img_path }</font></c:otherwise>
+			</c:choose>
+			</td>
 			<td>${isearch.readcount }</td>
 			<td>${isearch.vdate }</td>
 			<td>${isearch.stock }</td>
-			<td><button type="button" id="gbutton" onclick="location.href='./itemEnterForm.im?item_code=${isearch.item_code}'">선택</button></td>
+			<td><button type="button" id="gbutton" onclick="location.href='./itemEnterForm.im?item_code=${isearch.item_code}&turn=istock'">선택</button></td>
 		</tr>
 		</c:forEach>
 		<tr>

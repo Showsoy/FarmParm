@@ -47,6 +47,8 @@ public class QnAViewAction implements Action {
 			request.setAttribute("board", board);
 			request.setAttribute("rboard", rboard);
 			String page = request.getParameter("page");
+			if(request.getParameter("turn")!=null) request.setAttribute("turn", request.getParameter("turn"));
+			if(request.getParameter("user_id")!=null) request.setAttribute("user_id", request.getParameter("user_id"));
 			if(request.getParameter("std")!=null) request.setAttribute("std", request.getParameter("std"));
 			if(request.getParameter("keyword")!=null) request.setAttribute("keyword", request.getParameter("keyword"));
 			request.setAttribute("page", page);

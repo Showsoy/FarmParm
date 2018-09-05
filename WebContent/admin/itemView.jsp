@@ -86,13 +86,13 @@ th{
 	<tr>
 		<td colspan="3" id="td_info">
 		<button id="bbutton" onclick="location.href='../uitemView.im?item_code=${item.item_code}'">상품페이지</button>
-		<button id="bbutton" onclick="location.href='itemEnterForm.im?item_code=${item.item_code}'">입출고등록</button>
+		<button id="bbutton" onclick="location.href='itemEnterForm.im?item_code=${item.item_code}&turn=item'">입출고등록</button>
 		<button id="bbutton" onclick="location.href='itemModForm.im?item_code=${item.item_code}&page=${page }'">수정하기</button> 
 		<button id="sbutton" onclick="deleteCheck('${item.item_code}');">삭제하기</button></td>
 	</tr>
 </table>
 <br><br>
-<div>
+<div style="width:700px;margin:0 auto;">
 <div id="grade"><b id="grade_deco">|</b>상품내용</div>
 ${item.content }
 </div>

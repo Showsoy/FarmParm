@@ -96,7 +96,7 @@ function chkForm(f){
 				<input type="text" id="userID" name="userID" placeholder="아이디" maxlength="20" class="input100" value="${findId }"/> 
 				<input type="password" name="userPass" id="userPass" placeholder="비밀번호" class="input100"/>
 				<div style="float:right;">
-				<input type="checkbox" name="id_rem"/><p style="display:inline;font-size:12px;">&nbsp;아이디 기억하기</p><br>
+				<input type="checkbox" id="id_rem" name="id_rem"/><label for="id_rem" style="font-size:12px;">&nbsp;아이디 기억하기</label><br>
 				</div>
 				<button type="submit" class="input100">로그인</button> 
 				<br><br>

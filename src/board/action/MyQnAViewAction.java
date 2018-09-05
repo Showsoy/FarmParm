@@ -41,8 +41,6 @@ public class MyQnAViewAction implements Action {
 			BoardBean rboard = boardService.selectReply("qna_board", board.getRgroup(), item_code);
 			String item_name = boardService.findItemName(item_code);
 			
-			if(user_id!=null) request.setAttribute("user_id", user_id);
-			if(myQna != null) request.setAttribute("myQna", myQna);
 			request.setAttribute("board", board);
 			request.setAttribute("rboard", rboard);
 			String page = request.getParameter("page");
