@@ -397,7 +397,7 @@ public class OrderDAO {
 		return updateCount;
 	}
 	public int setNullUserId(String user_id) {
-		int updateCount = 0;
+		int updateCount = -1;
 		String sql = "UPDATE orders SET user_id = null WHERE user_id = '"+user_id+"'";
 		PreparedStatement pstmt = null;
 		

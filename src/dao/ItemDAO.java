@@ -37,10 +37,11 @@ public class ItemDAO {
 		ArrayList<ItemViewBean> itemViewList = null;
 		int startrow = (page-1)*9;
 		String sql = "";
+		standard = standard.equals("price") ? "price*((100-sale)/100)" : standard;
 		
 		try {
 			if(standard.equals("low")) {
-				sql = "SELECT * FROM item_view WHERE category = ? AND ihide=0 ORDER BY price ASC LIMIT ?,9";
+				sql = "SELECT * FROM item_view WHERE category = ? AND ihide=0 ORDER BY price*((100-sale)/100) ASC LIMIT ?,9";
 			}else {
 				sql = "SELECT * FROM item_view WHERE category = ? AND ihide=0 ORDER BY "+standard+" DESC LIMIT ?,9";
 			}

@@ -50,39 +50,36 @@ public class MemberAdViewAction implements Action {
 				ArrayList<OrderBean> orderList = new ArrayList<OrderBean>();
 				ArrayList<BoardBean> boardList = new ArrayList<BoardBean>();
 				
+				int page = request.getParameter("page")!=null ? Integer.parseInt(request.getParameter("page")) : 1;
+				
 				/*주문내역페이지*/
-				int page = 1;
-				int limit = 5;
-				int limitPage = 10;
-				int listCount = 0;
+				int o_page = request.getParameter("o_page")!=null ? Integer.parseInt(request.getParameter("o_page")) : 1;
+				int o_limit = 5;
+				int o_limitPage = 10;
+				int o_listCount = 0;
 				
-				listCount = orderService.listCountUserOrder(user_id);
-				if(request.getParameter("page")!=null) {
-					page = Integer.parseInt(request.getParameter("page"));
-				}
-				int maxPage = (int)((double)listCount/limit+0.95); 
-				int startPage = (((int)((double)page/limitPage+0.9))-1) *limitPage +1;
-				int endPage = startPage+limitPage-1;
+				o_listCount = orderService.listCountUserOrder(user_id);
+				int o_maxPage = (int)((double)o_listCount/o_limit+0.95); 
+				int o_startPage = (((int)((double)o_page/o_limitPage+0.9))-1) *o_limitPage +1;
+				int o_endPage = o_startPage+o_limitPage-1;
 				
-				if(endPage>maxPage) endPage = maxPage;
-				PageInfo pageInfo = new PageInfo();
-				pageInfo.setEndPage(endPage);
-				pageInfo.setListCount(listCount);
-				pageInfo.setMaxPage(maxPage);
-				pageInfo.setPage(page);
-				pageInfo.setStartPage(startPage);
+				if(o_endPage>o_maxPage) o_endPage = o_maxPage;
+				PageInfo o_pageInfo = new PageInfo();
+				o_pageInfo.setEndPage(o_endPage);
+				o_pageInfo.setListCount(o_listCount);
+				o_pageInfo.setMaxPage(o_maxPage);
+				o_pageInfo.setPage(o_page);
+				o_pageInfo.setStartPage(o_startPage);
 				
 				
 				/*문의페이지*/
-				int q_page = 1;
+				int q_page = request.getParameter("q_page")!=null ? Integer.parseInt(request.getParameter("q_page")) : 1;
 				int q_limit = 10;
 				int q_limitPage = 10;
 				int q_listCount = 0;
 				
 				q_listCount = boardService.myArticelListCount("qna_board", user_id);
-				if(request.getParameter("q_page")!=null) {
-					q_page = Integer.parseInt(request.getParameter("q_page"));
-				}
+
 				int q_maxPage = (int)((double)q_listCount/q_limit+0.95); 
 				int q_startPage = (((int)((double)q_page/q_limitPage+0.9))-1) *q_limitPage +1;
 				int q_endPage = q_startPage+q_limitPage-1;
@@ -98,8 +95,10 @@ public class MemberAdViewAction implements Action {
 				
 				UserBean user = userService.selectUserInfo(user_id);
 				user.setPoint(userService.findRecentPoint(user_id));
-				orderList = orderService.userOrderList(user_id, page, limit);
+				orderList = orderService.userOrderList(user_id, o_page, o_limit);
 				boardList = boardService.myQnAList(q_page, user_id);
+				
+				
 				
 				String email = user.getEmail();
 				String emails[] = new String[2];
@@ -110,8 +109,9 @@ public class MemberAdViewAction implements Action {
 				request.setAttribute("email1", emails[0]);
 				request.setAttribute("email2", emails[1]);
 				request.setAttribute("page", page);
+				request.setAttribute("o_page", o_page);
 				request.setAttribute("q_page", q_page);
-				request.setAttribute("pageInfo", pageInfo);
+				request.setAttribute("pageInfo", o_pageInfo);
 				request.setAttribute("q_pageInfo", q_pageInfo);
 				request.setAttribute("boardList", boardList);
 				request.setAttribute("user_id", user_id);

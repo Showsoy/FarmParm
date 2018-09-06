@@ -163,7 +163,7 @@ function selectEDay(sel) {
 			<del>삭제된상품</del>
 			</c:when>
 			<c:otherwise>
-			${isearch.item_name }
+			<a href="javascript:void(0);" onclick="location.href='itemView.im?item_code=${isearch.item_code}&returnURI='+encodeURIComponent(location);">${isearch.item_name }</a>
 			</c:otherwise>
 			</c:choose>
 			</td>

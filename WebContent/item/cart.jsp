@@ -40,15 +40,20 @@ var tot = "<%=(int)request.getAttribute("totalMoney")%>";
 			theForm.icheck.checked = theForm.allCheck.checked;
 		} else {
 			for (var i = 0; i < theForm.icheck.length; i++) {
-				theForm.icheck[i].checked = theForm.allCheck.checked;//dd
+				theForm.icheck[i].checked = theForm.allCheck.checked;
 			}
 		}
 		if(theForm.allCheck.checked){
 			selPrice = tot;
 			document.getElementById("selArea").innerHTML = "선택 상품 가격 <b>"+tot+"</b> 원";
+			document.getElementById("total").innerHTML = tot;
+			if(tot<30000 && tot>0) document.getElementById("parcel").innerHTML = "배송비 3000원<br><font id='parcel_info'>3만 원 이상 구매 시 배송비 무료</font><br>";
+			else document.getElementById("parcel").innerHTML = "";
 		}else{
 			selPrice = 0;
 			document.getElementById("selArea").innerHTML = "선택 상품 가격 <b>0</b> 원";
+			document.getElementById("parcel").innerHTML = "";
+			document.getElementById("total").innerHTML = "0";
 		}
 	}
 	
@@ -62,7 +67,7 @@ var tot = "<%=(int)request.getAttribute("totalMoney")%>";
 			selPrice = parseInt(selPrice)-parseInt(v);
 			document.getElementById("selArea").innerHTML = "선택 상품 가격 <b>"+selPrice+"</b> 원";
 		}
-		if(selPrice<30000){
+		if(selPrice<30000 && selPrice>0){
 			document.getElementById("parcel").innerHTML = "배송비 3000원<br><font id='parcel_info'>3만 원 이상 구매 시 배송비 무료</font><br>";
 			document.getElementById("total").innerHTML = parseInt(selPrice)+parseInt(3000);
 		}else{
@@ -139,14 +144,14 @@ var tot = "<%=(int)request.getAttribute("totalMoney")%>";
 						전체 상품 가격 ${totalMoney }원<br>
 						<span id="selArea">선택 상품 가격 <b>${totalMoney }</b>원</span><br>
 						<span id="parcel">
-							<c:if test="${totalMoney<30000 }">
+							<c:if test="${totalMoney>0 && totalMoney<30000 }">
 								배송비 3000원<br><font id="parcel_info">3만 원 이상 구매 시 배송비 무료</font><br>
 							</c:if>
 						</span>
 						<h5>결제 예상 금액<b>
 							<span id="total">
 								<c:choose>
-									<c:when test="${totalMoney>30000 }">
+									<c:when test="${totalMoney==0 || totalMoney>30000 }">
 										${totalMoney }
 									</c:when>
 									<c:otherwise>

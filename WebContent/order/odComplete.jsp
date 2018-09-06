@@ -17,10 +17,10 @@
 	<h3>&nbsp;&nbsp;주문완료</h3>
 	<hr color="#4CAF50" size="5">
 	<div class="mypage">
-	<img src="../images/complete.jpg" style="width:200px;display:block;margin-left:450px;"> 
+	<img src="../images/receipt.png" style="width:150px;display:block;margin:0 auto;"><br>
 	<p style="font-size:17px;">주문이 완료되었습니다.
 	 감사합니다.</p>
-	<br><br><br>
+	<br><br>
 	<button id="bbutton" onclick="location.href='./myodList.od'" style="width:110px;height:43px;">주문내역보기</button>
 	<button id="sbutton" onclick="location.href='../main.im'" style="width:110px;">홈으로</button>
 	</div>

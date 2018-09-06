@@ -44,11 +44,12 @@ public class MemberAdModifyAction implements Action {
 			boolean isRegistSuccess = userService.modifyUsers(user);
 
 			if (isRegistSuccess) {
+				String path = "./userView.us?page="+request.getParameter("page")+"&user_id="+uid+"&std"+request.getParameter("std")+"&keyword="+request.getParameter("keyword");
 				response.setContentType("text/html;charset=UTF-8");
 				PrintWriter out = response.getWriter();
 				out.println("<script>");
 				out.println("alert('수정되었습니다.');");
-				out.println("location.href='./memberList.us';");
+				out.println("location.href='"+path+"';");
 				out.println("</script>");
 			} else {
 				try {

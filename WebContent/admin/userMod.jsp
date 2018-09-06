@@ -74,6 +74,9 @@ function selectEmail(sel) {
 	<hr color="#4CAF50" size="5">
 	<div class="mypage">
 	<form name="usermod" action="/FarmParm/memberModAd.us?uid=${user.user_id}" method="post" onsubmit="return chkForm(this)">
+	<input type="hidden" id="page" name="page" value="${page }">
+	<input type="hidden" id="std" name="std" value="${std }">
+	<input type="hidden" id="keyword" name="keyword" value="${keyword }">
 	<table class="mytable" cellspacing="0" cellpadding="0">
 	<tr>
 		<td id="td_left"><label for="userID">아이디</label></td>

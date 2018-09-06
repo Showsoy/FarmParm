@@ -43,7 +43,7 @@
 	<div class="mypage">
 	<div id="grade"><b id="grade_deco">|</b>${user.grade }</div>
 	<section id="commandCell">
-		<button id="wbutton" onclick="location.href='./memberModAdForm.us?uid=${user.user_id}'">수정</button> 
+		<button id="wbutton" onclick="location.href='./memberModAdForm.us?page=${page }&uid=${user.user_id}&std=${std }&keyword=${keyword }'">수정</button> 
 		<button id="wbutton" onclick="deleteCheck('${user.user_id}');">삭제</button> 
 	</section>
 	<table class="mytable" cellspacing="0" cellpadding="0">
@@ -112,7 +112,7 @@
 						
 					</c:if>
 					<c:if test="${pageInfo.page>1 }">
-						<a href="userView.us?user_id=${user.user_id }&page=${pageInfo.page-1}#order"><span id="pagebn"><</span></a>
+						<a href="userView.us?page=${page }&user_id=${user.user_id }&o_page=${pageInfo.page-1}&q_page=${q_page }#order"><span id="pagebn"><</span></a>
 					</c:if>
 					
 					<c:forEach var="a" begin="${pageInfo.startPage }" end="${pageInfo.endPage }" step="1">
@@ -121,7 +121,7 @@
 								<span id="nowpage">${a }</span>
 							</c:when>
 							<c:otherwise>
-								<a href="userView.us?user_id=${user.user_id }&page=${a }#order">&nbsp;${a }&nbsp;</a>
+								<a href="userView.us?page=${page }&user_id=${user.user_id }&o_page=${a }&q_page=${q_page }#order">&nbsp;${a }&nbsp;</a>
 							</c:otherwise>
 						</c:choose>
 					</c:forEach>
@@ -130,7 +130,7 @@
 							
 						</c:when>
 						<c:otherwise>
-							<a href="userView.us?user_id=${user.user_id }&page=${pageInfo.page+1 }#order"><span id="pagebn">></span></a>
+							<a href="userView.us?page=${page }&user_id=${user.user_id }&o_page=${pageInfo.page+1 }&q_page=${q_page }#order"><span id="pagebn">></span></a>
 						</c:otherwise>
 					</c:choose>
 				</td>
@@ -174,7 +174,7 @@
 						
 					</c:if>
 					<c:if test="${q_pageInfo.page>1 }">
-						<a href="userView.us?q_page=${q_pageInfo.page-1}&user_id=${user.user_id}"><span id="pagebn"><</span></a>
+						<a href="userView.us?page=${page }&user_id=${user.user_id}&o_page=${o_page }&q_page=${q_pageInfo.page-1}"><span id="pagebn"><</span></a>
 					</c:if>
 					
 					<c:forEach var="a" begin="${q_pageInfo.startPage }" end="${q_pageInfo.endPage }" step="1">
@@ -183,7 +183,7 @@
 								<span id="nowpage">${a }</span>
 							</c:when>
 							<c:otherwise>
-								<a href="userView.us?q_page=${a }&user_id=${user.user_id}">&nbsp;${a }&nbsp;</a>
+								<a href="userView.us?page=${page }&user_id=${user.user_id}&o_page=${o_page }&q_page=${a }">&nbsp;${a }&nbsp;</a>
 							</c:otherwise>
 						</c:choose>
 					</c:forEach>
@@ -192,7 +192,7 @@
 							
 						</c:when>
 						<c:otherwise>
-							<a href="userView.us?q_page=${q_pageInfo.page+1 }&user_id=${user.user_id}"><span id="pagebn">></span></a>
+							<a href="userView.us?page=${page }&user_id=${user.user_id}&o_page=${o_page }&q_page=${q_pageInfo.page+1 }"><span id="pagebn">></span></a>
 						</c:otherwise>
 					</c:choose>
 				</td>

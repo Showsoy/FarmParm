@@ -117,14 +117,6 @@ function listrefresh(){
 				<td>주문금액</td>
 				<td>수정/삭제</td>
 			</tr>
-			<tr>
-				<td></td>
-				<td></td>
-				<td><img src="images/admin_crown.png" style="width:18px;margin-bottom:0px;"/>&nbsp;admin</td>
-				<td>관리자</td>
-				<td></td>
-				<td></td>
-			</tr>
 			<c:forEach var="userList" items="${userList }">
  			<tr>
 				<td>
@@ -141,7 +133,7 @@ function listrefresh(){
 				</c:if>
 				</td>
 				<td>
-				<button type="button" onclick="location.href=encodeURI('userView.us?user_id=${userList.user_id}<c:out value="${std !=null ? '&std=' : '' }"/>${std}<c:out value="${keyword !=null ? '&keyword=' : '' }"/>${keyword}')" id="gbutton">조회</button>
+				<button type="button" onclick="location.href=encodeURI('userView.us?page=${pageInfo.page }&user_id=${userList.user_id}<c:out value="${std !=null ? '&std=' : '' }"/>${std}<c:out value="${keyword !=null ? '&keyword=' : '' }"/>${keyword}')" id="gbutton">조회</button>
 				</td>
 			</tr>
 			</c:forEach>

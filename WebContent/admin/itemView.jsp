@@ -174,7 +174,13 @@ ${item.content }
 		</table>
 </div>
 <br><br><br><br>
+<c:choose>
+<c:when test="${returnURI != null }">
+<button id="bbutton" type="button" onclick="location.href='${returnURI}'">돌아가기</button>
+</c:when>
+<c:otherwise>
 <button id="bbutton" type="button" onclick="location.href='itemList.im?page=${page}'">목록</button>
+</c:otherwise></c:choose>
 <button id="bbutton" type="button" onclick="location.href='adminPage.jsp'" style="width:150px;">관리자페이지</button>
 </div>
 </div>

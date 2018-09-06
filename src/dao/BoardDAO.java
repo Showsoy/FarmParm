@@ -377,8 +377,6 @@ public class BoardDAO {
 		ResultSet rs1 = null;
 		PreparedStatement pstmt2 = null;
 		ResultSet rs2 = null;
-		PreparedStatement pstmt3 = null;
-		ResultSet rs3 = null;
 		String sql1 = "SELECT has_re FROM review_board WHERE item_code = ? AND rstep=1 ORDER BY rgroup DESC, rstep ASC LIMIT ?,5";
 		String sql2 = "SELECT bnum, item_code, substring(user_id,1,3) as user_id, content, subject, img_path, has_re, rdate, order_id, rgroup, rstep FROM review_board WHERE item_code = ? ORDER BY rgroup DESC, rstep ASC LIMIT ?,?";
 		ArrayList<BoardBean> articleList = new ArrayList<BoardBean>();
@@ -388,30 +386,22 @@ public class BoardDAO {
 		int limit = 5;
 		
 		try {
-			if(page>1) {
-				pstmt1 = conn.prepareStatement(sql1);
-				pstmt1.setString(1, item_code);
-				pstmt1.setInt(2, before);
-				rs1 = pstmt1.executeQuery();
-				
-				while(rs1.next()) startrow += rs1.getInt(1);
-			}
-			pstmt2 = conn.prepareStatement(sql1);
+			pstmt1 = conn.prepareStatement(sql1);
+			pstmt1.setString(1, item_code);
+			pstmt1.setInt(2, startrow);
+			rs1 = pstmt1.executeQuery();
+			while(rs1.next()) limit += rs1.getInt(1);
+			
+			pstmt2 = conn.prepareStatement(sql2);
 			pstmt2.setString(1, item_code);
 			pstmt2.setInt(2, startrow);
+			pstmt2.setInt(3, limit);
 			rs2 = pstmt2.executeQuery();
-			while(rs2.next()) limit += rs2.getInt(1);
 			
-			pstmt3 = conn.prepareStatement(sql2);
-			pstmt3.setString(1, item_code);
-			pstmt3.setInt(2, startrow);
-			pstmt3.setInt(3, limit);
-			rs3 = pstmt3.executeQuery();
-			
-			while(rs3.next()) {
-				board = new BoardBean(rs3.getInt("bnum"), rs3.getString("item_code"), rs3.getString("user_id"), 
-						rs3.getString("content"), rs3.getString("subject"), rs3.getString("img_path"), 
-						rs3.getInt("has_re"), rs3.getDate("rdate"), rs3.getInt("order_id"), rs3.getInt("rgroup"), rs3.getInt("rstep"));
+			while(rs2.next()) {
+				board = new BoardBean(rs2.getInt("bnum"), rs2.getString("item_code"), rs2.getString("user_id"), 
+						rs2.getString("content"), rs2.getString("subject"), rs2.getString("img_path"), 
+						rs2.getInt("has_re"), rs2.getDate("rdate"), rs2.getInt("order_id"), rs2.getInt("rgroup"), rs2.getInt("rstep"));
 				articleList.add(board);
 				
 			}
@@ -420,10 +410,8 @@ public class BoardDAO {
 		}finally {
 			if(rs1!=null) close(rs1);
 			if(rs2!=null) close(rs2);
-			if(rs3!=null) close(rs3);
 			if(pstmt1!=null) close(pstmt1);
 			if(pstmt2!=null) close(pstmt2);
-			if(pstmt3!=null) close(pstmt3);
 		}
 		
 		return articleList;
@@ -462,48 +450,37 @@ public class BoardDAO {
 		ResultSet rs1 = null;
 		PreparedStatement pstmt2 = null;
 		ResultSet rs2 = null;
-		PreparedStatement pstmt3 = null;
-		ResultSet rs3 = null;
 		//10 8 7 7 5 /4 / 2 1  
 		String sql1 = "SELECT has_re FROM qna_board WHERE item_code = ? AND rstep=1 ORDER BY rgroup DESC, rstep ASC LIMIT ?,5";
 		String sql2 = "SELECT * FROM qna_board WHERE item_code = ? ORDER BY rgroup DESC, rstep ASC LIMIT ?,?";
 		ArrayList<BoardBean> articleList = new ArrayList<BoardBean>();
 		BoardBean board = null;
 		int startrow = (page-1)*5;
-		int before = (page-2)*5;
 		int limit = 5;
 		
 		try {
-			if(page>1) {
-				pstmt1 = conn.prepareStatement(sql1);
-				pstmt1.setString(1, item_code);
-				pstmt1.setInt(2, before);
-				rs1 = pstmt1.executeQuery();
-				
-				while(rs1.next()) startrow += rs1.getInt(1);
-			}
-			pstmt2 = conn.prepareStatement(sql1);
+			pstmt1 = conn.prepareStatement(sql1);
+			pstmt1.setString(1, item_code);
+			pstmt1.setInt(2, startrow);
+			rs1 = pstmt1.executeQuery();
+			while(rs1.next()) limit += rs1.getInt(1);
+			
+			pstmt2 = conn.prepareStatement(sql2);
 			pstmt2.setString(1, item_code);
 			pstmt2.setInt(2, startrow);
+			pstmt2.setInt(3, limit);
 			rs2 = pstmt2.executeQuery();
-			while(rs2.next()) limit += rs2.getInt(1);
-			
-			pstmt3 = conn.prepareStatement(sql2);
-			pstmt3.setString(1, item_code);
-			pstmt3.setInt(2, startrow);
-			pstmt3.setInt(3, limit);
-			rs3 = pstmt3.executeQuery();
 
-			while (rs3.next()) {
-				if ((user_id != null && (user_id.equals("admin") || (user_id.equals(rs3.getString("user_id")))))
-						|| rs3.getInt(11) == 0) {
-					board = new BoardBean(rs3.getInt(1), rs3.getString(2), rs3.getString(3).substring(0, 3),
-							rs3.getString(4), rs3.getString(5), rs3.getString(6), rs3.getInt(7), rs3.getDate(8),
-							rs3.getInt(11), rs3.getInt(9), rs3.getInt(10));
+			while (rs2.next()) {
+				if ((user_id != null && (user_id.equals("admin") || (user_id.equals(rs2.getString("user_id")))))
+						|| rs2.getInt(11) == 0) {
+					board = new BoardBean(rs2.getInt(1), rs2.getString(2), rs2.getString(3).substring(0, 3),
+							rs2.getString(4), rs2.getString(5), rs2.getString(6), rs2.getInt(7), rs2.getDate(8),
+							rs2.getInt(11), rs2.getInt(9), rs2.getInt(10));
 				} else {
-					board = new BoardBean(rs3.getInt(1), rs3.getString(2), rs3.getString(3).substring(0, 3), "숨김 글입니다.",
-							rs3.getString(5), rs3.getString(6), rs3.getInt(7), rs3.getDate(8), 1, rs3.getInt(9),
-							rs3.getInt(10));
+					board = new BoardBean(rs2.getInt(1), rs2.getString(2), rs2.getString(3).substring(0, 3), "숨김 글입니다.",
+							rs2.getString(5), rs2.getString(6), rs2.getInt(7), rs2.getDate(8), 1, rs2.getInt(9),
+							rs2.getInt(10));
 				}
 				articleList.add(board);
 			}
@@ -512,10 +489,8 @@ public class BoardDAO {
 		}finally {
 			if(rs1!=null) close(rs1);
 			if(rs2!=null) close(rs2);
-			if(rs3!=null) close(rs3);
 			if(pstmt1!=null) close(pstmt1);
 			if(pstmt2!=null) close(pstmt2);
-			if(pstmt3!=null) close(pstmt3);
 		}
 		
 		return articleList;

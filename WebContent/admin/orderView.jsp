@@ -128,7 +128,7 @@ function goto_url(id, page, state) {
 	</tr>
 	<c:forEach var="odtemList" items="${odtemList }" varStatus="status">
 	<tr>
-		<td id="leftalign">${odtemList.item_name }</td>
+		<td id="leftalign"><a href="javascript:void(0);" onclick="location.href='itemView.im?item_code=${odtemList.item_code}&returnURI='+encodeURIComponent(location);">${odtemList.item_name }</a></td>
 		<td><fmt:formatNumber value="${odtemList.price }" type="number"/>원</td>
 		<td>${odtemList.amount }개</td>
 		<td><fmt:formatNumber value="${odtemList.price*odtemList.amount }" type="number"/>원</td>

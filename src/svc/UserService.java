@@ -190,7 +190,7 @@ public class UserService {
 		orderDAO.setConnection(con);
 		int updateCount = orderDAO.setNullUserId(uid);
 		
-		if(deleteCount > 0 && updateCount > 0){
+		if(deleteCount > 0 && updateCount >= 0){
 			commit(con);
 			deleteResult = true;
 		}

@@ -71,6 +71,7 @@ public class ItemViewAction implements action.Action{
 			ItemBean item = itemService.getItemWithStock(item_code);
 			ArrayList<ItemStockBean> itemStockList = itemService.getItemStockList(item_code, iyear, imonth, i_page);
 			
+			if(request.getParameter("returnURI")!=null) request.setAttribute("returnURI", request.getParameter("returnURI"));
 			request.setAttribute("item",item);
 			request.setAttribute("itemStockList", itemStockList);
 			request.setAttribute("page", page);
