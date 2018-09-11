@@ -51,11 +51,16 @@ function selectEDay(sel) {
 <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.6.3/css/font-awesome.min.css">
 <body>
 <jsp:include page="/common/top_menu.jsp" flush="false"/>
+<jsp:include page="/common/adminbar.jsp" flush="false"/>
 <div class="pageform">
 	<h3>&nbsp;&nbsp;적립금 내역</h3>
 	<hr color="#4CAF50" size="5">
 	<form action="usPoint.us" method="post" name="pointList">
+	<input type="hidden" id="upage" name="upage" value="${upage }">
 	<input type="hidden" name="uid" id="uid" value="${user_id }"/>
+	<input type="hidden" name="std" id="std" value="${std }"/>
+	<input type="hidden" name="keyword" id="keyword" value="${keyword }"/>
+	
 	<div class="mypage">
 		<br><br>
 		<div id="sales-keyword" style="width:700px">
@@ -116,9 +121,9 @@ function selectEDay(sel) {
 		</span>
 		</div>
 		<br>
-		<button type="button" id="wbutton" onclick="location.href='usPoint.us?uid=${user_id}&period=1'">1개월</button>
-		<button type="button" id="wbutton" onclick="location.href='usPoint.us?uid=${user_id}&period=3'">3개월</button>
-		<button type="button" id="wbutton" onclick="location.href='usPoint.us?uid=${user_id}&period=6'">6개월</button>
+		<button type="button" id="wbutton" onclick="location.href='usPoint.us?uid=${user_id}&period=1&upage=${upage }&std=${std }&keyword=${keyword }'">1개월</button>
+		<button type="button" id="wbutton" onclick="location.href='usPoint.us?uid=${user_id}&period=3&upage=${upage }&std=${std }&keyword=${keyword }'">3개월</button>
+		<button type="button" id="wbutton" onclick="location.href='usPoint.us?uid=${user_id}&period=6&upage=${upage }&std=${std }&keyword=${keyword }'">6개월</button>
 		<br><br>
 		<b>${start } - ${end }</b> 기간 검색
 		</div>
@@ -155,7 +160,7 @@ function selectEDay(sel) {
 						
 					</c:if>
 					<c:if test="${pageInfo.page>1 }">
-						<a href="usPoint.us?uid=${user_id}&page=${pageInfo.page-1}&start=${start}&end=${end}"><span id="pagebn"><</span></a>&nbsp;
+						<a href="usPoint.us?uid=${user_id}&page=${pageInfo.page-1}&start=${start}&end=${end}&upage=${upage }&std=${std }&keyword=${keyword }"><span id="pagebn"><</span></a>&nbsp;
 					</c:if>
 
 					<c:forEach var="a" begin="${pageInfo.startPage }" end="${pageInfo.endPage }" step="1">
@@ -164,7 +169,7 @@ function selectEDay(sel) {
 								<span id="nowpage">${a }</span>
 							</c:when>
 							<c:otherwise>
-								<a href="usPoint.us?uid=${user_id}&page=${a }&start=${start}&end=${end}">&nbsp;${a }&nbsp;</a>&nbsp;
+								<a href="usPoint.us?uid=${user_id}&page=${a }&start=${start}&end=${end}&upage=${upage }&std=${std }&keyword=${keyword }">&nbsp;${a }&nbsp;</a>&nbsp;
 							</c:otherwise>
 						</c:choose>
 					</c:forEach>
@@ -173,7 +178,7 @@ function selectEDay(sel) {
 							
 						</c:when>
 						<c:otherwise>
-							<a href="usPoint.us?uid=${user_id}&page=${pageInfo.page+1 }&start=${start}&end=${end}"><span id="pagebn">></span></a>&nbsp;
+							<a href="usPoint.us?uid=${user_id}&page=${pageInfo.page+1 }&start=${start}&end=${end}&upage=${upage }&std=${std }&keyword=${keyword }"><span id="pagebn">></span></a>&nbsp;
 						</c:otherwise>
 					</c:choose>
 				</td>
@@ -185,7 +190,7 @@ function selectEDay(sel) {
 		</c:choose>
 		</table>
 	<br><br><br>
-	<button type="button" id="bbutton" onclick="location.href='userView.us?user_id=${user_id}'" style="width:100px;">회원정보</button>
+	<button type="button" id="bbutton" onclick="location.href='userView.us?page=${upage}&user_id=${user_id }&std=${std }&keyword=${keyword }'" style="width:100px;">회원정보</button>
 	</div>
 	</form>
 </div>

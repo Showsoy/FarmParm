@@ -1,7 +1,6 @@
 package item.action;
 
 import java.io.PrintWriter;
-import java.sql.Date;
 import java.util.HashMap;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
@@ -11,7 +10,6 @@ import action.Action;
 import svc.ItemService;
 import vo.ActionForward;
 import vo.ItemStockBean;
-import vo.Util;
 
 public class ItemEnterProAction implements Action {
 
@@ -40,13 +38,11 @@ public class ItemEnterProAction implements Action {
 			out.println("</script>");
 		}else {
 			String item_code = request.getParameter("item_code");
-			Util util = new Util();
-			Date date = util.transformDate(request.getParameter("idate"));
 	
 			ItemStockBean itemStock = new ItemStockBean(
 					item_code,
 					request.getParameter("inandout").equals("item_in") ? "입고" : "출고",
-					date,
+					null,
 					request.getParameter("inandout").equals("item_in") ? 
 							Integer.parseInt(request.getParameter("amount")):-Integer.parseInt(request.getParameter("amount")),
 					0, 0);

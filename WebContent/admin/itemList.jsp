@@ -103,7 +103,7 @@ img{
 		<table class="listtable" cellspacing="0" cellpadding="0">
 			<tr id="top_menu">
 				<td id="td_check"><input type="checkbox" id="allCheck" name="allCheck" onClick="checkAll(this.form)"/></td>
-				<td>상품코드</td>
+				<td>분류</td>
 				<td colspan="2">상품명</td>
 				<td>가격</td>
 				<td>주문량</td>

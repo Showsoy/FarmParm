@@ -3,8 +3,14 @@
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
 
 <!-- 회원 아이디값 받아옴 -->
-<% String uid = request.getParameter("uid"); %>
-<c:set var="uid" scope="request" value="<%=uid%>"/>
+<% 
+	String upage = request.getParameter("page"); 
+	String uid = request.getParameter("uid"); 
+	String std = request.getParameter("std");
+	String keyword = request.getParameter("keyword");
+	
+%>
+
 
 <!DOCTYPE html PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN" "http://www.w3.org/TR/html4/loose.dtd">
 <html>
@@ -57,7 +63,7 @@ function chkForm(f){
 	<h3>&nbsp;&nbsp;회원정보수정</h3>
 	<hr color="#4CAF50" size="5">
 	<div class="mypage">
-	<form name="pwmod" action="/FarmParm/pwAdModify.us?uid=${uid}" method="post" onsubmit="return chkForm(this)">
+	<form name="pwmod" action="/FarmParm/pwAdModify.us?page=<%=upage %>&uid=<%=uid %>&std=<%=std %>&keyword=<%=keyword %>" method="post" onsubmit="return chkForm(this)">
 	<table class="mytable" cellspacing="0" cellpadding="0">
 	<tr>
 		<td id="td_left200"><label for="userID">관리자 비밀번호</label></td>

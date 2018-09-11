@@ -45,16 +45,18 @@ public class MemberSelectDeleteAction implements Action{
 				UserService userService = new UserService();
 				deleteResult = userService.deleteMember(uid[i]);
 			}
+			String path = "./memberList.us?page="+request.getParameter("page")+"&std="+request.getParameter("dstd")+"&keyword="+request.getParameter("dkeyword");
+			
 			if(deleteResult){
 				out.println("<script>");
 				out.println("alert('삭제되었습니다.');");
-				out.println("location.href='./memberList.us';");
+				out.println("location.href='"+path+"';");
 				out.println("</script>");
 			}
 			else{
 				out.println("<script>");
 				out.println("alert('회원정보삭제 실패.');");
-				out.println("location.href='./memberList.us';");
+				out.println("location.href='"+path+"';");
 				out.println("</script>");
 			}
 

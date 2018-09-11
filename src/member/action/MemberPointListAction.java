@@ -82,7 +82,10 @@ public class MemberPointListAction implements Action {
 				pageInfo.setMaxPage(maxPage);
 				pageInfo.setPage(page);
 				pageInfo.setStartPage(startPage);
-	
+				
+				request.setAttribute("upage", request.getParameter("upage"));
+				request.setAttribute("std", request.getParameter("std"));
+				request.setAttribute("keyword", request.getParameter("keyword"));
 				request.setAttribute("pageInfo", pageInfo);
 				request.setAttribute("pointList", pointList);
 				request.setAttribute("user_id", user_id);

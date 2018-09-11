@@ -33,21 +33,19 @@ public class MemberAdPwModifyAction implements Action{
 		}else {
 			UserService userService = new UserService();
 			String uid = request.getParameter("uid");
-			String salt = userService.salt(id);
-			String usalt = userService.salt(uid);
-			String ad_pswd = Util.getPassword(request.getParameter("ad_pswd"), salt);
 			
-			boolean pwflag = userService.isPasswdValid(id, ad_pswd);
-			String new_pswd = Util.getPassword(request.getParameter("userPass"), usalt);
+			boolean pwflag = userService.isPasswdValid(id, request.getParameter("ad_pswd"));
 	
 			if(pwflag){
-				boolean modifyResult = userService.modifyPw(uid, new_pswd);
+				String newSalt = Util.getSalt();
+				boolean modifyResult = userService.modifyPw(uid, request.getParameter("userPass"), newSalt);
 				response.setContentType("text/html;charset=UTF-8");
 				PrintWriter out = response.getWriter();
 				if(modifyResult){
+					String path = "/FarmParm/userView.us?page="+request.getParameter("page")+"&user_id="+uid+"&std="+request.getParameter("std")+"&keyword="+request.getParameter("keyword");
 					out.println("<script>");
 					out.println("alert('비밀번호가 변경되었습니다.');");
-					out.println("location.href='/FarmParm/memberList.us';");
+					out.println("location.href='"+path+"';");
 					out.println("</script>");
 				 }else{
 					out.println("<script>");

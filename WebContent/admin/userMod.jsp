@@ -84,7 +84,7 @@ function selectEmail(sel) {
 	</tr>
 	<tr>
 		<td id="td_left"><label for="userPass">비밀번호</label></td>
-		<td><button type="button" onclick="location.href='/FarmParm/admin/pwModifyAd.jsp?uid=${user.user_id}'" id="gbutton"
+		<td><button type="button" onclick="location.href='/FarmParm/admin/pwModifyAd.jsp?page=${page }&uid=${user.user_id}&std=${std }&keyword=${keyword }'" id="gbutton"
 		style="width:100px;">비밀번호 변경</button></td>
 	</tr>
 	<tr>

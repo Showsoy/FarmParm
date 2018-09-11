@@ -27,15 +27,13 @@ public class MemberPwModifyAction implements Action{
 		}
 		else {
 			UserService userService = new UserService();
-			String salt = userService.salt(user_id);
-			String old_pswd = Util.getPassword(request.getParameter("old_pswd"), salt);
-			String new_pswd = Util.getPassword(request.getParameter("userPass"), salt);
-			boolean pwflag = userService.isPasswdValid(user_id, old_pswd);
+			boolean pwflag = userService.isPasswdValid(user_id, request.getParameter("old_pswd"));
 			
 			if (pwflag) {
 				response.setContentType("text/html;charset=UTF-8");
 				PrintWriter out = response.getWriter();
-				boolean modifyResult = userService.modifyPw(user_id, new_pswd);
+				String newSalt = Util.getSalt();
+				boolean modifyResult = userService.modifyPw(user_id, request.getParameter("userPass"), newSalt);
 				if(modifyResult) {
 					out.println("<script>");
 					out.println("alert('비밀번호가 변경되었습니다.');");

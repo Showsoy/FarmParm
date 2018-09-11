@@ -278,8 +278,8 @@ o 로그 기록
 ※ 동의는 거부할 수 있으나 거부시 회원 가입이 불가능합니다.
 		</textarea>
 		<br>
-		<input type="checkbox" name="req">
-		<p style="font-size:12px;display:inline;">동의합니다</p>
+		<input type="checkbox" name="req" id="req">
+		<label for="req" style="font-size:12px;">&nbsp;동의합니다</label>
 	
 		<br><br><br>
 				<button class="input100" type="submit">회원가입</button>

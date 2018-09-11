@@ -30,6 +30,27 @@ public class ItemDAO {
 		}
 		return itemsDAO;
 	}
+	public boolean isHide(String item_code){
+		PreparedStatement pstmt = null;
+		ResultSet rs = null;
+		boolean isHide = false;
+		
+		try {
+			pstmt = conn.prepareStatement("SELECT ihide FROM items where item_code = ?");
+			pstmt.setString(1, item_code);
+			rs = pstmt.executeQuery();
+			if(rs.next()) {
+				isHide = rs.getInt(1)>0 ? true : false;
+			}
+		}catch(Exception e) {
+			e.printStackTrace();
+		}finally {
+			close(rs);
+			close(pstmt);
+		}
+		
+		return isHide;
+	}
 	//인기많은순 - readcount desc 판매량순 - purchase desc 신상품순 - vdate desc 낮은가격순 - price asc, 높은 가격순 - price desc,  
 	public ArrayList<ItemViewBean> userItemList(int page, String category, String standard){
 		PreparedStatement pstmt = null;
@@ -734,16 +755,15 @@ public class ItemDAO {
 	public int itemStockInOut(ItemStockBean itemStock, HashMap<String, Integer> imap) {
 		PreparedStatement pstmt = null;
 		int insertCount = 0;
-		String sql = "INSERT INTO item_stock VALUES(?,?,?,?,?,?)";
+		String sql = "INSERT INTO item_stock VALUES(?,?,now(),?,?,?)";
 		
 		try {
 			pstmt = conn.prepareStatement(sql);
 			pstmt.setString(1, itemStock.getItem_code());
 			pstmt.setString(2, itemStock.getState());
-			pstmt.setDate(3, itemStock.getIdate());
-			pstmt.setInt(4, Math.abs(itemStock.getAmount()));
-			pstmt.setInt(5, imap.get("stock")+itemStock.getAmount());
-			pstmt.setInt(6, imap.get("inumber")+1);
+			pstmt.setInt(3, Math.abs(itemStock.getAmount()));
+			pstmt.setInt(4, imap.get("stock")+itemStock.getAmount());
+			pstmt.setInt(5, imap.get("inumber")+1);
 			insertCount = pstmt.executeUpdate();
 		}catch(Exception e) {
 			e.printStackTrace();

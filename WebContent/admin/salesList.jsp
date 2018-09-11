@@ -285,7 +285,7 @@ function monthSelDel(){
 								<span id="nowpage">${a }</span>
 							</c:when>
 							<c:otherwise>
-								<a href="salesList.od?<c:out value="${monthsel !=null ? 'monthsel=check' : '' }"/>&page=${a }&start=${start}&end=${end}&orderby=${orderby }"><span id="nowpage">${a }</span></a>
+								<a href="salesList.od?<c:out value="${monthsel !=null ? 'monthsel=check' : '' }"/>&page=${a }&start=${start}&end=${end}&orderby=${orderby }">&nbsp;${a }&nbsp;</a>
 							</c:otherwise>
 						</c:choose>
 					</c:forEach>

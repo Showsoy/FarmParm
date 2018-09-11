@@ -18,13 +18,9 @@ public class MyQnAViewAction implements Action {
 		// TODO Auto-generated method stub
 		request.setCharacterEncoding("UTF-8");
 		ActionForward forward = null;
-		String user_id = null;
-		String myQna = null;
 		
 		HttpSession session = request.getSession();
 		String id = (String)session.getAttribute("id");
-		user_id = request.getParameter("user_id");
-		myQna = request.getParameter("myQna");
 		
 		if(id==null) {
 			response.setContentType("text/html;charset=UTF-8");

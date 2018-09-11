@@ -35,18 +35,19 @@ public class MemberDeleteAction implements Action{
 			boolean deleteResult = userService.deleteMember(uid);
 
 			if (deleteResult) {
+				String path = "./memberList.us?page="+request.getParameter("page")+"&std="+request.getParameter("std")+"&keyword="+request.getParameter("keyword");
 				response.setContentType("text/html;charset=UTF-8");
 				PrintWriter out = response.getWriter();
 				out.println("<script>");
 				out.println("alert('삭제되었습니다.');");
-				out.println("location.href='./memberList.us';");
+				out.println("location.href='"+path+"';");
 				out.println("</script>");
 			} else {
 				response.setContentType("text/html;charset=UTF-8");
 				PrintWriter out = response.getWriter();
 				out.println("<script>");
 				out.println("alert('회원정보삭제 실패.');");
-				out.println("location.href='./memberList.us';");
+				out.println("history.back();");
 				out.println("</script>");
 			}
 		}

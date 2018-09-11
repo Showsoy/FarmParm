@@ -5,24 +5,20 @@ import java.io.PrintWriter;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import javax.servlet.http.HttpSession;
+
 import action.Action;
 import svc.UserService;
 import vo.ActionForward;
-import vo.Util;
 
 public class MemberPwCheckAction implements Action{
 	public ActionForward execute(HttpServletRequest request,HttpServletResponse response) 
 		 	throws Exception{
 		HttpSession session = request.getSession();
-		String pw = request.getParameter("userPass");
 		String user_id = (String)session.getAttribute("id");
 		
 		UserService userService = new UserService();
-
-		String salt = userService.salt(user_id);
-		String passwd = Util.getPassword(pw,salt);
 		
-   		boolean pwflag = userService.isPasswdValid(user_id,passwd);
+   		boolean pwflag = userService.isPasswdValid(user_id, request.getParameter("userPass"));
    		
 		ActionForward forward = null;
 		

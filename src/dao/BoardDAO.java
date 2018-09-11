@@ -382,7 +382,6 @@ public class BoardDAO {
 		ArrayList<BoardBean> articleList = new ArrayList<BoardBean>();
 		BoardBean board = null;
 		int startrow = (page-1)*5;
-		int before = (page-2)*5;
 		int limit = 5;
 		
 		try {

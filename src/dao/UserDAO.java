@@ -14,6 +14,7 @@ import javax.sql.DataSource;
 import vo.PointBean;
 import vo.UserBean;
 import vo.UserViewBean;
+import vo.Util;
 
 public class UserDAO {
 	
@@ -81,20 +82,32 @@ public class UserDAO {
 		}
 		return flag;
 	}
-	public boolean selectLoginId(String id, String pass){
-		boolean token = false;
-		String sql="SELECT * FROM users WHERE user_id=? AND passwd=?";
+	public int selectLoginId(String id, String pass){
+		int token = -1;
+		PreparedStatement pstmt2 = null;
+		ResultSet rs2 = null;
+		String sql="SELECT usalt FROM users WHERE user_id=?";
 		try{
 			pstmt = con.prepareStatement(sql);
 			pstmt.setString(1, id);
-			pstmt.setString(2, pass);
 			rs = pstmt.executeQuery();
-			if(rs.next()) token = true;
+			if(rs.next()) {
+				token++;
+				pstmt2 = con.prepareStatement("SELECT user_id FROM users WHERE user_id=? AND passwd=?");
+				pstmt2.setString(1, id);
+				pstmt2.setString(2, Util.getPassword(pass, rs.getString(1)));
+				
+				rs2 = pstmt2.executeQuery();
+				if(rs2.next()) token++;
+			}
+			
 		}catch(Exception e){
 			e.printStackTrace();	
 		}finally{
-			close(rs);
-			close(pstmt);
+			if(rs!=null) close(rs);
+			if(rs2!=null) close(rs2);
+			if(pstmt!=null) close(pstmt);
+			if(pstmt2!=null) close(pstmt2);
 		}
 		return token;
 	}
@@ -253,18 +266,28 @@ public class UserDAO {
 	}
 	public boolean isPasswdValid(String user_id, String passwd){
 		boolean pwflag = false;
-		String sql="SELECT user_id FROM users WHERE user_id=? and passwd=?";
+		PreparedStatement pstmt2 = null;
+		ResultSet rs2 = null;
+		String sql="SELECT usalt FROM users WHERE user_id=?";
 		try{
 			pstmt=con.prepareStatement(sql);
 			pstmt.setString(1, user_id);
-			pstmt.setString(2, passwd);
 			rs = pstmt.executeQuery();
-			if(rs.next()) pwflag = true;
+			if(rs.next()) {
+				pstmt2 = con.prepareStatement("SELECT user_id FROM users WHERE user_id=? AND passwd=?");
+				pstmt2.setString(1, user_id);
+				pstmt2.setString(2, Util.getPassword(passwd, rs.getString(1)));
+				
+				rs2 = pstmt2.executeQuery();
+				if(rs2.next()) pwflag = true;
+			}
 		}catch(Exception e){
 			e.printStackTrace();			
 		}finally{
-			close(rs);
-			close(pstmt);
+			if(rs!=null) close(rs);
+			if(rs2!=null) close(rs2);
+			if(pstmt!=null) close(pstmt);
+			if(pstmt2!=null) close(pstmt2);
 		}
 		return pwflag;
 	}
@@ -291,16 +314,18 @@ public class UserDAO {
 		}
 		return updateCount;
 	}
-	public int updatePwModify(String user_id, String new_pswd_last) {
+	public int updatePwModify(String user_id, String newPswd, String newSalt) {
 		PreparedStatement pstmt = null;
 		int updateCount = 0;
 		String sql = "";
 		try {
-			sql = "UPDATE users SET passwd=? where user_id=?";
+			sql = "UPDATE users SET passwd = ?, usalt = ? where user_id=?";
 			
 			pstmt = con.prepareStatement(sql);
-			pstmt.setString(1, new_pswd_last);
-			pstmt.setString(2, user_id);
+			pstmt.setString(1, Util.getPassword(newPswd, newSalt));
+			pstmt.setString(2, newSalt);
+			pstmt.setString(3, user_id);
+			
 			updateCount = pstmt.executeUpdate();
 		} catch (SQLException e) {
 			e.printStackTrace();

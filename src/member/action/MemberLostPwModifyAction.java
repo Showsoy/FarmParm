@@ -18,13 +18,10 @@ public class MemberLostPwModifyAction implements Action{
 		
 		String user_id = (String)session.getAttribute("user_id_forPw");
 		
-		String salt = userService.salt(user_id);
-		String new_pswd_re = request.getParameter("userPassre");
-		
-		String new_pswd_last = Util.getPassword(new_pswd_re, salt);
+		String salt = Util.getSalt();
 		
 		ActionForward forward = null;	
-		boolean modifyResult = userService.modifyPw(user_id, new_pswd_last);
+		boolean modifyResult = userService.modifyPw(user_id, request.getParameter("userPassre"), salt);
 			   	
 		if(modifyResult){
 			response.setContentType("text/html;charset=UTF-8");

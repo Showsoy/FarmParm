@@ -66,12 +66,10 @@ public class OrderChangeStateAction implements Action {
 				out.println("</script>");
 			}else {
 				if(order_id==null) {
-					
 					forward= new ActionForward("./odList.od",true);
 				}else {
-					String page = request.getParameter("page");
-					String state = request.getParameter("state");
-					String path = "./odView.od?order_id="+order_id+"&page="+page+"&state="+state;
+					String path = "./odView.od?order_id="+order_id;
+					path = request.getParameter("upage")!=null ? path+"&upage="+request.getParameter("upage")+"&std="+request.getParameter("std")+"&keyword="+request.getParameter("keyword") : path+"&state="+request.getParameter("state")+"&page="+request.getParameter("page");
 					response.setContentType("text/html;charset=UTF-8");
 					PrintWriter out = response.getWriter();
 					out.println("<script>");

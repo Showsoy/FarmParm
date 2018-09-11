@@ -15,6 +15,15 @@ import vo.ItemViewBean;
 import vo.OrderViewBean;
 
 public class ItemService {
+	public boolean isHide(String item_code) {
+		ItemDAO itemDAO = ItemDAO.getInstance();
+		Connection conn = getConnection();
+		itemDAO.setConnection(conn);
+		boolean isHide = itemDAO.isHide(item_code);
+		
+		close(conn);
+		return isHide;
+	}
 	public boolean registItem(ItemBean item) {
 		ItemDAO itemDAO = ItemDAO.getInstance();
 		Connection conn = getConnection();

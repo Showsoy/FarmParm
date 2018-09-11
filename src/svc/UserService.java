@@ -36,23 +36,14 @@ public class UserService {
 		close(con);
 		return result;
 	}
-	public boolean login(String id, String pass) {
+	public int login(String id, String pass) {
 		Connection con = getConnection();
 		UserDAO userDAO = UserDAO.getInstance();
 		userDAO.setConnection(con);
-		boolean loginResult = userDAO.selectLoginId(id, pass);
+		int loginResult = userDAO.selectLoginId(id, pass);
 
 		close(con);
 		return loginResult;
-	}
-	public String salt(String id) {
-		Connection con = getConnection();
-		UserDAO userDAO = UserDAO.getInstance();
-		userDAO.setConnection(con);
-		String loginSalt = userDAO.selectLoginSalt(id);
-		
-		close(con);
-		return loginSalt;
 	}
 	public boolean joinUser(UserBean users) {
 		boolean joinSuccess = false;
@@ -126,13 +117,10 @@ public class UserService {
 		Connection con = getConnection();
 		UserDAO userDAO = UserDAO.getInstance();
 		userDAO.setConnection(con);
-		boolean modifyPw = false;
 		boolean loginPw = userDAO.isPasswdValid(users,pw);
-		if(loginPw){
-			modifyPw = true;
-		}
+		
 		close(con);
-		return modifyPw;
+		return loginPw;
 	}
 	public boolean modifyMy(UserBean users) {
 		UserDAO userDAO = UserDAO.getInstance();
@@ -149,12 +137,12 @@ public class UserService {
 		close(con);
 		return isModifySuccess;
 	}
-	public boolean modifyPw(String user_id, String new_pswd_last) {
+	public boolean modifyPw(String user_id, String new_pswd, String newSalt) {
 		UserDAO userDAO = UserDAO.getInstance();
 		Connection con = getConnection();
 		userDAO.setConnection(con);		
 		boolean modifyPw = false;
-		int loginPw = userDAO.updatePwModify(user_id,new_pswd_last);
+		int loginPw = userDAO.updatePwModify(user_id, new_pswd, newSalt);
 		if(loginPw > 0){
 			commit(con);
 			modifyPw = true;

@@ -74,9 +74,10 @@ public class OrderCancelAction implements Action {
 				if(order_id==null) {
 					forward= new ActionForward("./odList.od",true);
 				}else {
-					String page = request.getParameter("page");
-					String state = request.getParameter("state");
-					String path = "./odList.od?state="+state+"&page="+page;
+					if(request.getParameter("returnURI")!=null) request.setAttribute("returnURI", request.getParameter("returnURI"));
+					String path = "./odView.od?order_id="+order_id;
+					path = request.getParameter("upage")!=null ? path+"&upage="+request.getParameter("upage")+"&std="+request.getParameter("std")+"&keyword="+request.getParameter("keyword") : path+"&state="+request.getParameter("state")+"&page="+request.getParameter("page");
+					
 					response.setContentType("text/html;charset=UTF-8");
 					PrintWriter out = response.getWriter();
 					out.println("<script>");

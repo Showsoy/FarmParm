@@ -8,7 +8,6 @@ import javax.servlet.http.HttpSession;
 import action.Action;
 import svc.UserService;
 import vo.ActionForward;
-import vo.Util;
 
 public class MemberLoginAction implements Action{
 	public ActionForward execute(HttpServletRequest request, HttpServletResponse response) 
@@ -19,42 +18,37 @@ public class MemberLoginAction implements Action{
 		String turn = request.getParameter("turn");
 		String returnURI = request.getParameter("returnURI");
 		UserService userService = new UserService();
+		int token = userService.login(id, request.getParameter("userPass"));
+		if (token > 0) {
+			session.setAttribute("id", id);
+			if (turn != null && turn.equals("ok")) {
+				response.setContentType("text/html;charset=utf-8");
+				PrintWriter out = response.getWriter();
+				out.println("<script>");
+				out.println("history.go(-2);");
+				out.println("</script>");
+			} else if (returnURI != null) {
+				response.setContentType("text/html;charset=utf-8");
+				PrintWriter out = response.getWriter();
+				out.println("<script>");
+				out.println("location.href='" + returnURI + "';");
+				out.println("</script>");
+			} else {
+				forward = new ActionForward();
+				forward.setRedirect(true);
+				forward.setPath("../main.im");
+			}
+		} else if (token == 0) {
+			request.setAttribute("type", "passError");
+			request.setAttribute("returnURI", returnURI);
+			forward = new ActionForward("login.jsp", false);
 
-		String salt = userService.salt(id);
-		if(salt.equals("nullID")) {
+		} else if (token < 0) {
 			request.setAttribute("type", "nullID");
 			request.setAttribute("returnURI", returnURI);
-			forward = new ActionForward("login.jsp",false);
-		}else {
-			String passwd = Util.getPassword(request.getParameter("userPass"),salt);
-			boolean token = userService.login(id,passwd);
-			if(token){
-	   			session.setAttribute("id", id);
-	   			if(turn!=null&&turn.equals("ok")) {
-	   				response.setContentType("text/html;charset=utf-8");
-	   		   		PrintWriter out=response.getWriter();
-	   		   		out.println("<script>");
-	   		   		out.println("history.go(-2);");
-	   		   		out.println("</script>");
-	   			}else if(returnURI!=null) {
-	   				response.setContentType("text/html;charset=utf-8");
-	   		   		PrintWriter out=response.getWriter();
-	   		   		out.println("<script>");
-	   		   		out.println("location.href='"+returnURI+"';");
-	   		   		out.println("</script>");
-	   			}else {
-			   	    forward = new ActionForward();
-			   		forward.setRedirect(true);
-			   		forward.setPath("../main.im");
-	   			}
-	   		}else{
-	   			request.setAttribute("type", "passError");
-				request.setAttribute("returnURI", returnURI);
-	   			forward = new ActionForward("login.jsp",false);
-		   		
-	   		}
+			forward = new ActionForward("login.jsp", false);
 		}
-   		
+
    		return forward;
 	}
 		

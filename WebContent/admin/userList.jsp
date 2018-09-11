@@ -84,6 +84,9 @@ function listrefresh(){
 	<hr color="#4CAF50" size="5">
 	<div class="mypage">
 	<form name="listForm" method="post">
+	<input type="hidden" id="page" name="page" value="${pageInfo.page }">
+	<input type="hidden" id="dstd" name="dstd" value="${std }">
+	<input type="hidden" id="dkeyword" name="dkeyword" value="${keyword }">
 	<div id="listmenu">
 	<span id ="seldel">
 	<button type="button" id="wbutton" onclick="goto_url('memberSelectDelete.us')">선택삭제</button>

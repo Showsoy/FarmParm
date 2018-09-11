@@ -69,6 +69,11 @@ function goto_url(id, page, state) {
 		</c:choose>
 	</div>
 	<form name="orderview" method="post">
+	<c:if test="${upage!=null }">
+		<input type="hidden" id="upage" name="upage" value="${upage }">
+		<input type="hidden" id="std" name="std" value="${std }">
+		<input type="hidden" id="keyword" name="keyword" value="${keyword }">
+	</c:if>
 		<div id="order-state">
 		<select name="od_state" id="od_state" <c:out value="${order.state eq '취소' ? 'disable=\"disable\"' : ''}"/>>
 			<c:if test="${order.state eq '주문완료'}">
@@ -178,11 +183,11 @@ function goto_url(id, page, state) {
 		<label for="state">주문상태</label> | ${order.state }
 		<hr color="#4CAF50">
 		<p class="right"><font size="3em">총 &nbsp;<fmt:formatNumber value="${order.pay+order.depoint }" type="number"/>원</font><br> 
-	<font size="2em">포인트 사용 <font color="red" id="usepoint">${order.depoint }</font>원</font><br><br>
-	<font size="4em"><b>총 결제금액 <b id="grade_deco"><span id="allprice"><fmt:formatNumber value="${order.pay }" type="number"/></span></b>원</b></font></p>
+		<font size="2em">포인트 사용 <font color="red" id="usepoint">${order.depoint }</font>원</font><br><br>
+		<font size="4em"><b>총 결제금액 <b id="grade_deco"><span id="allprice"><fmt:formatNumber value="${order.pay }" type="number"/></span></b>원</b></font></p>
 		</div>
 <br><br>
-		<c:if test="${returnURI != null }"><button id="bbutton" type="button" onclick="location.href='${returnURI }';">뒤로가기</button></c:if>
+		<c:if test="${upage != null }"><button id="bbutton" type="button" onclick="location.href='../userView.us?page=${upage}&user_id=${order.user_id }&std=${std }&keyword=${keyword }';">뒤로가기</button></c:if>
 		<button id="bbutton" type="button" onclick="location.href=encodeURI('odList.od?<c:out value="${state !=null ? 'state=' : '' }"/>${state }&page=${page}')">주문목록</button>
 		<button id="bbutton" type="button" onclick="location.href='adminPage.jsp'" style="width:120px;">관리자페이지</button> 
 </form>	

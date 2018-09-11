@@ -38,7 +38,7 @@ dd{
 			return false;
 		}
 		if (parseInt(qty)>parseInt(stock)) {
-			alert("주문 가능 개수 초과");
+			alert("주문 가능 개수 초과\n"+stock+"개 이하 주문가능");
 			document.qty.value="";
 			document.qty.focus();
 			return false;
