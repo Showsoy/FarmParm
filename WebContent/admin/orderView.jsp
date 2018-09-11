@@ -187,7 +187,8 @@ function goto_url(id, page, state) {
 		<font size="4em"><b>총 결제금액 <b id="grade_deco"><span id="allprice"><fmt:formatNumber value="${order.pay }" type="number"/></span></b>원</b></font></p>
 		</div>
 <br><br>
-		<c:if test="${upage != null }"><button id="bbutton" type="button" onclick="location.href='../userView.us?page=${upage}&user_id=${order.user_id }&std=${std }&keyword=${keyword }';">뒤로가기</button></c:if>
+		<c:if test="${upage != null }"><button id="sbutton" type="button" onclick="location.href=encodeURI('../userView.us?page=${upage}&user_id=${order.user_id }&std=${std }&keyword=${keyword }');">뒤로가기</button></c:if>
+		<c:if test="${returnURI != null }"><button id="sbutton" type="button" onclick="location.href='${returnURI}'">뒤로가기</button></c:if>
 		<button id="bbutton" type="button" onclick="location.href=encodeURI('odList.od?<c:out value="${state !=null ? 'state=' : '' }"/>${state }&page=${page}')">주문목록</button>
 		<button id="bbutton" type="button" onclick="location.href='adminPage.jsp'" style="width:120px;">관리자페이지</button> 
 </form>	

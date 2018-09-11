@@ -23,9 +23,10 @@ img{
 	padding : 0 0 0 2px;
 }
 #seldel{
-	width:30%;
+	width:20%;
 	padding : 10px 0px 0 0;
 	text-align:left;
+	float:left;
 }
 .search{
 	font-family:"Nanum Gothic";
@@ -33,12 +34,14 @@ img{
 }
 #orderby{
 	padding : 10px 0px 0 0;
-	width:20%;
+	width:30%;
+	float:center;
 }
 #searchbar{
 	padding : 10px 0 0 0;
 	width:50%;
 	text-align:right;
+	float:right;
 }
 
 </style>
